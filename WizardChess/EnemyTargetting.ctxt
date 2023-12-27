@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=EnemyTargetting
+comment1.params=
+comment1.target=void\ setup()
+comment2.params=
+comment2.target=void\ test()
+comment3.params=fen\ processTime
+comment3.target=void\ updateBestMove(java.lang.String,\ int)
+comment4.params=
+comment4.target=void\ run()
+numComments=5
