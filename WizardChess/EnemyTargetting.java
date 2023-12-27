@@ -40,11 +40,9 @@ public class EnemyTargetting
             }
         }).start();
     }
-    public static Deque<BoardManager.Move> takeTurn(int cap){
+    public static Deque<BoardManager.Move> ram(int cap){
         Deque<BoardManager.Move> dq = new LinkedList<BoardManager.Move>();
         Tile[][] currentBoard = BoardManager.getBoard();
-        //
-        //ramming
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++){
                 switch(currentBoard[i][j].getOccupyingPiece().getType()){
@@ -57,7 +55,12 @@ public class EnemyTargetting
                 }
             }
         }
-        
+        while(dq.size()>cap)dq.removeLast();
+        return dq;
+    }
+    public static Deque<BoardManager.Move> moves(int cap){
+        Deque<BoardManager.Move> dq = new LinkedList<BoardManager.Move>();
+        Tile[][] currentBoard = BoardManager.getBoard();
         //moves
         
         
