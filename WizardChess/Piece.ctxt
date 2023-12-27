@@ -1,10 +1,15 @@
 #BlueJ class context
 comment0.target=Piece
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Piece\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=type
 comment1.target=Piece(char)
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
 comment3.target=char\ getType()
-numComments=4
+comment4.params=m
+comment4.target=void\ transverse(BoardManager.Move)
+comment5.params=m
+comment5.target=void\ attack(BoardManager.Move)
+comment6.params=
+comment6.target=int\ getHP()
+numComments=7

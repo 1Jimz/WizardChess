@@ -3,11 +3,11 @@ import java.util.*;
 import java.io.*;
 public class EnemyTargetting  
 {
-    private static String testFen="2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1";
+    private static String testFen="2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1",latest="";
     private static Process p;
     private static BufferedReader br;
     private static BufferedWriter bw;
-    private static BoardManager.Move bestMove=new BoardManager.Move(-1,-1,-1,-1);
+    //private static BoardManager.Move bestMove=new BoardManager.Move(-1,-1,-1,-1);
     public static void setup() throws IOException {
         p = Runtime.getRuntime().exec("stockfish/stockfish-windows-x86-64-avx2");
         br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -15,32 +15,41 @@ public class EnemyTargetting
         //test();
     }
     public static void test() throws IOException,InterruptedException {
-        updateBestMove(testFen,100);
-        System.out.println(bestMove);
+        System.out.println(bestMove(testFen,5,20));
+        //System.out.println(bestMove);
+        bestMove("8/4k3/8/8/8/4K3/8/8 b - - 0 1",5,20);
+        //System.out.println(bestMove);
+        bestMove("6pk/6pp/8/8/8/4K3/8/8 b - - 0 1",5,20);
+        //System.out.println(bestMove);
     }
-    //values might be off if spam click Greenfoot Reset button while this is called immediately upon each reset
-    private static void updateBestMove(String fen, int processTime)throws IOException,InterruptedException {
-        bw.write("ucinewgame\n");
-        bw.write("position fen "+fen+"\n");
-        bw.write("go movetime "+processTime+"\n");
-        bw.flush();
-        new Thread(new Runnable() {
-            public void run() {
-                BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String s=null, latest=null;
-                try{
-                    while((s=br.readLine())!=null)latest=s;
-                    bestMove.change(8-latest.charAt(9)+'a',latest.charAt(10)-'0',8-latest.charAt(11)+'a',latest.charAt(12)-'0');
-                }catch (IOException e) {} 
-                finally {
-                    try{
-                        br.close();
-                    }catch(IOException e){}
-                }
-            }
-        }).start();
+    public static BoardManager.Move bestMove(String fen, int depth, int processTime)throws IOException,InterruptedException {
+       bw.write("ucinewgame\n");
+       bw.write("position fen "+fen+"\n");
+       bw.write("go depth "+depth+" movetime "+processTime+"\n");
+       bw.flush();
+       BoardManager.Move m = new BoardManager.Move(-1,-1,-1,-1);
+       Thread t = new Thread(new Runnable() {
+           public void run() {
+               BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+               while(true){
+                   try{
+                       latest=br.readLine();
+                   }catch (IOException e){}
+                   //System.out.println(s+" "+"looped");
+                   if(latest.contains("bestmove")){
+                       //System.out.println(latest+" "+"ended");
+                       m.change(8-latest.charAt(10)+'0',8-latest.charAt(9)+'a',8-latest.charAt(12)+'0',8-latest.charAt(11)+'a');
+                       return;
+                   }
+               }
+           }
+       });
+       t.start();
+       t.join();
+       //System.out.println(latest);
+       return m;
     }
-    public static Deque<BoardManager.Move> ram(int cap){
+    public static Deque<BoardManager.Move> ram(){
         Deque<BoardManager.Move> dq = new LinkedList<BoardManager.Move>();
         Tile[][] currentBoard = BoardManager.getBoard();
         for(int i = 0; i<8; i++){
@@ -55,17 +64,7 @@ public class EnemyTargetting
                 }
             }
         }
-        while(dq.size()>cap)dq.removeLast();
-        return dq;
-    }
-    public static Deque<BoardManager.Move> moves(int cap){
-        Deque<BoardManager.Move> dq = new LinkedList<BoardManager.Move>();
-        Tile[][] currentBoard = BoardManager.getBoard();
-        //moves
-        
-        
-        //
-        while(dq.size()>cap)dq.removeLast();
+        //while(dq.size()>cap)dq.removeLast();
         return dq;
     }
     //add pawn promotion

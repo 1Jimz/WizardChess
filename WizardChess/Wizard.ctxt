@@ -6,4 +6,6 @@ comment2.params=
 comment2.target=int\ getR()
 comment3.params=
 comment3.target=int\ getC()
-numComments=4
+comment4.params=dmg
+comment4.target=void\ takeDmg(int)
+numComments=5

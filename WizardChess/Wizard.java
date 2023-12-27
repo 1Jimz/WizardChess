@@ -1,7 +1,7 @@
 import greenfoot.*;
 public class Wizard extends Actor
 {
-    private static int r,c;
+    private static int r,c,HP;
     public void act()
     {
         // Add your action code here.
@@ -11,5 +11,8 @@ public class Wizard extends Actor
     }
     public static int getC(){
         return c;
+    }
+    public static void takeDmg(int dmg){
+        HP-=dmg;//need to check for death
     }
 }

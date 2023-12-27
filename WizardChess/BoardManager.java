@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 public class BoardManager  
 {
     public static class Move{
@@ -36,7 +37,30 @@ public class BoardManager
     public static void placeTile(Tile t, int r, int c){
         board[r][c]=t;
     }
-    public static String currentFEN(){
+    public static void makeMove(Move m){
+        board[m.getFromR()][m.getFromC()].getOccupyingPiece().transverse(m);
+        board[m.getToR()][m.getToC()].placePiece(board[m.getFromR()][m.getFromC()].getOccupyingPiece());
+        board[m.getFromR()][m.getFromC()].placePiece(null);
+    }
+    public static void attackWizard(Move m){
+        board[m.getFromR()][m.getFromC()].getOccupyingPiece().attack(m);
+        //remember to oof piece
+        //the take dmg part in piece
+    }
+    public static void enemyTurn(int cap, int depth, int processTime) throws InterruptedException, IOException {
+        int movesTaken=0;
+        while(movesTaken!=cap){
+            Deque<Move> dq = EnemyTargetting.ram();
+            if(dq.size()>cap-movesTaken)dq.removeLast();
+            movesTaken+=dq.size();
+            while(!dq.isEmpty())attackWizard(dq.poll());
+            //
+            if(movesTaken==cap)break;
+            makeMove(EnemyTargetting.bestMove(currentFEN(), depth, processTime));
+            movesTaken++;
+        }
+    }
+    private static String currentFEN(){
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i<8; i++){
             int cnt = 0;
@@ -57,6 +81,27 @@ public class BoardManager
         return sb.toString();
     }
     //2b1kq2/2pppp2/8/8/8/4K3/8/8 w - - 0 1
+    /*
+     double bearing=Utility.bearingDegreesAToB(getX(),getY(),target.getX(),target.getY());
+                direction=Utility.direction(bearing);
+                attemptedMove=true;
+                setLocation(getX()+Math.cos(Utility.degreesToRadians(bearing))*super.speed,getY()+Math.sin(Utility.degreesToRadians(bearing))*-super.speed);
+                animate(true);
+     */
+    /*
+        public static int direction(double angle){
+        //angle based on unconventional 0~359 bearing that starts at E and goes CCW. E=0, NE=1, N=2, NW=3, W=4, SW=5, S=6, SE=7
+        if(angle<=22.5||angle>337.5)return 0;
+        if(angle<=67.5&&angle>22.5)return 1;
+        if(angle<=112.5&&angle>67.5)return 2;
+        if(angle<=157.5&&angle>112.5)return 3;
+        if(angle<=202.5&&angle>157.5)return 4;
+        if(angle<=247.5&&angle>202.5)return 5;
+        if(angle<=292.5&&angle>247.5)return 6;
+        if(angle<=337.5&&angle>292.5)return 7;
+        return -1;
+    }
+     */
     public static void createIncoming(){//String fen){
         String fen = "2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1";//temp
         StringTokenizer st = new StringTokenizer(fen.replaceAll(" b - - 0 1",""),"/");

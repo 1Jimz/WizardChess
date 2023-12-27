@@ -24,7 +24,7 @@ public class Tile extends Actor
     public Piece getOccupyingPiece(){
         return occupyingPiece;
     }
-    public void spawnPiece(){
-        //occupyingPiece=
+    public void placePiece(Piece p){
+        occupyingPiece=p;
     }
 }
