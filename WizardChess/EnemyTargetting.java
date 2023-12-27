@@ -12,6 +12,7 @@ public class EnemyTargetting
         p = Runtime.getRuntime().exec("stockfish/stockfish-windows-x86-64-avx2");
         br = new BufferedReader(new InputStreamReader(p.getInputStream()));
         bw = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+        //test();
     }
     public static void test() throws IOException,InterruptedException {
         updateBestMove(testFen,100);
@@ -39,4 +40,30 @@ public class EnemyTargetting
             }
         }).start();
     }
+    public static Deque<BoardManager.Move> takeTurn(int cap){
+        Deque<BoardManager.Move> dq = new LinkedList<BoardManager.Move>();
+        Tile[][] currentBoard = BoardManager.getBoard();
+        //
+        //ramming
+        for(int i = 0; i<8; i++){
+            for(int j = 0; j<8; j++){
+                switch(currentBoard[i][j].getOccupyingPiece().getType()){
+                    case 'p':if(Wizard.getR()==i+1&&(Wizard.getC()==j+1||Wizard.getC()==j-1))dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));break;
+                    case 'n':break;
+                    case 'b':break;
+                    case 'r':break;
+                    case 'q':break;
+                    case 'k':break;
+                }
+            }
+        }
+        
+        //moves
+        
+        
+        //
+        while(dq.size()>cap)dq.removeLast();
+        return dq;
+    }
+    //add pawn promotion
 }

@@ -13,6 +13,18 @@ public class Tile extends Actor
     public Tile(int r, int c){
         this.r=r;
         this.c=c;
+        turnNormal();
+    }
+    public void turnRed(){
+        setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+"_r.png"));
+    }
+    public void turnNormal(){
         setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+".png"));
+    }
+    public Piece getOccupyingPiece(){
+        return occupyingPiece;
+    }
+    public void spawnPiece(){
+        //occupyingPiece=
     }
 }

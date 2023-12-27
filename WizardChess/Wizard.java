@@ -1,19 +1,15 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
-/**
- * Write a description of class Wizard here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+import greenfoot.*;
 public class Wizard extends Actor
 {
-    /**
-     * Act - do whatever the Wizard wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    private static int r,c;
     public void act()
     {
         // Add your action code here.
+    }
+    public static int getR(){
+        return r;
+    }
+    public static int getC(){
+        return c;
     }
 }

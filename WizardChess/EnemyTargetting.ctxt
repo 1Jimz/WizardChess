@@ -8,4 +8,6 @@ comment3.params=fen\ processTime
 comment3.target=void\ updateBestMove(java.lang.String,\ int)
 comment4.params=
 comment4.target=void\ run()
-numComments=5
+comment5.params=cap
+comment5.target=java.util.Deque\ takeTurn(int)
+numComments=6
