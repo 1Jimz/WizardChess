@@ -42,10 +42,10 @@ public class BoardManager
         spawnPieces();
     }
     public static void test2() throws IOException, InterruptedException {
-        enemyTurn(2,3,50);
+        enemyTurn(6,5,50);
     }
     public static void makeMove(Move m){
-        board[m.getFromR()][m.getFromC()].getOccupyingPiece().transverse(m);
+        board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
         board[m.getToR()][m.getToC()].placePiece(board[m.getFromR()][m.getFromC()].getOccupyingPiece());
         board[m.getFromR()][m.getFromC()].empty();
     }
@@ -63,7 +63,7 @@ public class BoardManager
             while(!dq.isEmpty())attackWizard(dq.poll());
             //
             if(movesTaken==cap)break;
-            makeMove(EnemyTargetting.bestMove(currentFEN(), depth, processTime));
+            makeMove(EnemyTargetting.bestMove(currentFEN(), depth, processTime));//make it so a piece cannot move twice
             movesTaken++;
         }
     }

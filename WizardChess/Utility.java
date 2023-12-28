@@ -115,4 +115,7 @@ public class Utility
         }
         return "NOT FOUND";
     }
+    public static boolean inRangeInclusive(int val, int l, int r){
+        return val>=l&&val<=r;
+    }
 }

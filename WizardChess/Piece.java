@@ -1,26 +1,41 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
+import java.util.*;
 public class Piece extends SuperSmoothMover
 {
     private char type;//p,n,b,r,q,k,K(wiz)
-    private int HP, tH,tV, spd=3;
+    private int HP, tH,tV, spd=8,movePhase=0;
+    private Queue<BoardManager.Move> q;
     public Piece(char type, int tH, int tV){
         this.type=type;
         this.tH=tH;
         this.tV=tV;
+        q=new LinkedList<BoardManager.Move>();    
     }
     public void act()
     {
-        if(getX()!=tH||getY()!=tV){
-            double bearing=Utility.bearingDegreesAToB(getX(),getY(),tH,tV);
+        if(movePhase<8){
+            setLocation(getX(),getY()-4);
+            movePhase++;
+            //System.out.println(t+" "+"e");
+        }
+        else if(movePhase==8&&(!Utility.inRangeInclusive(getX(),tH-2,tH+2)||!Utility.inRangeInclusive(getY(),tV-34,tV-30))){
+            double bearing=Utility.bearingDegreesAToB(getX(),getY(),tH,tV-32);
             setLocation(getX()+Math.cos(Utility.degreesToRadians(bearing))*spd,getY()+Math.sin(Utility.degreesToRadians(bearing))*-spd);
+            System.out.println(getX()+" "+getY()+" "+tH+" "+tV+" "+!Utility.inRangeInclusive(getX(),tH-2,tH+2)+" "+!Utility.inRangeInclusive(getY(),(tV-spd*8)-2,(tV-spd*8)-3+2));
+        }
+        else if(movePhase<16){
+            //System.out.println(tH+" "+tV+" "+getY()+" "+t+" "+"R");
+            setLocation(getX(),getY()+4);
+            movePhase++;
+        }
+        else if(!q.isEmpty()){
+            tV=Game.vPush+q.peek().getToR()*80;
+            tH=Game.hPush+q.poll().getToC()*80;
+            movePhase=0;
         }
     }
     public char getType(){
         return type;
-    }
-    public void transverse(BoardManager.Move m){
-        tV=Game.vPush+m.getToR()*80;
-        tH=Game.hPush+m.getToC()*80;
     }
     public void attack(BoardManager.Move m){
         //note to myself check out ghost targetting to add here(maybe just use transverse)
@@ -30,6 +45,9 @@ public class Piece extends SuperSmoothMover
     }
     public int getHP(){
         return HP;
+    }
+    public void addMove(BoardManager.Move m){
+        q.add(m);
     }
     public int getTargetH(){
         return tH;
