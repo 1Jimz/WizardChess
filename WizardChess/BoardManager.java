@@ -102,6 +102,9 @@ public class BoardManager
         return -1;
     }
      */
+    public static void spawnPieces(){
+        for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].placePiece(incoming[i][j]);
+    }
     public static void createIncoming(){//String fen){
         String fen = "2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1";//temp
         StringTokenizer st = new StringTokenizer(fen.replaceAll(" b - - 0 1",""),"/");
@@ -112,7 +115,7 @@ public class BoardManager
                 //System.out.println(j);
                 //System.out.println(line);
                 if(Character.isDigit(line.charAt(k)))j+=(line.charAt(k)-'0');
-                else if(line.charAt(k)!='K')incoming[i][j++]=new Piece(line.charAt(k));//ignore K
+                else if(line.charAt(k)!='K')incoming[i][j++]=new Piece(line.charAt(k),Game.hPush+j*80,Game.vPush+i*80);//ignore K
             }
         }
     }
