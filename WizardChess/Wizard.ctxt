@@ -1,11 +1,13 @@
 #BlueJ class context
 comment0.target=Wizard
 comment1.params=
-comment1.target=void\ act()
+comment1.target=Wizard()
 comment2.params=
-comment2.target=int\ getR()
+comment2.target=void\ act()
 comment3.params=
-comment3.target=int\ getC()
-comment4.params=dmg
-comment4.target=void\ takeDmg(int)
-numComments=5
+comment3.target=int\ getR()
+comment4.params=
+comment4.target=int\ getC()
+comment5.params=dmg
+comment5.target=void\ takeDmg(int)
+numComments=6

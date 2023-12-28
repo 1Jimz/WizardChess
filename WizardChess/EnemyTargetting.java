@@ -3,11 +3,11 @@ import java.util.*;
 import java.io.*;
 public class EnemyTargetting  
 {
-    private static String testFen="2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1",latest="";
+    private static String testFen="2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1";
     private static Process p;
     private static BufferedReader br;
     private static BufferedWriter bw;
-    //private static BoardManager.Move bestMove=new BoardManager.Move(-1,-1,-1,-1);
+    //private static BoardManager.Move m=new BoardManager.Move(-1,-1,-1,-1);
     public static void setup() throws IOException {
         p = Runtime.getRuntime().exec("stockfish/stockfish-windows-x86-64-avx2");
         br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -31,6 +31,7 @@ public class EnemyTargetting
        Thread t = new Thread(new Runnable() {
            public void run() {
                BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+               String latest="";
                while(true){
                    try{
                        latest=br.readLine();
@@ -38,7 +39,7 @@ public class EnemyTargetting
                    //System.out.println(s+" "+"looped");
                    if(latest.contains("bestmove")){
                        //System.out.println(latest+" "+"ended");
-                       m.change(8-latest.charAt(10)+'0',8-latest.charAt(9)+'a',8-latest.charAt(12)+'0',8-latest.charAt(11)+'a');
+                       m.change(8-latest.charAt(10)+'0',latest.charAt(9)-'a',8-latest.charAt(12)+'0',latest.charAt(11)-'a');
                        return;
                    }
                }
@@ -46,7 +47,7 @@ public class EnemyTargetting
        });
        t.start();
        t.join();
-       //System.out.println(latest);
+       System.out.println(m);
        return m;
     }
     public static Deque<BoardManager.Move> ram(){
@@ -54,6 +55,7 @@ public class EnemyTargetting
         Tile[][] currentBoard = BoardManager.getBoard();
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++){
+                if(currentBoard[i][j].getOccupyingPiece()==null)continue;
                 switch(currentBoard[i][j].getOccupyingPiece().getType()){
                     case 'p':if(Wizard.getR()==i+1&&(Wizard.getC()==j+1||Wizard.getC()==j-1))dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));break;
                     case 'n':break;

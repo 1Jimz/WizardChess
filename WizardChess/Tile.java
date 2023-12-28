@@ -28,4 +28,7 @@ public class Tile extends Actor
         getWorld().addObject(p,p.getTargetH(),p.getTargetV()-30);//-30 for now
         occupyingPiece=p;
     }
+    public void empty(){
+        occupyingPiece=null;
+    }
 }
