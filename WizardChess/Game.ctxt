@@ -2,4 +2,6 @@
 comment0.target=Game
 comment1.params=
 comment1.target=Game()
-numComments=2
+comment2.params=
+comment2.target=int\ getWave()
+numComments=3

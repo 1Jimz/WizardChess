@@ -1,34 +1,51 @@
 import greenfoot.*;
 public class Wizard extends Actor
 {
-    private static int r,c,HP;
-    private static boolean walk=true;
+    private static int r,c,HP,walkType=-1,phase=0;
+    private static boolean walking=false;
     public Wizard(){
         r=7;
         c=4;
     }
-    public void act()
-    {
-        if(!Greenfoot.isKeyDown("W")&&!Greenfoot.isKeyDown("A")&&!Greenfoot.isKeyDown("S")&&!Greenfoot.isKeyDown("D"))walk=true;
-        if(r!=0&&walk&&Greenfoot.isKeyDown("W")){
-            walk=false;
-            r--;
-            setLocation(getX(), getY()-80);
+    public void act(){
+        if(walking){
+            if(++phase<=4)setLocation(getX(), getY()-10);
+            else if(phase<=12){
+                switch(walkType){
+                    case 0:setLocation(getX(), getY()-10);break;
+                    case 1:setLocation(getX()-10, getY());break;
+                    case 2:setLocation(getX(), getY()+10);break;
+                    case 3:setLocation(getX()+10, getY());break;
+                }
+            }
+            else if(phase<=16)setLocation(getX(), getY()+10);
+            else{
+                walking=false;
+                phase=0;
+            }
         }
-        else if(c!=0&&walk&&Greenfoot.isKeyDown("A")){
-            walk=false;
-            c--;
-            setLocation(getX()-80, getY());
-        }
-        else if(r!=7&&walk&&Greenfoot.isKeyDown("S")){
-            walk=false;
-            r++;
-            setLocation(getX(), getY()+80);
-        }
-        else if(c!=7&&walk&&Greenfoot.isKeyDown("D")){
-            walk=false;
-            c++;
-            setLocation(getX()+80, getY());
+        else{
+            Tile[][] currentBoard = BoardManager.getBoard();
+            if(r!=0&&currentBoard[r-1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("W")){
+                walking=true;
+                r--;
+                walkType=0;
+            }
+            else if(c!=0&&currentBoard[r][c-1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("A")){
+                walking=true;
+                c--;
+                walkType=1;
+            }
+            else if(r!=7&&currentBoard[r+1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("S")){
+                walking=true;
+                r++;
+                walkType=2;
+            }
+            else if(c!=7&&currentBoard[r][c+1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("D")){
+                walking=true;
+                c++;
+                walkType=3;
+            }
         }
     }
     public static int getR(){

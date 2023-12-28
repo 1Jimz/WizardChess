@@ -47,7 +47,7 @@ public class EnemyTargetting
        });
        t.start();
        t.join();
-       System.out.println(m);
+       //System.out.println(m);
        return m;
     }
     public static Deque<BoardManager.Move> ram(){

@@ -50,6 +50,8 @@ public class BoardManager
         board[m.getFromR()][m.getFromC()].empty();
     }
     public static void attackWizard(Move m){
+        //Piece p = board[m.getFromR()][m.getFromC()].getOccupyingPiece();
+        //board[m.getFromR()][m.getFromC()].empty();
         board[m.getFromR()][m.getFromC()].getOccupyingPiece().attack(m);
         //remember to oof piece
         //the take dmg part in piece

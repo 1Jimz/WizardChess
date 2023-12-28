@@ -15,6 +15,10 @@ public class Tile extends Actor
         this.c=c;
         turnNormal();
     }
+    public void act()
+    {
+        if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
+    }
     public void turnRed(){
         setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+"_r.png"));
     }
