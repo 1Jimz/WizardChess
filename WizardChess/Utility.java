@@ -6,6 +6,40 @@ Useful toolkit
 public class Utility
 {
     //creates an image that is customized based on various values
+    public static class Vector{
+        private double x,y;
+        public Vector(double a, double b){
+            x = a;
+            y = b;
+        }
+        public double xPart(){
+            return x;
+        }
+        public double yPart(){
+            return y;
+        }
+        public double magnitude(){
+            return Math.sqrt(x*x+y*y);
+        }
+        public Vector getUnitVector(){
+            return new Vector(x/magnitude(),y/magnitude());
+        }
+        public double dot(Vector v){
+            return x*v.x + y*v.y;
+        }
+        public double cross(Vector v){
+            return x*v.y - y*v.x;
+        }
+        public Vector scale(double s){
+            return new Vector(x*s,y*s);
+        }
+        public Vector subtract(Vector v){
+            return new Vector(x-v.x,y-v.y);
+        }
+        public Vector add(Vector v){
+            return new Vector(x+v.x,y+v.y);
+        }
+    }
     public static GreenfootImage customizeAndCreate(int w, int h, String s){
         GreenfootImage gfi = new GreenfootImage(s);
         gfi.scale(w,h);
