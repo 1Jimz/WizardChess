@@ -4,6 +4,7 @@ public class Game extends World
 {
     public final static int hPush=550,vPush=90;//maybe need change into private and use getter.
     private static int wave=1;
+    //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");

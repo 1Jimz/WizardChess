@@ -3,13 +3,16 @@ import java.util.*;
 public class Piece extends SuperSmoothMover
 {
     private char type;//p,n,b,r,q,k,K(wiz)
-    private int HP, tH,tV, spd=8,movePhase=0;
+    private int HP, tH,tV,movePhase=0,sH,sV;
     private Queue<BoardManager.Move> q;
     private int dying=-1;
-    public Piece(char type, int tH, int tV){
+    private boolean fix=false, awaitingDeath=false;
+    public Piece(char type, int tH, int tV, int sH, int sV){
         this.type=type;
         this.tH=tH;
         this.tV=tV;
+        this.sH=sH;
+        this.sV=sV;
         q=new LinkedList<BoardManager.Move>();    
         switch(type){
             case'p':setImage(new GreenfootImage("Piece_p.png"));HP=(int)(0.5*Game.getWave())+1;break;
@@ -31,17 +34,26 @@ public class Piece extends SuperSmoothMover
             movePhase++;
             //System.out.println(t+" "+"e");
         }
-        else if(movePhase==8&&(!Utility.inRangeInclusive(getX(),tH-2,tH+2)||!Utility.inRangeInclusive(getY(),tV-34,tV-30))){
+        else if(movePhase==8&&(!Utility.inRangeInclusive(getX(),tH-(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1),tH+(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1))||!Utility.inRangeInclusive(getY(),tV-32-(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1),tV-32+(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1)))){
             double bearing=Utility.bearingDegreesAToB(getX(),getY(),tH,tV-32);
-            setLocation(getX()+Math.cos(Utility.degreesToRadians(bearing))*spd,getY()+Math.sin(Utility.degreesToRadians(bearing))*-spd);
+            fix=false;
+            //System.out.println(spd);
+            setLocation(getX()+Math.cos(Utility.degreesToRadians(bearing))*(Utility.distance(sH,sV,tH,tV)/25+1),getY()+Math.sin(Utility.degreesToRadians(bearing))*-(Utility.distance(sH,sV,tH,tV)/25+1));
             //System.out.println(getX()+" "+getY()+" "+tH+" "+tV+" "+!Utility.inRangeInclusive(getX(),tH-2,tH+2)+" "+!Utility.inRangeInclusive(getY(),(tV-spd*8)-2,(tV-spd*8)-3+2));
+        }
+        else if(!fix&&(Utility.inRangeInclusive(getX(),tH-(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1),tH+(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1))&&Utility.inRangeInclusive(getY(),tV-32-(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1),tV-32+(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1)))){
+            fix=true;
+            setLocation(tH,tV-32);
         }
         else if(movePhase<16){
             //System.out.println(tH+" "+tV+" "+getY()+" "+t+" "+"R");
             setLocation(getX(),getY()+4);
             movePhase++;
+            if(awaitingDeath)dying=17;
         }
         else if(!q.isEmpty()){
+            sV=tV;
+            sH=tH;
             tV=Game.vPush+q.peek().getToR()*80;
             tH=Game.hPush+q.poll().getToC()*80;
             movePhase=0;
@@ -51,10 +63,9 @@ public class Piece extends SuperSmoothMover
         return type;
     }
     public void attack(BoardManager.Move m){
-        //note to myself check out ghost targetting to add here(maybe just use transverse)
-        
-        //oof
-        dying=17;
+        q.add(m);
+        System.out.println(m);
+        awaitingDeath=true;
         Wizard.takeDmg(HP);
     }
     public int getHP(){
@@ -74,6 +85,12 @@ public class Piece extends SuperSmoothMover
         if(HP<=0)dying=17;
     }
     public boolean isDying(){
-        return dying>=0;
+        return dying>=0||awaitingDeath;
+    }
+    public void promote(){//only to queen because for this game best value(probably)
+        if(type!='p')return;
+        type='q';
+        setImage(new GreenfootImage("Piece_q.png"));
+        HP=(int)(1.5*Game.getWave())+2;
     }
 }

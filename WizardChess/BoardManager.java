@@ -60,13 +60,15 @@ public class BoardManager
         int movesTaken=0;
         while(movesTaken!=cap){
             Deque<Move> dq = EnemyTargetting.ram();
-            if(dq.size()>cap-movesTaken)dq.removeLast();
+            System.out.println(dq.size()+" "+(cap-movesTaken));
+            while(dq.size()>cap-movesTaken)dq.removeLast();
             movesTaken+=dq.size();
             while(!dq.isEmpty())attackWizard(dq.poll());
             //
             if(movesTaken==cap)break;
-            makeMove(EnemyTargetting.bestMove(currentFEN(), depth, processTime));//make it so a piece cannot move twice
+            makeMove(EnemyTargetting.bestMove(currentFEN(), depth, processTime));
             movesTaken++;
+            for(int i = 0; i<8; i++)if(board[7][i].getOccupyingPiece()!=null&&board[7][i].getOccupyingPiece().getType()=='p')board[7][i].getOccupyingPiece().promote();
         }
     }
     public static String currentFEN(){
@@ -108,7 +110,7 @@ public class BoardManager
                 //System.out.println(j);
                 //System.out.println(line);
                 if(Character.isDigit(line.charAt(k)))j+=(line.charAt(k)-'0');
-                else if(line.charAt(k)!='K')incoming[i][j]=new Piece(line.charAt(k),Game.hPush+j++*80,Game.vPush+i*80);//ignore K
+                else if(line.charAt(k)!='K')incoming[i][j]=new Piece(line.charAt(k),Game.hPush+j*80,Game.vPush+i*80,Game.hPush+j++*80,Game.vPush+i*80-30);
             }
         }
     }

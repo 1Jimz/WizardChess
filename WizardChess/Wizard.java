@@ -1,16 +1,18 @@
 import greenfoot.*;
 public class Wizard extends Actor
 {
-    private static int r,c,HP,walkDirection=0,phase=0,frame=0,rate=0,w=80,h=120;
+    private static int r,c,HP,walkDirection=0,phase=0,frame=0,rate=0;//,w=80,h=120;
     private static boolean walking=false;
     public Wizard(){
+        walkDirection=0;
         r=7;
         c=4;
+        HP=100;
     }
     public void act(){
         if(walking){
-            if(++phase<=4)setLocation(getX(), getY()-10);
-            else if(phase<=12){
+            if(++phase<=3)setLocation(getX(), getY()-10);
+            else if(phase<=11){
                 switch(walkDirection){
                     case 0:setLocation(getX(), getY()-10);break;
                     case 6:setLocation(getX()-10, getY());break;
@@ -18,7 +20,7 @@ public class Wizard extends Actor
                     case 2:setLocation(getX()+10, getY());break;
                 }
             }
-            else if(phase<=16)setLocation(getX(), getY()+10);
+            else if(phase<=14)setLocation(getX(), getY()+10);
             else{
                 walking=false;
                 phase=0;
@@ -32,7 +34,7 @@ public class Wizard extends Actor
             else if(rate==20)frame=1;
             else if(rate==40)frame=2;
             rate++;
-            System.out.println(rate+" "+frame);
+            //System.out.println(rate+" "+frame);
             Tile[][] currentBoard = BoardManager.getBoard();
             if(r!=0&&currentBoard[r-1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("W")){
                 walking=true;

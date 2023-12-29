@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=Piece
-comment1.params=type\ tH\ tV
-comment1.target=Piece(char,\ int,\ int)
+comment1.params=type\ tH\ tV\ sH\ sV
+comment1.target=Piece(char,\ int,\ int,\ int,\ int)
 comment10.params=
 comment10.target=boolean\ isDying()
+comment11.params=
+comment11.target=void\ promote()
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
@@ -20,4 +22,4 @@ comment8.params=
 comment8.target=int\ getTargetV()
 comment9.params=dmg
 comment9.target=void\ takeDmg(int)
-numComments=11
+numComments=12
