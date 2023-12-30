@@ -1,18 +1,23 @@
 import greenfoot.*;
 import java.util.List;
-//original code from https://www.greenfoot.org/scenarios/925. Modified by Jimmy Zhu at 12/19/23.
+//original code from https://www.greenfoot.org/scenarios/925. Modified(Modified maybe understatement. So much so that I might not need credit, it's more like inspired kinda) by Jimmy Zhu at 12/19/23.
 public class Card extends SuperSmoothMover{
     private List springs;
     private double x1,y1,x2=0,y2=0,r1,r2,a,b,c,d,l,ang,dl[]=new double[6],x[]={-100,100,100,-100},y[]={-160,-160,160,160},xprev[]=new double[4],yprev[]=new double[4],xv[]={0,0,0,0},yv[]={0,0,0,0};
-    private boolean drag=false,stick=false,leftBorder;
-    private int type=1,point1,point2,mx,my,pointer=0,p=0,points[]=new int[4],conect1[]={0,1,2,3,0,1},conect2[]={1,2,3,0,2,3},active;
+    private boolean drag=false,stick=false,leftBorder, disposing=false;
+    private int point1,point2,mx,my,pointer=0,p=0,points[]=new int[4],conect1[]={0,1,2,3,0,1},conect2[]={1,2,3,0,2,3},active,type,whirl=0;
     public Card(int mx, int my, int active,boolean leftBorder){
         this.mx=mx;//800
         this.my=my;//200
         this.active=active;
         this.leftBorder=leftBorder;
+        type=Greenfoot.getRandomNumber(2);
         for(int f=0;f<6;f++)dl[f] = Math.sqrt(Math.pow((x[conect1[f]] - x[conect2[f]]),2)+Math.pow((y[conect1[f]] - y[conect2[f]]),2));
-        setImage(new GreenfootImage("Testcardfront2.png"));
+        switch(type){
+            case 0:setImage(new GreenfootImage("TestCard1.png"));break;
+            case 1:setImage(new GreenfootImage("TestCard2.png"));break;
+        }
+        //setImage(new GreenfootImage("Testcardfront2.png"));
     }
     public void addedToWorld(World w){
         for(int i=0;i<x.length;i++){
@@ -27,104 +32,37 @@ public class Card extends SuperSmoothMover{
         }
     }
     public void act() {
-        
-    }    
-    public boolean pointIn(double a,double b){
-        int[] testPoints = {0,1,2,3,0};
-        boolean in=true;
-        double x1,x0,y1,y0;
-        for(int i=0;i<x.length;i++){
-            x0 = x[testPoints[i]];
-            x1 = x[testPoints[i+1]];
-            y0 = y[testPoints[i]];
-            y1 = y[testPoints[i+1]];
-            in = in && ((b-y0)*(x1-x0)-(a-x0)*(y1-y0)>=0);
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if(whirl==0&&mouse!=null&&Greenfoot.mouseClicked(this))whirl++;
+        if(whirl>0&&whirl<35){
+            whirl++;
+            getImage().scale(getImage().getWidth()-5,getImage().getHeight()-5);
+            getImage().rotate(whirl);
+            getImage().setTransparency(getImage().getTransparency()-5);
+            setLocation(mouse.getX()+(Greenfoot.getRandomNumber(2)==0?-Greenfoot.getRandomNumber(7):Greenfoot.getRandomNumber(7)),mouse.getY()+(Greenfoot.getRandomNumber(2)==0?-Greenfoot.getRandomNumber(7):Greenfoot.getRandomNumber(7)));
         }
-        return in;
-    }
-    public void rebound(Card s){
-        double time=0;
-        boolean in = true;  
-        Utility.Vector[] normals = new Utility.Vector[pointer];
-        for(int i=0;i<pointer;i++){
-            normals[i] = s.normal(xprev[points[i]],yprev[points[i]]);
-            if(normals[i] == null){
-                for(int j=0;j<4;j++){
-                    x[j] = xprev[j];
-                    y[j] = yprev[j];
-                    s.x[j] = s.xprev[j];
-                    s.y[j] = s.yprev[j]; 
-                }
-                return;
-            } 
-            normals[i] = normals[i].getUnitVector();
+        else if(whirl==35){
+            whirl++;
+            Game.activateSpell();
+            getWorld().addObject(new Spell(type), mouse.getX(), mouse.getY());
+            getWorld().addObject(new Wand(),-200,-200);
         }
-        double[] biasA = new double[pointer],biasB = new double[pointer];
-        double dist;
-        for(int i=0;i<pointer;i++){
-            dist = Math.sqrt(Math.pow(s.x[s.point1]-s.x[s.point2],2)+Math.pow(s.y[s.point1]-s.y[s.point2],2));
-            biasA[i]=Math.sqrt(Math.pow(s.x[s.point1]-x[points[i]],2)+Math.pow(s.y[s.point1]-y[points[i]],2));
-            biasB[i]=Math.sqrt(Math.pow(s.x[s.point2]-x[points[i]],2)+Math.pow(s.y[s.point2]-y[points[i]],2));
-            biasA[i]=(dist-biasA[i])/dist;
-            biasB[i]=(dist-biasB[i])/dist;
-            if(biasB[i]>.95||biasB[i]<.05){
-                for(int f=0;f<4;f++){
-                    double vx = getX()-s.getX();
-                    double vy = getY()-s.getY();
-                    xv[f] = .0001*vx;
-                    yv[f] = .0001*vy;
-                    s.xv[f] = -.0001*vx;
-                    s.yv[f] = -.0001*vy;
-                }
-                return;
+        else if(whirl>35)getWorld().removeObject(this);
+        else{
+            for(int i=0;i<130;i++)simulate(1);
+            if(disposing&&getY()>900){
+                Game.grabCardAnimation();
+                getWorld().removeObject(this);
             }
-        }
-        while(in){
-            in = false;
-            for(int i=0;i<pointer;i++){
-                if(!stick){
-                    x[points[i]] += normals[i].xPart()/50.0;
-                    y[points[i]] += normals[i].yPart()/50.0;
-                    xv[points[i]] += normals[i].xPart()/100.0;
-                    yv[points[i]] += normals[i].yPart()/100.0;
-                }
-                s.nudge(-normals[i].xPart()/50.0 , -normals[i].yPart()/50.0, biasA[i], biasB[i]);
-            }
-        }   
-    }  
-    public Utility.Vector normal(double a, double b){
-        int[] testPoints = {0,1,2,3,0};
-        double x1,x0,y1,y0;
-        Utility.Vector n = null;
-        int tries=0;
-        for(int i=0;i<x.length;i++){
-            x0 = xprev[testPoints[i]];
-            x1 = xprev[testPoints[i+1]];
-            y0 = yprev[testPoints[i]];
-            y1 = yprev[testPoints[i+1]];
-            if((b-y0)*(x1-x0)-(a-x0)*(y1-y0)<=0){
-                point1 = testPoints[i];
-                point2 = testPoints[i+1];
-                n = new Utility.Vector(y1-y0,x0-x1);
-                tries++;
-            }    
-        }
-        if(n == null)System.out.println("error!!!!");
-        if(tries>1)System.out.println("overload!!");
-        return n;
-    }
-    public void step(double time, int dir){
-        for(int i=0;i<4;i++){
-            x[i] += dir*time*xv[i];
-            y[i] += dir*time*yv[i];
-            if(!stick)yv[i] += dir*time*.01;
+            else if(Greenfoot.isKeyDown("G"))dispose();//also need to make sure have enough ep
         }
     }
-    public void nudge(double a, double b,double c, double d){
-        xv[point1] += a*c;
-        xv[point2] += a*d;
-        yv[point1] += b*c;
-        yv[point2] += b*d;
+    public void dispose(){
+        active=1000;
+        mx=Greenfoot.getRandomNumber(201)+200;
+        my=Greenfoot.getRandomNumber(201)+1100;
+        leftBorder=false;
+        disposing=true;
     }
     public void simulate(int k){
         drag=true;

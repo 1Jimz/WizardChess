@@ -22,7 +22,7 @@ public class EnemyTargetting
         bestMove("6pk/6pp/8/8/8/4K3/8/8 b - - 0 1",5,20);
         //System.out.println(bestMove);
     }
-    public static BoardManager.Move bestMove(String fen, int depth, int processTime)throws IOException,InterruptedException {
+    public static BoardManager.Move bestMove(String fen, int depth, int processTime)throws IOException,InterruptedException {//
        bw.write("ucinewgame\n");
        bw.write("position fen "+fen+"\n");
        bw.write("go depth "+depth+" movetime "+processTime+"\n");
@@ -69,5 +69,4 @@ public class EnemyTargetting
         //while(dq.size()>cap)dq.removeLast();
         return dq;
     }
-    //add pawn promotion
 }

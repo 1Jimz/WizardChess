@@ -111,14 +111,14 @@ public class Utility
     //turns degrees into cardinal direction
     public static int direction(double angle){
         //angle based on unconventional 0~359 bearing that starts at E and goes CCW. E=0, NE=1, N=2, NW=3, W=4, SW=5, S=6, SE=7
-        if(angle<=22.5||angle>337.5)return 0;
+        if(angle<=22.5||angle>337.5)return 2;
         if(angle<=67.5&&angle>22.5)return 1;
-        if(angle<=112.5&&angle>67.5)return 2;
-        if(angle<=157.5&&angle>112.5)return 3;
-        if(angle<=202.5&&angle>157.5)return 4;
+        if(angle<=112.5&&angle>67.5)return 0;
+        if(angle<=157.5&&angle>112.5)return 7;
+        if(angle<=202.5&&angle>157.5)return 6;
         if(angle<=247.5&&angle>202.5)return 5;
-        if(angle<=292.5&&angle>247.5)return 6;
-        if(angle<=337.5&&angle>292.5)return 7;
+        if(angle<=292.5&&angle>247.5)return 4;
+        if(angle<=337.5&&angle>292.5)return 3;
         return -1;
     }
     //this is used to move with the slime(player) depending on the frame

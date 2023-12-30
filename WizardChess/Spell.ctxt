@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Spell
+comment1.params=type
+comment1.target=Spell(int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=frameCount\ picName\ adjustH\ adjustV\ w\ h
+comment3.target=void\ setup(int,\ java.lang.String,\ int,\ int,\ int,\ int)
+numComments=4
