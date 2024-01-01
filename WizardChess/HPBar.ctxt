@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=HPBar
+comment1.params=maxHp
+comment1.target=HPBar(int)
+comment2.params=hp
+comment2.target=void\ setHP(int)
+comment3.params=
+comment3.target=void\ update()
+numComments=4

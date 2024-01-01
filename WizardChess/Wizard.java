@@ -13,6 +13,7 @@ public class Wizard extends SuperSmoothMover{
         HP=100;
         Game.grabCardAnimation();
     }
+    
     public void act(){
         h=getX();
         v=getY();
@@ -89,6 +90,9 @@ public class Wizard extends SuperSmoothMover{
     }
     public static void takeDmg(int dmg){
         HP-=dmg;//need to check for death
+    }
+    public static int getHP(){
+        return HP;
     }
     public static int getH(){
         return h;
