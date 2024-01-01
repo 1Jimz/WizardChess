@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=EnergyBar
+comment1.params=maxE
+comment1.target=EnergyBar(int)
+comment2.params=e
+comment2.target=void\ setE(int)
+comment3.params=
+comment3.target=void\ update()
+numComments=4
