@@ -28,7 +28,7 @@ public class Game extends World
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
         wizard = new Wizard();
         addObject(wizard,hPush+4*80,vPush+7*80-25);
-        addObject(new HPBar(100), 100, 30); // assuming 100 health
+        addObject(new HPBar(100), 279, 210); // assuming 100 health
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);
