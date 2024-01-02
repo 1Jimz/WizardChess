@@ -16,20 +16,23 @@ public class Game extends World
     private static int wave=1,throwX, throwY, throwActive, startX, startY;
     private Wizard wizard;
     private HPBar hpBar;
+    private EnergyBar energyBar;
     //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
-        System.out.println("_____________________________________________________________");
+        //System.out.println("_____________________________________________________________");
         throwingCard=false;
         pickCard=false;
         spellActivated=false;
         EnemyTargetting.setup();
         //each time size 80
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
+        energyBar = new EnergyBar(100);
+        addObject(energyBar, 279, 270);
         wizard = new Wizard();
+        wizard.setEnergyBar(energyBar);
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
-        addObject(new EnergyBar(100), 279, 270); //assuming 100 energy?
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);

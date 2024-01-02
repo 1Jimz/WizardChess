@@ -3,6 +3,7 @@ public class Wizard extends SuperSmoothMover{
     private static int r,c,HP,walkDirection=0,direction=0,phase=0,frame=0,rate=0,h=Game.hPush+4*80,v=Game.vPush+7*80-25;//,w=80,h=120;
     private static boolean walking=false;
     private static double degrees=0;
+    private EnergyBar energyBar;
     public Wizard(){
         h=Game.hPush+4*80;
         v=Game.vPush+7*80-25;
@@ -52,6 +53,7 @@ public class Wizard extends SuperSmoothMover{
                     setImage(new GreenfootImage("Wizard-0-1.png"));
                     direction=0;
                 }
+                decreaseE();
             }
             else if(c!=0&&currentBoard[r][c-1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("A")){
                 walking=true;
@@ -61,6 +63,7 @@ public class Wizard extends SuperSmoothMover{
                     setImage(new GreenfootImage("Wizard-6-1.png"));
                     direction=6;
                 }
+                decreaseE();
             }
             else if(r!=7&&currentBoard[r+1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("S")){
                 walking=true;
@@ -70,6 +73,7 @@ public class Wizard extends SuperSmoothMover{
                     setImage(new GreenfootImage("Wizard-4-1.png"));
                     direction=4;
                 }
+                decreaseE();
             }
             else if(c!=7&&currentBoard[r][c+1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("D")){
                 walking=true;
@@ -79,6 +83,7 @@ public class Wizard extends SuperSmoothMover{
                     setImage(new GreenfootImage("Wizard-2-1.png"));
                     direction=2;
                 }
+                decreaseE();
             }
         }
     }
@@ -102,5 +107,13 @@ public class Wizard extends SuperSmoothMover{
     }
     public static double getDegrees(){
         return degrees;
+    }
+    public void setEnergyBar(EnergyBar energyBar) {
+        this.energyBar = energyBar;
+    }
+    private void decreaseE() {
+        if (energyBar != null) {
+            energyBar.setE(energyBar.getE() - 1);
+        }
     }
 }
