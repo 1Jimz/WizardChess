@@ -28,9 +28,7 @@ public class BoardManager
     //    return r >= 0 && r < board.length && c >= 0 && c < board[0].length;
     //}
     public static void applySpell(Position spellOrigin) {
-        int affectedR = spellOrigin.getR();
-        int affectedC = spellOrigin.getC();
-    
+        int affectedR = spellOrigin.getR(), affectedC = spellOrigin.getC();
         //if (isOnBoard(affectedR, affectedC)) {
             Tile tile = board[affectedR][affectedC];
             if (tile != null) {

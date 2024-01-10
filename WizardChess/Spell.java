@@ -24,11 +24,7 @@ public class Spell extends SuperSmoothMover{
         if(Greenfoot.mouseClicked(this) && Game.isSpellActivated()){
             placed = true;
             int pixelX = getX(), pixelY = getY();
-        
-            // Convert pixel coordinates to board indices
             BoardManager.Position boardPos = Game.convPixToTile(pixelX, pixelY);
-        
-            // Apply spell to the converted position
             BoardManager.applySpell(boardPos);
         
             //getWorld().addObject(new Spell(getSpellType()), pixelX, pixelY);
