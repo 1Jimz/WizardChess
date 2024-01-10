@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import greenfoot.*;
 public class BoardManager  
 {
     public static class Position{
@@ -16,28 +17,16 @@ public class BoardManager
         }
     }
     
-    
-    public static Tile getTile(int r, int c) {
-        if (r >= 0 && r < board.length && c >= 0 && c < board[0].length) {
-            return board[r][c];
-        } return null;
-    }
-    // checks if spell was cast on the board (not outside boundaries)
-    //private static boolean isOnBoard(int r, int c) {
-    //    return r >= 0 && r < board.length && c >= 0 && c < board[0].length;
-    //}
+
     public static void applySpell(Position spellOrigin) {
-        int affectedR = spellOrigin.getR(), affectedC = spellOrigin.getC();
-        //if (isOnBoard(affectedR, affectedC)) {
-            Tile tile = board[affectedR][affectedC];
-            if (tile != null) {
-                Piece occupyingPiece = tile.getOccupyingPiece();
+        int r = spellOrigin.getR(), c = spellOrigin.getC();
+            if(board[r][c]!=null){
+                Piece occupyingPiece = board[r][c].getOccupyingPiece();
                 if (occupyingPiece != null) {
                     occupyingPiece.takeDmg(100);
-                    //System.out.println("test");
+                    System.out.println("test");
                 }
             }
-        //}
     }
     public static class Move{
         private int fromR, fromC, toR, toC;

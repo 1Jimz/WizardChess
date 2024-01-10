@@ -54,8 +54,8 @@ public class Game extends World
         throwingCard=true;
     }
     public static BoardManager.Position convPixToTile(int pixelX, int pixelY) {
-        int boardX = (pixelX-hPush)/80, boardY = (pixelY-vPush)/80;
-        //System.out.println("board X : " + boardX + "board Y: " + boardY);
+        int boardX = (pixelX-hPush)/80+1, boardY = (pixelY-vPush)/80+1;
+        System.out.println("boardX " + boardX + "boardY " + boardY);
         return new BoardManager.Position(boardY, boardX);
     }
     public void act(){
