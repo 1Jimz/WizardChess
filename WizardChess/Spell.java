@@ -21,22 +21,20 @@ public class Spell extends SuperSmoothMover{
         }
         else rate++;
         
-        if(Greenfoot.mouseClicked(this)&&Game.isSpellActivated()){
+        if(Greenfoot.mouseClicked(this) && Game.isSpellActivated()){
             placed = true;
-            int x = getX();
-            int y = getY();
-            BoardManager.Position[] affectedOffsets = new BoardManager.Position[] {
-                new BoardManager.Position(0, 0), 
-                new BoardManager.Position(1, 1), 
-                new BoardManager.Position(1, -1),
-                new BoardManager.Position(-1, 1),
-                new BoardManager.Position(-1, -1)
-            };
-            BoardManager.Position spellOrigin = new BoardManager.Position(x, y);
-            getWorld().addObject(new Spell(getSpellType()), x, y);
-            BoardManager.applySpell(spellOrigin, affectedOffsets);
+            int pixelX = getX(), pixelY = getY();
+        
+            // Convert pixel coordinates to board indices
+            BoardManager.Position boardPos = Game.convPixToTile(pixelX, pixelY);
+        
+            // Apply spell to the converted position
+            BoardManager.applySpell(boardPos);
+        
+            //getWorld().addObject(new Spell(getSpellType()), pixelX, pixelY);
             Game.deactivateSpell();
         }
+
     }
     private void setup(int frameCount, String picName, int adjustH, int adjustV, int w, int h){
         this.frameCount=frameCount;

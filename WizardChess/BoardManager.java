@@ -12,29 +12,36 @@ public class BoardManager
             return r;
         }
         public int getC(){
-            return r;
-        }
-    }
-    // checks if spell was cast on the board (not outside boundaries)
-    private static boolean isOnBoard(int r, int c) {
-        return r >= 0 && r < board.length && c >= 0 && c < board[0].length;
-    }
-    public static void applySpell(Position spellOrigin, Position[] affectedOffsets) {
-        for(Position offset:affectedOffsets) {
-            int affectedR = spellOrigin.getR() + offset.getR(), affectedC = spellOrigin.getC() + offset.getC();
-            //if(isOnBoard(affectedR, affectedC)) {
-                
-                Tile tile = new Tile(affectedR, affectedC);
-                Piece occupyingPiece = tile.getOccupyingPiece();
-                System.out.println("test");
-                if (occupyingPiece != null){
-                   occupyingPiece.takeDmg(100);
-                   System.out.println("damage working");
-                }
-            //}
+            return c;
         }
     }
     
+    
+    public static Tile getTile(int r, int c) {
+        if (r >= 0 && r < board.length && c >= 0 && c < board[0].length) {
+            return board[r][c];
+        }
+        return null;
+    }
+    // checks if spell was cast on the board (not outside boundaries)
+    //private static boolean isOnBoard(int r, int c) {
+    //    return r >= 0 && r < board.length && c >= 0 && c < board[0].length;
+    //}
+    public static void applySpell(Position spellOrigin) {
+        int affectedR = spellOrigin.getR();
+        int affectedC = spellOrigin.getC();
+    
+        //if (isOnBoard(affectedR, affectedC)) {
+            Tile tile = board[affectedR][affectedC];
+            if (tile != null) {
+                Piece occupyingPiece = tile.getOccupyingPiece();
+                if (occupyingPiece != null) {
+                    occupyingPiece.takeDmg(100);
+                    System.out.println("damage working");
+                }
+            }
+        //}
+    }
     public static class Move{
         private int fromR, fromC, toR, toC;
         public Move(int fromR, int fromC, int toR, int toC){

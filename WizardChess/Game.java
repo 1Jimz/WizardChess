@@ -53,6 +53,11 @@ public class Game extends World
         startY=sY;
         throwingCard=true;
     }
+    public static BoardManager.Position convPixToTile(int pixelX, int pixelY) {
+        int boardX = (pixelX-hPush)/80, boardY = (pixelY-vPush)/80;
+        //System.out.println("board X : " + boardX + "board Y: " + boardY);
+        return new BoardManager.Position(boardY, boardX);
+    }
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
         //setPaintOrder(Wizard.class, Wand.class);//
