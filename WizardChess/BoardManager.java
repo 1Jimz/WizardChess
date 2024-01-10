@@ -20,8 +20,7 @@ public class BoardManager
     public static Tile getTile(int r, int c) {
         if (r >= 0 && r < board.length && c >= 0 && c < board[0].length) {
             return board[r][c];
-        }
-        return null;
+        } return null;
     }
     // checks if spell was cast on the board (not outside boundaries)
     //private static boolean isOnBoard(int r, int c) {
@@ -35,7 +34,7 @@ public class BoardManager
                 Piece occupyingPiece = tile.getOccupyingPiece();
                 if (occupyingPiece != null) {
                     occupyingPiece.takeDmg(100);
-                    System.out.println("damage working");
+                    //System.out.println("test");
                 }
             }
         //}
