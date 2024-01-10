@@ -138,6 +138,5 @@ public class Game extends World
     public int compareTo (ActorContent a){
         return this.getY() - a.getY();
     }
-
 }
 }

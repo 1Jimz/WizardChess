@@ -18,6 +18,17 @@ public class Tile extends Actor
     public void act()
     {
         if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
+        
+        //if(Greenfoot.mouseClicked(this)){
+            //if(Game.isSpellActivated()){ 
+                // spell thing goes here
+                // for now its magic fire but must change to be reusable
+                
+                //Spell spell = new Spell(Spell.getSpellType());
+                //getWorld().addObject(spell, getX(), getY());
+                // deactivate spell here? right now its deactivated in spell class
+            //}
+        //}
     }
     public void turnRed(){
         setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+"_r.png"));
