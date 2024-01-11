@@ -8,6 +8,8 @@ import java.lang.*;
  G dispose card(costs EP)
  Click on card to use(cannot cancel when clicked)
  E end turn// need to implement
+ 
+ when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
  */
 public class Game extends World
 {

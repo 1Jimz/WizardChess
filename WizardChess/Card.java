@@ -34,14 +34,14 @@ public class Card extends SuperSmoothMover{
     public void act() {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(whirl==0&&mouse!=null&&Greenfoot.mouseClicked(this))whirl++;
-        if(whirl>0&&whirl<35){
+        if(whirl>0&&whirl<35&&mouse!=null){
             whirl++;
             getImage().scale(getImage().getWidth()-5,getImage().getHeight()-5);
             getImage().rotate(whirl);
             getImage().setTransparency(getImage().getTransparency()-5);
             setLocation(mouse.getX()+(Greenfoot.getRandomNumber(2)==0?-Greenfoot.getRandomNumber(7):Greenfoot.getRandomNumber(7)),mouse.getY()+(Greenfoot.getRandomNumber(2)==0?-Greenfoot.getRandomNumber(7):Greenfoot.getRandomNumber(7)));
         }
-        else if(whirl==35){
+        else if(whirl==35&&mouse!=null){
             whirl++;
             Game.activateSpell();
             getWorld().addObject(new Spell(type), mouse.getX(), mouse.getY());

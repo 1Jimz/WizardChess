@@ -11,7 +11,10 @@ public class Spell extends SuperSmoothMover{
     }
     public void act(){//remember to deactivate spell after
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        if(mouse!=null)setLocation(mouse.getX()+adjustH,mouse.getY()+adjustV);
+        if(mouse!=null){
+            setLocation(mouse.getX()+adjustH,mouse.getY()+adjustV);
+            if(Greenfoot.mouseClicked(null))System.out.println((mouse.getX()-Game.hPush+40)/80+" "+(mouse.getY()-Game.vPush+40)/80);
+        }
         if(rate==5){
             rate=0;
             if(++frame==frameCount)frame=0;

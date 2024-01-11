@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Game
-comment0.text=\r\n\ Controls\:\r\n\ WASD\ wizard\ movement(costs\ EP)\r\n\ G\ dispose\ card(costs\ EP)\r\n\ Click\ on\ card\ to\ use(cannot\ cancel\ when\ clicked)\r\n\ E\ end\ turn//\ need\ to\ implement\r\n
+comment0.text=\r\n\ Controls\:\r\n\ WASD\ wizard\ movement(costs\ EP)\r\n\ G\ dispose\ card(costs\ EP)\r\n\ Click\ on\ card\ to\ use(cannot\ cancel\ when\ clicked)\r\n\ E\ end\ turn//\ need\ to\ implement\r\n\ \r\n\ when\ card\ is\ in\ process\ of\ being\ turned\ into\ a\ spell\ and\ mouse\ is\ off\ screen\ the\ process\ freezes,\ this\ is\ intentional.\r\n
 comment1.params=
 comment1.target=Game()
 comment2.params=
