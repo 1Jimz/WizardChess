@@ -1,7 +1,33 @@
 import java.util.*;
 import java.io.*;
+import greenfoot.*;
 public class BoardManager  
 {
+    public static class Position{
+        private int r,c;
+        public Position(int r, int c){
+            this.r=r;
+            this.c=c;
+        }
+        public int getR(){
+            return r;
+        }
+        public int getC(){
+            return c;
+        }
+    }
+    
+
+    public static void applySpell(Position spellOrigin) {
+        int r = spellOrigin.getR(), c = spellOrigin.getC();
+            if(board[r][c]!=null){
+                Piece occupyingPiece = board[r][c].getOccupyingPiece();
+                if (occupyingPiece != null) {
+                    occupyingPiece.takeDmg(100);
+                    System.out.println("test");
+                }
+            }
+    }
     public static class Move{
         private int fromR, fromC, toR, toC;
         public Move(int fromR, int fromC, int toR, int toC){
