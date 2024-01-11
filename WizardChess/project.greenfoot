@@ -1,5 +1,6 @@
 #Greenfoot project file
 class.Game.image=GameBg.png
+class.Wand.image=Wand.png
 dependency1.from=Game
 dependency1.to=Wizard
 dependency1.type=UsesDependency
@@ -93,10 +94,10 @@ dependency8.type=UsesDependency
 dependency9.from=Wand
 dependency9.to=Wizard
 dependency9.type=UsesDependency
-editor.fx.0.height=0
-editor.fx.0.width=0
-editor.fx.0.x=0
-editor.fx.0.y=0
+editor.fx.0.height=736
+editor.fx.0.width=813
+editor.fx.0.x=416
+editor.fx.0.y=46
 height=891
 package.numDependencies=31
 package.numTargets=15

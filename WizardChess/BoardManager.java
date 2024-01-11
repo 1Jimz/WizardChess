@@ -38,7 +38,8 @@ public class BoardManager
         board[r][c]=t;
     }
     public static void test1() throws IOException, InterruptedException {
-        createIncoming("2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1");
+        //createIncoming("2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1");
+        createIncoming("3nk3/2pppp2/8/8/8/8/8/4K3 b - - 0 1");
         spawnPieces();
     }
     public static void test2() throws IOException, InterruptedException {

@@ -57,12 +57,28 @@ public class EnemyTargetting
             for(int j = 0; j<8; j++){
                 if(currentBoard[i][j].getOccupyingPiece()==null)continue;
                 switch(currentBoard[i][j].getOccupyingPiece().getType()){
-                    case 'p':if(Wizard.getR()==i+1&&(Wizard.getC()==j+1||Wizard.getC()==j-1))dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));break;
-                    case 'n':break;
-                    case 'b':break;
-                    case 'r':break;
-                    case 'q':break;
-                    case 'k':break;
+                    case 'p':
+                        if(Wizard.getR()==i+1&&(Wizard.getC()==j+1||Wizard.getC()==j-1))dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        break;
+                    case 'n':
+                        if(Wizard.getR()==i+2&&Wizard.getC()==j+1);
+                        else if(Wizard.getR()==i+2&&Wizard.getC()==j-1);
+                        else if(Wizard.getR()==i+1&&Wizard.getC()==j+2);
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j-2);
+                        else if(Wizard.getR()==i-1 && Wizard.getC()==j+2);
+                        else if(Wizard.getR()==i-1 && Wizard.getC()==j-2);
+                        else if(Wizard.getR()==i-2 && Wizard.getC()==j+1);
+                        else if(Wizard.getR()==i-2 && Wizard.getC()==j-1);
+                        break;
+                    case 'b':
+                        //for(int i = 0; i < 8; i++)
+                        break;
+                    case 'r':
+                        break;
+                    case 'q':
+                        break;
+                    case 'k':
+                        break;
                 }
             }
         }
