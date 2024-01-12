@@ -130,16 +130,15 @@ public class Wizard extends SuperSmoothMover{
     
     public void highlightRange() {
     MouseInfo mouse = Greenfoot.getMouseInfo();
-
     if (mouse != null) {
-        int tX=(mouse.getX()-Game.hPush+40)/80, tileY=(mouse.getY()-Game.vPush+40)/80;
+        //int tX=(mouse.getX()-Game.hPush+40)/80, tY=(mouse.getY()-Game.vPush+40)/80;
         BoardManager.resetTiles();
         if (Game.getWizard().inRange(getX(),getY())) {
             for (int x = 0; x < 8; x++) {
                 for (int y = 0; y < 8; y++) {
-                        Tile tile = BoardManager.getBoard(y, x);
-                        if (Game.getWizard().inRange(tile.getX(), tile.getY())) {
-                        if (tile != null) {tile.turnBlue();}
+                        Tile t = BoardManager.getBoard(y, x);
+                        if (Game.getWizard().inRange(t.getX(), t.getY())) {
+                        if (t != null) {t.turnBlue();}
                     }
                 }
             }

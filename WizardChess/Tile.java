@@ -3,7 +3,7 @@ public class Tile extends Actor
 {
     private Piece occupyingPiece;
     private int r,c,status;//0: normal, 1:burning, 2:idk make something up
-    private boolean isNew=false,isBlue=false;
+    private boolean isNew=false,isBlue=false, isGreen=false;
     
     public void addedToWorld(World w){
         if(!isNew){//prevent z sort problems
@@ -36,6 +36,7 @@ public class Tile extends Actor
     }
     public void turnGreen(){
         setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+"_g.png"));
+        isGreen=true;
     }
     public void turnBlue(){
         setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+"_b.png"));
@@ -47,6 +48,9 @@ public class Tile extends Actor
     }
     public boolean isBlue() {
         return isBlue;
+    }
+    public boolean isGreen() {
+        return isGreen;
     }
     public Piece getOccupyingPiece(){
         return occupyingPiece;
