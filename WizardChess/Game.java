@@ -17,7 +17,7 @@ public class Game extends World
     private Wizard wizard;
     private HPBar hpBar;
     private EnergyBar energyBar;
-    //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
+//Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         //System.out.println("_____________________________________________________________");

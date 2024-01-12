@@ -7,6 +7,8 @@ public class Piece extends SuperSmoothMover
     private Queue<BoardManager.Move> q;
     private int dying=-1;
     private boolean fix=false, awaitingDeath=false;
+    private GreenfootImage pieceImage;    
+    
     public Piece(char type, int tH, int tV, int sH, int sV){
         this.type=type;
         this.tH=tH;
@@ -15,12 +17,16 @@ public class Piece extends SuperSmoothMover
         this.sV=sV;
         q=new LinkedList<BoardManager.Move>();    
         switch(type){
-            case'p':setImage(new GreenfootImage("Piece_p.png"));HP=(int)(0.5*Game.getWave())+1;break;
-            case'n':setImage(new GreenfootImage("Piece_n.png"));HP=1*Game.getWave()+1;break;
-            case'b':setImage(new GreenfootImage("Piece_b.png"));HP=1*Game.getWave()+1;break;
-            case'q':setImage(new GreenfootImage("Piece_q.png"));HP=(int)(1.5*Game.getWave())+2;break;
-            case'k':setImage(new GreenfootImage("Piece_k.png"));HP=2*Game.getWave()+1;break;
+            case'p':
+                pieceImage = new GreenfootImage("basePawn1.png");
+                HP=(int)(0.5*Game.getWave())+1;
+                break;
+            case'n':HP=1*Game.getWave()+1;pieceImage = new GreenfootImage("baseKnight.png");break;
+            case'b':HP=1*Game.getWave()+1;pieceImage = new GreenfootImage("baseBishop.png");break;
+            case'q':HP=(int)(1.5*Game.getWave())+2;pieceImage = new GreenfootImage("baseQueen.png");break;
+            case'k':HP=2*Game.getWave()+1;pieceImage = new GreenfootImage("baseKing.png");break;
         }
+        setImage(pieceImage);
     }
     public void act()
     {
