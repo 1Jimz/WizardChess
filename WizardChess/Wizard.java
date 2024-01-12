@@ -1,6 +1,6 @@
 import greenfoot.*;
 public class Wizard extends SuperSmoothMover{
-    private static int r,c,HP,walkDirection=0,direction=0,phase=0,frame=0,rate=0,h=Game.hPush+4*80,v=Game.vPush+7*80-25;//,w=80,h=120;
+    private static int r,c,HP,walkDirection=0,direction=0,phase=0,frame=0,rate=0,h=Game.hPush+4*80,v=Game.vPush+7*80-25, range;//,w=80,h=120;
     private static boolean walking=false;
     private static double degrees=0;
     private EnergyBar energyBar;
@@ -108,6 +108,9 @@ public class Wizard extends SuperSmoothMover{
     public static double getDegrees(){
         return degrees;
     }
+    public static void setRange(int r){
+        range = r;
+    }
     public void setEnergyBar(EnergyBar energyBar) {
         this.energyBar = energyBar;
     }
@@ -115,5 +118,9 @@ public class Wizard extends SuperSmoothMover{
         if (energyBar != null) {
             energyBar.setE(energyBar.getE() - 1);
         }
+    }
+    public boolean inRange(int tX, int tY) {
+        double distance = Utility.distance(getX(), getY(), tX, tY);
+        return distance <= range;
     }
 }

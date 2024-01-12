@@ -16,7 +16,7 @@ public class Game extends World
     public final static int hPush=550,vPush=90;//maybe need change into private and use getter.
     private static boolean throwingCard=false, pickCard=false,leftBorder,spellActivated=false;
     private static int wave=1,throwX, throwY, throwActive, startX, startY;
-    private Wizard wizard;
+    private static Wizard wizard;
     private HPBar hpBar;
     private EnergyBar energyBar;
     //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
@@ -54,6 +54,9 @@ public class Game extends World
         startX=sX;
         startY=sY;
         throwingCard=true;
+    }
+    public static Wizard getWizard(){
+        return wizard;
     }
     public static BoardManager.Position convPixToTile(int pixelX, int pixelY) {
         int boardX = (pixelX-hPush)/80+1, boardY = (pixelY-vPush)/80+1;
@@ -141,7 +144,6 @@ public class Game extends World
     public String toString () {
         return "Actor: " + actor + " at " + xx + ", " + yy;
     }
-
     public int compareTo (ActorContent a){
         return this.getY() - a.getY();
     }
