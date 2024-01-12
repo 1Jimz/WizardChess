@@ -65,7 +65,7 @@ public class Piece extends SuperSmoothMover
     }
     public void attack(BoardManager.Move m){
         q.add(m);
-        System.out.println(m);
+        //System.out.println(m);
         awaitingDeath=true;
         Wizard.takeDmg(HP);
     }

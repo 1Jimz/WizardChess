@@ -82,25 +82,25 @@ public class EnemyTargetting
                         try{
                             for(int k = 1; k < 8; k++){
                                 if(currentBoard[i+k][j+k].getOccupyingPiece()!=null)break;
-                                if(Wizard.getR()==k && Wizard.getC()==k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                                if(Wizard.getR()==i+k && Wizard.getC()==j+k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
                             }
                         } catch(IndexOutOfBoundsException e){}
                         try{
                             for(int k = 1; k < 8; k++){
                                 if(currentBoard[i-k][j+k].getOccupyingPiece()!=null)break;
-                                if(Wizard.getR()==-k && Wizard.getC()==k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                                if(Wizard.getR()==i-k && Wizard.getC()==j+k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
                             }
                         } catch(IndexOutOfBoundsException e){}
                         try{
                             for(int k = 1; k < 8; k++){
                                 if(currentBoard[i+k][j-k].getOccupyingPiece()!=null)break;
-                                if(Wizard.getR()==k && Wizard.getC()==-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                                if(Wizard.getR()==i+k && Wizard.getC()==j-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
                             }
                         } catch(IndexOutOfBoundsException e){}
                         try{
                             for(int k = 1; k < 8; k++){
                                 if(currentBoard[i-k][j-k].getOccupyingPiece()!=null)break;
-                                if(Wizard.getR()==-k && Wizard.getC()==-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                                if(Wizard.getR()==i-k && Wizard.getC()==j-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
                             }
                         } catch(IndexOutOfBoundsException e){}
                         break;

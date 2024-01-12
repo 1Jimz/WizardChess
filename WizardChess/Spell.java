@@ -9,13 +9,13 @@ public class Spell extends SuperSmoothMover{
         switch(type){
             case 0:
                 setup(6,"MagicFire",-6,-56,70,145);
-                range = 150;
-                Game.getWizard().setRange(range);
+                range = 200;
+                //Game.getWizard().setRange(range);
                 break;
             case 1:
                 setup(6,"MagicFire",-6,-56,70,145);
-                range = 150;
-                Game.getWizard().setRange(range);
+                range = 200;
+                //Game.getWizard().setRange(range);
                 break;
         }
     }
@@ -75,7 +75,7 @@ public class Spell extends SuperSmoothMover{
             //}
             
             if(t.getOccupyingPiece()!=null){
-                t.getOccupyingPiece().takeDmg(10);
+                t.getOccupyingPiece().takeDmg(10);//
                 System.out.println("damage taken");
             }
             Game.deactivateSpell();

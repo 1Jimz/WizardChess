@@ -16,6 +16,7 @@ public class Wizard extends SuperSmoothMover{
     }
     
     public void act(){
+        System.out.println(getR()+" "+getC());
         h=getX();
         v=getY();
         MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -112,9 +113,11 @@ public class Wizard extends SuperSmoothMover{
     public static double getDegrees(){
         return degrees;
     }
+    /*
     public static void setRange(int r){
         range = r;
     }
+    */
     public void setEnergyBar(EnergyBar energyBar) {
         this.energyBar = energyBar;
     }
@@ -122,10 +125,6 @@ public class Wizard extends SuperSmoothMover{
         if (energyBar != null) {
             energyBar.setE(energyBar.getE() - 1);
         }
-    }
-    public boolean inRange(int tX, int tY) {
-        double distance = Utility.distance(getX(), getY(), tX, tY);
-        return distance <= range;
     }
     
     public static void highlightRange(int range) {
@@ -137,7 +136,7 @@ public class Wizard extends SuperSmoothMover{
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                     Tile t = BoardManager.getTile(x, y);//
-                    System.out.println(t+" "+(Game.hPush+c*80)+" "+(Game.vPush+r*80));
+                    //System.out.println(t+" "+(Game.hPush+c*80)+" "+(Game.vPush+r*80));
                     if (Utility.distance(Game.hPush+c*80,Game.vPush+r*80,t.getX(),t.getY())<range&&t!=null)t.turnBlue();
             }
         }
