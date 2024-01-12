@@ -3,6 +3,7 @@ import java.io.*;
 import greenfoot.*;
 public class BoardManager  
 {
+    private static int countdown=-1;
     public static class Position{
         private int r,c;
         public Position(int r, int c){
@@ -20,12 +21,13 @@ public class BoardManager
     
 
     public static class Move{
-        private int fromR, fromC, toR, toC;
-        public Move(int fromR, int fromC, int toR, int toC){
+        private int fromR, fromC, toR, toC, i;
+        public Move(int fromR, int fromC, int toR, int toC, int i){
             this.fromR=fromR;
             this.fromC=fromC;
             this.toR=toR;
             this.toC=toC;
+            this.i=i;
         }
         public int getFromR(){
             return fromR;
@@ -38,6 +40,12 @@ public class BoardManager
         }
         public int getToC(){
             return toC;
+        }
+        public int getI(){
+            return i;
+        }
+        public void setI(int in){
+            i=in;
         }
         public void change(int fromR, int fromC, int toR, int toC){
             this.fromR=fromR;
@@ -71,6 +79,7 @@ public class BoardManager
         enemyTurn(6,5,200);
     }
     public static void makeMove(Move m){
+        System.out.println(m);
         board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
         board[m.getToR()][m.getToC()].placePiece(board[m.getFromR()][m.getFromC()].getOccupyingPiece());
         board[m.getFromR()][m.getFromC()].empty();
@@ -79,20 +88,32 @@ public class BoardManager
         //Piece p = board[m.getFromR()][m.getFromC()].getOccupyingPiece();
         //board[m.getFromR()][m.getFromC()].empty();
         board[m.getFromR()][m.getFromC()].getOccupyingPiece().attack(m);
+        board[m.getFromR()][m.getFromC()].empty();
         //remember to oof piece
         //the take dmg part in piece
     }
     public static void enemyTurn(int cap, int depth, int processTime) throws InterruptedException, IOException {
-        int movesTaken=0;
+        countdown=cap;
+        int movesTaken=0,increment=0;
         while(movesTaken!=cap){
             Deque<Move> dq = EnemyTargetting.ram();
-            System.out.println(dq.size()+" "+(cap-movesTaken));
+            //System.out.println(dq.size()+" "+(cap-movesTaken));
             while(dq.size()>cap-movesTaken)dq.removeLast();
             movesTaken+=dq.size();
-            while(!dq.isEmpty())attackWizard(dq.poll());
+            //boolean rammed = false;
+            //if(dq.size()!=0)rammed=true;//iuhuihughudihguirdhguidrhguidrhugdrughuhuhgushuhg
+            Move temp;
+            while(!dq.isEmpty()){
+                temp=dq.poll();
+                temp.setI(countdown-increment++);
+                attackWizard(temp);
+            }
+            //if(rammed)continue;
             //
             if(movesTaken==cap)break;
-            makeMove(EnemyTargetting.bestMove(currentFEN(), depth, processTime));
+            temp = EnemyTargetting.bestMove(currentFEN(), depth, processTime);
+            temp.setI(countdown-increment++);
+            makeMove(temp);
             movesTaken++;
             for(int i = 0; i<8; i++)if(board[7][i].getOccupyingPiece()!=null&&board[7][i].getOccupyingPiece().getType()=='p')board[7][i].getOccupyingPiece().promote();
         }
@@ -159,6 +180,12 @@ public class BoardManager
     }
     public static Tile[][] getBoard(){
         return board;
+    }
+    public static boolean timeToMove(int i){
+        return countdown==i;
+    }
+    public static void allowNextMove(){
+        countdown--;
     }
     public static void debugSeeIfBlue(){
         for(int i = 0; i<8; i++){

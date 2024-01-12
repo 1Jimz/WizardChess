@@ -3,7 +3,7 @@ import java.util.*;
 public class Piece extends SuperSmoothMover
 {
     private char type;//p,n,b,r,q,k,K(wiz)
-    private int HP, tH,tV,movePhase=0,sH,sV;
+    private int HP, tH,tV,movePhase=0,sH,sV,saveR, saveC;
     private Queue<BoardManager.Move> q;
     private int dying=-1;
     private boolean fix=false, awaitingDeath=false;
@@ -26,6 +26,7 @@ public class Piece extends SuperSmoothMover
     public void act()
     {
         if(dying>0){
+            if(dying==17)BoardManager.allowNextMove();
             setLocation(getX(),getY()-5);
             setImage(Utility.customize(getImage(),dying--*15));
         }
@@ -50,12 +51,20 @@ public class Piece extends SuperSmoothMover
             //System.out.println(tH+" "+tV+" "+getY()+" "+t+" "+"R");
             setLocation(getX(),getY()+4);
             movePhase++;
-            if(awaitingDeath)dying=17;
+            if(q.isEmpty()&&awaitingDeath)dying=17;
+            //if(awaitingDeath)dying=17;
         }
-        else if(!q.isEmpty()){
+        else if(movePhase==16){
+            BoardManager.allowNextMove();
+            movePhase++;
+        }
+        else if(!q.isEmpty()&&BoardManager.timeToMove(q.peek().getI())){
+            System.out.println(q.peek().getI());
             sV=tV;
             sH=tH;
             tV=Game.vPush+q.peek().getToR()*80;
+            saveR=q.peek().getToR();
+            saveC=q.peek().getToR();
             tH=Game.hPush+q.poll().getToC()*80;
             movePhase=0;
         }
@@ -65,8 +74,9 @@ public class Piece extends SuperSmoothMover
     }
     public void attack(BoardManager.Move m){
         q.add(m);
-        //System.out.println(m);
+        System.out.println("eee "+m);
         awaitingDeath=true;
+        //BoardManager.getTile(saveR,saveC).removePiece();
         Wizard.takeDmg(HP);
     }
     public int getHP(){
@@ -89,6 +99,7 @@ public class Piece extends SuperSmoothMover
         return dying>=0||awaitingDeath;
     }
     public void promote(){//only to queen because for this game best value(probably)
+        System.out.println(tV+" "+tH+"promote");
         if(type!='p')return;
         type='q';
         setImage(new GreenfootImage("Piece_q.png"));

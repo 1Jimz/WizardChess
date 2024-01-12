@@ -90,7 +90,7 @@ public class Wizard extends SuperSmoothMover{
             }
         }
         // test/debugging
-        System.out.println(this.getR() + this.getC());
+        //System.out.println(this.getR() + this.getC());
     }
     public static int getR(){
         return r;
@@ -133,7 +133,7 @@ public class Wizard extends SuperSmoothMover{
         //int tX=(mouse.getX()-Game.hPush+40)/80, tY=(mouse.getY()-Game.vPush+40)/80;
         BoardManager.resetTiles();
         //if (Game.getWizard().inRange(Game.hPush+c*80, Game.vPush+r*80)) {//
-            System.out.println((Game.hPush+c*80)+" "+(Game.vPush+r*80)+" "+r+" "+c);
+            //System.out.println((Game.hPush+c*80)+" "+(Game.vPush+r*80)+" "+r+" "+c);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                     Tile t = BoardManager.getTile(i, j);//

@@ -22,7 +22,7 @@ public class Game extends World
     //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
-        //System.out.println("_____________________________________________________________");
+        System.out.println("_____________________________________________________________");
         throwingCard=false;
         pickCard=false;
         spellActivated=false;
