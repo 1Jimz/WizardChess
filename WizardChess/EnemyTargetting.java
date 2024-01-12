@@ -1,6 +1,14 @@
 import java.lang.*;
 import java.util.*;
 import java.io.*;
+
+/**
+ * This class pertains to the enemy pieces and how they target the king.
+ * 
+ * @author Jimmy Zhu, David Guo
+ * @version 1.0 01/11/2024
+ */
+
 public class EnemyTargetting  
 {
     private static String testFen="2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1";
@@ -57,12 +65,133 @@ public class EnemyTargetting
             for(int j = 0; j<8; j++){
                 if(currentBoard[i][j].getOccupyingPiece()==null)continue;
                 switch(currentBoard[i][j].getOccupyingPiece().getType()){
-                    case 'p':if(Wizard.getR()==i+1&&(Wizard.getC()==j+1||Wizard.getC()==j-1))dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));break;
-                    case 'n':break;
-                    case 'b':break;
-                    case 'r':break;
-                    case 'q':break;
-                    case 'k':break;
+                    case 'p':
+                        if(Wizard.getR()==i+1&&(Wizard.getC()==j+1||Wizard.getC()==j-1))dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        break;
+                    case 'n':
+                        if(Wizard.getR()==i+2 && Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i+2 && Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j+2)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j-2)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i-1 && Wizard.getC()==j+2)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i-1 && Wizard.getC()==j-2)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i-2 && Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i-2 && Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        break;
+                    case 'b':
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i+k][j+k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==k && Wizard.getC()==k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i-k][j+k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==-k && Wizard.getC()==k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i+k][j-k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==k && Wizard.getC()==-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i-k][j-k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==-k && Wizard.getC()==-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        break;
+                    case 'r':
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i+k][j].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==k && Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i-k][j].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==-k && Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i][j+k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==i && Wizard.getC()==k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i][j-k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==i && Wizard.getC()==-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        break;
+                    case 'q':
+                        // diagonals
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i+k][j+k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==k && Wizard.getC()==k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i-k][j+k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==-k && Wizard.getC()==k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i+k][j-k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==k && Wizard.getC()==-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i-k][j-k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==-k && Wizard.getC()==-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        // straights
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i+k][j].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==k && Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i-k][j].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==-k && Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i][j+k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==i && Wizard.getC()==k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        try{
+                            for(int k = 1; k < 8; k++){
+                                if(currentBoard[i][j-k].getOccupyingPiece()!=null)break;
+                                if(Wizard.getR()==i && Wizard.getC()==-k)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                            }
+                        } catch(IndexOutOfBoundsException e){}
+                        break;
+                    case 'k':
+                        if(Wizard.getR()==i-1 &&Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i-1 &&Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i-1 &&Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i && Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i && Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC()));
+                        break;
                 }
             }
         }

@@ -1,7 +1,33 @@
 import java.util.*;
 import java.io.*;
+import greenfoot.*;
 public class BoardManager  
 {
+    public static class Position{
+        private int r,c;
+        public Position(int r, int c){
+            this.r=r;
+            this.c=c;
+        }
+        public int getR(){
+            return r;
+        }
+        public int getC(){
+            return c;
+        }
+    }
+    
+
+    public static void applySpell(Position spellOrigin) {
+        int r = spellOrigin.getR(), c = spellOrigin.getC();
+            if(board[r][c]!=null){
+                Piece occupyingPiece = board[r][c].getOccupyingPiece();
+                if (occupyingPiece != null) {
+                    occupyingPiece.takeDmg(100);
+                    System.out.println("test");
+                }
+            }
+    }
     public static class Move{
         private int fromR, fromC, toR, toC;
         public Move(int fromR, int fromC, int toR, int toC){
@@ -38,11 +64,12 @@ public class BoardManager
         board[r][c]=t;
     }
     public static void test1() throws IOException, InterruptedException {
-        createIncoming("2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1");
+        //createIncoming("2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1");
+        createIncoming("2brkn2/2pppp2/8/8/8/8/8/4K3 b - - 0 1");
         spawnPieces();
     }
     public static void test2() throws IOException, InterruptedException {
-        enemyTurn(6,5,50);
+        enemyTurn(6,5,200);
     }
     public static void makeMove(Move m){
         board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);

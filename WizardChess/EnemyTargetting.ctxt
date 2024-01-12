@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=EnemyTargetting
+comment0.text=\r\n\ This\ class\ pertains\ to\ the\ enemy\ pieces\ and\ how\ they\ target\ the\ king.\r\n\ \r\n\ @author\ Jimmy\ Zhu,\ David\ Guo\r\n\ @version\ 1.0\ 01/11/2024\r\n
 comment1.params=
 comment1.target=void\ setup()
 comment2.params=
