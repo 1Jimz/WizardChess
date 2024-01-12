@@ -89,7 +89,8 @@ public class Wizard extends SuperSmoothMover{
                 decreaseE();
             }
         }
-       
+        // test/debugging
+        System.out.println(this.getR() + this.getC());
     }
     public static int getR(){
         return r;
