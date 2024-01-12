@@ -58,11 +58,6 @@ public class Game extends World
     public static Wizard getWizard(){
         return wizard;
     }
-    public static BoardManager.Position convPixToTile(int pixelX, int pixelY) {
-        int boardX = (pixelX-hPush)/80+1, boardY = (pixelY-vPush)/80+1;
-        System.out.println("boardX " + boardX + "boardY " + boardY);
-        return new BoardManager.Position(boardY, boardX);
-    }
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
         //setPaintOrder(Wizard.class, Wand.class);//

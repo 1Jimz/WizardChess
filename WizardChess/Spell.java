@@ -2,7 +2,7 @@ import greenfoot.*;
 public class Spell extends SuperSmoothMover{
     private int type=0,frame=0,rate=0,frameCount,adjustH,adjustV,w,h;
     private String picName;
-    private static int bX,bY,range,lastHighlightedX = -1,lastHighlightedY = -1;
+    private static int bC,bR,range,lastHighlightedC = -1,lastHighlightedR = -1;
     private boolean placed = false;// tracks if spell was placed
     public Spell(int type){
         this.type=type;
@@ -23,25 +23,25 @@ public class Spell extends SuperSmoothMover{
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(!placed && mouse != null) {
             setLocation(mouse.getX() + adjustH, mouse.getY() + adjustV);
-            bX=(mouse.getX()-Game.hPush+40)/80;
-            bY=(mouse.getY()-Game.vPush+40)/80;
+            bC=(mouse.getX()-Game.hPush+40)/80;
+            bR=(mouse.getY()-Game.vPush+40)/80;
+            //System.out.println(BoardManager.getTile(bY,bX).isBlue());
             // reset last green highlighted tile
-            if((lastHighlightedX!=bX||lastHighlightedY!=bY) && lastHighlightedX!=-1&&lastHighlightedY!=-1){
-                Tile lastT=BoardManager.getTile(lastHighlightedX,lastHighlightedY);
+            if((lastHighlightedC!=bC||lastHighlightedR!=bR) && lastHighlightedC!=-1&&lastHighlightedR!=-1){
+                Tile lastT=BoardManager.getTile(lastHighlightedR,lastHighlightedC);
                 if(lastT != null&&lastT.isBlue()) {
                     lastT.turnBlue();
                 }
             }
             // highlight the tile the cursor is hovering on to green
-            Tile currT = BoardManager.getTile(bX,bY);
+            Tile currT = BoardManager.getTile(bR,bC);
             if (currT != null && currT.isBlue()) {
                 currT.turnGreen();
                 // update last tile coords
-                lastHighlightedX=bX;
-                lastHighlightedY= bY;
+                lastHighlightedC=bC;
+                lastHighlightedR= bR;
             }
         }
-    
         if (!placed&&mouse!=null&&Greenfoot.mouseClicked(null)) {
             //clicked(mouse, Game.getWizard());
             playSpell();
@@ -63,11 +63,12 @@ public class Spell extends SuperSmoothMover{
         //playSpell();
     }
     private void playSpell(){
-        Tile t = BoardManager.getTile(bX, bY);
+        Tile t = BoardManager.getTile(bR, bC);
+        System.out.println("e"+" "+bR+" "+bC+" "+t+" "+t.isBlue());
         if(t!=null&&t.isBlue()){ // THIS is the one that doesnt get satisfied anymore (t.isBlue())
-            System.out.println("working");
+            System.out.println("working"+" "+bR+" "+bC);
             placed = true;
-            setLocation(Game.hPush+bX*80-10,Game.vPush+bY*80-40);
+            setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
 
             //if(BoardManager.getBoard(bX,bY)!=null){
             //    BoardManager.getBoard(bX,bY).turnGreen();
@@ -77,6 +78,7 @@ public class Spell extends SuperSmoothMover{
             if(t.getOccupyingPiece()!=null){
                 t.getOccupyingPiece().takeDmg(10);//
                 System.out.println("damage taken");
+                Game.deactivateSpell();
             }
             Game.deactivateSpell();
         }

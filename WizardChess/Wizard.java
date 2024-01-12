@@ -14,9 +14,8 @@ public class Wizard extends SuperSmoothMover{
         HP=100;
         Game.grabCardAnimation();
     }
-    
     public void act(){
-        System.out.println(getR()+" "+getC());
+        //System.out.println(getR()+" "+getC());
         h=getX();
         v=getY();
         MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -133,12 +132,14 @@ public class Wizard extends SuperSmoothMover{
         //int tX=(mouse.getX()-Game.hPush+40)/80, tY=(mouse.getY()-Game.vPush+40)/80;
         BoardManager.resetTiles();
         //if (Game.getWizard().inRange(Game.hPush+c*80, Game.vPush+r*80)) {//
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                    Tile t = BoardManager.getTile(x, y);//
+            System.out.println((Game.hPush+c*80)+" "+(Game.vPush+r*80)+" "+r+" "+c);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                    Tile t = BoardManager.getTile(i, j);//
                     //System.out.println(t+" "+(Game.hPush+c*80)+" "+(Game.vPush+r*80));
-                    if (Utility.distance(Game.hPush+c*80,Game.vPush+r*80,t.getX(),t.getY())<range&&t!=null)t.turnBlue();
+                    if (Utility.distance(Game.hPush+c*80,Game.vPush+r*80,t.getX(),t.getY())<range)t.turnBlue();
             }
+            //System.out.println();
         }
     //}
     }   

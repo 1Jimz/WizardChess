@@ -52,9 +52,9 @@ public class BoardManager
     private static Tile[][] board = new Tile[8][8];
     private static Piece[][] incoming = new Piece[8][8];
     
-    public static Tile getTile(int x, int y){
+    public static Tile getTile(int r, int c){
         try{
-            return board[x][y];
+            return board[r][c];
         }catch(IndexOutOfBoundsException e){
             return null;
         }
@@ -143,7 +143,7 @@ public class BoardManager
     public static void resetTiles() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (board[i][j] != null)board[i][j].turnNormal();
+                if (board[i][j] != null){board[i][j].turnNormal();}
             }
         }
     }
@@ -159,6 +159,12 @@ public class BoardManager
     }
     public static Tile[][] getBoard(){
         return board;
+    }
+    public static void debugSeeIfBlue(){
+        for(int i = 0; i<8; i++){
+            for(int j = 0; j<8; j++)if(board[i][j].isBlue())System.out.print("B");else System.out.print("O");
+            System.out.println();
+        }
     }
     //give wiz a turn before each round to get out of the way of the incoming pieces(if wiz is not out of the way wiz takes dmg from the piece ramming)
 }

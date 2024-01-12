@@ -11,7 +11,7 @@ public class Tile extends Actor
             BoardManager.placeTile(this,r,c);
         }
     }
-    public Tile(int c, int r){
+    public Tile(int r,int c){
         this.r=r;
         this.c=c;
         turnNormal();
