@@ -91,6 +91,7 @@ dependency8.type=UsesDependency
 dependency9.from=Spell
 dependency9.to=Game
 dependency9.type=UsesDependency
+<<<<<<< Updated upstream
 editor.fx.0.height=838
 editor.fx.0.width=1550
 editor.fx.0.x=-7
@@ -98,6 +99,15 @@ editor.fx.0.y=-7
 height=27
 package.numDependencies=29
 package.numTargets=13
+=======
+editor.fx.0.height=737
+editor.fx.0.width=814
+editor.fx.0.x=360
+editor.fx.0.y=28
+height=838
+package.numDependencies=33
+package.numTargets=15
+>>>>>>> Stashed changes
 project.charset=windows-1252
 publish.hasSource=false
 publish.locked=true
@@ -204,7 +214,11 @@ target9.width=120
 target9.x=0
 target9.y=0
 version=3.0.0
+<<<<<<< Updated upstream
 width=159
+=======
+width=1550
+>>>>>>> Stashed changes
 world.lastInstantiated=Game
 xPosition=0
 yPosition=0
