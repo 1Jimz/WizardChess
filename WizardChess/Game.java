@@ -81,6 +81,7 @@ public class Game extends World
         pickCard=true;
     }
     public static void activateSpell(){
+        Wizard.highlightRange(200);//200 is temp val
         spellActivated=true;
     }
     public static void deactivateSpell(){
@@ -101,10 +102,18 @@ public class Game extends World
                 try{
                     Card c=(Card)a;
                 }catch(ClassCastException e2){
-                acList.add (new ActorContent (a, a.getX(), a.getY()));
-                }
+                    try{
+                        EnergyBar eBar=(EnergyBar)a;
+                    }catch(ClassCastException e3){
+                        try{
+                            HPBar hpBar=(HPBar)a;
+                        }catch(ClassCastException e4){ 
+                            acList.add (new ActorContent (a, a.getX(), a.getY()));
+                        }
+                    }
             }
-        }    
+        }   
+        }
         // Sort the Actor, using the ActorContent comparitor (compares by y coordinate)
         Collections.sort(acList);
         // Replace the Actors from the ActorContent list into the World, inserting them one at a time

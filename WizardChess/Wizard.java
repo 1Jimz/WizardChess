@@ -32,7 +32,7 @@ public class Wizard extends SuperSmoothMover{
             }
             else if(phase<=14){
                 setLocation(getX(), getY()+10);
-                if(Game.isSpellActivated()){highlightRange();}
+                if(Game.isSpellActivated())highlightRange(200);//200 is temp val
             }
             else{
                 walking=false;
@@ -128,21 +128,19 @@ public class Wizard extends SuperSmoothMover{
         return distance <= range;
     }
     
-    public void highlightRange() {
-    MouseInfo mouse = Greenfoot.getMouseInfo();
-    if (mouse != null) {
+    public static void highlightRange(int range) {
+    //MouseInfo mouse = Greenfoot.getMouseInfo();
+    //if (mouse != null) {
         //int tX=(mouse.getX()-Game.hPush+40)/80, tY=(mouse.getY()-Game.vPush+40)/80;
         BoardManager.resetTiles();
-        if (Game.getWizard().inRange(getX(),getY())) {
-            for (int x = 0; x < 8; x++) {
-                for (int y = 0; y < 8; y++) {
-                        Tile t = BoardManager.getTile(y, x);
-                        if (Game.getWizard().inRange(t.getX(), t.getY())) {
-                        if (t != null)t.turnBlue();
-                    }
-                }
+        //if (Game.getWizard().inRange(Game.hPush+c*80, Game.vPush+r*80)) {//
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                    Tile t = BoardManager.getTile(x, y);//
+                    System.out.println(t+" "+(Game.hPush+c*80)+" "+(Game.vPush+r*80));
+                    if (Utility.distance(Game.hPush+c*80,Game.vPush+r*80,t.getX(),t.getY())<range&&t!=null)t.turnBlue();
             }
         }
-    }
+    //}
     }   
 }
