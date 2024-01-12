@@ -17,17 +17,8 @@ public class BoardManager
         }
     }
     
+    
 
-    public static void applySpell(Position spellOrigin) {
-        int r = spellOrigin.getR(), c = spellOrigin.getC();
-            if(board[r][c]!=null){
-                Piece occupyingPiece = board[r][c].getOccupyingPiece();
-                if (occupyingPiece != null) {
-                    occupyingPiece.takeDmg(100);
-                    System.out.println("test");
-                }
-            }
-    }
     public static class Move{
         private int fromR, fromC, toR, toC;
         public Move(int fromR, int fromC, int toR, int toC){
@@ -60,6 +51,14 @@ public class BoardManager
     }
     private static Tile[][] board = new Tile[8][8];
     private static Piece[][] incoming = new Piece[8][8];
+    
+    public static Tile getTile(int x, int y){
+        try{
+            return board[x][y];
+        }catch(IndexOutOfBoundsException e){
+            return null;
+        }
+    }
     public static void placeTile(Tile t, int r, int c){
         board[r][c]=t;
     }
@@ -138,6 +137,13 @@ public class BoardManager
                 //System.out.println(line);
                 if(Character.isDigit(line.charAt(k)))j+=(line.charAt(k)-'0');
                 else if(line.charAt(k)!='K')incoming[i][j]=new Piece(line.charAt(k),Game.hPush+j*80,Game.vPush+i*80,Game.hPush+j++*80,Game.vPush+i*80-30);
+            }
+        }
+    }
+    public static void resetTiles() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null)board[i][j].turnNormal();
             }
         }
     }

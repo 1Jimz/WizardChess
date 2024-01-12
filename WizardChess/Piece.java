@@ -18,6 +18,7 @@ public class Piece extends SuperSmoothMover
             case'p':setImage(new GreenfootImage("Piece_p.png"));HP=(int)(0.5*Game.getWave())+1;break;
             case'n':setImage(new GreenfootImage("Piece_n.png"));HP=1*Game.getWave()+1;break;
             case'b':setImage(new GreenfootImage("Piece_b.png"));HP=1*Game.getWave()+1;break;
+            case'r':setImage(new GreenfootImage("Piece_r.png"));HP=(int)(1.25*Game.getWave())+2;break;
             case'q':setImage(new GreenfootImage("Piece_q.png"));HP=(int)(1.5*Game.getWave())+2;break;
             case'k':setImage(new GreenfootImage("Piece_k.png"));HP=2*Game.getWave()+1;break;
         }
