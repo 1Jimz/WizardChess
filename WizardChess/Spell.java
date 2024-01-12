@@ -32,15 +32,14 @@ public class Spell extends SuperSmoothMover{
         //System.out.println((mouse.getX()-Game.hPush+40)/80+" "+(mouse.getY()-Game.vPush+40)/80);
        // System.out.println(bX + " " + bY);
         //setLocation(mouse.getX(),mouse.getY());
-        setLocation(Game.hPush+bX*80-10,Game.vPush+bY*80-40);
+        setLocation(Game.hPush+bX*80-10,Game.vPush+bY*80-30);
         
         if(BoardManager.getBoard(bY,bX)!=null){
             BoardManager.getBoard(bX,bY).turnGreen();
         }
         
         if(BoardManager.getBoard(bY,bX).getOccupyingPiece()!=null){
-            BoardManager.getBoard(bX,bY).getOccupyingPiece().takeDmg(100);
-            System.out.println("test");
+            BoardManager.getBoard(bY,bX).getOccupyingPiece().takeDmg(10);
         }
         
         Game.deactivateSpell();
