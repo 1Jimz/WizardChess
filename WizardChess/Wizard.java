@@ -1,6 +1,6 @@
 import greenfoot.*;
 public class Wizard extends SuperSmoothMover{
-    private static int r,c,HP,walkDirection=0,direction=0,phase=0,frame=0,rate=0,h=Game.hPush+4*80,v=Game.vPush+7*80-25;//,w=80,h=120;
+    private static int r,c,HP,walkDirection=0,direction=0,phase=0,frame=0,rate=0,h=Game.hPush+4*80,v=Game.vPush+7*80-25, range;//,w=80,h=120;
     private static boolean walking=false;
     private static double degrees=0;
     private EnergyBar energyBar;
@@ -30,7 +30,10 @@ public class Wizard extends SuperSmoothMover{
                     case 2:setLocation(getX()+10, getY());break;
                 }
             }
-            else if(phase<=14)setLocation(getX(), getY()+10);
+            else if(phase<=14){
+                setLocation(getX(), getY()+10);
+                if(Game.isSpellActivated())highlightRange(200);//200 is temp val
+            }
             else{
                 walking=false;
                 phase=0;
@@ -86,6 +89,7 @@ public class Wizard extends SuperSmoothMover{
                 decreaseE();
             }
         }
+       
     }
     public static int getR(){
         return r;
@@ -108,6 +112,9 @@ public class Wizard extends SuperSmoothMover{
     public static double getDegrees(){
         return degrees;
     }
+    public static void setRange(int r){
+        range = r;
+    }
     public void setEnergyBar(EnergyBar energyBar) {
         this.energyBar = energyBar;
     }
@@ -116,4 +123,24 @@ public class Wizard extends SuperSmoothMover{
             energyBar.setE(energyBar.getE() - 1);
         }
     }
+    public boolean inRange(int tX, int tY) {
+        double distance = Utility.distance(getX(), getY(), tX, tY);
+        return distance <= range;
+    }
+    
+    public static void highlightRange(int range) {
+    //MouseInfo mouse = Greenfoot.getMouseInfo();
+    //if (mouse != null) {
+        //int tX=(mouse.getX()-Game.hPush+40)/80, tY=(mouse.getY()-Game.vPush+40)/80;
+        BoardManager.resetTiles();
+        //if (Game.getWizard().inRange(Game.hPush+c*80, Game.vPush+r*80)) {//
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                    Tile t = BoardManager.getTile(x, y);//
+                    System.out.println(t+" "+(Game.hPush+c*80)+" "+(Game.vPush+r*80));
+                    if (Utility.distance(Game.hPush+c*80,Game.vPush+r*80,t.getX(),t.getY())<range&&t!=null)t.turnBlue();
+            }
+        }
+    //}
+    }   
 }
