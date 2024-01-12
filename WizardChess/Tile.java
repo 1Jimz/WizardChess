@@ -10,7 +10,7 @@ public class Tile extends Actor
             BoardManager.placeTile(this,r,c);
         }
     }
-    public Tile(int r, int c){
+    public Tile(int c, int r){
         this.r=r;
         this.c=c;
         turnNormal();
@@ -30,8 +30,13 @@ public class Tile extends Actor
             //}
         //}
     }
+    
+
     public void turnRed(){
         setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+"_r.png"));
+    }
+    public void turnGreen(){
+        setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+"_g.png"));
     }
     public void turnNormal(){
         setImage(new GreenfootImage("Tile_"+(((r+c)%2==0)?1:0)+".png"));

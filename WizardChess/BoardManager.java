@@ -17,17 +17,8 @@ public class BoardManager
         }
     }
     
+    
 
-    public static void applySpell(Position spellOrigin) {
-        int r = spellOrigin.getR(), c = spellOrigin.getC();
-            if(board[r][c]!=null){
-                Piece occupyingPiece = board[r][c].getOccupyingPiece();
-                if (occupyingPiece != null) {
-                    occupyingPiece.takeDmg(100);
-                    System.out.println("test");
-                }
-            }
-    }
     public static class Move{
         private int fromR, fromC, toR, toC;
         public Move(int fromR, int fromC, int toR, int toC){
@@ -60,6 +51,10 @@ public class BoardManager
     }
     private static Tile[][] board = new Tile[8][8];
     private static Piece[][] incoming = new Piece[8][8];
+    
+    public static Tile getBoard(int x,int y){
+        return board[x][y];
+    }
     public static void placeTile(Tile t, int r, int c){
         board[r][c]=t;
     }
