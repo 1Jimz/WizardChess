@@ -23,16 +23,17 @@ public class Spell extends SuperSmoothMover{
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(!placed && mouse != null) {
             setLocation(mouse.getX() + adjustH, mouse.getY() + adjustV);
-            int bX=(mouse.getX()-Game.hPush+40)/80,bY=(mouse.getY()-Game.vPush+40)/80;
+            bX=(mouse.getX()-Game.hPush+40)/80;
+            bY=(mouse.getY()-Game.vPush+40)/80;
             // reset last green highlighted tile
             if((lastHighlightedX!=bX||lastHighlightedY!=bY) && lastHighlightedX!=-1&&lastHighlightedY!=-1){
-                Tile lastT=BoardManager.getBoard(lastHighlightedX,lastHighlightedY);
+                Tile lastT=BoardManager.getTile(lastHighlightedX,lastHighlightedY);
                 if(lastT != null&&lastT.isBlue()) {
                     lastT.turnBlue();
                 }
             }
             // highlight the tile the cursor is hovering on to green
-            Tile currT = BoardManager.getBoard(bX,bY);
+            Tile currT = BoardManager.getTile(bX,bY);
             if (currT != null && currT.isBlue()) {
                 currT.turnGreen();
                 // update last tile coords
@@ -41,7 +42,7 @@ public class Spell extends SuperSmoothMover{
             }
         }
     
-        if (!placed && mouse != null && Greenfoot.mouseClicked(null)) {
+        if (!placed&&mouse!=null&&Greenfoot.mouseClicked(null)) {
             //clicked(mouse, Game.getWizard());
             playSpell();
         }
@@ -62,7 +63,7 @@ public class Spell extends SuperSmoothMover{
         //playSpell();
     }
     private void playSpell(){
-        Tile t = BoardManager.getBoard(bX, bY);
+        Tile t = BoardManager.getTile(bX, bY);
         if(t!=null&&t.isBlue()){ // THIS is the one that doesnt get satisfied anymore (t.isBlue())
             System.out.println("working");
             placed = true;
@@ -73,8 +74,8 @@ public class Spell extends SuperSmoothMover{
             //    System.out.println("green");
             //}
             
-            if(BoardManager.getBoard(bX, bY).getOccupyingPiece()!=null){
-                BoardManager.getBoard(bX, bY).getOccupyingPiece().takeDmg(10);
+            if(t.getOccupyingPiece()!=null){
+                t.getOccupyingPiece().takeDmg(10);
                 System.out.println("damage taken");
             }
             Game.deactivateSpell();

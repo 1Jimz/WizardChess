@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=BoardManager
 comment1.params=x\ y
-comment1.target=Tile\ getBoard(int,\ int)
+comment1.target=Tile\ getTile(int,\ int)
 comment10.params=fen
 comment10.target=void\ createIncoming(java.lang.String)
 comment11.params=

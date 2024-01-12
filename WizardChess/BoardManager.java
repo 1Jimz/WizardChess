@@ -52,8 +52,12 @@ public class BoardManager
     private static Tile[][] board = new Tile[8][8];
     private static Piece[][] incoming = new Piece[8][8];
     
-    public static Tile getBoard(int x,int y){
-        return board[x][y];
+    public static Tile getTile(int x, int y){
+        try{
+            return board[x][y];
+        }catch(IndexOutOfBoundsException e){
+            return null;
+        }
     }
     public static void placeTile(Tile t, int r, int c){
         board[r][c]=t;
@@ -138,7 +142,7 @@ public class BoardManager
     public static void resetTiles() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (board[i][j] != null) { board[i][j].turnNormal(); }
+                if (board[i][j] != null)board[i][j].turnNormal();
             }
         }
     }

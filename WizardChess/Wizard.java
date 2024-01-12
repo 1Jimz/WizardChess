@@ -136,9 +136,9 @@ public class Wizard extends SuperSmoothMover{
         if (Game.getWizard().inRange(getX(),getY())) {
             for (int x = 0; x < 8; x++) {
                 for (int y = 0; y < 8; y++) {
-                        Tile t = BoardManager.getBoard(y, x);
+                        Tile t = BoardManager.getTile(y, x);
                         if (Game.getWizard().inRange(t.getX(), t.getY())) {
-                        if (t != null) {t.turnBlue();}
+                        if (t != null)t.turnBlue();
                     }
                 }
             }
