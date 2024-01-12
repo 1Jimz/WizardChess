@@ -49,16 +49,18 @@ public class Spell extends SuperSmoothMover{
     private void playSpell(){
         Tile t = BoardManager.getBoard(bX, bY);
         if(t!=null&&t.isBlue()){
+            //System.out.println("working");
             placed = true;
             setLocation(Game.hPush+bX*80-10,Game.vPush+bY*80-40);
 
             if(BoardManager.getBoard(bX,bY)!=null){
                 BoardManager.getBoard(bX,bY).turnGreen();
+                //System.out.println("green");
             }
             
-            if(BoardManager.getBoard(bX,bY).getOccupyingPiece()!=null){
-                BoardManager.getBoard(bX,bY).getOccupyingPiece().takeDmg(10);
-                System.out.println("damage taken");
+            if(BoardManager.getBoard(bY,bX).getOccupyingPiece()!=null){
+                BoardManager.getBoard(bY,bX).getOccupyingPiece().takeDmg(10);
+                //System.out.println("damage taken");
             }
             Game.deactivateSpell();
         }
