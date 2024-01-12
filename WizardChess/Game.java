@@ -85,6 +85,7 @@ public class Game extends World
     }
     public static void deactivateSpell(){
         spellActivated=false;
+        BoardManager.resetTiles();
     }
     public static boolean isSpellActivated(){
         return spellActivated;

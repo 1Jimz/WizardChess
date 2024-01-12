@@ -135,6 +135,13 @@ public class BoardManager
             }
         }
     }
+    public static void resetTiles() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null) { board[i][j].turnNormal(); }
+            }
+        }
+    }
     public static void warn(){
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].turnRed();
