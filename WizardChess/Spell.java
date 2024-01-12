@@ -32,7 +32,7 @@ public class Spell extends SuperSmoothMover{
         //System.out.println((mouse.getX()-Game.hPush+40)/80+" "+(mouse.getY()-Game.vPush+40)/80);
        // System.out.println(bX + " " + bY);
         //setLocation(mouse.getX(),mouse.getY());
-        setLocation(Game.hPush+bX*80-10,Game.vPush+bY*80-30);
+        setLocation(Game.hPush+bX*80-10,Game.vPush+bY*80-40);
         
         if(BoardManager.getBoard(bY,bX)!=null){
             BoardManager.getBoard(bX,bY).turnGreen();
