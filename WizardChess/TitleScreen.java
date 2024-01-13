@@ -35,9 +35,11 @@ public class TitleScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1200, 740, 1);
+        
         // Set bg to background image
         //bg = new GreenfootImage ("");
         //setBackground(bg);
+        
         // Create new buttons for the variables
         startButton = new TextButton("START", 90, 255, 255, 255, 255, 20, 147);
 
@@ -45,11 +47,14 @@ public class TitleScreen extends World
         //title = new TextButton("Title", 150, 255, 255, 255, 255, 20, 147);
         
         // Add buttons to the world
+        
         addObject(startButton, 600, 600);
         //addObject(title, 0, 0);
         // Assign the variable to the sound file name in folder & adjust volume
-        music = new GreenfootSound("stmatthewpassion.mp3");
-        music.setVolume(50);
+        
+        //music = new GreenfootSound("stmatthewpassion.mp3");
+        //music.setVolume(50);
+        
         // Add the title of the game
         //addObject(new TitlePic("TitlePic.png"), getWidth()/2, getHeight()/4);
     }

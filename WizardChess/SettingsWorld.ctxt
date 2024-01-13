@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=SettingsWorld
+comment0.text=\r\n\ <html>\r\n\ <body>\r\n\ <p><strong>SettingsWorld</strong>\ class\ extends\ <em>World</em>\ and\ provides\ a\ settings\ interface\ for\ a\ casino\ game\ within\ Greenfoot.</p>\r\n\ <p>This\ class\ allows\ players\ to\ adjust\ various\ game\ settings\ such\ as\ the\ number\ of\ horses\ in\ horse\ betting,\ the\ spawn\ rate\ of\ different\ gambler\ types,\ and\ the\ roulette\ style.</p>\r\n\r\n\ <h3>Class\ Fields\:</h3>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>Static\ fields</strong>\ -\ Variables\ storing\ game\ settings\ like\ spawn\ rates,\ starting\ money,\ and\ more.</li>\r\n\ \ \ \ \ <li><strong>Instance\ fields</strong>\ -\ UI\ elements\ like\ sliders,\ buttons,\ and\ text\ fields.</li>\r\n\ </ul>\r\n\r\n\ \ @author\ Dorsa\ Rohani,\ David\ Guo\r\n\ \ @version\ 1.1\ 01/13/2024\r\n
+comment1.params=
+comment1.target=SettingsWorld()
+comment2.params=slider\ value
+comment2.target=int\ calculateSliderXPosition(Slider,\ int)
+comment3.params=
+comment3.target=void\ act()
+comment3.text=\r\n\ <p><strong>void\ act()</strong>\ -\ Handles\ interactions\ with\ the\ start\ TextButton\ and\ roulette\ style\ TextButtons.\ It\ transitions\ to\ the\ main\ game\ world\ and\ adjusts\ roulette\ styles\ based\ on\ player\ input.</p>\r\n
+comment4.params=sliderID\ value
+comment4.target=void\ updateVar(int,\ int)
+comment4.text=\r\n\ <p><strong>void\ updateVar(int\ sliderID,\ int\ value)</strong>\ -\ Updates\ game\ settings\ based\ on\ slider\ input.</p>\r\n
+comment5.params=
+comment5.target=void\ started()
+comment5.text=\r\n\ <p><strong>void\ started()</strong>\ -\ Plays\ background\ music\ when\ the\ game\ starts.</p>\r\n
+comment6.params=
+comment6.target=void\ stopped()
+comment6.text=\r\n\ <p><strong>void\ stopped()</strong>\ -\ Pauses\ the\ background\ music\ when\ the\ game\ is\ stopped.</p>\r\n
+numComments=7

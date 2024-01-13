@@ -1,11 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Superclass meant to organize different widget subclasses and used for debugging/testing.
- * If there is a method which can be used in a couple subclasses, it will go in here.
+ * Write a description of class Widget here.
  * 
- * @author David Guo
- * @version 1.0 01/13/2024
+ * @author (your name) 
+ * @version (a version number or a date)
  */
 public class Widget extends Actor
 {
