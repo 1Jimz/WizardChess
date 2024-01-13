@@ -48,6 +48,7 @@ public class Piece extends SuperSmoothMover
             setLocation(tH,tV-32);
         }
         else if(movePhase<16){
+            if(movePhase==14&&saveR==7&&type=='p')promote();
             //if(movePhase==8)BoardManager.allowNextMove();
             //System.out.println(tH+" "+tV+" "+getY()+" "+t+" "+"R");
             setLocation(getX(),getY()+4);
