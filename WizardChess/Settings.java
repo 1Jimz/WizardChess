@@ -13,25 +13,23 @@ import java.util.*;
  *     <li><strong>Instance fields</strong> - UI elements like sliders, buttons, and text fields.</li>
  * </ul>
  *
- *  @author Dorsa Rohani, David Guo
+ *  @author David Guo, Dorsa Rohani
  *  @version 1.1 01/13/2024
  */
-public class SettingsWorld extends World {
-    
+public class Settings extends World {
     // store title screen
     private TitleScreen ts;
+    
     // settings variables
     
     
-    // the types of roulette
-    private TextButton rouletteEuropean;
-    private TextButton rouletteAmerican;
-    private TextButton rouletteSands;
+    // the settings buttons
+    
     
     // text value
     //private Text[] texts;
 
-    public SettingsWorld() {    
+    public Settings() {    
         super(1200, 740, 1);
         /*
         setBackground("settingsworld.png");

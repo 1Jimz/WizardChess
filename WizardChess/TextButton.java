@@ -132,7 +132,7 @@ public class TextButton extends Widget
      * Checks whether or not the mouse is hovering over the button, if it is highlight it, otherwise don't
      */
     public void act(){
-        if(actCount % 5 == 0){
+        if(actCount % 2 == 0){
             if(Greenfoot.mouseMoved(this)){ 
                 //Highlights the button
                 this.hoverOver();

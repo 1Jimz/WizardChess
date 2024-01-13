@@ -15,14 +15,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * </ul>
  *
  * @author David Guo, Dorsa Rohani
- * @version 1.1 01/13/2023
+ * @version 1.1 01/13/2024
  */
 public class TitleScreen extends World
 {
     // Background image
     private GreenfootImage bg;
+    
     // Buttons which highlight when hovered over
     private TextButton startButton;
+    private TextButton controlsButton;
+    private TextButton settingsButton;
+    private TextButton quitButton;
+    
     // MP3 file for the title screen music
     private static GreenfootSound music;
     
@@ -41,19 +46,25 @@ public class TitleScreen extends World
         //setBackground(bg);
         
         // Create new buttons for the variables
-        startButton = new TextButton("START", 90, 255, 255, 255, 255, 20, 147);
+        startButton = new TextButton("PLAY", 110, 55, 255, 255, 255, 20, 147);
+        controlsButton = new TextButton("CONTROLS", 50, 55, 255, 255, 255, 20, 147);
+        settingsButton = new TextButton("SETTINGS", 50, 55, 255, 255, 255, 20, 147);
+        quitButton = new TextButton("QUIT", 50, 55, 255, 255, 255, 20, 147);
 
         //title
         //title = new TextButton("Title", 150, 255, 255, 255, 255, 20, 147);
         
         // Add buttons to the world
         
-        addObject(startButton, 600, 600);
+        addObject(startButton, 600, 500);
+        addObject(controlsButton, 600, 570);
+        addObject(settingsButton, 600, 640);
+        addObject(quitButton, 600, 710);
         //addObject(title, 0, 0);
-        // Assign the variable to the sound file name in folder & adjust volume
         
-        //music = new GreenfootSound("stmatthewpassion.mp3");
-        //music.setVolume(50);
+        // Assign the variable to the sound file name in folder & adjust volume
+        music = new GreenfootSound("nemusplace.mp3");
+        music.setVolume(50);
         
         // Add the title of the game
         //addObject(new TitlePic("TitlePic.png"), getWidth()/2, getHeight()/4);
@@ -63,9 +74,27 @@ public class TitleScreen extends World
      * <p><strong>void act()</strong> - Checks for user interactions, particularly if the start button is clicked to begin the game.</p>
      */
     public void act(){
+        try{
+            checkClick();
+        } catch(InterruptedException e){} catch(java.io.IOException e){};
+        // this try catch statement is a result of using stockfish
+    }
+    
+    // checks whether each of the buttons was clicked and spawns the related world
+    private void checkClick() throws InterruptedException, java.io.IOException {
         // checks if the player has clicked play and puts them into the game if they did
         if(Greenfoot.mouseClicked(startButton)){
-            //Greenfoot.setWorld(new SettingsWorld());
+            music.stop();
+            Greenfoot.setWorld(new Game());
+        } else if(Greenfoot.mouseClicked(controlsButton)){
+            music.stop();
+            //Greenfoot.setWorld(new Game());
+        } else if(Greenfoot.mouseClicked(settingsButton)){
+            music.stop();
+            Greenfoot.setWorld(new Settings());
+        } else if(Greenfoot.mouseClicked(quitButton)){
+            music.stop();
+            //Greenfoot.setWorld(new ());
         }
     }
     
