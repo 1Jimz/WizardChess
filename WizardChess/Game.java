@@ -8,19 +8,21 @@ import java.lang.*;
  G dispose card(costs EP)
  Click on card to use(cannot cancel when clicked)
  E end turn// need to implement
+ 
+ when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
  */
 public class Game extends World
 {
     public final static int hPush=550,vPush=90;//maybe need change into private and use getter.
     private static boolean throwingCard=false, pickCard=false,leftBorder,spellActivated=false;
     private static int wave=1,throwX, throwY, throwActive, startX, startY;
-    private Wizard wizard;
+    private static Wizard wizard;
     private HPBar hpBar;
     private EnergyBar energyBar;
 //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
-        //System.out.println("_____________________________________________________________");
+        System.out.println("_____________________________________________________________");
         throwingCard=false;
         pickCard=false;
         spellActivated=false;
@@ -53,10 +55,8 @@ public class Game extends World
         startY=sY;
         throwingCard=true;
     }
-    public static BoardManager.Position convPixToTile(int pixelX, int pixelY) {
-        int boardX = (pixelX-hPush)/80+1, boardY = (pixelY-vPush)/80+1;
-        System.out.println("boardX " + boardX + "boardY " + boardY);
-        return new BoardManager.Position(boardY, boardX);
+    public static Wizard getWizard(){
+        return wizard;
     }
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
@@ -76,10 +76,12 @@ public class Game extends World
         pickCard=true;
     }
     public static void activateSpell(){
+        Wizard.highlightRange(200);//200 is temp val
         spellActivated=true;
     }
     public static void deactivateSpell(){
         spellActivated=false;
+        BoardManager.resetTiles();
     }
     public static boolean isSpellActivated(){
         return spellActivated;
@@ -95,10 +97,18 @@ public class Game extends World
                 try{
                     Card c=(Card)a;
                 }catch(ClassCastException e2){
-                acList.add (new ActorContent (a, a.getX(), a.getY()));
-                }
+                    try{
+                        EnergyBar eBar=(EnergyBar)a;
+                    }catch(ClassCastException e3){
+                        try{
+                            HPBar hpBar=(HPBar)a;
+                        }catch(ClassCastException e4){ 
+                            acList.add (new ActorContent (a, a.getX(), a.getY()));
+                        }
+                    }
             }
-        }    
+        }   
+        }
         // Sort the Actor, using the ActorContent comparitor (compares by y coordinate)
         Collections.sort(acList);
         // Replace the Actors from the ActorContent list into the World, inserting them one at a time
@@ -139,7 +149,6 @@ public class Game extends World
     public String toString () {
         return "Actor: " + actor + " at " + xx + ", " + yy;
     }
-
     public int compareTo (ActorContent a){
         return this.getY() - a.getY();
     }

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Game
-comment0.text=\r\n\ Controls\:\r\n\ WASD\ wizard\ movement(costs\ EP)\r\n\ G\ dispose\ card(costs\ EP)\r\n\ Click\ on\ card\ to\ use(cannot\ cancel\ when\ clicked)\r\n\ E\ end\ turn//\ need\ to\ implement\r\n
+comment0.text=\r\n\ Controls\:\r\n\ WASD\ wizard\ movement(costs\ EP)\r\n\ G\ dispose\ card(costs\ EP)\r\n\ Click\ on\ card\ to\ use(cannot\ cancel\ when\ clicked)\r\n\ E\ end\ turn//\ need\ to\ implement\r\n\ \r\n\ when\ card\ is\ in\ process\ of\ being\ turned\ into\ a\ spell\ and\ mouse\ is\ off\ screen\ the\ process\ freezes,\ this\ is\ intentional.\r\n
 comment1.params=
 comment1.target=Game()
 comment10.params=
@@ -17,8 +17,8 @@ comment4.params=
 comment4.target=int\ getWave()
 comment5.params=tX\ tY\ tA\ lB\ sX\ sY
 comment5.target=void\ throwCard(int,\ int,\ int,\ int,\ int,\ int)
-comment6.params=pixelX\ pixelY
-comment6.target=BoardManager.Position\ convPixToTile(int,\ int)
+comment6.params=
+comment6.target=Wizard\ getWizard()
 comment7.params=
 comment7.target=void\ act()
 comment8.params=
