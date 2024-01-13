@@ -22,7 +22,7 @@ public class Game extends World
     //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
-        //System.out.println("_____________________________________________________________");
+        System.out.println("_____________________________________________________________");
         throwingCard=false;
         pickCard=false;
         spellActivated=false;
@@ -35,6 +35,7 @@ public class Game extends World
         wizard.setEnergyBar(energyBar);
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
+        BoardManager.test1();//
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);
@@ -57,11 +58,6 @@ public class Game extends World
     }
     public static Wizard getWizard(){
         return wizard;
-    }
-    public static BoardManager.Position convPixToTile(int pixelX, int pixelY) {
-        int boardX = (pixelX-hPush)/80+1, boardY = (pixelY-vPush)/80+1;
-        System.out.println("boardX " + boardX + "boardY " + boardY);
-        return new BoardManager.Position(boardY, boardX);
     }
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out

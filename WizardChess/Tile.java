@@ -11,14 +11,14 @@ public class Tile extends Actor
             BoardManager.placeTile(this,r,c);
         }
     }
-    public Tile(int c, int r){
+    public Tile(int r,int c){
         this.r=r;
         this.c=c;
         turnNormal();
     }
     public void act()
     {
-        if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
+        //if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
         
         //if(Greenfoot.mouseClicked(this)){
             //if(Game.isSpellActivated()){ 

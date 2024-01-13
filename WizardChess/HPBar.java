@@ -23,8 +23,8 @@ public class HPBar extends Actor {
     private void update() {
         GreenfootImage image = new GreenfootImage(barWidth + 2, barHeight + 2);
         // draw a border around it
-        image.setColor(Color.WHITE);
-        image.drawRect(0, 0, barWidth, barHeight);
+        //image.setColor(Color.WHITE);
+        //image.drawRect(0, 0, barWidth, barHeight);
         // choose color based on hp
         Color barColor;
         if (hp > maxHp / 2) {
@@ -48,10 +48,13 @@ public class HPBar extends Actor {
             // calculates gradient color
             // credit: https://www.greenfoot.org/scenarios/4862
             // will do proper credit in api
+            /*
             int red = (int) (barColor.getRed() * ratio + startColor.getRed() * (1 - ratio));
             int green = (int) (barColor.getGreen() * ratio + startColor.getGreen() * (1 - ratio));
             int blue = (int) (barColor.getBlue() * ratio + startColor.getBlue() * (1 - ratio));
-            image.setColor(new Color(red, green, blue));
+            */
+            image.setColor(new Color(112, 219, 166));
+            //image.setColor(new Color(red, green, blue));
             image.drawLine(i, 1, i, barHeight);
         }
 
