@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=EndScreen
+comment0.text=\r\n\ <html>\r\n\ <body>\r\n\ <p><strong>EndScreen</strong>\ class\ extends\ <em>World</em>\ and\ represents\ the\ ending\ screen\ of\ a\ game\ in\ Greenfoot.</p>\r\n\ <p>This\ class\ manages\ the\ display\ of\ the\ end\ screen,\ which\ varies\ based\ on\ the\ game's\ outcome\ (casino\ getting\ wealthy\ or\ bankrupt),\ and\ handles\ user\ interactions\ to\ restart\ the\ game.</p>\r\n\r\n\ <h3>Class\ Fields\:</h3>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>bg</strong>\ -\ The\ background\ image\ for\ the\ end\ screen,\ varying\ based\ on\ game\ outcome.</li>\r\n\ \ \ \ \ <li><strong>music</strong>\ -\ The\ background\ music\ for\ the\ end\ screen,\ different\ for\ each\ outcome.</li>\r\n\ \ \ \ \ <li><strong>restartButton</strong>\ -\ A\ button\ that\ restarts\ the\ game\ when\ clicked.</li>\r\n\ </ul>\r\n\r\n\ @author\ David\ Guo\r\n\ @version\ 1.1\ 01/13/2024\r\n
+comment1.params=casinoRich
+comment1.target=EndScreen(boolean)
+comment1.text=\r\n\ <h3>Constructor\:</h3>\r\n\ <p>Initializes\ the\ end\ screen\ with\ different\ backgrounds\ and\ music\ based\ on\ the\ game\ outcome,\ and\ sets\ up\ a\ restart\ button.</p>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>@param\r\n\ <ul>\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ <h3>void\ act()</h3>\r\n\ <p>Handles\ user\ interactions\ on\ the\ end\ screen,\ specifically\ checks\ if\ the\ restart\ button\ is\ clicked\ and\ restarts\ the\ game\ if\ so.</p>\r\n
+comment3.params=
+comment3.target=void\ started()
+comment3.text=\r\n\ <h3>void\ started()</h3>\r\n\ <p>Plays\ background\ music\ in\ a\ loop\ when\ the\ end\ screen\ starts.</p>\r\n
+comment4.params=
+comment4.target=void\ stopped()
+comment4.text=\r\n\ <h3>void\ stopped()</h3>\r\n\ <p>Pauses\ the\ background\ music\ when\ the\ end\ screen\ is\ stopped.</p>\r\n
+numComments=5
