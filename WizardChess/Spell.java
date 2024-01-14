@@ -4,7 +4,6 @@ public class Spell extends SuperSmoothMover{
     private String picName;
     private static int bC,bR,range,lastHighlightedC = -1,lastHighlightedR = -1;
     private boolean placed = false,fading = false;
-
     public Spell(int type){
         this.type=type;
         switch(type){
@@ -82,6 +81,7 @@ public class Spell extends SuperSmoothMover{
                 Game.deactivateSpell();
             }
             Game.deactivateSpell();
+            Game.grabCardAnimation(); // new card is spawned
         }
     }
     public static int getRange(){
