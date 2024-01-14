@@ -36,7 +36,7 @@ public class EndScreen extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1200, 740, 1); 
         // Create new buttons for the variables
-        restartButton = new TextButton("RESTART", 80, 255, 255, 255, 234, 122, 67);
+        restartButton = new TextButton("MAIN MENU", 60, 255, 255, 255, 234, 122, 67);
         // Add buttons to the world
         addObject(restartButton, 1200/2, 740/4*3);
         // Add music
@@ -57,7 +57,7 @@ public class EndScreen extends World
     public void act(){
         // Checks if the player has clicked restart and puts them into the game if they did
         if(Greenfoot.mouseClicked(restartButton)){
-            music.stop(); // stops the title screen music
+            music.stop(); // stops the end screen music
             TitleScreen ts = new TitleScreen(); // create the title screen
             ts.started(); // start the title screen music
             Greenfoot.setWorld(ts); // set world to title screen

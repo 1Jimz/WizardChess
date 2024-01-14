@@ -29,7 +29,6 @@ public class TitleScreen extends World
     // Buttons which highlight when hovered over
     private TextButton continueButton;
     private TextButton playButton;
-    //private TextButton tutorialButton;
     private TextButton settingsButton;
     
     // MP3 file for the title screen music
@@ -52,24 +51,23 @@ public class TitleScreen extends World
         addObject(new Fader(false, 10), WIDTH/2, HEIGHT/2);
         
         // Set bg to background image
-        bg = new GreenfootImage ("endwizardblur.png");
+        bg = new GreenfootImage ("titlescreengods.png");
+        bg.scale(WIDTH, HEIGHT);
         setBackground(bg);
         
         // Create new buttons for the variables
-        continueButton = new TextButton("CONTINUE", 50, 55, 255, 255, 255, 20, 147);
-        playButton = new TextButton("NEW GAME", 50, 55, 255, 255, 255, 20, 147);
-        //tutorialButton = new TextButton("TUTORIAL", 50, 55, 255, 255, 255, 20, 147);
-        settingsButton = new TextButton("SETTINGS", 50, 55, 255, 255, 255, 20, 147);
+        continueButton = new TextButton("CONTINUE", 35, 55, 255, 255, 255, 20, 147);
+        playButton = new TextButton("NEW GAME", 35, 55, 255, 255, 255, 20, 147);
+        settingsButton = new TextButton("SETTINGS", 35, 55, 255, 255, 255, 20, 147);
 
         //title
         //title = new TextButton("Title", 150, 255, 255, 255, 255, 20, 147);
         
         // Add buttons to the world
-        
-        addObject(continueButton, 600, 500);
-        addObject(playButton, 600, 570);
-        //addObject(tutorialButton, 600, 640);
-        addObject(settingsButton, 600, 640);
+        int xOffset = 15;
+        addObject(continueButton, WIDTH/2+xOffset, 625);
+        addObject(playButton, WIDTH/2+xOffset, 665);
+        addObject(settingsButton, WIDTH/2+xOffset, 705);
         
         // Assign the variable to the sound file name in folder & adjust volume
         music = new GreenfootSound("nemusplace.mp3");
@@ -105,7 +103,6 @@ public class TitleScreen extends World
             //addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
         //} 
         else if(Greenfoot.mouseClicked(settingsButton)){
-            music.stop();
             Greenfoot.setWorld(new Settings(this));
         }
     }

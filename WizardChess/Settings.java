@@ -100,7 +100,6 @@ public class Settings extends World {
      * <p><strong>void act()</strong> - Handles interactions with the start TextButton and roulette style TextButtons. It transitions to the main game world and adjusts roulette styles based on player input.</p>
      */
     public void act(){
-        
         if(Greenfoot.mouseClicked(backButton)){
             Greenfoot.setWorld(ts);
         }
