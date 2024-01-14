@@ -1,9 +1,10 @@
 import greenfoot.*;
 public class Spell extends SuperSmoothMover{
-    private int type=0,frame=0,rate=0,frameCount,adjustH,adjustV,w,h;
+    private int type=0,frame=0,rate=0,frameCount,adjustH,adjustV,w,h,fadeTime;
     private String picName;
     private static int bC,bR,range,lastHighlightedC = -1,lastHighlightedR = -1;
-    private boolean placed = false;// tracks if spell was placed
+    private boolean placed = false,fading = false;
+
     public Spell(int type){
         this.type=type;
         switch(type){
@@ -51,16 +52,16 @@ public class Spell extends SuperSmoothMover{
             rate=0;
             if(++frame==frameCount)frame=0;
             setImage(Utility.customize(w,h,new GreenfootImage(picName+"_"+frame+".png")));
+            if(fading)disappear();
         }
         else rate++;
-    }
-    private void clicked(MouseInfo mouse, Wizard w){
-        
-        //System.out.println((mouse.getX()-Game.hPush+40)/80+" "+(mouse.getY()-Game.vPush+40)/80);
-       // System.out.println(bX + " " + bY);
-        //setLocation(mouse.getX(),mouse.getY());
-        
-        //playSpell();
+        if (placed&&!fading) {
+            fadeTime++;
+            if(fadeTime>=30){
+                fading = true;
+                fadeTime =0;
+            }
+        }
     }
     private void playSpell(){
         Tile t = BoardManager.getTile(bR, bC);
@@ -74,7 +75,7 @@ public class Spell extends SuperSmoothMover{
             //    BoardManager.getBoard(bX,bY).turnGreen();
             //    System.out.println("green");
             //}
-            
+
             if(t.getOccupyingPiece()!=null){
                 t.getOccupyingPiece().takeDmg(10);//
                 System.out.println("damage taken");
@@ -85,6 +86,15 @@ public class Spell extends SuperSmoothMover{
     }
     public static int getRange(){
         return range;
+    }
+    private void disappear() {
+        int maxDuration = 30; // duration of disappearing effect 0.5s
+        if (fadeTime< maxDuration) {
+            // credit to mr cohen for this math
+            int transparency = (int) ((1 - (double)fadeTime / maxDuration) * 255);
+            getImage().setTransparency(transparency);
+            fadeTime++;
+        } else getWorld().removeObject(this);
     }
     private void setup(int frameCount, String picName, int adjustH, int adjustV, int w, int h){
         this.frameCount=frameCount;
