@@ -47,7 +47,7 @@ public class Slider extends Widget {
             int clampedX = Math.min(Math.max(mouse.getX(), sliderMinX), sliderMaxX);
             setLocation(clampedX, getY());
             value = calculateValue(clampedX);
-            //((SettingsWorld)getWorld()).updateVar(sliderID, value);
+            ((Settings)getWorld()).updateVar(sliderID, value);
         }
     }
 

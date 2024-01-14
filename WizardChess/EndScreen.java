@@ -28,10 +28,10 @@ public class EndScreen extends World
      * <h3>Constructor:</h3>
      * <p>Initializes the end screen with different backgrounds and music based on the game outcome, and sets up a restart button.</p>
      * <ul>
-     *     <li><strong>@param
+     *     <li><strong>@param gameOver true if the player lost. false if they won
      * <ul>
      */
-    public EndScreen(boolean casinoRich)
+    public EndScreen(boolean gameOver)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1200, 740, 1); 
@@ -40,15 +40,13 @@ public class EndScreen extends World
         // Add buttons to the world
         addObject(restartButton, 1200/2, 740/4*3);
         // Add music
-        music = new GreenfootSound("stmatthewpassion.mp3");
+        music = new GreenfootSound("nemusplace.mp3");
         music.setVolume(40);
         music.playLoop();
-        // Depending on ending, change background and music
-        if(casinoRich){
-            bg = new GreenfootImage("wealthending.png");
-        } else {
-            bg = new GreenfootImage("bankruptending.png");
-        }
+        
+        // set background image
+        if(gameOver)bg = new GreenfootImage ("endwizardblur.png");
+        else bg = new GreenfootImage ("endwizardblur.png");
         setBackground(bg);
     }
     
@@ -60,7 +58,9 @@ public class EndScreen extends World
         // Checks if the player has clicked restart and puts them into the game if they did
         if(Greenfoot.mouseClicked(restartButton)){
             music.stop(); // stops the title screen music
-            Greenfoot.setWorld(new TitleScreen());
+            TitleScreen ts = new TitleScreen(); // create the title screen
+            ts.started(); // start the title screen music
+            Greenfoot.setWorld(ts); // set world to title screen
         }
     }
 

@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Fader
+comment0.text=\r\n\ A\ fading\ square\ which\ can\ be\ customized\ in\ colour\ and\ speed,\ along\ with\ being\ skippable\r\n\ via\ a\ click\r\n\ \r\n\ @author\ David\ Guo\ (Thanks\ to\ @Jordan\ Cohen\ for\ the\ demonstration)\r\n\ @version\ 1.1\ 01/14/2024\r\n
+comment1.params=skip\ rateOfFading
+comment1.target=Fader(boolean,\ double)
+comment2.params=skip\ rateOfFading\ colour
+comment2.target=Fader(boolean,\ double,\ greenfoot.Color)
+comment3.params=skip\ rateOfFading\ screenFadeOut
+comment3.target=Fader(boolean,\ double,\ boolean)
+comment4.params=skip\ rateOfFading\ colour\ screenFadeOut
+comment4.target=Fader(boolean,\ double,\ greenfoot.Color,\ boolean)
+comment5.params=w
+comment5.target=void\ addedToWorld(greenfoot.World)
+comment6.params=
+comment6.target=void\ act()
+comment6.text=\r\n\ Act\ -\ do\ whatever\ the\ Fader\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+numComments=7
