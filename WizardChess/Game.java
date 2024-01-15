@@ -125,8 +125,13 @@ public class Game extends World
     public static void nextLevel() {
         try {
             level++;
-            readFile = new Scanner(new File("levels/"+level + ".txt"));
-            BoardManager.createIncoming(readFile.nextLine());
+            readFile = new Scanner(new File("levels/2.txt"));
+            
+            String fen = readFile.nextLine();
+            System.out.println(fen);
+            
+            BoardManager.createIncoming(fen);
+            readFile.close();
         } catch (FileNotFoundException e) {
             System.out.println("filenotfound");
         }
