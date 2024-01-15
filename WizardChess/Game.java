@@ -19,7 +19,6 @@ public class Game extends World
     private static Wizard wizard;
     private HPBar hpBar;
     private EnergyBar energyBar;
-    //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
@@ -36,6 +35,8 @@ public class Game extends World
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
         BoardManager.test1();//
+        addObject(new Overlay(), 600,370);
+        setPaintOrder(Overlay.class);
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);
