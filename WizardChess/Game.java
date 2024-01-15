@@ -2,28 +2,34 @@ import greenfoot.*;
 import java.io.*;
 import java.util.*;
 import java.lang.*;
+import java.util.Scanner;
 /*
  Controls:
  WASD wizard movement(costs EP)
  G dispose card(costs EP)
  Click on card to use(cannot cancel when clicked)
  E end turn// need to implement
+ 
+ when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
  */
 public class Game extends World
 {
     public final static int hPush=550,vPush=90;//maybe need change into private and use getter.
     private static boolean throwingCard=false, pickCard=false,leftBorder,spellActivated=false;
     private static int wave=1,throwX, throwY, throwActive, startX, startY;
-    private Wizard wizard;
+    private static Wizard wizard;
     private HPBar hpBar;
     private EnergyBar energyBar;
+    private static int level;
 //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
-        //System.out.println("_____________________________________________________________");
+        System.out.println("_____________________________________________________________");
         throwingCard=false;
         pickCard=false;
         spellActivated=false;
+        moveNumber = 0;
+        level = 1;
         EnemyTargetting.setup();
         //each time size 80
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
@@ -33,6 +39,20 @@ public class Game extends World
         wizard.setEnergyBar(energyBar);
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
+        BoardManager.test1();//
+    }
+    private static int moveNumber;
+    public static void nextMove() {
+        moveNumber++;
+    }
+    public static int moveCount() {
+        return moveNumber;
+    }
+    public static boolean wizardTurn() {
+        if(moveNumber % 2 == 0) {
+            return true;
+        }
+        return false;
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);
@@ -53,6 +73,9 @@ public class Game extends World
         startY=sY;
         throwingCard=true;
     }
+    public static Wizard getWizard(){
+        return wizard;
+    }
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
         //setPaintOrder(Wizard.class, Wand.class);//
@@ -66,18 +89,52 @@ public class Game extends World
         }
         //List<Card> cards = getObjects(Card.class);
         //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
+        if(!wizardTurn()) {
+            try
+            {
+                BoardManager.test2();
+            }
+            catch (Exception ioe)
+            {
+                ioe.printStackTrace();
+            }
+            if(BoardManager.enemiesDefeated()) {
+                    BoardManager.resetTiles();
+                    for(Piece p: getObjects(Piece.class)) {
+                        removeObject(p);
+                    }
+                    nextLevel();
+            }
+        }
     }
     public static void grabCardAnimation(){
         pickCard=true;
     }
     public static void activateSpell(){
+        Wizard.highlightRange(200);//200 is temp val
         spellActivated=true;
     }
     public static void deactivateSpell(){
         spellActivated=false;
+        BoardManager.resetTiles();
     }
     public static boolean isSpellActivated(){
         return spellActivated;
+    }
+    private static Scanner readFile;
+    public static void nextLevel() {
+        try {
+            level++;
+            readFile = new Scanner(new File("levels/2.txt"));
+            
+            String fen = readFile.nextLine();
+            System.out.println(fen);
+            
+            BoardManager.createIncoming(fen);
+            readFile.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("filenotfound");
+        }
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
@@ -90,10 +147,18 @@ public class Game extends World
                 try{
                     Card c=(Card)a;
                 }catch(ClassCastException e2){
-                acList.add (new ActorContent (a, a.getX(), a.getY()));
-                }
+                    try{
+                        EnergyBar eBar=(EnergyBar)a;
+                    }catch(ClassCastException e3){
+                        try{
+                            HPBar hpBar=(HPBar)a;
+                        }catch(ClassCastException e4){ 
+                            acList.add (new ActorContent (a, a.getX(), a.getY()));
+                        }
+                    }
             }
-        }    
+        }   
+        }
         // Sort the Actor, using the ActorContent comparitor (compares by y coordinate)
         Collections.sort(acList);
         // Replace the Actors from the ActorContent list into the World, inserting them one at a time
@@ -134,10 +199,8 @@ public class Game extends World
     public String toString () {
         return "Actor: " + actor + " at " + xx + ", " + yy;
     }
-
     public int compareTo (ActorContent a){
         return this.getY() - a.getY();
     }
-
 }
 }

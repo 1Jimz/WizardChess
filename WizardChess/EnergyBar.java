@@ -31,8 +31,8 @@ public class EnergyBar extends Actor {
         if(e >= 0){
             GreenfootImage image = new GreenfootImage(barWidth + 2, barHeight + 2);
             // draw a border around it
-            image.setColor(Color.WHITE);
-            image.drawRect(0, 0, barWidth, barHeight);
+            //image.setColor(Color.WHITE);
+            //image.drawRect(0, 0, barWidth, barHeight);
             // choose color based on energy
             Color barColor;
             if (e > maxE / 2) {
@@ -47,12 +47,15 @@ public class EnergyBar extends Actor {
             // credit: https://www.greenfoot.org/scenarios/4862
             // will do proper credit in api
             for (int i = 0; i < barWidth; i++) {
+                /*
                 float ratio = (float) i / barWidth;
                 Color startColor = new Color(0, 255, 255); // light blue for starting color
                 int red = (int) (barColor.getRed() * ratio + startColor.getRed() * (1 - ratio));
                 int green = (int) (barColor.getGreen() * ratio + startColor.getGreen() * (1 - ratio));
                 int blue = (int) (barColor.getBlue() * ratio + startColor.getBlue() * (1 - ratio));
-                image.setColor(new Color(red, green, blue));
+                */
+                //image.setColor(new Color(red, green, blue));
+                image.setColor(new Color(112, 219, 202));
                 image.drawLine(i, 1, i, barHeight);
             }
             // calculate fill width based on current energy
