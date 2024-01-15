@@ -35,6 +35,8 @@ public class Game extends World
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
         BoardManager.test1();//
+        addObject(new Overlay(), 600,370);
+        setPaintOrder(Overlay.class);
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);
