@@ -36,7 +36,7 @@ public class Game extends World
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
         BoardManager.test1();//
         addObject(new Overlay(), 600,370);
-        setPaintOrder(Overlay.class);
+        setPaintOrder(CardHitbox.class,Overlay.class);
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);
@@ -105,7 +105,11 @@ public class Game extends World
                         try{
                             HPBar hpBar=(HPBar)a;
                         }catch(ClassCastException e4){ 
-                            acList.add (new ActorContent (a, a.getX(), a.getY()));
+                            try{
+                                CardHitbox chb=(CardHitbox)a;
+                            }catch(ClassCastException e5){ 
+                                acList.add (new ActorContent (a, a.getX(), a.getY()));
+                            }
                         }
                     }
             }
