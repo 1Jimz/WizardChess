@@ -52,10 +52,14 @@ public class Spell extends SuperSmoothMover{
                 // clear previous green tiles
                 if(lastHighlightedC!=bC||lastHighlightedR!=bR)clearGreenGrid();
                 // highlight the 3x3 tile grid the cursor is hovering on to green
-                for(int i =-1; i <= 1;i++) {
-                    for(int j = -1; j <= 1; j++) {
-                        Tile currT = BoardManager.getTile(bR +i, bC + j);
-                        if(currT !=null &&currT.isBlue())currT.turnGreen();
+                Tile cur = BoardManager.getTile(bR, bC);
+                if(cur!=null&&cur.isBlue()){
+                    for(int i =-1; i <= 1;i++) {
+                        for(int j = -1; j <= 1; j++) {
+                            Tile currT = BoardManager.getTile(bR +i, bC + j);
+                            if(currT!=null)currT.turnGreen();
+                            //if(currT !=null &&currT.isBlue())currT.turnGreen();
+                        }
                     }
                 }
                 // update last tile coords
@@ -111,11 +115,11 @@ public class Spell extends SuperSmoothMover{
         for(int[] offset:offsets){
             try{
                 t = BoardManager.getTile(bR +offset[0],bC + offset[1]); //target tile
-                if(t != null && t.isBlue()){
+                if(t != null){// && t.isBlue()){  -=-==-=-=-====-++_+_+_+_
                     t.turnGreen(); // highlight tile to gren
                     doDmg(t);
                 }
-            }catch (Exception e) {
+            }catch (IndexOutOfBoundsException e) {
                 //
             }
         }
@@ -128,10 +132,12 @@ public class Spell extends SuperSmoothMover{
             for (int j = -1; j <= 1; j++) {
                 Tile lastHighlightedT = BoardManager.getTile(lastHighlightedR +i, lastHighlightedC + j);
                 if (lastHighlightedT != null && lastHighlightedT.isGreen()) {
-                    lastHighlightedT.turnBlue();
+                    //lastHighlightedT.turnBlue();
+                    lastHighlightedT.turnNormal();
                 }
             }
         }
+        Wizard.highlightRange(200);//200 is temp
     }
     private void doDmg(Tile tile) {
         if(tile.getOccupyingPiece()!=null)tile.getOccupyingPiece().takeDmg(10);

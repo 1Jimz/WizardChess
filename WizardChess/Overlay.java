@@ -6,7 +6,7 @@ public class Overlay extends Actor{
         // //gif = new GifImage("RetroLinesOverlay.gif");
     // }
     public void act(){
-        setImage(Utility.customize(1200,740,gi.getCurrentImage(),40));
+        setImage(Utility.customize(1200,740,gi.getCurrentImage(),50));
         //getImage().setTransparency(80);
         //getImage().
     }

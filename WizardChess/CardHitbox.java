@@ -1,26 +1,23 @@
 import greenfoot.*;
 import java.util.List;
 //original code from https://www.greenfoot.org/scenarios/925. Modified(Modified maybe understatement. So much so that I might not need credit, it's more like inspired kinda) by Jimmy Zhu at 12/19/23.
-public class Card extends SuperSmoothMover{
+public class CardHitbox extends SuperSmoothMover{
     private List springs;
     private double x1,y1,x2=0,y2=0,r1,r2,a,b,c,d,l,ang,dl[]=new double[6],x[]={-100,100,100,-100},y[]={-160,-160,160,160},xprev[]=new double[4],yprev[]=new double[4],xv[]={0,0,0,0},yv[]={0,0,0,0};
     private boolean drag=false,stick=false,leftBorder, disposing=false;
     private int point1,point2,mx,my,pointer=0,p=0,points[]=new int[4],conect1[]={0,1,2,3,0,1},conect2[]={1,2,3,0,2,3},active,type,whirl=0;
-    public Card(int mx, int my, int active,boolean leftBorder){
+    private Card card;
+    public CardHitbox(int mx, int my, int active,boolean leftBorder, Card card){
         this.mx=mx;//800
         this.my=my;//200
         this.active=active;
         this.leftBorder=leftBorder;
+        this.card=card;
         type=Greenfoot.getRandomNumber(2);
         for(int f=0;f<6;f++)dl[f] = Math.sqrt(Math.pow((x[conect1[f]] - x[conect2[f]]),2)+Math.pow((y[conect1[f]] - y[conect2[f]]),2));
-        switch(type){
-            case 0:setImage(new GreenfootImage("TestCard1.png"));break;
-            case 1:setImage(new GreenfootImage("TestCard2.png"));break;
-        }
         //setImage(new GreenfootImage("Testcardfront2.png"));
     }
     public void addedToWorld(World w){
-        getWorld().addObject(new CardHitbox(mx,my,active,leftBorder,this),getX(),getY());
         for(int i=0;i<x.length;i++){
             x[i] += getX();
             y[i] += getY();
@@ -34,7 +31,10 @@ public class Card extends SuperSmoothMover{
     }
     public void act() {
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        //if(whirl==0&&mouse!=null&&Greenfoot.mouseClicked(this))whirl++;
+        if(whirl==0&&mouse!=null&&Greenfoot.mouseClicked(this)){
+            card.whirlUp();
+            whirl++;
+        }
         if(whirl>0&&whirl<35&&mouse!=null){
             whirl++;
             getImage().scale(getImage().getWidth()-5,getImage().getHeight()-5);
@@ -42,31 +42,12 @@ public class Card extends SuperSmoothMover{
             getImage().setTransparency(getImage().getTransparency()-5);
             setLocation(mouse.getX()+(Greenfoot.getRandomNumber(2)==0?-Greenfoot.getRandomNumber(7):Greenfoot.getRandomNumber(7)),mouse.getY()+(Greenfoot.getRandomNumber(2)==0?-Greenfoot.getRandomNumber(7):Greenfoot.getRandomNumber(7)));
         }
-        else if(whirl==35&&mouse!=null){
-            whirl++;
-            Game.activateSpell();
-            getWorld().addObject(new Spell(type), mouse.getX(), mouse.getY());
-            getWorld().addObject(new Wand(),-200,-200);
-        }
+        else if(whirl==35&&mouse!=null)whirl++;
         else if(whirl>35)getWorld().removeObject(this);
         else{
             for(int i=0;i<130;i++)simulate(1);
-            if(disposing&&getY()>900){
-                Game.grabCardAnimation();
-                getWorld().removeObject(this);
-            }
-            else if(Greenfoot.isKeyDown("G"))dispose();//also need to make sure have enough ep
+            if(Greenfoot.isKeyDown("G"))getWorld().removeObject(this);;//also need to make sure have enough ep
         }
-    }
-    public void whirlUp(){
-        whirl++;
-    }
-    public void dispose(){
-        active=1000;
-        mx=Greenfoot.getRandomNumber(201)+200;
-        my=Greenfoot.getRandomNumber(201)+1100;
-        leftBorder=false;
-        disposing=true;
     }
     public void simulate(int k){
         drag=true;
