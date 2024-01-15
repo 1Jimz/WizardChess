@@ -116,7 +116,7 @@ public class Spell extends SuperSmoothMover{
         for(int[] offset:offsets){
             try{
                 t = BoardManager.getTile(bR +offset[0],bC + offset[1]); //target tile
-                if(t != null&&t.isBlue()){// && t.isBlue()){  -=-==-=-=-====-++_+_+_+_
+                if(t != null&&t.isGreen()){// && t.isBlue()){  -=-==-=-=-====-++_+_+_+_
                     t.turnGreen(); // highlight tile to gren
                     setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
                     placed = true;
