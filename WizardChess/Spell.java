@@ -102,6 +102,7 @@ public class Spell extends SuperSmoothMover{
     private void playSpell2(int bR, int bC) {
         Tile t = BoardManager.getTile(bR, bC);
         placed = true;
+        setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
         // ofssets for a 3x3 area
         int[][] offsets = {
             {-1, -1}, {-1, 0}, {-1, 1},
@@ -118,16 +119,17 @@ public class Spell extends SuperSmoothMover{
                 //
             }
         }
-        setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
         Game.deactivateSpell();
         Game.grabCardAnimation(); // new card is spawned
     }
     // to clear the green 3x3 tiles
-    private void clearGreenGrid(){
-        for(int i =-1; i <= 1; i++){
-            for(int j = -1; j <= 1; j++){
-                Tile prevT = BoardManager.getTile(lastHighlightedR +i,lastHighlightedC + j);
-                //if (prevT != null && prevT.isGreen())prevT.turnBlue();
+    private void clearGreenGrid() {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                Tile lastHighlightedT = BoardManager.getTile(lastHighlightedR +i, lastHighlightedC + j);
+                if (lastHighlightedT != null && lastHighlightedT.isGreen()) {
+                    lastHighlightedT.turnBlue();
+                }
             }
         }
     }
