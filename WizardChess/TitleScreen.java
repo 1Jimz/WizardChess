@@ -34,6 +34,8 @@ public class TitleScreen extends World
     // MP3 file for the title screen music
     private static GreenfootSound music;
     
+    // Other stuff
+    private int actCount;
     private TextButton title;
     /**
      * <h3>Constructor:</h3>
@@ -46,6 +48,10 @@ public class TitleScreen extends World
         
         // Set paint order so the layering is right
         setPaintOrder(Fader.class);
+        
+        // Initialize setting values & actCount
+        Settings.initialize();
+        actCount = 0;
         
         // Add the fade effect
         addObject(new Fader(false, 10), WIDTH/2, HEIGHT/2);
@@ -64,14 +70,14 @@ public class TitleScreen extends World
         //title = new TextButton("Title", 150, 255, 255, 255, 255, 20, 147);
         
         // Add buttons to the world
-        int xOffset = 15;
+        int xOffset = 0;
         addObject(continueButton, WIDTH/2+xOffset, 625);
         addObject(playButton, WIDTH/2+xOffset, 665);
         addObject(settingsButton, WIDTH/2+xOffset, 705);
         
         // Assign the variable to the sound file name in folder & adjust volume
         music = new GreenfootSound("nemusplace.mp3");
-        music.setVolume(50);
+        music.setVolume(Settings.getMusicVolume());
         
         // Add the title of the game
         //addObject(new TitlePic("TitlePic.png"), getWidth()/2, getHeight()/4);
@@ -85,6 +91,12 @@ public class TitleScreen extends World
             checkClick();
         } catch(InterruptedException e){} catch(java.io.IOException e){};
         // this try catch statement is a result of using stockfish
+        
+        // To update settings
+        if(actCount == 100){
+            music.setVolume(Settings.getMusicVolume());
+        }
+        actCount++;
     }
     
     // checks whether each of the buttons was clicked and spawns the related world

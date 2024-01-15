@@ -40,9 +40,9 @@ public class Tutorial extends Widget
             pages[i].scale(width, height);
         }
         // Create new buttons
-        back = new TextButton("BACK", 40);
-        next = new TextButton("NEXT", 40);
-        count = new TextButton("PAGE " + pageNum + " / " + maxPageNum, 35);
+        back = new TextButton("BACK", 35, 255, 255, 255, 255, 20, 147);
+        next = new TextButton("NEXT", 35, 255, 255, 255, 255, 20, 147);
+        count = new TextButton("PAGE " + pageNum + " / " + maxPageNum, 30, 155, 155, 155, 155, 155, 155);
     }
     
     public void act(){
@@ -84,7 +84,7 @@ public class Tutorial extends Widget
     // Helper method to update counter
     private void updateCount(){
         getWorld().removeObject(count);
-        count = new TextButton("PAGE " + pageNum + " / " + maxPageNum, 35);
+        count = new TextButton("PAGE " + pageNum + " / " + maxPageNum, 30, 155, 155, 155, 155, 155, 155);
         getWorld().addObject(count, getX(), getY()+height/2-yDist);
     }
 }
