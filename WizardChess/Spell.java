@@ -21,56 +21,59 @@ public class Spell extends SuperSmoothMover{
     }
     public void act(){//remember to deactivate spell after
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        if(!placed && mouse != null) {
-            setLocation(mouse.getX() + adjustH, mouse.getY() + adjustV);
-            bC=(mouse.getX()-Game.hPush+40)/80;
-            bR=(mouse.getY()-Game.vPush+40)/80;
-            //System.out.println(BoardManager.getTile(bY,bX).isBlue());
-            // reset last green highlighted tile
-            if((lastHighlightedC!=bC||lastHighlightedR!=bR) && lastHighlightedC!=-1&&lastHighlightedR!=-1){
-                Tile lastT=BoardManager.getTile(lastHighlightedR,lastHighlightedC);
-                if(lastT != null&&lastT.isBlue()) {
-                    lastT.turnBlue();
-                }
-            }
-            // first type of spell (1x1 tile aoe)
-            if(type==0){
-                // highlight the tile the cursor is hovering on to green
-                Tile currT = BoardManager.getTile(bR,bC);
-                if (currT != null && currT.isBlue()) {
-                    currT.turnGreen();
-                    // update last tile coords
-                    lastHighlightedC=bC;
-                    lastHighlightedR= bR;
-                }
-                if (!placed&&mouse!=null&&Greenfoot.mouseClicked(null)) {
-                    playSpell();
-                }
-            }
-            // second spell (3x3 aoe)
-            if(type == 1) {
-                // clear previous green tiles
-                if(lastHighlightedC!=bC||lastHighlightedR!=bR)clearGreenGrid();
-                // highlight the 3x3 tile grid the cursor is hovering on to green
-                Tile cur = BoardManager.getTile(bR, bC);
-                if(cur!=null&&cur.isBlue()){
-                    for(int i =-1; i <= 1;i++) {
-                        for(int j = -1; j <= 1; j++) {
-                            Tile currT = BoardManager.getTile(bR +i, bC + j);
-                            if(currT!=null)currT.turnGreen();
-                            //if(currT !=null &&currT.isBlue())currT.turnGreen();
-                        }
+        try{
+            if(!placed && mouse != null) {
+                setLocation(mouse.getX() + adjustH, mouse.getY() + adjustV);
+                bC=(mouse.getX()-Game.hPush+40)/80;
+                bR=(mouse.getY()-Game.vPush+40)/80;
+                //System.out.println(BoardManager.getTile(bY,bX).isBlue());
+                // reset last green highlighted tile
+                if((lastHighlightedC!=bC||lastHighlightedR!=bR) && lastHighlightedC!=-1&&lastHighlightedR!=-1){
+                    Tile lastT=BoardManager.getTile(lastHighlightedR,lastHighlightedC);
+                    if(lastT != null&&lastT.isBlue()) {
+                        lastT.turnBlue();
                     }
                 }
-                // update last tile coords
-                lastHighlightedC = bC;
-                lastHighlightedR = bR;
+                // first type of spell (1x1 tile aoe)
+                if(type==0){
+                    // highlight the tile the cursor is hovering on to green
+                    Tile currT = BoardManager.getTile(bR,bC);
+                    if (currT != null && currT.isBlue()) {
+                        currT.turnGreen();
+                        // update last tile coords
+                        lastHighlightedC=bC;
+                        lastHighlightedR= bR;
+                    }
+                    if (!placed&&mouse!=null&&Greenfoot.mouseClicked(null)&&currT.isGreen()) {
+                        playSpell();
+                    }
+                }
+                // second spell (3x3 aoe)
+                if(type == 1) {
+                    // clear previous green tiles
+                    if(lastHighlightedC!=bC||lastHighlightedR!=bR)clearGreenGrid();
+                    // highlight the 3x3 tile grid the cursor is hovering on to green
+                    Tile cur = BoardManager.getTile(bR, bC);
+                    if(cur!=null&&cur.isBlue()){
+                        for(int i =-1; i <= 1;i++) {
+                            for(int j = -1; j <= 1; j++) {
+                                Tile currT = BoardManager.getTile(bR +i, bC + j);
+                                if(currT!=null)currT.turnGreen();
+                                //if(currT !=null &&currT.isBlue())currT.turnGreen();
+                            }
+                        }
+                    }
+                    // update last tile coords
+                    lastHighlightedC = bC;
+                    lastHighlightedR = bR;
+                    if(!placed&&mouse!=null&&Greenfoot.mouseClicked(null)&&cur.isGreen()) {
+                        playSpell2(bR,bC);
+                    }
+                }
             }
-            if(!placed&&mouse!=null&&Greenfoot.mouseClicked(null)) {
-                playSpell2(bR,bC);
-            }
+        } catch(NullPointerException e){
+            System.out.println("Error: "  + e);
         }
-
         if(rate==5){
             rate=0;
             if(++frame==frameCount)frame=0;
@@ -89,7 +92,7 @@ public class Spell extends SuperSmoothMover{
     private void playSpell(){
         Tile t = BoardManager.getTile(bR, bC);
         System.out.println("e"+" "+bR+" "+bC+" "+t+" "+t.isBlue());
-        if(t!=null&&t.isBlue()){ // THIS is the one that doesnt get satisfied anymore (t.isBlue())
+        if(t!=null&&t.isBlue()){ 
             //System.out.println("working"+" "+bR+" "+bC);
             placed = true;
             setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
@@ -105,8 +108,6 @@ public class Spell extends SuperSmoothMover{
     }
     private void playSpell2(int bR, int bC) {
         Tile t = BoardManager.getTile(bR, bC);
-        placed = true;
-        setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
         // ofssets for a 3x3 area
         int[][] offsets = {
             {-1, -1}, {-1, 0}, {-1, 1},
@@ -115,12 +116,14 @@ public class Spell extends SuperSmoothMover{
         for(int[] offset:offsets){
             try{
                 t = BoardManager.getTile(bR +offset[0],bC + offset[1]); //target tile
-                if(t != null){// && t.isBlue()){  -=-==-=-=-====-++_+_+_+_
+                if(t != null&&t.isBlue()){// && t.isBlue()){  -=-==-=-=-====-++_+_+_+_
                     t.turnGreen(); // highlight tile to gren
+                    setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
+                    placed = true;
                     doDmg(t);
                 }
             }catch (IndexOutOfBoundsException e) {
-                //
+                System.out.println("Error : " + e);
             }
         }
         Game.deactivateSpell();
