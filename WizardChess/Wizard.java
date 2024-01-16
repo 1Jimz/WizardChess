@@ -39,7 +39,6 @@ public class Wizard extends SuperSmoothMover{
                 else{
                     walking=false;
                     phase=0;
-                    Game.nextMove();
                 }
             }
             else{

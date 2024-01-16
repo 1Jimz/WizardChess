@@ -90,6 +90,9 @@ public class Game extends World
         //List<Card> cards = getObjects(Card.class);
         //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
         if(!wizardTurn()) {
+            if(BoardManager.isWarned()) {
+                
+            }
             try
             {
                 BoardManager.test2();
@@ -123,18 +126,22 @@ public class Game extends World
     }
     private static Scanner readFile;
     public static void nextLevel() {
+        String fen = "";
         try {
             level++;
-            readFile = new Scanner(new File("levels/2.txt"));
+            readFile = new Scanner(new File("levels/"+level+".txt"));
             
-            String fen = readFile.nextLine();
+            fen = readFile.nextLine();
             System.out.println(fen);
             
-            BoardManager.createIncoming(fen);
+            
             readFile.close();
         } catch (FileNotFoundException e) {
             System.out.println("filenotfound");
         }
+        BoardManager.createIncoming(fen);
+        BoardManager.warn();
+        nextMove();
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){

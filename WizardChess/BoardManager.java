@@ -4,6 +4,7 @@ import greenfoot.*;
 public class BoardManager  
 {
     private static int countdown=-1;
+    private static boolean warned = false;
     public static class Position{
         private int r,c;
         public Position(int r, int c){
@@ -22,6 +23,7 @@ public class BoardManager
 
     public static class Move{
         private int fromR, fromC, toR, toC, i;
+        
         public Move(int fromR, int fromC, int toR, int toC, int i){
             this.fromR=fromR;
             this.fromC=fromC;
@@ -151,6 +153,7 @@ public class BoardManager
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].placePiece(incoming[i][j]);
     }
     public static void createIncoming(String fen){
+        warned = false;
         StringTokenizer st = new StringTokenizer(fen.replaceAll(" b - - 0 1",""),"/");
         for(int i = 0; i<8; i++){
             String line = st.nextToken();
@@ -174,11 +177,13 @@ public class BoardManager
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].turnRed();
         }
+        warned = true;
     }
     public static void unwarn(){
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].turnNormal();
         }
+        warned = false;
     }
     public static Tile[][] getBoard(){
         return board;
@@ -196,6 +201,7 @@ public class BoardManager
         }
     }
     public static boolean enemiesDefeated() {
+        if(warned) return false;
         for(Tile[] row : getBoard()) {
             for(Tile tile : row) {
                 if(tile.getOccupyingPiece() != null) {
@@ -209,6 +215,9 @@ public class BoardManager
             }
         }
         return true;
+    }
+    public static boolean isWarned() {
+        return warned;
     }
     //give wiz a turn before each round to get out of the way of the incoming pieces(if wiz is not out of the way wiz takes dmg from the piece ramming)
 }
