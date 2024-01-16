@@ -127,6 +127,7 @@ public class Wizard extends SuperSmoothMover{
     private void decreaseE() {
         if (energyBar != null) {
             energyBar.setE(energyBar.getE() - 1);
+            Game.nextMove();
         }
     }
     
