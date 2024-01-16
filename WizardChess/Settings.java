@@ -21,21 +21,38 @@ public class Settings extends World {
     private TitleScreen ts;
     
     // settings variables
-    
+    private static int casinoTarget; // casino Target
+    private static int vipGamblerSpawnRate; // VIP gambler spawn rate
+    private static int vipGamblerStartingMoney; // VIP gambler starting money
+    private static int ordinaryStartingMoney; // VIP gambler starting money
+    private static int cheaterGamblerSpawnRate; // cheater gambler spawn rate
+    private static int slotsWinRate;
+    private static int numberOfHorses; // # horses for horsebetting
     
     // the settings buttons
-    
+    private TextButton backButton;
     
     // text value
-    //private Text[] texts;
+    private Text[] texts;
 
-    public Settings() {    
+    public Settings(TitleScreen ts) {    
         super(1200, 740, 1);
-        /*
-        setBackground("settingsworld.png");
-        this.ts = ts;
-        // initial values
         
+        //setBackground("settingsworld.png");
+        this.ts = ts;
+        
+        // back button
+        backButton = new TextButton("BACK", 60, 55, 255, 255, 255, 20, 147);
+        addObject(backButton, 600, 700);
+        
+        // initial values
+        casinoTarget = 10000; 
+        vipGamblerSpawnRate = 1;
+        vipGamblerStartingMoney = 7500;
+        cheaterGamblerSpawnRate = 1;
+        ordinaryStartingMoney = 1;
+        slotsWinRate = 1;
+        numberOfHorses = 7;
         
         // initialize the sliders
         Slider sliders[] = {
@@ -73,17 +90,6 @@ public class Settings extends World {
         addObject(texts[4], 893, 503);
         addObject(texts[5], 893, 269);
         addObject(texts[6], 893, 312);
-        //buttons
-        startButton = new TextButton("START", 40, 255, 255, 255, 255, 0, 0);
-        rouletteEuropean = new TextButton("European ", 30,0, 0, 0, 255, 0, 0);
-        rouletteAmerican = new TextButton("American ", 30,0, 0, 0, 255, 0, 0);
-        rouletteSands = new TextButton("Sands",30,0, 0, 0, 255, 0, 0);
-        // add TextButtons to the world
-        addObject(startButton, 623, 719);
-        addObject(rouletteEuropean, 763, 372);
-        addObject(rouletteAmerican, 762, 349);
-        addObject(rouletteSands, 739, 397);
-        */
     }
 
     // calculate the slider value using pixels/slider length
@@ -94,20 +100,15 @@ public class Settings extends World {
      * <p><strong>void act()</strong> - Handles interactions with the start TextButton and roulette style TextButtons. It transitions to the main game world and adjusts roulette styles based on player input.</p>
      */
     public void act(){
-        /*
-        if(Greenfoot.mouseClicked(startButton)){
-            ts.getMusic().stop(); // stops the title screen music
-            Greenfoot.setWorld(new CasinoWorld());
+        if(Greenfoot.mouseClicked(backButton)){
+            Greenfoot.setWorld(ts);
         }
-        if(Greenfoot.mouseClicked(rouletteEuropean))rouletteStyle = 37;
-        */
     }
 
     /**
      * <p><strong>void updateVar(int sliderID, int value)</strong> - Updates game settings based on slider input.</p>
     */
     public void updateVar(int sliderID, int value) {
-        /*
         switch (sliderID) {
             case 1:texts[0].changeText(String.valueOf(casinoTarget=value));break;
             case 2:texts[1].changeText(String.valueOf(vipGamblerSpawnRate = value));break;
@@ -117,7 +118,6 @@ public class Settings extends World {
             case 6: texts[5].changeText(String.valueOf(slotsWinRate=value));break;
             case 7: texts[6].changeText(String.valueOf(numberOfHorses=value));break;
         }
-        */
     }
     
     /**

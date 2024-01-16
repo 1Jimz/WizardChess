@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Widget here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author David Guo
+ * @version 1.0 01/14/2024
  */
 public class Widget extends Actor
 {

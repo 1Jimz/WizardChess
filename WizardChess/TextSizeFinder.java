@@ -7,7 +7,7 @@ import java.awt.Font;
  * Java's Font, not Greenfoot's. It is not meant to be added to the world
  * 
  * @author Alex Li
- * @version 0.2
+ * @version 0.2 - Modified by David Guo
  */
 public class TextSizeFinder
 {
@@ -33,7 +33,7 @@ public class TextSizeFinder
     public int getTextWidth(String text, int fontSize){
         TextFont = new Font ("calibri", Font.PLAIN, fontSize);
         fm = g.getFontMetrics(TextFont);
-        int width = fm.charsWidth(text.toCharArray(), 0, text.length());
+        int width = fm.charsWidth(text.toCharArray(), 0, text.length())+22; // small error fixed
         return width; 
     }
     /**
