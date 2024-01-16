@@ -20,7 +20,6 @@ public class Card extends SuperSmoothMover{
         //setImage(new GreenfootImage("Testcardfront2.png"));
     }
     public void addedToWorld(World w){
-        getWorld().addObject(new CardHitbox(mx,my,active,leftBorder,this),getX(),getY());
         for(int i=0;i<x.length;i++){
             x[i] += getX();
             y[i] += getY();
@@ -34,7 +33,7 @@ public class Card extends SuperSmoothMover{
     }
     public void act() {
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        //if(whirl==0&&mouse!=null&&Greenfoot.mouseClicked(this))whirl++;
+        if(whirl==0&&mouse!=null&&Greenfoot.mouseClicked(this))whirl++;
         if(whirl>0&&whirl<35&&mouse!=null){
             whirl++;
             getImage().scale(getImage().getWidth()-5,getImage().getHeight()-5);
@@ -57,9 +56,6 @@ public class Card extends SuperSmoothMover{
             }
             else if(Greenfoot.isKeyDown("G"))dispose();//also need to make sure have enough ep
         }
-    }
-    public void whirlUp(){
-        whirl++;
     }
     public void dispose(){
         active=1000;

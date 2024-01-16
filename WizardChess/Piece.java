@@ -72,7 +72,7 @@ public class Piece extends SuperSmoothMover
     }
     public void attack(BoardManager.Move m){
         q.add(m);
-        //System.out.println("eee "+m);
+        System.out.println("eee "+m);
         awaitingDeath=true;
         //BoardManager.getTile(saveR,saveC).removePiece();
         Wizard.takeDmg(HP);
