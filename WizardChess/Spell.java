@@ -22,7 +22,25 @@ class singleTile implements spell {
     }
 }
 // 3x3 aoe spell (card 2)
-class AreaSpell implements SpellStrategy {
+class areaSpell implements SpellStrategy {
+    @Override
+    public void playSpell(Spell spell, int bR, int bC) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                Tile t = BoardManager.getTile(bR + i, bC + j);
+                if (t != null && t.isGreen()) {
+                    spell.setLocation(Game.hPush + bC * 80 - 10, Game.vPush + bR * 80 - 40);
+                    spell.setPlaced(true);
+                    if (t.getOccupyingPiece() != null)t.getOccupyingPiece().takeDmg(10);
+                }
+            }
+        }
+        Game.deactivateSpell();
+        Game.grabCardAnimation();
+    }
+}
+// cross aoe spell (card 3)
+class cross implements SpellStrategy {
     @Override
     public void playSpell(Spell spell, int bR, int bC) {
         for (int i = -1; i <= 1; i++) {
@@ -56,11 +74,15 @@ public class Spell extends SuperSmoothMover {
                 range = 200;
                 break;
             case 1: // card 2
-                spellStrategy = new AreaSpell();
+                spellStrategy = new areaSpell();
                 setup(6, "MagicFire", -6, -56, 70, 145);
                 range = 200;
                 break;
-            // case 2:
+            case 2:
+                spellStrategy = new cross();
+                setup(6, "MagicFire", -6, -56, 70, 145);
+                range = 200;
+                break;
         }
     }
 
@@ -113,6 +135,26 @@ public class Spell extends SuperSmoothMover {
                     lastHighlightedR = bR;
                     if(!placed&&mouse!=null&&Greenfoot.mouseClicked(null)&&cur.isBlue()) {
                         spellStrategy.playSpell(this, bR,bC);
+                    }
+                }
+                // third spell (cross aoe)
+                if(type == 2) {
+                    if (lastHighlightedC != bC || lastHighlightedR != bR) clearGreenGrid();
+                    Tile centerTile = BoardManager.getTile(bR, bC);
+                    if (centerTile != null && centerTile.isBlue()) {
+                        for (int i = -1; i <= 1; i++) {
+                            for (int j = -1; j <= 1; j++) {
+                                if (i == 0 || j == 0) { // check if this tile is part of the cross section
+                                    Tile currT = BoardManager.getTile(bR + i, bC + j);
+                                    if (currT != null) currT.turnGreen();
+                                }
+                            }
+                        }
+                    }
+                    lastHighlightedC = bC;
+                    lastHighlightedR = bR;
+                    if (!placed && mouse != null && Greenfoot.mouseClicked(null) && centerTile.isBlue()) {
+                        spellStrategy.playSpell(this, bR, bC);
                     }
                 }
             }
