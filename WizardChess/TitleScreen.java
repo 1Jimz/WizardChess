@@ -51,6 +51,7 @@ public class TitleScreen extends World
         
         // Initialize setting values & actCount
         Settings.initialize();
+        //System.out.println(Settings.getMusicVolume());
         actCount = 0;
         
         // Add the fade effect
@@ -77,7 +78,7 @@ public class TitleScreen extends World
         
         // Assign the variable to the sound file name in folder & adjust volume
         music = new GreenfootSound("nemusplace.mp3");
-        music.setVolume(Settings.getMusicVolume());
+        music.setVolume(0);
         
         // Add the title of the game
         //addObject(new TitlePic("TitlePic.png"), getWidth()/2, getHeight()/4);
@@ -94,7 +95,7 @@ public class TitleScreen extends World
         
         // To update settings
         if(actCount == 100){
-            music.setVolume(Settings.getMusicVolume());
+            //music.setVolume(Settings.getMusicVolume());
         }
         actCount++;
     }

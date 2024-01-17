@@ -38,7 +38,7 @@ public class Settings extends World {
     public Settings(TitleScreen ts) {    
         super(1200, 740, 1);
         
-        setBackground("GameBg.png");
+        setBackground("CardHitbox.png");
         this.ts = ts;
         
         // back button
@@ -48,12 +48,12 @@ public class Settings extends World {
         // initialize the sliders
         Slider sliders[] = {
             new Slider(1, 698, 831, 10000, 1000000, casinoTarget),
-            new Slider(2, 698, 831, 1, 100, musicVolume),
+            new Slider(2, 698, 831, 0, 100, musicVolume),
             new Slider(3, 698, 831, 5000, 10000, vipGamblerStartingMoney),
-            new Slider(4, 698, 831, 1, 25, cheaterGamblerSpawnRate),
+            new Slider(4, 698, 831, 0, 25, cheaterGamblerSpawnRate),
             new Slider(5, 698, 831, 1, 5000, ordinaryStartingMoney),
             new Slider(6, 698, 831, 1, 99, slotsWinRate),
-            new Slider(7, 698, 831, 7, 20, numberOfHorses)
+            new Slider(7, 698, 831, 1, 20, numberOfHorses)
         };
         // add the sliders to world
         addObject(sliders[0], calculateSliderXPosition(sliders[0], casinoTarget), 219);
