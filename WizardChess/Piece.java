@@ -29,7 +29,10 @@ public class Piece extends SuperSmoothMover
             setLocation(getX(),getY()-5);
             setImage(Utility.customize(getImage(),dying--*15));
         }
-        else if(dying==0)getWorld().removeObject(this);
+        else if(dying==0) {
+            BoardManager.getBoard()[saveR][saveC].empty();
+            getWorld().removeObject(this);
+        }
         else if(movePhase<8){
             setLocation(getX(),getY()-4);
             movePhase++;

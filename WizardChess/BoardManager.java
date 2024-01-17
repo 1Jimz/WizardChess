@@ -80,7 +80,7 @@ public class BoardManager
         spawnPieces();
     }
     public static void test2() throws IOException, InterruptedException {
-        enemyTurn(6,5,200);
+        enemyTurn(6,1,2000);
     }
     public static void makeMove(Move m){
         System.out.println(m);
@@ -121,7 +121,7 @@ public class BoardManager
             movesTaken++;
             //for(int i = 0; i<8; i++)if(board[7][i].getOccupyingPiece()!=null&&board[7][i].getOccupyingPiece().getType()=='p')board[7][i].getOccupyingPiece().promote();
         }
-        Game.nextMove();
+        
     }
     public static String currentFEN(){
         StringBuilder sb = new StringBuilder();
@@ -207,9 +207,6 @@ public class BoardManager
             for(Tile tile : row) {
                 if(tile.getOccupyingPiece() != null) {
                     if(tile.getOccupyingPiece().isKing()) {
-                        if(tile.getOccupyingPiece().isDying()) {
-                            return true;
-                        }
                         return  false;
                     }
                 }

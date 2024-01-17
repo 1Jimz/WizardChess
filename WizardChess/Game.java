@@ -21,6 +21,7 @@ public class Game extends World
     private HPBar hpBar;
     private EnergyBar energyBar;
     private static int level;
+    private static Text waveNumber;
     //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
@@ -39,7 +40,8 @@ public class Game extends World
         wizard.setEnergyBar(energyBar);
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
-        BoardManager.test1();//
+        waveNumber = new Text(30,"Arial",Integer.toString(level));
+        addObject(waveNumber,952,731);
         //addObject(new Overlay(), 600,370);
         setPaintOrder(CardHitbox.class,Overlay.class);
     }
@@ -78,6 +80,7 @@ public class Game extends World
     public static Wizard getWizard(){
         return wizard;
     }
+    private boolean keyPressChecked = true;
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
         //setPaintOrder(Wizard.class, Wand.class);//
@@ -91,9 +94,16 @@ public class Game extends World
         }
         //List<Card> cards = getObjects(Card.class);
         //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
+        if(Greenfoot.isKeyDown("Enter") && keyPressChecked) {
+            nextMove();
+            keyPressChecked = false;
+        } else {
+            keyPressChecked = true;
+        }
         if(!wizardTurn()) {
             if(BoardManager.isWarned()) {
-                
+                BoardManager.spawnPieces();
+                BoardManager.unwarn();
             }
             try
             {
@@ -144,6 +154,7 @@ public class Game extends World
         BoardManager.createIncoming(fen);
         BoardManager.warn();
         nextMove();
+        waveNumber.changeText(Integer.toString(level));
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
