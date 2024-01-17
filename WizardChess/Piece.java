@@ -65,10 +65,18 @@ public class Piece extends SuperSmoothMover
             saveC=q.peek().getToR();
             tH=Game.hPush+q.poll().getToC()*80;
             movePhase=0;
-        }
+        } //else if(HP == 0) {
+            //getWorld().removeObject(this);
+        //}
     }
     public char getType(){
         return type;
+    }
+    public boolean isKing(){
+        if(type == 'k') {
+            return true;
+        }
+        return false;
     }
     public void attack(BoardManager.Move m){
         q.add(m);

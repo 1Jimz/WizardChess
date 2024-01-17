@@ -2,6 +2,7 @@ import greenfoot.*;
 import java.io.*;
 import java.util.*;
 import java.lang.*;
+import java.util.Scanner;
 /*
  Controls:
  WASD wizard movement(costs EP)
@@ -19,12 +20,16 @@ public class Game extends World
     private static Wizard wizard;
     private HPBar hpBar;
     private EnergyBar energyBar;
+    private static int level;
+//Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
         throwingCard=false;
         pickCard=false;
         spellActivated=false;
+        moveNumber = 0;
+        level = 1;
         EnemyTargetting.setup();
         //each time size 80
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
@@ -37,6 +42,19 @@ public class Game extends World
         BoardManager.test1();//
         addObject(new Overlay(), 600,370);
         setPaintOrder(CardHitbox.class,Overlay.class);
+    }
+    private static int moveNumber;
+    public static void nextMove() {
+        moveNumber++;
+    }
+    public static int moveCount() {
+        return moveNumber;
+    }
+    public static boolean wizardTurn() {
+        if(moveNumber % 2 == 0) {
+            return true;
+        }
+        return false;
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);
@@ -73,6 +91,23 @@ public class Game extends World
         }
         //List<Card> cards = getObjects(Card.class);
         //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
+        if(!wizardTurn()) {
+            try
+            {
+                BoardManager.test2();
+            }
+            catch (Exception ioe)
+            {
+                ioe.printStackTrace();
+            }
+            if(BoardManager.enemiesDefeated()) {
+                    BoardManager.resetTiles();
+                    for(Piece p: getObjects(Piece.class)) {
+                        removeObject(p);
+                    }
+                    nextLevel();
+            }
+        }
     }
     public static void grabCardAnimation(){
         pickCard=true;
@@ -87,6 +122,16 @@ public class Game extends World
     }
     public static boolean isSpellActivated(){
         return spellActivated;
+    }
+    private static Scanner readFile;
+    public static void nextLevel() {
+        try {
+            level++;
+            readFile = new Scanner(new File("levels/"+level + ".txt"));
+            BoardManager.createIncoming(readFile.nextLine());
+        } catch (FileNotFoundException e) {
+            System.out.println("filenotfound");
+        }
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){

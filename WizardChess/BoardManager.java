@@ -119,6 +119,7 @@ public class BoardManager
             movesTaken++;
             //for(int i = 0; i<8; i++)if(board[7][i].getOccupyingPiece()!=null&&board[7][i].getOccupyingPiece().getType()=='p')board[7][i].getOccupyingPiece().promote();
         }
+        Game.nextMove();
     }
     public static String currentFEN(){
         StringBuilder sb = new StringBuilder();
@@ -194,6 +195,21 @@ public class BoardManager
             for(int j = 0; j<8; j++)if(board[i][j].isBlue())System.out.print("B");else System.out.print("O");
             System.out.println();
         }
+    }
+    public static boolean enemiesDefeated() {
+        for(Tile[] row : getBoard()) {
+            for(Tile tile : row) {
+                if(tile.getOccupyingPiece() != null) {
+                    if(tile.getOccupyingPiece().isKing()) {
+                        if(tile.getOccupyingPiece().isDying()) {
+                            return true;
+                        }
+                        return  false;
+                    }
+                }
+            }
+        }
+        return true;
     }
     //give wiz a turn before each round to get out of the way of the incoming pieces(if wiz is not out of the way wiz takes dmg from the piece ramming)
 }
