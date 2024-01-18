@@ -23,11 +23,11 @@ public class EnemyTargetting
         //test();
     }
     public static void test() throws IOException,InterruptedException {
-        System.out.println(bestMove(testFen,5,20));
+        //System.out.println(bestMove(testFen,5,20));
         //System.out.println(bestMove);
-        bestMove("8/4k3/8/8/8/4K3/8/8 b - - 0 1",5,20);
+        //bestMove("8/4k3/8/8/8/4K3/8/8 b - - 0 1",5,20);
         //System.out.println(bestMove);
-        bestMove("6pk/6pp/8/8/8/4K3/8/8 b - - 0 1",5,20);
+        //bestMove("6pk/6pp/8/8/8/4K3/8/8 b - - 0 1",5,20);
         //System.out.println(bestMove);
     }
     public static BoardManager.Move bestMove(String fen, int depth, int processTime)throws IOException,InterruptedException {//

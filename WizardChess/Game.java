@@ -22,7 +22,6 @@ public class Game extends World
     private EnergyBar energyBar;
     private static int level;
     private static Text waveNumber;
-    //Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
@@ -80,7 +79,6 @@ public class Game extends World
     public static Wizard getWizard(){
         return wizard;
     }
-    private boolean checker = false;
     private boolean keyPressChecked = true;
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
@@ -95,19 +93,20 @@ public class Game extends World
         }
         //List<Card> cards = getObjects(Card.class);
         //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
-        
         if(Greenfoot.isKeyDown("Enter")) {
             if(keyPressChecked) {
                 nextMove();
                 if(!wizardTurn()) {
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
-                        checker = true;
+                        BoardManager.unwarn();
                     }
-                    
-                    if(BoardManager.enemiesDefeated() && !BoardManager.isWarned()) {
+                    else{
+                    //System.out.println("ASDAFAFS");
+            
+                    if(BoardManager.enemiesDefeated()) {
                             BoardManager.resetTiles();
-                            for(Piece p: getObjects(Piece.class)) {
+                            for(Piece p: getObjects(Piece.class)) {//not good
                                 removeObject(p);
                             }
                             nextLevel();
@@ -116,6 +115,7 @@ public class Game extends World
                         {
                             try
                             {
+                                System.out.println("BBB "+BoardManager.timeToMove(-99));
                                 BoardManager.enemyTurn(6,1,200);
                             }
                             catch (IOException ioe)
@@ -129,14 +129,8 @@ public class Game extends World
                         }
                     }
                 }
-                
-                if(checker) {
-                    BoardManager.unwarn();
-                    System.out.println("ASDAFAFS");
-                    checker = false;
-                }
-                
-                keyPressChecked = false;
+            }
+                        keyPressChecked = false;
             }
         } else {
             // System.out.println("ASDAF");
@@ -174,7 +168,7 @@ public class Game extends World
         }
         BoardManager.createIncoming(fen);
         BoardManager.warn();
-        nextMove();
+        //nextMove();
         waveNumber.changeText(Integer.toString(level));
     }
     //mr cohen's Zsort. Credit if needed
