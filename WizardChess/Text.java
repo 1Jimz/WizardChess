@@ -57,7 +57,7 @@ public class Text extends Widget
      */
     public void changeText(String text){
         GreenfootImage gfi = new GreenfootImage(size*6,size*2);
-        gfi.setColor(Color.WHITE);
+        gfi.setColor(Color.BLACK);
         gfi.setFont(new Font(font, true, false, size)); 
         gfi.drawString(text, size/2, size);
         setImage(gfi);

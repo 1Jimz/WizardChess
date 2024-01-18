@@ -32,6 +32,7 @@ public class Slider extends Widget {
     private int rangeMax;    // max value of the slider
 
     public Slider(int id, int minX, int maxX, int minRange, int maxRange, int initialValue) {
+        setImage("kingslider.png");
         this.sliderID = id;
         this.sliderMinX = minX;
         this.sliderMaxX = maxX;
