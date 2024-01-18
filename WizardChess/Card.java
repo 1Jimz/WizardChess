@@ -11,11 +11,13 @@ public class Card extends SuperSmoothMover{
         this.my=my;//200
         this.active=active;
         this.leftBorder=leftBorder;
-        type=Greenfoot.getRandomNumber(2);
+        type=Greenfoot.getRandomNumber(4);
         for(int f=0;f<6;f++)dl[f] = Math.sqrt(Math.pow((x[conect1[f]] - x[conect2[f]]),2)+Math.pow((y[conect1[f]] - y[conect2[f]]),2));
         switch(type){
             case 0:setImage(new GreenfootImage("TestCard1.png"));break;
             case 1:setImage(new GreenfootImage("TestCard2.png"));break;
+            case 2:setImage(new GreenfootImage("TestCard2.png"));break;
+            case 3:setImage(new GreenfootImage("TestCard1.png"));break;
         }
         //setImage(new GreenfootImage("Testcardfront2.png"));
     }

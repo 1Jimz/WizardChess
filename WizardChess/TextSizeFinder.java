@@ -33,7 +33,7 @@ public class TextSizeFinder
     public int getTextWidth(String text, int fontSize){
         TextFont = new Font ("calibri", Font.PLAIN, fontSize);
         fm = g.getFontMetrics(TextFont);
-        int width = fm.charsWidth(text.toCharArray(), 0, text.length())+22; // small error fixed
+        int width = fm.charsWidth(text.toCharArray(), 0, text.length()); // small error fixed
         return width; 
     }
     /**
