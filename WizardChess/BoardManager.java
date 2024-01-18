@@ -157,6 +157,8 @@ public class BoardManager
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].placePiece(incoming[i][j]);
     }
     public static void createIncoming(String fen){
+        incoming=new Piece[8][8];
+        countdown=0;
         warned = false;
         StringTokenizer st = new StringTokenizer(fen.replaceAll(" b - - 0 1",""),"/");
         for(int i = 0; i<8; i++){
@@ -166,7 +168,10 @@ public class BoardManager
                 //System.out.println(j);
                 //System.out.println(line);
                 if(Character.isDigit(line.charAt(k)))j+=(line.charAt(k)-'0');
-                else if(line.charAt(k)!='K')incoming[i][j]=new Piece(line.charAt(k),Game.hPush+j*80,Game.vPush+i*80,Game.hPush+j++*80,Game.vPush+i*80-30);
+                else if(line.charAt(k)!='K'){
+                    incoming[i][j]=new Piece(line.charAt(k),Game.hPush+j*80,Game.vPush+i*80,Game.hPush+j++*80,Game.vPush+i*80-30);
+                    countdown++;
+                }
             }
         }
     }
@@ -193,11 +198,11 @@ public class BoardManager
         return board;
     }
     public static boolean timeToMove(int i){
-        System.out.println(i+" "+countdown);
+        //System.out.println(i+" "+countdown);
         return countdown==i;
     }
     public static void allowNextMove(){
-        System.out.println("asdfa");
+        //System.out.println("asdfa");
         countdown--;
     }
     public static void debugSeeIfBlue(){
@@ -221,6 +226,12 @@ public class BoardManager
     }
     public static boolean isWarned() {
         return warned;
+    }
+    public static void wipe(){
+        for(Tile[] ts : board)for(Tile t : ts)t.empty();
+    }
+    public static int getCountdown(){
+        return countdown;
     }
     //give wiz a turn before each round to get out of the way of the incoming pieces(if wiz is not out of the way wiz takes dmg from the piece ramming)
 }

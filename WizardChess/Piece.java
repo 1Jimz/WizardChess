@@ -37,7 +37,7 @@ public class Piece extends SuperSmoothMover
             setLocation(getX(),getY()-4);
             movePhase++;
             //System.out.println(t+" "+"e");
-            if(movePhase==8){BoardManager.allowNextMove();System.out.println("Aaegoijaijg"+" "+q);}
+            if(movePhase==8){BoardManager.allowNextMove();System.out.println("Aaegoijaijg"+" "+q+" "+BoardManager.timeToMove(-99));}
         }
         else if(movePhase==8&&(!Utility.inRangeInclusive(getX(),tH-(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1),tH+(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1))||!Utility.inRangeInclusive(getY(),tV-32-(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1),tV-32+(int)Math.ceil(Utility.distance(sH,sV,tH,tV)/25+1)))){
             double bearing=Utility.bearingDegreesAToB(getX(),getY(),tH,tV-32);
@@ -103,6 +103,9 @@ public class Piece extends SuperSmoothMover
     public void takeDmg(int dmg){
         HP-=dmg;
         if(HP<=0)dying=17;
+    }
+    public void kill(){
+        dying=17;
     }
     public boolean isDying(){
         return dying>=0||awaitingDeath;
