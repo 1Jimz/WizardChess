@@ -123,12 +123,12 @@ public class Game extends World
             }
         } 
         else keyPressChecked = true;
-        if(canNewWave&&BoardManager.enemiesDefeated()) {//
-            System.out.println("asd");
+        if(canNewWave&&BoardManager.enemiesDefeated()) {
             BoardManager.resetTiles();
             BoardManager.wipe();
             for(Piece p: getObjects(Piece.class))removeObject(p);
             nextLevel();
+            nextMove();
             canNewWave=false;
         } 
     }

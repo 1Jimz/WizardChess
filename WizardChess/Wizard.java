@@ -15,84 +15,79 @@ public class Wizard extends SuperSmoothMover{
         Game.grabCardAnimation();
     }
     public void act(){
-        //if(!Game.wizardTurn())
-            //System.out.println(getR()+" "+getC());
-            h=getX();
-            v=getY();
-            MouseInfo mouse = Greenfoot.getMouseInfo();
-            if(mouse!=null)degrees=Utility.bearingDegreesAToB(h,v,mouse.getX(),mouse.getY());
-            if(walking){
-                if(++phase<=3)setLocation(getX(), getY()-10);
-                else if(phase<=11){
-                    switch(walkDirection){
-                        case 0:setLocation(getX(), getY()-10);break;
-                        case 6:setLocation(getX()-10, getY());break;
-                        case 4:setLocation(getX(), getY()+10);break;
-                        case 2:setLocation(getX()+10, getY());break;
-                    }
+        h=getX();
+        v=getY();
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if(mouse!=null)degrees=Utility.bearingDegreesAToB(h,v,mouse.getX(),mouse.getY());
+        if(walking){
+            if(++phase<=3)setLocation(getX(), getY()-10);
+            else if(phase<=11){
+                switch(walkDirection){
+                    case 0:setLocation(getX(), getY()-10);break;
+                    case 6:setLocation(getX()-10, getY());break;
+                    case 4:setLocation(getX(), getY()+10);break;
+                    case 2:setLocation(getX()+10, getY());break;
                 }
-                else if(phase<=14){
-                    setLocation(getX(), getY()+10);
-                    if(Game.isSpellActivated())highlightRange(200);//200 is temp val
-                }
-                else{
-                    walking=false;
-                    phase=0;
-                }
+            }
+            else if(phase<=14){
+                setLocation(getX(), getY()+10);
+                if(Game.isSpellActivated())highlightRange(200);//200 is temp val
             }
             else{
-                if(mouse!=null&&Game.isSpellActivated())direction=Utility.direction(Utility.bearingDegreesAToB(getX(),getY(),mouse.getX(),mouse.getY()));
-                setImage(new GreenfootImage("Wizard-"+direction+"-"+frame+".png"));
-                if(rate==50)rate=0;
-                if(rate==0)frame=0;
-                else if(rate==20)frame=1;
-                else if(rate==40)frame=2;
-                rate++;
-                Tile[][] currentBoard = BoardManager.getBoard();
-                if(Game.wizardTurn()&&r!=0&&currentBoard[r-1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("W")){
-                    walking=true;
-                    r--;
-                    walkDirection=0;
-                    if(!Game.isSpellActivated()){
-                        setImage(new GreenfootImage("Wizard-0-1.png"));
-                        direction=0;
-                    }
-                    decreaseE();
-                }
-                else if(Game.wizardTurn()&&c!=0&&currentBoard[r][c-1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("A")){
-                    walking=true;
-                    c--;
-                    walkDirection=6;
-                    if(!Game.isSpellActivated()){
-                        setImage(new GreenfootImage("Wizard-6-1.png"));
-                        direction=6;
-                    }
-                    decreaseE();
-                }
-                else if(Game.wizardTurn()&&r!=7&&currentBoard[r+1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("S")){
-                    walking=true;
-                    r++;
-                    walkDirection=4;
-                    if(!Game.isSpellActivated()){
-                        setImage(new GreenfootImage("Wizard-4-1.png"));
-                        direction=4;
-                    }
-                    decreaseE();
-                }
-                else if(Game.wizardTurn()&&c!=7&&currentBoard[r][c+1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("D")){
-                    walking=true;
-                    c++;
-                    walkDirection=2;
-                    if(!Game.isSpellActivated()){
-                        setImage(new GreenfootImage("Wizard-2-1.png"));
-                        direction=2;
-                    }
-                    decreaseE();
-                }
+                walking=false;
+                phase=0;
             }
-            // test/debugging
-            //System.out.println(this.getR() + this.getC());
-        //}
+        }
+        else{
+            if(mouse!=null&&Game.isSpellActivated())direction=Utility.direction(Utility.bearingDegreesAToB(getX(),getY(),mouse.getX(),mouse.getY()));
+            setImage(new GreenfootImage("Wizard-"+direction+"-"+frame+".png"));
+            if(rate==50)rate=0;
+            if(rate==0)frame=0;
+            else if(rate==20)frame=1;
+            else if(rate==40)frame=2;
+            rate++;
+            Tile[][] currentBoard = BoardManager.getBoard();
+            if(Game.wizardTurn()&&r!=0&&currentBoard[r-1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("W")){
+                walking=true;
+                r--;
+                walkDirection=0;
+                if(!Game.isSpellActivated()){
+                    setImage(new GreenfootImage("Wizard-0-1.png"));
+                    direction=0;
+                }
+                decreaseE();
+            }
+            else if(Game.wizardTurn()&&c!=0&&currentBoard[r][c-1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("A")){
+                walking=true;
+                c--;
+                walkDirection=6;
+                if(!Game.isSpellActivated()){
+                    setImage(new GreenfootImage("Wizard-6-1.png"));
+                    direction=6;
+                }
+                decreaseE();
+            }
+            else if(Game.wizardTurn()&&r!=7&&currentBoard[r+1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("S")){
+                walking=true;
+                r++;
+                walkDirection=4;
+                if(!Game.isSpellActivated()){
+                    setImage(new GreenfootImage("Wizard-4-1.png"));
+                    direction=4;
+                }
+                decreaseE();
+            }
+            else if(Game.wizardTurn()&&c!=7&&currentBoard[r][c+1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("D")){
+                walking=true;
+                c++;
+                walkDirection=2;
+                if(!Game.isSpellActivated()){
+                    setImage(new GreenfootImage("Wizard-2-1.png"));
+                    direction=2;
+                }
+                decreaseE();
+            }
+        }
     }
     public static int getR(){
         return r;
@@ -115,11 +110,6 @@ public class Wizard extends SuperSmoothMover{
     public static double getDegrees(){
         return degrees;
     }
-    /*
-    public static void setRange(int r){
-        range = r;
-    }
-    */
     public void setEnergyBar(EnergyBar energyBar) {
         this.energyBar = energyBar;
     }
@@ -130,12 +120,7 @@ public class Wizard extends SuperSmoothMover{
     }
     
     public static void highlightRange(int range) {
-    //MouseInfo mouse = Greenfoot.getMouseInfo();
-    //if (mouse != null) {
-        //int tX=(mouse.getX()-Game.hPush+40)/80, tY=(mouse.getY()-Game.vPush+40)/80;
         BoardManager.resetTiles();
-        //if (Game.getWizard().inRange(Game.hPush+c*80, Game.vPush+r*80)) {//
-            //System.out.println((Game.hPush+c*80)+" "+(Game.vPush+r*80)+" "+r+" "+c);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                     Tile t = BoardManager.getTile(i, j);//
