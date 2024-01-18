@@ -105,10 +105,6 @@ public class Game extends World
                     //System.out.println("ASDAFAFS");
             
                     if(BoardManager.enemiesDefeated()) {
-                            BoardManager.resetTiles();
-                            for(Piece p: getObjects(Piece.class)) {//not good
-                                removeObject(p);
-                            }
                             nextLevel();
                     } else {
                         try
