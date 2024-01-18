@@ -43,16 +43,16 @@ class areaSpell implements SpellStrategy {
 class cross implements SpellStrategy {
     @Override
     public void playSpell(Spell spell, int bR, int bC) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                Tile t = BoardManager.getTile(bR + i, bC + j);
-                if (t != null && t.isGreen()) {
-                    spell.setLocation(Game.hPush + bC * 80 - 10, Game.vPush + bR * 80 - 40);
-                    spell.setPlaced(true);
-                    if (t.getOccupyingPiece() != null)t.getOccupyingPiece().takeDmg(10);
+        for (int i =-2; i <= 2;i++) {
+            for(int j = -2; j <=2; j++) {
+                if(i == 0|| j ==0) { // check if tile is part of cross
+                    Tile t = BoardManager.getTile(bR + i, bC + j);
+                    if(t != null && t.isGreen())if (t.getOccupyingPiece() != null)t.getOccupyingPiece().takeDmg(10);
                 }
             }
         }
+        spell.setLocation(Game.hPush + bC * 80 - 10, Game.vPush + bR * 80 - 40);
+        spell.setPlaced(true);
         Game.deactivateSpell();
         Game.grabCardAnimation();
     }
@@ -142,8 +142,8 @@ public class Spell extends SuperSmoothMover {
                     if (lastHighlightedC != bC || lastHighlightedR != bR) clearGreenGrid();
                     Tile centerTile = BoardManager.getTile(bR, bC);
                     if (centerTile != null && centerTile.isBlue()) {
-                        for (int i = -1; i <= 1; i++) {
-                            for (int j = -1; j <= 1; j++) {
+                        for (int i = -2; i <= 2; i++) {
+                            for (int j = -2; j <= 2; j++) {
                                 if (i == 0 || j == 0) { // check if this tile is part of the cross section
                                     Tile currT = BoardManager.getTile(bR + i, bC + j);
                                     if (currT != null) currT.turnGreen();
