@@ -15,7 +15,7 @@ public class Wizard extends SuperSmoothMover{
         Game.grabCardAnimation();
     }
     public void act(){
-        if(!Game.wizardTurn())
+        //if(!Game.wizardTurn())
             //System.out.println(getR()+" "+getC());
             h=getX();
             v=getY();
