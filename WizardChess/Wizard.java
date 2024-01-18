@@ -49,7 +49,7 @@ public class Wizard extends SuperSmoothMover{
                 else if(rate==40)frame=2;
                 rate++;
                 Tile[][] currentBoard = BoardManager.getBoard();
-                if(r!=0&&currentBoard[r-1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("W")){
+                if(r!=0&&currentBoard[r-1][c].isEmpty()&&Greenfoot.isKeyDown("W")){
                     walking=true;
                     r--;
                     walkDirection=0;
@@ -59,7 +59,7 @@ public class Wizard extends SuperSmoothMover{
                     }
                     decreaseE();
                 }
-                else if(c!=0&&currentBoard[r][c-1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("A")){
+                else if(c!=0&&currentBoard[r][c-1].isEmpty()&&Greenfoot.isKeyDown("A")){
                     walking=true;
                     c--;
                     walkDirection=6;
@@ -69,7 +69,7 @@ public class Wizard extends SuperSmoothMover{
                     }
                     decreaseE();
                 }
-                else if(r!=7&&currentBoard[r+1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("S")){
+                else if(r!=7&&currentBoard[r+1][c].isEmpty()&&Greenfoot.isKeyDown("S")){
                     walking=true;
                     r++;
                     walkDirection=4;
@@ -79,7 +79,7 @@ public class Wizard extends SuperSmoothMover{
                     }
                     decreaseE();
                 }
-                else if(c!=7&&currentBoard[r][c+1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("D")){
+                else if(c!=7&&currentBoard[r][c+1].isEmpty()&&Greenfoot.isKeyDown("D")){
                     walking=true;
                     c++;
                     walkDirection=2;

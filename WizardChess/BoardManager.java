@@ -18,9 +18,6 @@ public class BoardManager
             return c;
         }
     }
-    
-    
-
     public static class Move{
         private int fromR, fromC, toR, toC, i;
         
@@ -83,7 +80,7 @@ public class BoardManager
         enemyTurn(6,1,2000);
     }
     public static void makeMove(Move m){
-        System.out.println(m);
+        //System.out.println(m);
         board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
         board[m.getToR()][m.getToC()].placePiece(board[m.getFromR()][m.getFromC()].getOccupyingPiece());
         board[m.getFromR()][m.getFromC()].empty();
@@ -157,14 +154,17 @@ public class BoardManager
         warned = false;
         StringTokenizer st = new StringTokenizer(fen.replaceAll(" b - - 0 1",""),"/");
         for(int i = 0; i<8; i++){
+            System.out.print("[ ");
             String line = st.nextToken();
             int j = 0;
             for(int k = 0, len=line.length(); k<len; k++){
+                System.out.print(line.charAt(k));
                 //System.out.println(j);
                 //System.out.println(line);
-                if(Character.isDigit(line.charAt(k)))j+=(line.charAt(k)-'0');
-                else if(line.charAt(k)!='K')incoming[i][j]=new Piece(line.charAt(k),Game.hPush+j*80,Game.vPush+i*80,Game.hPush+j++*80,Game.vPush+i*80-30);
+                if(Character.isDigit(line.charAt(k))){}//j+=(line.charAt(k)-'0');
+                else if(line.charAt(k)!='K' && Character.isLetter(line.charAt(k)))incoming[i][j]=new Piece(line.charAt(k),Game.hPush+j*80,Game.vPush+i*80,Game.hPush+j++*80,Game.vPush+i*80-30);
             }
+            System.out.println(" ]");
         }
     }
     public static void resetTiles() {
@@ -202,7 +202,6 @@ public class BoardManager
         }
     }
     public static boolean enemiesDefeated() {
-        if(warned) return false;
         for(Tile[] row : getBoard()) {
             for(Tile tile : row) {
                 if(tile.getOccupyingPiece() != null) {
@@ -216,6 +215,19 @@ public class BoardManager
     }
     public static boolean isWarned() {
         return warned;
+    }
+    public static void checkBoard() {
+        for(int i = 0; i < 8; i++) {
+            System.out.print("[ ");
+            for(int j = 0; j < 8; j++) {
+                try {
+                    System.out.print(" "+getBoard()[i][j].getOccupyingPiece().getType()+",");
+                } catch (Exception e) {
+                    System.out.print("  ,");
+                }
+            }
+            System.out.println(" ]");
+        }
     }
     //give wiz a turn before each round to get out of the way of the incoming pieces(if wiz is not out of the way wiz takes dmg from the piece ramming)
 }

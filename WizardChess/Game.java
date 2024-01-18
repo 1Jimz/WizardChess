@@ -43,7 +43,7 @@ public class Game extends World
         waveNumber = new Text(30,"Arial",Integer.toString(level));
         addObject(waveNumber,952,731);
         //addObject(new Overlay(), 600,370);
-        setPaintOrder(CardHitbox.class,Overlay.class);
+        //setPaintOrder(CardHitbox.class,Overlay.class);
     }
     private static int moveNumber;
     public static void nextMove() {
@@ -94,32 +94,45 @@ public class Game extends World
         }
         //List<Card> cards = getObjects(Card.class);
         //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
-        if(Greenfoot.isKeyDown("Enter") && keyPressChecked) {
-            nextMove();
-            keyPressChecked = false;
-        } else {
-            keyPressChecked = true;
-        }
-        if(!wizardTurn()) {
-            if(BoardManager.isWarned()) {
-                BoardManager.spawnPieces();
-                BoardManager.unwarn();
-            }
-            try
-            {
-                BoardManager.test2();
-            }
-            catch (Exception ioe)
-            {
-                ioe.printStackTrace();
-            }
-            if(BoardManager.enemiesDefeated()) {
-                    BoardManager.resetTiles();
-                    for(Piece p: getObjects(Piece.class)) {
-                        removeObject(p);
+        if(Greenfoot.isKeyDown("Enter")) {
+            if(keyPressChecked) {
+                nextMove();
+                if(!wizardTurn()) {
+                    if(BoardManager.isWarned()) {
+                        BoardManager.spawnPieces();
+                        BoardManager.unwarn();
                     }
-                    nextLevel();
+                    System.out.println("ASDAFAFS");
+            
+                    if(BoardManager.enemiesDefeated() && !BoardManager.isWarned()) {
+                            BoardManager.resetTiles();
+                            for(Piece p: getObjects(Piece.class)) {
+                                removeObject(p);
+                            }
+                            nextLevel();
+                    } else {
+                        try
+                        {
+                            try
+                            {
+                                BoardManager.enemyTurn(6,1,200);
+                            }
+                            catch (IOException ioe)
+                            {
+                                ioe.printStackTrace();
+                            }
+                        }
+                        catch (InterruptedException ie)
+                        {
+                            ie.printStackTrace();
+                        }
+                    }
+                }
+                        keyPressChecked = false;
             }
+        } else {
+            // System.out.println("ASDAF");
+            keyPressChecked = true;
         }
     }
     public static void grabCardAnimation(){
@@ -173,11 +186,7 @@ public class Game extends World
                         try{
                             HPBar hpBar=(HPBar)a;
                         }catch(ClassCastException e4){ 
-                            try{
-                                CardHitbox chb=(CardHitbox)a;
-                            }catch(ClassCastException e5){ 
-                                acList.add (new ActorContent (a, a.getX(), a.getY()));
-                            }
+                            acList.add (new ActorContent (a, a.getX(), a.getY()));
                         }
                     }
             }

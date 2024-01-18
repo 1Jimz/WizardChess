@@ -66,5 +66,6 @@ public class Tile extends Actor
     }
     public void empty(){
         occupyingPiece=null;
+        occupied = false;
     }
 }

@@ -60,7 +60,7 @@ public class Piece extends SuperSmoothMover
             //if(awaitingDeath)dying=17;
         }
         else if(!q.isEmpty()&&BoardManager.timeToMove(q.peek().getI())){
-            System.out.println(q.peek().getI());
+            //System.out.println(q.peek().getI());
             sV=tV;
             sH=tH;
             tV=Game.vPush+q.peek().getToR()*80;
