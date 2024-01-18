@@ -57,6 +57,26 @@ class cross implements SpellStrategy {
         Game.grabCardAnimation();
     }
 }
+// diagonal spell
+class diagonal implements SpellStrategy {
+    @Override
+    public void playSpell(Spell spell, int bR, int bC) {
+        for (int i = -2; i <= 2; i++) {
+            effect(bR+i, bC+i); // diagonal right down and left up
+            effect(bR+i, bC-i); // diagonal left down and right up
+        }
+        spell.setLocation(Game.hPush+ bC *80-10,Game.vPush +bR *80 - 40);
+        spell.setPlaced(true);
+        Game.deactivateSpell();
+        Game.grabCardAnimation();
+    }
+    private void effect(int r, int c) {
+        Tile t = BoardManager.getTile(r, c);
+        if (t != null && t.isGreen()) {
+            if (t.getOccupyingPiece() != null)t.getOccupyingPiece().takeDmg(10); 
+        }
+    }
+}
 // spell class
 public class Spell extends SuperSmoothMover {
     private int type, frame, rate, frameCount, adjustH, adjustV, w, h, fadeTime;
@@ -79,7 +99,12 @@ public class Spell extends SuperSmoothMover {
                 range = 200;
                 break;
             case 2:
-                spellStrategy = new cross();
+                spellStrategy = new cross(); // card 3
+                setup(6, "MagicFire", -6, -56, 70, 145);
+                range = 200;
+                break;
+            case 3:
+                spellStrategy = new diagonal(); // card 4
                 setup(6, "MagicFire", -6, -56, 70, 145);
                 range = 200;
                 break;
@@ -154,6 +179,24 @@ public class Spell extends SuperSmoothMover {
                     lastHighlightedC = bC;
                     lastHighlightedR = bR;
                     if (!placed && mouse != null && Greenfoot.mouseClicked(null) && centerTile.isBlue()) {
+                        spellStrategy.playSpell(this, bR, bC);
+                    }
+                }
+                // fourth spell (diagonal aoe)
+                if (type == 3) {
+                    if (lastHighlightedC!= bC || lastHighlightedR != bR)clearGreenGrid();
+                    Tile cT = BoardManager.getTile(bR, bC);
+                    if (cT != null && cT.isBlue()) {
+                        for (int i = -2; i <= 2; i++) {
+                            Tile currT1 = BoardManager.getTile(bR+i,bC+i); // diagonal right down and left up
+                            Tile currT2 = BoardManager.getTile(bR+i,bC-i); // diagonal left down and right up
+                            if (currT1 != null)currT1.turnGreen();
+                            if (currT2 != null)currT2.turnGreen();
+                        }
+                    }
+                    lastHighlightedC = bC;
+                    lastHighlightedR = bR;
+                    if (!placed && mouse != null && Greenfoot.mouseClicked(null) && cT.isBlue()) {
                         spellStrategy.playSpell(this, bR, bC);
                     }
                 }
