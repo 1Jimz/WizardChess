@@ -21,7 +21,7 @@ public class Game extends World
     private HPBar hpBar;
     private EnergyBar energyBar;
     private static int level;
-//Thing that happens if two pieces step on the same tile at once during their movement. This is completely normal. Not a bug.
+    private static Text waveNumber;
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
@@ -39,9 +39,10 @@ public class Game extends World
         wizard.setEnergyBar(energyBar);
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
-        BoardManager.test1();//
-        addObject(new Overlay(), 600,370);
-        setPaintOrder(CardHitbox.class,Overlay.class);
+        waveNumber = new Text(30,"Arial",Integer.toString(level));
+        addObject(waveNumber,952,731);
+        //addObject(new Overlay(), 600,370);
+        //setPaintOrder(CardHitbox.class,Overlay.class);
     }
     private static int moveNumber;
     public static void nextMove() {
@@ -78,6 +79,7 @@ public class Game extends World
     public static Wizard getWizard(){
         return wizard;
     }
+    private boolean keyPressChecked = true;
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
         //setPaintOrder(Wizard.class, Wand.class);//
@@ -91,22 +93,48 @@ public class Game extends World
         }
         //List<Card> cards = getObjects(Card.class);
         //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
-        if(!wizardTurn()) {
-            try
-            {
-                BoardManager.test2();
-            }
-            catch (Exception ioe)
-            {
-                ioe.printStackTrace();
-            }
-            if(BoardManager.enemiesDefeated()) {
-                    BoardManager.resetTiles();
-                    for(Piece p: getObjects(Piece.class)) {
-                        removeObject(p);
+        if(Greenfoot.isKeyDown("Enter")) {
+            if(keyPressChecked) {
+                nextMove();
+                if(!wizardTurn()) {
+                    if(BoardManager.isWarned()) {
+                        BoardManager.spawnPieces();
+                        BoardManager.unwarn();
                     }
-                    nextLevel();
+                    else{
+                    //System.out.println("ASDAFAFS");
+            
+                    if(BoardManager.enemiesDefeated()) {
+                            BoardManager.resetTiles();
+                            for(Piece p: getObjects(Piece.class)) {//not good
+                                removeObject(p);
+                            }
+                            nextLevel();
+                    } else {
+                        try
+                        {
+                            try
+                            {
+                                System.out.println("BBB "+BoardManager.timeToMove(-99));
+                                BoardManager.enemyTurn(6,1,200);
+                            }
+                            catch (IOException ioe)
+                            {
+                                ioe.printStackTrace();
+                            }
+                        }
+                        catch (InterruptedException ie)
+                        {
+                            ie.printStackTrace();
+                        }
+                    }
+                }
             }
+                        keyPressChecked = false;
+            }
+        } else {
+            // System.out.println("ASDAF");
+            keyPressChecked = true;
         }
     }
     public static void grabCardAnimation(){
@@ -125,13 +153,23 @@ public class Game extends World
     }
     private static Scanner readFile;
     public static void nextLevel() {
+        String fen = "";
         try {
             level++;
-            readFile = new Scanner(new File("levels/"+level + ".txt"));
-            BoardManager.createIncoming(readFile.nextLine());
+            readFile = new Scanner(new File("levels/"+level+".txt"));
+            
+            fen = readFile.nextLine();
+            System.out.println(fen);
+            
+            
+            readFile.close();
         } catch (FileNotFoundException e) {
             System.out.println("filenotfound");
         }
+        BoardManager.createIncoming(fen);
+        BoardManager.warn();
+        //nextMove();
+        waveNumber.changeText(Integer.toString(level));
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
@@ -150,11 +188,7 @@ public class Game extends World
                         try{
                             HPBar hpBar=(HPBar)a;
                         }catch(ClassCastException e4){ 
-                            try{
-                                CardHitbox chb=(CardHitbox)a;
-                            }catch(ClassCastException e5){ 
-                                acList.add (new ActorContent (a, a.getX(), a.getY()));
-                            }
+                            acList.add (new ActorContent (a, a.getX(), a.getY()));
                         }
                     }
             }
@@ -171,7 +205,8 @@ public class Game extends World
             world.addObject(actor, a.getX(), a.getY());
         }
     }
-    static class ActorContent implements Comparable <ActorContent> {
+
+static class ActorContent implements Comparable <ActorContent> {
     private Actor actor;
     private int xx, yy;
     public ActorContent(Actor actor, int xx, int yy){
@@ -203,5 +238,5 @@ public class Game extends World
     public int compareTo (ActorContent a){
         return this.getY() - a.getY();
     }
-}
+    }
 }

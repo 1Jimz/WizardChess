@@ -4,6 +4,7 @@ import greenfoot.*;
 public class BoardManager  
 {
     private static int countdown=-1;
+    private static boolean warned = false;
     public static class Position{
         private int r,c;
         public Position(int r, int c){
@@ -17,11 +18,9 @@ public class BoardManager
             return c;
         }
     }
-    
-    
-
     public static class Move{
         private int fromR, fromC, toR, toC, i;
+        
         public Move(int fromR, int fromC, int toR, int toC, int i){
             this.fromR=fromR;
             this.fromC=fromC;
@@ -54,12 +53,17 @@ public class BoardManager
             this.toC=toC;
         }
         public String toString(){
-            return "["+fromR+"]["+fromC+"]-->["+toR+"]["+toC+"]";
+            return "["+fromR+"]["+fromC+"]-->["+toR+"]["+toC+"]"+i;
         }
     }
     private static Tile[][] board = new Tile[8][8];
     private static Piece[][] incoming = new Piece[8][8];
-    
+    public static void printBoard(){
+        for(int i = 0; i<8; i++){
+            for(int j = 0; j<8; j++)System.out.print(board[i][j].getOccupyingPiece()==null?".":board[i][j].getOccupyingPiece().getType());
+            System.out.println();
+        }
+    }
     public static Tile getTile(int r, int c){
         try{
             return board[r][c];
@@ -78,7 +82,7 @@ public class BoardManager
         spawnPieces();
     }
     public static void test2() throws IOException, InterruptedException {
-        enemyTurn(6,5,200);
+        enemyTurn(6,1,2000);
     }
     public static void makeMove(Move m){
         System.out.println(m);
@@ -95,6 +99,7 @@ public class BoardManager
         //the take dmg part in piece
     }
     public static void enemyTurn(int cap, int depth, int processTime) throws InterruptedException, IOException {
+        System.out.println("Running "+cap);
         countdown=cap;
         int movesTaken=0,increment=0;
         while(movesTaken!=cap){
@@ -119,7 +124,7 @@ public class BoardManager
             movesTaken++;
             //for(int i = 0; i<8; i++)if(board[7][i].getOccupyingPiece()!=null&&board[7][i].getOccupyingPiece().getType()=='p')board[7][i].getOccupyingPiece().promote();
         }
-        Game.nextMove();
+        
     }
     public static String currentFEN(){
         StringBuilder sb = new StringBuilder();
@@ -152,6 +157,7 @@ public class BoardManager
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].placePiece(incoming[i][j]);
     }
     public static void createIncoming(String fen){
+        warned = false;
         StringTokenizer st = new StringTokenizer(fen.replaceAll(" b - - 0 1",""),"/");
         for(int i = 0; i<8; i++){
             String line = st.nextToken();
@@ -175,19 +181,23 @@ public class BoardManager
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].turnRed();
         }
+        warned = true;
     }
     public static void unwarn(){
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].turnNormal();
         }
+        warned = false;
     }
     public static Tile[][] getBoard(){
         return board;
     }
     public static boolean timeToMove(int i){
+        System.out.println(i+" "+countdown);
         return countdown==i;
     }
     public static void allowNextMove(){
+        System.out.println("asdfa");
         countdown--;
     }
     public static void debugSeeIfBlue(){
@@ -197,19 +207,20 @@ public class BoardManager
         }
     }
     public static boolean enemiesDefeated() {
+        if(warned) return false;
         for(Tile[] row : getBoard()) {
             for(Tile tile : row) {
                 if(tile.getOccupyingPiece() != null) {
                     if(tile.getOccupyingPiece().isKing()) {
-                        if(tile.getOccupyingPiece().isDying()) {
-                            return true;
-                        }
                         return  false;
                     }
                 }
             }
         }
         return true;
+    }
+    public static boolean isWarned() {
+        return warned;
     }
     //give wiz a turn before each round to get out of the way of the incoming pieces(if wiz is not out of the way wiz takes dmg from the piece ramming)
 }

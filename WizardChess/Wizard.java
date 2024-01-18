@@ -34,12 +34,10 @@ public class Wizard extends SuperSmoothMover{
                 else if(phase<=14){
                     setLocation(getX(), getY()+10);
                     if(Game.isSpellActivated())highlightRange(200);//200 is temp val
-                    
                 }
                 else{
                     walking=false;
                     phase=0;
-                    Game.nextMove();
                 }
             }
             else{

@@ -57,7 +57,7 @@ public class Tile extends Actor
         return occupyingPiece;
     }
     public boolean isEmpty(){
-        return occupied;
+        return !occupied;
     }
     public void placePiece(Piece p){
         getWorld().addObject(p,p.getTargetH(),p.getTargetV()-30);//-30 for now
