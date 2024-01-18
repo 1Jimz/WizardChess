@@ -20,7 +20,6 @@ public class BoardManager
     }
     public static class Move{
         private int fromR, fromC, toR, toC, i;
-        
         public Move(int fromR, int fromC, int toR, int toC, int i){
             this.fromR=fromR;
             this.fromC=fromC;
