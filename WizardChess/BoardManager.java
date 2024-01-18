@@ -80,7 +80,7 @@ public class BoardManager
         enemyTurn(6,1,2000);
     }
     public static void makeMove(Move m){
-        //System.out.println(m);
+        System.out.println(m);
         board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
         board[m.getToR()][m.getToC()].placePiece(board[m.getFromR()][m.getFromC()].getOccupyingPiece());
         board[m.getFromR()][m.getFromC()].empty();

@@ -80,6 +80,7 @@ public class Game extends World
     public static Wizard getWizard(){
         return wizard;
     }
+    private boolean checker = false;
     private boolean keyPressChecked = true;
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
@@ -94,16 +95,16 @@ public class Game extends World
         }
         //List<Card> cards = getObjects(Card.class);
         //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
+        
         if(Greenfoot.isKeyDown("Enter")) {
             if(keyPressChecked) {
                 nextMove();
                 if(!wizardTurn()) {
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
-                        BoardManager.unwarn();
+                        checker = true;
                     }
-                    System.out.println("ASDAFAFS");
-            
+                    
                     if(BoardManager.enemiesDefeated() && !BoardManager.isWarned()) {
                             BoardManager.resetTiles();
                             for(Piece p: getObjects(Piece.class)) {
@@ -128,7 +129,14 @@ public class Game extends World
                         }
                     }
                 }
-                        keyPressChecked = false;
+                
+                if(checker) {
+                    BoardManager.unwarn();
+                    System.out.println("ASDAFAFS");
+                    checker = false;
+                }
+                
+                keyPressChecked = false;
             }
         } else {
             // System.out.println("ASDAF");

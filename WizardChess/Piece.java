@@ -65,7 +65,7 @@ public class Piece extends SuperSmoothMover
             sH=tH;
             tV=Game.vPush+q.peek().getToR()*80;
             saveR=q.peek().getToR();
-            saveC=q.peek().getToR();
+            saveC=q.peek().getToC();
             tH=Game.hPush+q.poll().getToC()*80;
             movePhase=0;
         } //else if(HP == 0) {
