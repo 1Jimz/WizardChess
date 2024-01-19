@@ -134,7 +134,7 @@ public class Game extends World
                 keyPressChecked = false;
             }
         } 
-        else keyPressChecked = true;
+        else{ keyPressChecked = true;}
         if(canNewWave&&BoardManager.enemiesDefeated()) {
             BoardManager.resetTiles();
             BoardManager.wipe();
