@@ -35,7 +35,7 @@ public class TitleScreen extends World
     private static GreenfootSound music;
     
     // Other stuff
-    private int actCount;
+    //private int actCount;
     private TextButton title;
     /**
      * <h3>Constructor:</h3>
@@ -51,7 +51,7 @@ public class TitleScreen extends World
         
         // Initialize setting values & actCount
         Settings.initialize();
-        actCount = 0;
+        //actCount = 0;
         
         // Add the fade effect
         addObject(new Fader(false, 10), WIDTH/2, HEIGHT/2);
@@ -81,6 +81,7 @@ public class TitleScreen extends World
         
         // Add the title of the game
         //addObject(new TitlePic("TitlePic.png"), getWidth()/2, getHeight()/4);
+        
     }
 
     /**
@@ -92,11 +93,8 @@ public class TitleScreen extends World
         } catch(InterruptedException e){} catch(java.io.IOException e){};
         // this try catch statement is a result of using stockfish
         
-        // To update settings
-        if(actCount == 100){
-            music.setVolume(Settings.getMusicVolume());
-        }
-        actCount++;
+        
+        //actCount++;
     }
     
     // checks whether each of the buttons was clicked and spawns the related world

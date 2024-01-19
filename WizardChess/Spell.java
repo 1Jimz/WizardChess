@@ -66,7 +66,7 @@ public class Spell extends SuperSmoothMover{
                     // update last tile coords
                     lastHighlightedC = bC;
                     lastHighlightedR = bR;
-                    if(!placed&&mouse!=null&&Greenfoot.mouseClicked(null)&&cur.isGreen()) {
+                    if(!placed&&mouse!=null&&Greenfoot.mouseClicked(null)&&cur.isBlue()) {
                         playSpell2(bR,bC);
                     }
                 }
