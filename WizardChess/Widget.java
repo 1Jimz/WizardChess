@@ -8,12 +8,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public abstract class Widget extends Actor
 {
+    protected int actCount;
+    
+    public Widget(){
+        actCount = 0;
+    }
     /**
      * Act - do whatever the Widget wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        // Add your action code here.
+        actCount++;
     }
 }

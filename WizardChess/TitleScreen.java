@@ -42,10 +42,10 @@ public class TitleScreen extends World
      * <p>Initializes the title screen with a specific background, sets up buttons, and configures background music.</p>
      */
     public TitleScreen()
-    {    
+    {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(WIDTH, HEIGHT, 1);
-        
+       
         // Set paint order so the layering is right
         setPaintOrder(Fader.class);
         
@@ -80,8 +80,9 @@ public class TitleScreen extends World
         music.setVolume(Settings.getMusicVolume());
         
         // Add the title of the game
-        //addObject(new TitlePic("TitlePic.png"), getWidth()/2, getHeight()/4);
-        
+        Text title = new Text(150, "calibri", "aswvsdafgsfsdcscs"); // 3rd param does not matter
+        title.changeText("WIZARDCHESS", Color.WHITE);
+        addObject(title, getWidth()/2, getHeight()/4);
     }
 
     /**

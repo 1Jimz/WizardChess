@@ -9,7 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ImageButton extends Widget
 {
-    private int actCount;
     private int width, height;
     private GreenfootImage img, imgHover;
     private GreenfootSound hover, click;
@@ -19,7 +18,6 @@ public class ImageButton extends Widget
      * @param image              String value of the image name without the file type
      */
     public ImageButton(String image){
-        actCount = 0;
         img = new GreenfootImage(image+".png");
         imgHover = new GreenfootImage(image+".png");
         width = img.getWidth();
@@ -34,7 +32,6 @@ public class ImageButton extends Widget
      * @param height             Int value which determines the height of the image
      */
     public ImageButton(String image, int width, int height){
-        actCount = 0;
         img = new GreenfootImage(image+".png");
         imgHover = new GreenfootImage(image+".png");
         img.scale(width, height);
@@ -47,7 +44,6 @@ public class ImageButton extends Widget
      * @param imageHover         String value of the image which is shown when the mouse is on the button
      */
     public ImageButton(String image, String imageHover){
-        actCount = 0;
         img = new GreenfootImage(image+".png");
         imgHover = new GreenfootImage(imageHover+".png");
         width = img.getWidth();
@@ -63,7 +59,6 @@ public class ImageButton extends Widget
      * @param imageHover         String value of the image which is shown when the mouse is on the button
      */
     public ImageButton(String image, int width, int height, String imageHover){
-        actCount = 0;
         img = new GreenfootImage(image+".png");
         imgHover = new GreenfootImage(imageHover+".png");
         img.scale(width, height);
@@ -84,7 +79,7 @@ public class ImageButton extends Widget
             //resets the button to its normal state
             if(Greenfoot.mouseMoved(null) &&!Greenfoot.mouseMoved(this)) this.reset();
         }
-        actCount++;
+        super.act();
     }
     
     /**

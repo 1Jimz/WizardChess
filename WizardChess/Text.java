@@ -56,7 +56,7 @@ public class Text extends Widget
      * </ul>
      */
     public void changeText(String text){
-        GreenfootImage gfi = new GreenfootImage(size*6,size*2);
+        GreenfootImage gfi = new GreenfootImage(size*7,size*2);
         gfi.setColor(Color.BLACK);
         gfi.setFont(new Font(font, true, false, size)); 
         gfi.drawString(text, size/2, size);
@@ -72,21 +72,10 @@ public class Text extends Widget
      * </ul>
      */
     public void changeText(String text, Color c){
-        GreenfootImage gfi = new GreenfootImage(size*6,size*2);
+        GreenfootImage gfi = new GreenfootImage(size*7,size*2);
         gfi.setColor(c);
         gfi.setFont(new Font(font, true, false, size)); 
         gfi.drawString(text, size/2, size);
         setImage(gfi);
-    }
-    /**
-     * <h3>updateText()</h3>
-     * <p>Updates the Text objects with the latest statistics.</p>
-     */
-    private static void updateText()
-    {
-        //textBoxes[0].changeText(casinoTarget + "");
-        //textBoxes[1].changeText(moneySpent + "");
-        //textBoxes[2].changeText(casinoProfit + "");
-        //textBoxes[3].changeText(gamblerWins + "/" + gamblerLosses);
     }
 }
