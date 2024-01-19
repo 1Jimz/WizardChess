@@ -4,7 +4,6 @@ comment1.params=
 comment1.target=Wizard()
 comment10.params=energyBar
 comment10.target=void\ setEnergyBar(EnergyBar)
-comment10.text=\r\n\ \ \ \ public\ static\ void\ setRange(int\ r){\r\n\ \ \ \ \ \ \ \ range\ \=\ r;\r\n\ \ \ \ }\r\n
 comment11.params=
 comment11.target=void\ decreaseE()
 comment12.params=range

@@ -8,9 +8,10 @@ import java.util.Scanner;
  WASD wizard movement(costs EP)
  G dispose card(costs EP)
  Click on card to use(cannot cancel when clicked)
- E end turn// need to implement
+ Enter to end turn
  
  when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
+ when it is not wizard's turn and spell can continue to be active.//maybe make it so have to use spell before next round
  */
 public class Game extends World
 {
@@ -23,6 +24,7 @@ public class Game extends World
     private static int level;
     private static Text waveNumber;
     private static String[] levelFens;
+    private static boolean canNewWave;
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
@@ -31,6 +33,7 @@ public class Game extends World
         spellActivated=false;
         moveNumber = 0;
         level = 0;
+        canNewWave=false;
         EnemyTargetting.setup();
         //each time size 80
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
@@ -92,7 +95,6 @@ public class Game extends World
     private boolean keyPressChecked = true;
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
-        //setPaintOrder(Wizard.class, Wand.class);//
         if(pickCard){
             addObject(new Hand(),-120,510);
             pickCard=false;
@@ -101,15 +103,16 @@ public class Game extends World
             addObject(new Card(throwX,throwY,throwActive,leftBorder),startX,startY);
             throwingCard=false;
         }
-        //List<Card> cards = getObjects(Card.class);
-        //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
-        if(Greenfoot.isKeyDown("Enter")) {
+        if(Greenfoot.isKeyDown("Enter")||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
             if(keyPressChecked) {
                 nextMove();
                 if(!wizardTurn()) {
+                    System.out.println("SNAO");
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
                         BoardManager.unwarn();
+                        canNewWave=true;
+                        System.out.println("E");
                     }
                     else{
                     //System.out.println("ASDAFAFS");
@@ -132,12 +135,16 @@ public class Game extends World
                                 ioe.printStackTrace();
                             }
                         }
-                        catch (InterruptedException ie)
-                        {
-                            ie.printStackTrace();
+                        else{
+                            try{
+                                try{
+                                    BoardManager.enemyTurn(6,1,200);
+                                }catch(IOException e1){}
+                            }catch(InterruptedException e2){}
                         }
                     }
                 }
+                keyPressChecked = false;
             }
             keyPressChecked = false;
             }
@@ -165,7 +172,7 @@ public class Game extends World
         level++;
         BoardManager.createIncoming(levelFens[level-1]);
         BoardManager.warn();
-        //nextMove();
+        nextMove();
         waveNumber.changeText(Integer.toString(level));
     }
     //mr cohen's Zsort. Credit if needed
@@ -202,38 +209,37 @@ public class Game extends World
             world.addObject(actor, a.getX(), a.getY());
         }
     }
-
-static class ActorContent implements Comparable <ActorContent> {
-    private Actor actor;
-    private int xx, yy;
-    public ActorContent(Actor actor, int xx, int yy){
-        this.actor = actor;
-        this.xx = xx;
-        this.yy = yy;
-    }
-
-    public void setLocation (int x, int y){
-        xx = x;
-        yy = y;
-    }
-
-    public int getX() {
-        return xx;
-    }
-
-    public int getY() {
-        return yy;
-    }
-
-    public Actor getActor(){
-        return actor;
-    }
-
-    public String toString () {
-        return "Actor: " + actor + " at " + xx + ", " + yy;
-    }
-    public int compareTo (ActorContent a){
-        return this.getY() - a.getY();
-    }
+    static class ActorContent implements Comparable <ActorContent> {
+        private Actor actor;
+        private int xx, yy;
+        public ActorContent(Actor actor, int xx, int yy){
+            this.actor = actor;
+            this.xx = xx;
+            this.yy = yy;
+        }
+    
+        public void setLocation (int x, int y){
+            xx = x;
+            yy = y;
+        }
+    
+        public int getX() {
+            return xx;
+        }
+    
+        public int getY() {
+            return yy;
+        }
+    
+        public Actor getActor(){
+            return actor;
+        }
+    
+        public String toString () {
+            return "Actor: " + actor + " at " + xx + ", " + yy;
+        }
+        public int compareTo (ActorContent a){
+            return this.getY() - a.getY();
+        }
     }
 }
