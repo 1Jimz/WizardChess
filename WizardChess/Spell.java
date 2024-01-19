@@ -84,6 +84,7 @@ public class Spell extends SuperSmoothMover {
     private static int bC, bR, range, lastHighlightedC = -1, lastHighlightedR = -1;
     private boolean placed, fading;
     private SpellStrategy spellStrategy;
+    private Tile[] toHighlight;
 
     public Spell(int type) {
         this.type = type;
@@ -127,7 +128,7 @@ public class Spell extends SuperSmoothMover {
                     }
                 }
                 // first type of spell (1x1 tile aoe)
-                if(type==0){
+                if(type==0) {
                     // highlight the tile the cursor is hovering on to green
                     Tile currT = BoardManager.getTile(bR,bC);
                     if (currT != null && currT.isBlue()) {

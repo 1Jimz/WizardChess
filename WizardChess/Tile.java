@@ -19,7 +19,7 @@ public class Tile extends Actor
     }
     public void act()
     {
-        //if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
+        if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
         
         //if(Greenfoot.mouseClicked(this)){
             //if(Game.isSpellActivated()){ 

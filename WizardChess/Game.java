@@ -22,6 +22,7 @@ public class Game extends World
     private EnergyBar energyBar;
     private static int level;
     private static Text waveNumber;
+    private static String[] levelFens;
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
@@ -43,6 +44,8 @@ public class Game extends World
         addObject(waveNumber,952,731);
         //addObject(new Overlay(), 600,370);
         //setPaintOrder(CardHitbox.class,Overlay.class);
+        levelFens = new String[8];
+        levelFens[0] = "
     }
     private static int moveNumber;
     public static void nextMove() {
