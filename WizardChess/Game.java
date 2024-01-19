@@ -32,6 +32,8 @@ public class Game extends World
         pickCard=false;
         spellActivated=false;
         canNewWave=false;
+        enemyMoving = false;
+        keyPressChecked = true;
         moveNumber = 0;//
         level = 0;
         EnemyTargetting.setup();
@@ -93,6 +95,7 @@ public class Game extends World
         return wizard;
     }
     private boolean keyPressChecked = true;
+    private static boolean enemyMoving = false;
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
         if(pickCard){
@@ -106,6 +109,7 @@ public class Game extends World
         if(Greenfoot.isKeyDown("Enter")||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
             if(keyPressChecked) {
                 nextMove();
+                enemyMoving = false;
                 if(!wizardTurn()) {
                     System.out.println("SNAO");
                     if(BoardManager.isWarned()) {
@@ -113,6 +117,7 @@ public class Game extends World
                         BoardManager.unwarn();
                         canNewWave=true;
                         System.out.println("E");
+                        nextMove();
                     }
                     else {
                         if(!canNewWave) {
@@ -125,7 +130,10 @@ public class Game extends World
                         else{
                             try{
                                 try{
-                                    BoardManager.enemyTurn(6,1,200);
+                                    if(!enemyMoving) {
+                                        enemyMoving = true;
+                                        BoardManager.enemyTurn(6,1,200);
+                                    }
                                 }catch(IOException e1){}
                             }catch(InterruptedException e2){}
                         }
@@ -133,8 +141,7 @@ public class Game extends World
                 }
                 keyPressChecked = false;
             }
-        } 
-        else{ keyPressChecked = true;}
+        } else{ keyPressChecked = true;}
         if(canNewWave&&BoardManager.enemiesDefeated()) {
             BoardManager.resetTiles();
             BoardManager.wipe();
@@ -146,6 +153,9 @@ public class Game extends World
     }
     public static void grabCardAnimation(){
         pickCard=true;
+    }
+    public void enemyFinishedMoving() {
+        enemyMoving = false;
     }
     public static void activateSpell(){
         Wizard.highlightRange(200);//200 is temp val

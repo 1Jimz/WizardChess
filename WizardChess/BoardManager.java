@@ -177,6 +177,13 @@ public class BoardManager
             }
         }
     }
+    public static void wipe() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null){board[i][j].empty();}
+            }
+        }
+    }
     public static void warn(){
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].turnRed();
@@ -221,6 +228,9 @@ public class BoardManager
     }
     public static boolean isWarned() {
         return warned;
+    }
+    public static int getCountdown() {
+        return countdown;
     }
     //give wiz a turn before each round to get out of the way of the incoming pieces(if wiz is not out of the way wiz takes dmg from the piece ramming)
 }

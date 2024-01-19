@@ -39,9 +39,12 @@ public class Spell extends SuperSmoothMover{
             lastHighlightedR = bR;
             if(!placed&&Greenfoot.mouseClicked(null)&&Utility.distance(mouse.getX(),mouse.getY(),Wizard.getH(),Wizard.getV())<=range){
                 placed = true;
+                //Effects spellEffect = new Effects(type);
+                //getWorld().addObject(spellEffect,);
                 setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
                 for(int[] p : aoe){
                     try{
+                        
                         Tile t = BoardManager.getTile(bR+p[0],bC+p[1]); //target tile
                         if(t!=null){
                             t.turnGreen();
