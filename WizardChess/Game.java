@@ -2,14 +2,16 @@ import greenfoot.*;
 import java.io.*;
 import java.util.*;
 import java.lang.*;
+import java.util.Scanner;
 /*
  Controls:
  WASD wizard movement(costs EP)
  G dispose card(costs EP)
  Click on card to use(cannot cancel when clicked)
- E end turn// need to implement
+ Enter to end turn
  
  when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
+ when it is not wizard's turn and spell can continue to be active.//maybe make it so have to use spell before next round
  */
 public class Game extends World
 {
@@ -19,13 +21,18 @@ public class Game extends World
     private static Wizard wizard;
     private HPBar hpBar;
     private EnergyBar energyBar;
-    private ImageButton settingsButton;
+    private static int level;
+    private static Text waveNumber;
+    private static boolean canNewWave;
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
         throwingCard=false;
         pickCard=false;
         spellActivated=false;
+        canNewWave=false;
+        moveNumber = 0;//
+        level = 1;
         EnemyTargetting.setup();
         //each time size 80
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
@@ -35,9 +42,21 @@ public class Game extends World
         wizard.setEnergyBar(energyBar);
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
-        BoardManager.test1();//
-        //addObject(new Overlay(), 600,370);
-        //setPaintOrder(CardHitbox.class,Overlay.class);
+        waveNumber = new Text(30,"Arial",Integer.toString(level));
+        addObject(waveNumber,952,731);
+    }
+    private static int moveNumber;
+    public static void nextMove() {
+        moveNumber++;
+    }
+    public static int moveCount() {
+        return moveNumber;
+    }
+    public static boolean wizardTurn() {
+        if(moveNumber % 2 == 0) {
+            return true;
+        }
+        return false;
     }
     private void updateHP(int newHP) {
         hpBar.setHP(newHP);
@@ -61,9 +80,9 @@ public class Game extends World
     public static Wizard getWizard(){
         return wizard;
     }
+    private boolean keyPressChecked = true;
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
-        //setPaintOrder(Wizard.class, Wand.class);//
         if(pickCard){
             addObject(new Hand(),-120,510);
             pickCard=false;
@@ -72,8 +91,46 @@ public class Game extends World
             addObject(new Card(throwX,throwY,throwActive,leftBorder),startX,startY);
             throwingCard=false;
         }
-        //List<Card> cards = getObjects(Card.class);
-        //for(int i=0;i<130;i++)for(Card c : cards)c.simulate(1);
+        if(Greenfoot.isKeyDown("Enter")||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
+            if(keyPressChecked) {
+                nextMove();
+                if(!wizardTurn()) {
+                    System.out.println("SNAO");
+                    if(BoardManager.isWarned()) {
+                        BoardManager.spawnPieces();
+                        BoardManager.unwarn();
+                        canNewWave=true;
+                        System.out.println("E");
+                    }
+                    else {
+                        if(!canNewWave) {
+                            //System.out.println("asd");
+                            //BoardManager.resetTiles();
+                            //for(Piece p: getObjects(Piece.class))p.kill();
+                            nextLevel();
+                            //canNewWave=false;
+                        }
+                        else{
+                            try{
+                                try{
+                                    BoardManager.enemyTurn(6,1,200);
+                                }catch(IOException e1){}
+                            }catch(InterruptedException e2){}
+                        }
+                    }
+                }
+                keyPressChecked = false;
+            }
+        } 
+        else keyPressChecked = true;
+        if(canNewWave&&BoardManager.enemiesDefeated()) {
+            BoardManager.resetTiles();
+            BoardManager.wipe();
+            for(Piece p: getObjects(Piece.class))removeObject(p);
+            nextLevel();
+            nextMove();
+            canNewWave=false;
+        } 
     }
     public static void grabCardAnimation(){
         pickCard=true;
@@ -88,6 +145,23 @@ public class Game extends World
     }
     public static boolean isSpellActivated(){
         return spellActivated;
+    }
+    private static Scanner readFile;
+    public static void nextLevel() {
+        String fen = "";
+        try {
+            level++;
+            readFile = new Scanner(new File("levels/"+level+".txt"));
+            fen = readFile.nextLine();
+            System.out.println(fen);
+            readFile.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("filenotfound");
+        }
+        BoardManager.createIncoming(fen);
+        BoardManager.warn();
+        nextMove();
+        waveNumber.changeText(Integer.toString(level));
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
@@ -124,36 +198,36 @@ public class Game extends World
         }
     }
     static class ActorContent implements Comparable <ActorContent> {
-    private Actor actor;
-    private int xx, yy;
-    public ActorContent(Actor actor, int xx, int yy){
-        this.actor = actor;
-        this.xx = xx;
-        this.yy = yy;
+        private Actor actor;
+        private int xx, yy;
+        public ActorContent(Actor actor, int xx, int yy){
+            this.actor = actor;
+            this.xx = xx;
+            this.yy = yy;
+        }
+    
+        public void setLocation (int x, int y){
+            xx = x;
+            yy = y;
+        }
+    
+        public int getX() {
+            return xx;
+        }
+    
+        public int getY() {
+            return yy;
+        }
+    
+        public Actor getActor(){
+            return actor;
+        }
+    
+        public String toString () {
+            return "Actor: " + actor + " at " + xx + ", " + yy;
+        }
+        public int compareTo (ActorContent a){
+            return this.getY() - a.getY();
+        }
     }
-
-    public void setLocation (int x, int y){
-        xx = x;
-        yy = y;
-    }
-
-    public int getX() {
-        return xx;
-    }
-
-    public int getY() {
-        return yy;
-    }
-
-    public Actor getActor(){
-        return actor;
-    }
-
-    public String toString () {
-        return "Actor: " + actor + " at " + xx + ", " + yy;
-    }
-    public int compareTo (ActorContent a){
-        return this.getY() - a.getY();
-    }
-}
 }

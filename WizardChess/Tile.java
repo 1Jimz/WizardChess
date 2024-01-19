@@ -4,6 +4,7 @@ public class Tile extends Actor
     private Piece occupyingPiece;
     private int r,c,status;//0: normal, 1:burning, 2:idk make something up
     private boolean isNew=false,isBlue=false, isGreen=false;
+    private boolean occupied;
     
     public void addedToWorld(World w){
         if(!isNew){//prevent z sort problems
@@ -18,7 +19,7 @@ public class Tile extends Actor
     }
     public void act()
     {
-        //if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
+        if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
         
         //if(Greenfoot.mouseClicked(this)){
             //if(Game.isSpellActivated()){ 
@@ -55,9 +56,13 @@ public class Tile extends Actor
     public Piece getOccupyingPiece(){
         return occupyingPiece;
     }
+    public boolean isEmpty(){
+        return !occupied;
+    }
     public void placePiece(Piece p){
         getWorld().addObject(p,p.getTargetH(),p.getTargetV()-30);//-30 for now
         occupyingPiece=p;
+        occupied = true;
     }
     public void empty(){
         occupyingPiece=null;

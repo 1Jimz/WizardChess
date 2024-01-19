@@ -15,7 +15,6 @@ public class Wizard extends SuperSmoothMover{
         Game.grabCardAnimation();
     }
     public void act(){
-        //System.out.println(getR()+" "+getC());
         h=getX();
         v=getY();
         MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -30,10 +29,7 @@ public class Wizard extends SuperSmoothMover{
                     case 2:setLocation(getX()+10, getY());break;
                 }
             }
-            else if(phase<=14){
-                setLocation(getX(), getY()+10);
-                if(Game.isSpellActivated())highlightRange(200);//200 is temp val
-            }
+            else if(phase<=14)setLocation(getX(), getY()+10);
             else{
                 walking=false;
                 phase=0;
@@ -48,7 +44,7 @@ public class Wizard extends SuperSmoothMover{
             else if(rate==40)frame=2;
             rate++;
             Tile[][] currentBoard = BoardManager.getBoard();
-            if(r!=0&&currentBoard[r-1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("W")){
+            if(Game.wizardTurn()&&r!=0&&currentBoard[r-1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("W")){
                 walking=true;
                 r--;
                 walkDirection=0;
@@ -58,7 +54,7 @@ public class Wizard extends SuperSmoothMover{
                 }
                 decreaseE();
             }
-            else if(c!=0&&currentBoard[r][c-1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("A")){
+            else if(Game.wizardTurn()&&c!=0&&currentBoard[r][c-1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("A")){
                 walking=true;
                 c--;
                 walkDirection=6;
@@ -68,7 +64,7 @@ public class Wizard extends SuperSmoothMover{
                 }
                 decreaseE();
             }
-            else if(r!=7&&currentBoard[r+1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("S")){
+            else if(Game.wizardTurn()&&r!=7&&currentBoard[r+1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("S")){
                 walking=true;
                 r++;
                 walkDirection=4;
@@ -78,7 +74,7 @@ public class Wizard extends SuperSmoothMover{
                 }
                 decreaseE();
             }
-            else if(c!=7&&currentBoard[r][c+1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("D")){
+            else if(Game.wizardTurn()&&c!=7&&currentBoard[r][c+1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("D")){
                 walking=true;
                 c++;
                 walkDirection=2;
@@ -89,8 +85,6 @@ public class Wizard extends SuperSmoothMover{
                 decreaseE();
             }
         }
-        // test/debugging
-        //System.out.println(this.getR() + this.getC());
     }
     public static int getR(){
         return r;
@@ -113,35 +107,19 @@ public class Wizard extends SuperSmoothMover{
     public static double getDegrees(){
         return degrees;
     }
-    /*
-    public static void setRange(int r){
-        range = r;
-    }
-    */
     public void setEnergyBar(EnergyBar energyBar) {
         this.energyBar = energyBar;
     }
     private void decreaseE() {
-        if (energyBar != null) {
-            energyBar.setE(energyBar.getE() - 1);
-        }
+        if(energyBar!=null)energyBar.setE(energyBar.getE()-1);
     }
-    
     public static void highlightRange(int range) {
-    //MouseInfo mouse = Greenfoot.getMouseInfo();
-    //if (mouse != null) {
-        //int tX=(mouse.getX()-Game.hPush+40)/80, tY=(mouse.getY()-Game.vPush+40)/80;
         BoardManager.resetTiles();
-        //if (Game.getWizard().inRange(Game.hPush+c*80, Game.vPush+r*80)) {//
-            //System.out.println((Game.hPush+c*80)+" "+(Game.vPush+r*80)+" "+r+" "+c);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                    Tile t = BoardManager.getTile(i, j);//
-                    //System.out.println(t+" "+(Game.hPush+c*80)+" "+(Game.vPush+r*80));
-                    if (Utility.distance(Game.hPush+c*80,Game.vPush+r*80,t.getX(),t.getY())<range)t.turnBlue();
+                Tile t = BoardManager.getTile(i, j);
+                if (Utility.distance(Game.hPush+c*80,Game.vPush+r*80,t.getX(),t.getY())<range)t.turnBlue();
             }
-            //System.out.println();
         }
-    //}
     }   
 }
