@@ -93,9 +93,6 @@ public class TitleScreen extends World
             checkClick();
         } catch(InterruptedException e){} catch(java.io.IOException e){};
         // this try catch statement is a result of using stockfish
-        
-        
-        //actCount++;
     }
     
     // checks whether each of the buttons was clicked and spawns the related world
