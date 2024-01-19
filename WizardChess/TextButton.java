@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
  * over the button, this colour can be customized too. Multiple buttons can be added to the world. 
  * 
  * @author Alex Li
- * @version v1.2 - Modified by David Guo
+ * @version V1.3 - Modified by David Guo
  */
 public class TextButton extends Widget
 {
@@ -20,7 +20,7 @@ public class TextButton extends Widget
     //The colours the button will have
     private Color textColour, highlightColour;
     //The font size and button width of the button
-    private int fontSize, textWidth = 0, actCount = 0;
+    private int fontSize, textWidth = 0;
     //Helper class to find the width of height of the button
     private TextSizeFinder finder = new TextSizeFinder();
     //Information about the mouse
@@ -31,6 +31,7 @@ public class TextButton extends Widget
      * @param fontSize          The font size, as an integer
      */
     public TextButton (String text, int fontSize){
+        super();
         //sets the colours
         textColour = new Color(98,98,98);
         highlightColour = new Color(158,158,159);
@@ -140,7 +141,7 @@ public class TextButton extends Widget
             //resets the button to its normal state
             if(Greenfoot.mouseMoved(null) &&!Greenfoot.mouseMoved(this)) this.reset();
         }
-        actCount++;
+        super.act();
     }
     /**
      * Highlights the button if the mouse is hoving over a button

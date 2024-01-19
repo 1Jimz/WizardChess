@@ -1,123 +1,31 @@
 import greenfoot.*;
-/*
- * api
- */
-
-// spell strategy interfact
-interface spell {
-    void playSpell(Spell spell, int bR, int bC);
-}
-// single tile spell (card 1)
-class singleTile implements spell {
-    @Override
-    public void playSpell(Spell spell, int bR, int bC) {
-        Tile t = BoardManager.getTile(bR, bC);
-        if (t != null&&t.isBlue()) { 
-            spell.setLocation(Game.hPush + bC * 80 - 10, Game.vPush + bR * 80 - 40);
-            spell.setPlaced(true);
-            if (t.getOccupyingPiece() != null)t.getOccupyingPiece().takeDmg(10);
-            Game.deactivateSpell();
-            Game.grabCardAnimation();
-        }
-    }
-}
-// 3x3 aoe spell (card 2)
-class areaSpell implements SpellStrategy {
-    @Override
-    public void playSpell(Spell spell, int bR, int bC) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                Tile t = BoardManager.getTile(bR + i, bC + j);
-                if (t != null && t.isGreen()) {
-                    spell.setLocation(Game.hPush + bC * 80 - 10, Game.vPush + bR * 80 - 40);
-                    spell.setPlaced(true);
-                    if (t.getOccupyingPiece() != null)t.getOccupyingPiece().takeDmg(10);
-                }
-            }
-        }
-        Game.deactivateSpell();
-        Game.grabCardAnimation();
-    }
-}
-// cross aoe spell (card 3)
-class cross implements SpellStrategy {
-    @Override
-    public void playSpell(Spell spell, int bR, int bC) {
-        for (int i =-2; i <= 2;i++) {
-            for(int j = -2; j <=2; j++) {
-                if(i == 0|| j ==0) { // check if tile is part of cross
-                    Tile t = BoardManager.getTile(bR + i, bC + j);
-                    if(t != null && t.isGreen())if (t.getOccupyingPiece() != null)t.getOccupyingPiece().takeDmg(10);
-                }
-            }
-        }
-        spell.setLocation(Game.hPush + bC * 80 - 10, Game.vPush + bR * 80 - 40);
-        spell.setPlaced(true);
-        Game.deactivateSpell();
-        Game.grabCardAnimation();
-    }
-}
-// diagonal spell
-class diagonal implements SpellStrategy {
-    @Override
-    public void playSpell(Spell spell, int bR, int bC) {
-        for (int i = -2; i <= 2; i++) {
-            effect(bR+i, bC+i); // diagonal right down and left up
-            effect(bR+i, bC-i); // diagonal left down and right up
-        }
-        spell.setLocation(Game.hPush+ bC *80-10,Game.vPush +bR *80 - 40);
-        spell.setPlaced(true);
-        Game.deactivateSpell();
-        Game.grabCardAnimation();
-    }
-    private void effect(int r, int c) {
-        Tile t = BoardManager.getTile(r, c);
-        if (t != null && t.isGreen()) {
-            if (t.getOccupyingPiece() != null)t.getOccupyingPiece().takeDmg(10); 
-        }
-    }
-}
-// spell class
-public class Spell extends SuperSmoothMover {
-    private int type, frame, rate, frameCount, adjustH, adjustV, w, h, fadeTime;
+public class Spell extends SuperSmoothMover{
+    private int type=0,frame=0,rate=0,frameCount,adjustH,adjustV,w,h,fadeTime;
     private String picName;
-    private static int bC, bR, range, lastHighlightedC = -1, lastHighlightedR = -1;
-    private boolean placed, fading;
-    private SpellStrategy spellStrategy;
-
-    public Spell(int type) {
-        this.type = type;
-        switch (type) {
-            case 0: // card 1
-                spellStrategy = new SingleTileSpell();
-                setup(6, "MagicFire", -6, -56, 70, 145);
+    private static int bC,bR,range,lastHighlightedC = -1,lastHighlightedR = -1;
+    private boolean placed = false,fading = false;
+    public Spell(int type){
+        this.type=type;
+        switch(type){
+            case 0:
+                setup(6,"MagicFire",-6,-56,70,145);
                 range = 200;
+                //Game.getWizard().setRange(range);
                 break;
-            case 1: // card 2
-                spellStrategy = new areaSpell();
-                setup(6, "MagicFire", -6, -56, 70, 145);
+            case 1:
+                setup(6,"MagicFire",-6,-56,70,145);
                 range = 200;
-                break;
-            case 2:
-                spellStrategy = new cross(); // card 3
-                setup(6, "MagicFire", -6, -56, 70, 145);
-                range = 200;
-                break;
-            case 3:
-                spellStrategy = new diagonal(); // card 4
-                setup(6, "MagicFire", -6, -56, 70, 145);
-                range = 200;
+                //Game.getWizard().setRange(range);
                 break;
         }
     }
-
-    public void act() {
+    public void act(){//remember to deactivate spell after
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        try {
-            if (!placed && mouse != null) {
+        try{
+            if(!placed && mouse != null) {
                 setLocation(mouse.getX() + adjustH, mouse.getY() + adjustV);
-                bC = (mouse.getX() - Game.hPush + 40) / 80;
-                bR = (mouse.getY() - Game.vPush + 40) / 80;
+                bC=(mouse.getX()-Game.hPush+40)/80;
+                bR=(mouse.getY()-Game.vPush+40)/80;
                 //System.out.println(BoardManager.getTile(bY,bX).isBlue());
                 // reset last green highlighted tile
                 if((lastHighlightedC!=bC||lastHighlightedR!=bR) && lastHighlightedC!=-1&&lastHighlightedR!=-1){
@@ -137,7 +45,7 @@ public class Spell extends SuperSmoothMover {
                         lastHighlightedR= bR;
                     }
                     if (!placed&&mouse!=null&&Greenfoot.mouseClicked(null)&&currT.isGreen()) {
-                        spellStrategy.playSpell(this, bR,bC);
+                        playSpell();
                     }
                 }
                 // second spell (3x3 aoe)
@@ -159,50 +67,12 @@ public class Spell extends SuperSmoothMover {
                     lastHighlightedC = bC;
                     lastHighlightedR = bR;
                     if(!placed&&mouse!=null&&Greenfoot.mouseClicked(null)&&cur.isBlue()) {
-                        spellStrategy.playSpell(this, bR,bC);
-                    }
-                }
-                // third spell (cross aoe)
-                if(type == 2) {
-                    if (lastHighlightedC != bC || lastHighlightedR != bR) clearGreenGrid();
-                    Tile centerTile = BoardManager.getTile(bR, bC);
-                    if (centerTile != null && centerTile.isBlue()) {
-                        for (int i = -2; i <= 2; i++) {
-                            for (int j = -2; j <= 2; j++) {
-                                if (i == 0 || j == 0) { // check if this tile is part of the cross section
-                                    Tile currT = BoardManager.getTile(bR + i, bC + j);
-                                    if (currT != null) currT.turnGreen();
-                                }
-                            }
-                        }
-                    }
-                    lastHighlightedC = bC;
-                    lastHighlightedR = bR;
-                    if (!placed && mouse != null && Greenfoot.mouseClicked(null) && centerTile.isBlue()) {
-                        spellStrategy.playSpell(this, bR, bC);
-                    }
-                }
-                // fourth spell (diagonal aoe)
-                if (type == 3) {
-                    if (lastHighlightedC!= bC || lastHighlightedR != bR)clearGreenGrid();
-                    Tile cT = BoardManager.getTile(bR, bC);
-                    if (cT != null && cT.isBlue()) {
-                        for (int i = -2; i <= 2; i++) {
-                            Tile currT1 = BoardManager.getTile(bR+i,bC+i); // diagonal right down and left up
-                            Tile currT2 = BoardManager.getTile(bR+i,bC-i); // diagonal left down and right up
-                            if (currT1 != null)currT1.turnGreen();
-                            if (currT2 != null)currT2.turnGreen();
-                        }
-                    }
-                    lastHighlightedC = bC;
-                    lastHighlightedR = bR;
-                    if (!placed && mouse != null && Greenfoot.mouseClicked(null) && cT.isBlue()) {
-                        spellStrategy.playSpell(this, bR, bC);
+                        playSpell2(bR,bC);
                     }
                 }
             }
         } catch(NullPointerException e){
-            //System.out.println("Error: "  + e);
+            System.out.println("Error: "  + e);
         }
         if(rate==5){
             rate=0;
@@ -218,6 +88,46 @@ public class Spell extends SuperSmoothMover {
                 fadeTime =0;
             }
         }
+    }
+    private void playSpell(){
+        Tile t = BoardManager.getTile(bR, bC);
+        System.out.println("e"+" "+bR+" "+bC+" "+t+" "+t.isBlue());
+        if(t!=null&&t.isBlue()){ 
+            //System.out.println("working"+" "+bR+" "+bC);
+            placed = true;
+            setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
+
+            if(t.getOccupyingPiece()!=null){
+                t.getOccupyingPiece().takeDmg(10);//
+                System.out.println("damage taken");
+                Game.deactivateSpell();
+            }
+            Game.deactivateSpell();
+            Game.grabCardAnimation(); // new card is spawned
+        }
+    }
+    private void playSpell2(int bR, int bC) {
+        Tile t = BoardManager.getTile(bR, bC);
+        // ofssets for a 3x3 area
+        int[][] offsets = {
+            {-1, -1}, {-1, 0}, {-1, 1},
+            { 0, -1}, { 0, 0}, { 0, 1},
+            { 1, -1}, { 1, 0}, { 1, 1}};
+        for(int[] offset:offsets){
+            try{
+                t = BoardManager.getTile(bR +offset[0],bC + offset[1]); //target tile
+                if(t != null&&t.isGreen()){// && t.isBlue()){  -=-==-=-=-====-++_+_+_+_
+                    t.turnGreen(); // highlight tile to gren
+                    setLocation(Game.hPush+bC*80-10,Game.vPush+bR*80-40);
+                    placed = true;
+                    doDmg(t);
+                }
+            }catch (IndexOutOfBoundsException e) {
+                System.out.println("Error : " + e);
+            }
+        }
+        Game.deactivateSpell();
+        Game.grabCardAnimation(); // new card is spawned
     }
     // to clear the green 3x3 tiles
     private void clearGreenGrid() {
@@ -238,25 +148,21 @@ public class Spell extends SuperSmoothMover {
     public static int getRange(){
         return range;
     }
-    private void setup(int frameCount, String picName, int adjustH, int adjustV, int w, int h) {
-        this.frameCount = frameCount;
-        this.picName = picName;
-        this.adjustH = adjustH;
-        this.adjustV = adjustV;
-        this.w = w;
-        this.h = h;
-        getImage().scale(w, h);
-    }
-    public void setPlaced(boolean placed) {
-        this.placed = placed;
-    }
     private void disappear() {
-        int maxDuration = 30;
-        if (fadeTime < maxDuration) {
+        int maxDuration = 30; // duration of disappearing effect 0.5s
+        if (fadeTime< maxDuration) {
+            // credit to mr cohen for this math
             int transparency = (int) ((1 - (double)fadeTime / maxDuration) * 255);
             getImage().setTransparency(transparency);
             fadeTime++;
         } else getWorld().removeObject(this);
     }
+    private void setup(int frameCount, String picName, int adjustH, int adjustV, int w, int h){
+        this.frameCount=frameCount;
+        this.picName=picName;
+        this.adjustH=adjustH;
+        this.adjustV=adjustV;
+        this.w=w;
+        this.h=h;
+    }
 }
-

@@ -35,24 +35,23 @@ public class TitleScreen extends World
     private static GreenfootSound music;
     
     // Other stuff
-    private int actCount;
+    //private int actCount;
     private TextButton title;
     /**
      * <h3>Constructor:</h3>
      * <p>Initializes the title screen with a specific background, sets up buttons, and configures background music.</p>
      */
     public TitleScreen()
-    {    
+    {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(WIDTH, HEIGHT, 1);
-        
+       
         // Set paint order so the layering is right
         setPaintOrder(Fader.class);
         
         // Initialize setting values & actCount
         Settings.initialize();
-        //System.out.println(Settings.getMusicVolume());
-        actCount = 0;
+        //actCount = 0;
         
         // Add the fade effect
         addObject(new Fader(false, 10), WIDTH/2, HEIGHT/2);
@@ -78,10 +77,12 @@ public class TitleScreen extends World
         
         // Assign the variable to the sound file name in folder & adjust volume
         music = new GreenfootSound("nemusplace.mp3");
-        music.setVolume(0);
+        music.setVolume(Settings.getMusicVolume());
         
         // Add the title of the game
-        //addObject(new TitlePic("TitlePic.png"), getWidth()/2, getHeight()/4);
+        Text title = new Text(150, "calibri", "aswvsdafgsfsdcscs"); // 3rd param does not matter
+        title.changeText("WIZARDCHESS", Color.WHITE);
+        addObject(title, getWidth()/2, getHeight()/4);
     }
 
     /**
@@ -93,11 +94,8 @@ public class TitleScreen extends World
         } catch(InterruptedException e){} catch(java.io.IOException e){};
         // this try catch statement is a result of using stockfish
         
-        // To update settings
-        if(actCount == 100){
-            //music.setVolume(Settings.getMusicVolume());
-        }
-        actCount++;
+        
+        //actCount++;
     }
     
     // checks whether each of the buttons was clicked and spawns the related world

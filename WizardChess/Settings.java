@@ -23,7 +23,7 @@ public class Settings extends World {
     // settings variables
     private static int casinoTarget; // casino Target
     private static int musicVolume; // music volume
-    private static int vipGamblerStartingMoney; // VIP gambler starting money
+    private static int sfxVolume; // VIP gambler starting money
     private static int ordinaryStartingMoney; // VIP gambler starting money
     private static int cheaterGamblerSpawnRate; // cheater gambler spawn rate
     private static int slotsWinRate;
@@ -34,11 +34,14 @@ public class Settings extends World {
     
     // text value
     private Text[] texts;
+    
+    // act count for lag
+    private int actCount;
 
     public Settings(TitleScreen ts) {    
         super(1200, 740, 1);
         
-        setBackground("CardHitbox.png");
+        //setBackground("GameBg.png");
         this.ts = ts;
         
         // back button
@@ -49,25 +52,25 @@ public class Settings extends World {
         Slider sliders[] = {
             new Slider(1, 698, 831, 10000, 1000000, casinoTarget),
             new Slider(2, 698, 831, 0, 100, musicVolume),
-            new Slider(3, 698, 831, 5000, 10000, vipGamblerStartingMoney),
+            new Slider(3, 698, 831, 0, 100, sfxVolume),
             new Slider(4, 698, 831, 0, 25, cheaterGamblerSpawnRate),
             new Slider(5, 698, 831, 1, 5000, ordinaryStartingMoney),
             new Slider(6, 698, 831, 1, 99, slotsWinRate),
-            new Slider(7, 698, 831, 1, 20, numberOfHorses)
+            new Slider(7, 698, 831, 7, 20, numberOfHorses)
         };
         // add the sliders to world
         addObject(sliders[0], calculateSliderXPosition(sliders[0], casinoTarget), 219);
-        addObject(sliders[1], calculateSliderXPosition(sliders[1], musicVolume), 591);
-        addObject(sliders[2], calculateSliderXPosition(sliders[2], vipGamblerStartingMoney), 549);
-        addObject(sliders[3], calculateSliderXPosition(sliders[3], cheaterGamblerSpawnRate), 637);
-        addObject(sliders[4], calculateSliderXPosition(sliders[4], ordinaryStartingMoney), 503);
-        addObject(sliders[5], calculateSliderXPosition(sliders[5], slotsWinRate), 269);
-        addObject(sliders[6], calculateSliderXPosition(sliders[6], numberOfHorses), 312);
+        addObject(sliders[1], calculateSliderXPosition(sliders[1], musicVolume), 269);
+        addObject(sliders[2], calculateSliderXPosition(sliders[2], sfxVolume), 312);
+        addObject(sliders[3], calculateSliderXPosition(sliders[3], cheaterGamblerSpawnRate), 503);
+        addObject(sliders[4], calculateSliderXPosition(sliders[4], ordinaryStartingMoney), 549);
+        addObject(sliders[5], calculateSliderXPosition(sliders[5], slotsWinRate), 591);
+        addObject(sliders[6], calculateSliderXPosition(sliders[6], numberOfHorses), 637);
         //initialize text
         texts = new Text[]{
             new Text(12, "Arial", String.valueOf(casinoTarget)),
             new Text(12, "Arial", String.valueOf(musicVolume)),
-            new Text(12, "Arial", String.valueOf(vipGamblerStartingMoney)),
+            new Text(12, "Arial", String.valueOf(sfxVolume)),
             new Text(12, "Arial", String.valueOf(cheaterGamblerSpawnRate)),
             new Text(12, "Arial", String.valueOf(ordinaryStartingMoney)),
             new Text(12, "Arial", String.valueOf(slotsWinRate)),
@@ -75,12 +78,15 @@ public class Settings extends World {
         };
         //add Text
         addObject(texts[0], 877, 223);
-        addObject(texts[1], 893, 591);
-        addObject(texts[2], 885, 549);
-        addObject(texts[3], 893, 637);
-        addObject(texts[4], 893, 503);
-        addObject(texts[5], 893, 269);
-        addObject(texts[6], 893, 312);
+        addObject(texts[1], 893, 269);
+        addObject(texts[2], 893, 312);
+        addObject(texts[3], 893, 503);
+        addObject(texts[4], 885, 549);
+        addObject(texts[5], 893, 591);
+        addObject(texts[6], 893, 637);
+        
+        // Initialize act count
+        actCount = 0;
     }
 
     /**
@@ -90,7 +96,7 @@ public class Settings extends World {
         // initial values
         casinoTarget = 10000; 
         musicVolume = 50;
-        vipGamblerStartingMoney = 7500;
+        sfxVolume = 50;
         cheaterGamblerSpawnRate = 1;
         ordinaryStartingMoney = 1;
         slotsWinRate = 1;
@@ -108,6 +114,12 @@ public class Settings extends World {
         if(Greenfoot.mouseClicked(backButton)){
             Greenfoot.setWorld(ts);
         }
+        
+        // To update settings
+        if(actCount % 5 == 0){
+            ts.getMusic().setVolume(Settings.getMusicVolume());
+        }
+        actCount++;
     }
 
     /**
@@ -117,7 +129,7 @@ public class Settings extends World {
         switch (sliderID) {
             case 1:texts[0].changeText(String.valueOf(casinoTarget=value));break;
             case 2:texts[1].changeText(String.valueOf(musicVolume = value));break;
-            case 3:texts[2].changeText(String.valueOf(vipGamblerStartingMoney=value));break;
+            case 3:texts[2].changeText(String.valueOf(sfxVolume=value));break;
             case 4:texts[3].changeText(String.valueOf(cheaterGamblerSpawnRate=value));break;
             case 5: texts[4].changeText(String.valueOf(ordinaryStartingMoney=value));break;
             case 6: texts[5].changeText(String.valueOf(slotsWinRate=value));break;
@@ -136,14 +148,23 @@ public class Settings extends World {
     }
     
     /**
-     * <p><strong>public static int getMusicVolume()</strong> - Retrieves the current spawn rate for VIP gamblers.</p>
-     * <p>Returns the value of the static field <em>vipGamblerSpawnRate</em>.</p>
-     * <p><strong>Return:</strong> int - The current VIP gambler spawn rate.</p>
+     * <p><strong>public static int getMusicVolume()</strong> - Retrieves the current volume of music.</p>
+     * <p>Returns the value of the static field <em>musicVolume</em>.</p>
+     * <p><strong>Return:</strong> int - The current volume of music.</p>
      */
     public static int getMusicVolume(){
         return musicVolume;
     }
 
+    /**
+     * <p><strong>public static int getSFXVolume()</strong> - Retrieves the current sound effect volume.</p>
+     * <p>Returns the value of the static field <em>sfxVolume</em>.</p>
+     * <p><strong>Return:</strong> int - The current sound effect volume.</p>
+     */
+    public static int getSFXVolume(){
+        return sfxVolume;
+    }
+    
     /**
      * <p><strong>public static int getCheaterSpawnRate()</strong> - Retrieves the current spawn rate for cheater gamblers.</p>
      * <p>Returns the value of the static field <em>cheaterGamblerSpawnRate</em>.</p>
@@ -160,15 +181,6 @@ public class Settings extends World {
      */
     public static int getOrdinaryStartMoney(){
         return ordinaryStartingMoney;
-    }
-    
-    /**
-     * <p><strong>public static int getVIPStartMoney()</strong> - Retrieves the starting money for VIP gamblers.</p>
-     * <p>Returns the value of the static field <em>vipGamblerStartingMoney</em>.</p>
-     * <p><strong>Return:</strong> int - The starting money for VIP gamblers.</p>
-     */
-    public static int getVIPStartMoney(){
-        return vipGamblerStartingMoney;
     }
     
     /**

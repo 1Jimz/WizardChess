@@ -19,6 +19,7 @@ public class Game extends World
     private static Wizard wizard;
     private HPBar hpBar;
     private EnergyBar energyBar;
+    private ImageButton settingsButton;
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
