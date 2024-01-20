@@ -3,6 +3,8 @@ import java.io.*;
 import java.util.*;
 import java.lang.*;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 /*
  Controls:
  WASD wizard movement(costs EP)
@@ -179,6 +181,28 @@ public class Game extends World
         BoardManager.warn();
         nextMove();
         waveNumber.changeText(Integer.toString(level));
+    }
+    
+    private static FileWriter out;
+    private static PrintWriter output;
+    
+    public static void saveProgress() {
+        try{
+            out = new FileWriter("saveFile.txt",false);
+            output = new PrintWriter(out);
+            output.println(Integer.toString(level));
+            output.println(BoardManager.currentFEN());
+            output.println(BoardManager.getPiecesHP());
+        } catch(IOException e) {}
+    }
+    
+    private static Scanner scanFile;
+    public static void loadProgress() {
+        try{
+            scanFile = new Scanner(new File("saveFile.txt"));
+            level = Integer.parseInt(scanFile.nextLine());
+            BoardManager.createIncoming(scanFile.nextLine());
+        } catch(IOException e) {}
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
