@@ -1,4 +1,5 @@
 #Greenfoot project file
+class.Card.image=healCard.png
 class.Game.image=TestBg6.png
 class.Hand.image=HandSlide.png
 class.Spell.image=Heal_7.png

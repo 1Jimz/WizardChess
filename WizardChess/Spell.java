@@ -10,7 +10,7 @@ public class Spell extends SuperSmoothMover{
             case 1:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-1,-1},{-1,0},{-1,1},{0,-1},{0,0},{0,1},{1,-1},{1,0},{1,1}},200,100);break;
             case 2:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-1,0},{-2,0},{0,-2},{0,-1}, {0,0}, {0,1},{0,2},{1,0},{2,0}},200,100);break;
             case 3:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-2,-2},{-1,-1},{-1,1},{-2,2},{0,0},{2,-2},{1,-1},{1,1},{2,2}},200,100);break;
-            case 4:setup(8,"Heal",-6,-6,100,100,new int[][]{{0,0}},50,100);break;
+            case 4:setup(8,"Heal",-2,-2,100,100,new int[][]{{0,0}},50,100);break;
         }
     }
     public void act(){
@@ -49,8 +49,12 @@ public class Spell extends SuperSmoothMover{
                             if(t.getOccupyingPiece()!=null){
                                 t.getOccupyingPiece().takeDmg(dmg);
                             }
+                            if(t.getR()==Wizard.getR()&&t.getC()==Wizard.getC()){
+                                //Wizard.heal(10);
+                                playDmgEffect(10);
+                                //System.out.println("test");
+                            }
                         }
-                        
                     }catch (IndexOutOfBoundsException e) {}
                 }
                 Game.deactivateSpell();
