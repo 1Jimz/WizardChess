@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
  * over the button, this colour can be customized too. Multiple buttons can be added to the world. 
  * 
  * @author Alex Li
- * @version v1.2 - Modified by David Guo
+ * @version V1.3 - Modified by David Guo
  */
 public class TextButton extends Widget
 {
@@ -20,17 +20,18 @@ public class TextButton extends Widget
     //The colours the button will have
     private Color textColour, highlightColour;
     //The font size and button width of the button
-    private int fontSize, textWidth = 0, actCount = 0;
+    private int fontSize, textWidth = 0;
     //Helper class to find the width of height of the button
     private TextSizeFinder finder = new TextSizeFinder();
     //Information about the mouse
     private MouseInfo mouse;
     /**
-     * Constructs a Button with a given String and a specified font size. It will have a default text colour of light gray and a default font of calibri 
+     * Constructs a Button with a given String and a specified font size. It will have a default text colour of light gray and a default font of cousine 
      * @param text              String value to display
      * @param fontSize          The font size, as an integer
      */
     public TextButton (String text, int fontSize){
+        super();
         //sets the colours
         textColour = new Color(98,98,98);
         highlightColour = new Color(158,158,159);
@@ -48,7 +49,7 @@ public class TextButton extends Widget
         setImage(img);
     }
     /**
-     * Constructs a Button with a given String, a specified font size, and custom text colour and highlight colour. It will use the default font, calibri
+     * Constructs a Button with a given String, a specified font size, and custom text colour and highlight colour. It will use the default font, cousine
      * @param text              String value to display
      * @param fontSize          The font size, as an integer
      * @param txtR              The intensity of red in the text's colour. The R value in RGB
@@ -63,7 +64,7 @@ public class TextButton extends Widget
         textColour = new Color(txtR,txtG,txtB);
         highlightColour = new Color(highlightR,highlightG,highlightB);
         //sets the font
-        TextFont = new Font ("calibri",fontSize);
+        TextFont = new Font ("cousine",fontSize);
         this.text = text;
         this.fontSize = fontSize;
         //creates a greenfoot image with the correct width and height to store the text
@@ -140,7 +141,7 @@ public class TextButton extends Widget
             //resets the button to its normal state
             if(Greenfoot.mouseMoved(null) &&!Greenfoot.mouseMoved(this)) this.reset();
         }
-        actCount++;
+        super.act();
     }
     /**
      * Highlights the button if the mouse is hoving over a button

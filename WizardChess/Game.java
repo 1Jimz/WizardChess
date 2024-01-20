@@ -106,7 +106,7 @@ public class Game extends World
             addObject(new Card(throwX,throwY,throwActive,leftBorder),startX,startY);
             throwingCard=false;
         }
-        if(Greenfoot.isKeyDown("Enter")||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
+        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
             if(keyPressChecked) {
                 nextMove();
                 enemyMoving = false;
@@ -150,6 +150,10 @@ public class Game extends World
             nextMove();
             canNewWave=false;
         } 
+        if(level == 8){
+            //addObject(new Fader(false, 3, Color.BLACK, true), getWidth()/2, getHeight()/2);
+            Greenfoot.setWorld(new EndScreen(false));
+        }
     }
     public static void grabCardAnimation(){
         pickCard=true;
@@ -158,7 +162,7 @@ public class Game extends World
         enemyMoving = false;
     }
     public static void activateSpell(){
-        Wizard.highlightRange(200);//200 is temp val
+        //Wizard.highlightRange(200);//200 is temp val
         spellActivated=true;
     }
     public static void deactivateSpell(){
