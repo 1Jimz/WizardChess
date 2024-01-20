@@ -186,7 +186,7 @@ public class Game extends World
     private static FileWriter out;
     private static PrintWriter output;
     
-    public static void saveProgress() {
+    public static void saveProgress() throws IOException {
         try{
             out = new FileWriter("saveFile.txt",false);
             output = new PrintWriter(out);
@@ -194,15 +194,24 @@ public class Game extends World
             output.println(BoardManager.currentFEN());
             output.println(BoardManager.getPiecesHP());
         } catch(IOException e) {}
+        finally {
+            out.close();
+            output.close();
+        }
     }
     
     private static Scanner scanFile;
-    public static void loadProgress() {
+    public static boolean loadProgress() {
         try{
             scanFile = new Scanner(new File("saveFile.txt"));
             level = Integer.parseInt(scanFile.nextLine());
             BoardManager.createIncoming(scanFile.nextLine());
-        } catch(IOException e) {}
+            return false;
+        } catch(IOException e) {
+            return true;
+        } finally {
+            scanFile.close();
+        }
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
