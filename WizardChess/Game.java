@@ -103,7 +103,7 @@ public class Game extends World
             addObject(new Card(throwX,throwY,throwActive,leftBorder),startX,startY);
             throwingCard=false;
         }
-        if(Greenfoot.isKeyDown("Enter")||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
+        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
             if(keyPressChecked) {
                 nextMove();
                 if(!wizardTurn()) {
@@ -148,7 +148,7 @@ public class Game extends World
         pickCard=true;
     }
     public static void activateSpell(){
-        Wizard.highlightRange(200);//200 is temp val
+        //Wizard.highlightRange(200);//200 is temp val
         spellActivated=true;
     }
     public static void deactivateSpell(){

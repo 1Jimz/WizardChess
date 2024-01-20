@@ -10,6 +10,7 @@ public class Spell extends SuperSmoothMover{
             case 1:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-1,-1},{-1,0},{-1,1},{0,-1},{0,0},{0,1},{1,-1},{1,0},{1,1}},200,100);break;
             case 2:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-1,0},{-2,0},{0,-2},{0,-1}, {0,0}, {0,1},{0,2},{1,0},{2,0}},200,100);break;
             case 3:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-2,-2},{-1,-1},{-1,1},{-2,2},{0,0},{2,-2},{1,-1},{1,1},{2,2}},200,100);break;
+            case 4:setup(8,"Heal",-2,-2,100,100,new int[][]{{0,0}},50,100);break;
         }
     }
     public void act(){
@@ -47,7 +48,11 @@ public class Spell extends SuperSmoothMover{
                             t.turnGreen();
                             if(t.getOccupyingPiece()!=null){
                                 t.getOccupyingPiece().takeDmg(dmg);
-                                getWorld().addObject(new Effects(type),t.getOccupyingPiece().getX(),t.getOccupyingPiece().getY());
+                            }
+                            if(t.getR()==Wizard.getR()&&t.getC()==Wizard.getC()){
+                                Wizard.heal(10);
+                                playDmgEffect(10);
+                                //System.out.println("test");
                             }
                         }
                     }catch (IndexOutOfBoundsException e) {}
@@ -64,6 +69,9 @@ public class Spell extends SuperSmoothMover{
             if(fadeTime==60)getWorld().removeObject(this);
         }
         else rate++;
+    }
+    public void playDmgEffect(int dmg) {
+        getWorld().addObject(new Message((Integer.signum(dmg)==-1?"-":"+")+Math.abs(dmg),(Integer.signum(dmg)==-1?Color.RED:Color.GREEN)), getX(),getY()-30);
     }
     private void setup(int frameCount, String picName, int adjustH, int adjustV, int w, int h, int[][] aoe, int range, int dmg){
         this.frameCount=frameCount;
