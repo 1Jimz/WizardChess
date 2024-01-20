@@ -91,7 +91,7 @@ public class Game extends World
             addObject(new Card(throwX,throwY,throwActive,leftBorder),startX,startY);
             throwingCard=false;
         }
-        if(Greenfoot.isKeyDown("Enter")||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
+        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
             if(keyPressChecked) {
                 nextMove();
                 if(!wizardTurn()) {
