@@ -31,7 +31,7 @@ public class Piece extends SuperSmoothMover
             setImage(Utility.customize(getImage(),dying--*15));
         }
         else if(dying==0) {
-            BoardManager.getBoard()[saveR][saveC].empty();
+            BoardManager.getBoard()[(tV-Game.vPush)/80][(tH-Game.hPush)/80].empty();
             getWorld().removeObject(this);
         }
         else if(movePhase<8){

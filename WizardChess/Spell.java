@@ -49,7 +49,7 @@ public class Spell extends SuperSmoothMover{
                             if(t.getOccupyingPiece()!=null){
                                 t.getOccupyingPiece().takeDmg(dmg);
                             }
-                            if(t.getR()==Wizard.getR()&&t.getC()==Wizard.getC()){
+                            if(type==4){
                                 Wizard.heal(10);
                                 playDmgEffect(10);
                                 //System.out.println("test");
