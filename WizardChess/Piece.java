@@ -85,8 +85,12 @@ public class Piece extends SuperSmoothMover
         return tV;
     }
     public void takeDmg(int dmg){
+        playDmgEffect(-dmg);
         HP-=dmg;
         if(HP<=0)dying=17;
+    }
+    public void playDmgEffect(int dmg) {
+        getWorld().addObject(new Message((Integer.signum(dmg)==-1?"-":"+")+Math.abs(dmg),(Integer.signum(dmg)==-1?Color.RED:Color.GREEN)), getX(),getY()-30);
     }
     public void kill(){
         dying=17;
