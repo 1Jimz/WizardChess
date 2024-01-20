@@ -45,7 +45,9 @@ public class Spell extends SuperSmoothMover{
                         Tile t = BoardManager.getTile(bR+p[0],bC+p[1]); //target tile
                         if(t!=null){
                             t.turnGreen();
-                            if(t.getOccupyingPiece()!=null)t.getOccupyingPiece().takeDmg(dmg);
+                            if(t.getOccupyingPiece()!=null){
+                                t.getOccupyingPiece().takeDmg(dmg);
+                            }
                         }
                     }catch (IndexOutOfBoundsException e) {}
                 }

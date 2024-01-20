@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=TextButton
-comment0.text=\r\n\ A\ button\ without\ a\ background\ that\ can\ have\ a\ custom\ font,\ font\ size,\ and\ text\ colour.\ It\ will\ highlight\ a\ different\ colour\ when\ the\ user\ mouses\r\n\ over\ the\ button,\ this\ colour\ can\ be\ customized\ too.\ Multiple\ buttons\ can\ be\ added\ to\ the\ world.\ \r\n\ \r\n\ @author\ Alex\ Li\r\n\ @version\ v1.2\ -\ Modified\ by\ David\ Guo\r\n
+comment0.text=\r\n\ A\ button\ without\ a\ background\ that\ can\ have\ a\ custom\ font,\ font\ size,\ and\ text\ colour.\ It\ will\ highlight\ a\ different\ colour\ when\ the\ user\ mouses\r\n\ over\ the\ button,\ this\ colour\ can\ be\ customized\ too.\ Multiple\ buttons\ can\ be\ added\ to\ the\ world.\ \r\n\ \r\n\ @author\ Alex\ Li\r\n\ @version\ V1.3\ -\ Modified\ by\ David\ Guo\r\n
 comment1.params=text\ fontSize
 comment1.target=TextButton(java.lang.String,\ int)
 comment1.text=\r\n\ Constructs\ a\ Button\ with\ a\ given\ String\ and\ a\ specified\ font\ size.\ It\ will\ have\ a\ default\ text\ colour\ of\ light\ gray\ and\ a\ default\ font\ of\ calibri\ \r\n\ @param\ text\ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ value\ to\ display\r\n\ @param\ fontSize\ \ \ \ \ \ \ \ \ \ The\ font\ size,\ as\ an\ integer\r\n
