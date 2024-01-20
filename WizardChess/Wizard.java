@@ -93,6 +93,7 @@ public class Wizard extends SuperSmoothMover{
         return c;
     }
     public static void takeDmg(int dmg){
+        SoundManager.playSound("Crunch");
         HP-=dmg;//need to check for death
     }
     public static int getHP(){

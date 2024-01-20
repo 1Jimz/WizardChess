@@ -143,6 +143,10 @@ public class Game extends World
             nextMove();
             canNewWave=false;
         } 
+        if(level == 8){
+            //addObject(new Fader(false, 3, Color.BLACK, true), getWidth()/2, getHeight()/2);
+            Greenfoot.setWorld(new EndScreen(false));
+        }
     }
     public static void grabCardAnimation(){
         pickCard=true;
