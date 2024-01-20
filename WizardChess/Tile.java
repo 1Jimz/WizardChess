@@ -19,7 +19,7 @@ public class Tile extends Actor
     }
     public void act()
     {
-        if(occupyingPiece!=null&&occupyingPiece.isDying())occupyingPiece=null;
+        if(occupyingPiece!=null&&occupyingPiece.isDying())empty();
         
         //if(Greenfoot.mouseClicked(this)){
             //if(Game.isSpellActivated()){ 
@@ -60,11 +60,13 @@ public class Tile extends Actor
         return !occupied;
     }
     public void placePiece(Piece p){
+        System.out.println( "p"+r+" "+c);
         getWorld().addObject(p,p.getTargetH(),p.getTargetV()-30);//-30 for now
         occupyingPiece=p;
         occupied = true;
     }
     public void empty(){
+        System.out.println(r+" "+c);
         occupyingPiece=null;
     }
 }

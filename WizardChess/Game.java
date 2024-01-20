@@ -136,7 +136,7 @@ public class Game extends World
         pickCard=true;
     }
     public static void activateSpell(){
-        Wizard.highlightRange(200);//200 is temp val
+        //Wizard.highlightRange(200);//200 is temp val
         spellActivated=true;
     }
     public static void deactivateSpell(){

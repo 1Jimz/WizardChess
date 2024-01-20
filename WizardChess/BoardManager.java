@@ -90,14 +90,14 @@ public class BoardManager
                 m=dq.poll();
                 m.setI(countdown-increment++);
                 board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
-                board[m.getFromR()][m.getFromC()].empty();
+                board[m.getFromR()][m.getFromC()].empty();System.out.println("M"+m.getFromR()+" "+m.getFromC());
             }
             if(movesTaken==cap)break;
             m=EnemyTargetting.bestMove(currentFEN(), depth, processTime);
             m.setI(countdown-increment++);
             board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
             board[m.getToR()][m.getToC()].placePiece(board[m.getFromR()][m.getFromC()].getOccupyingPiece());
-            board[m.getFromR()][m.getFromC()].empty();
+            board[m.getFromR()][m.getFromC()].empty();System.out.println("M"+m.getFromR()+" "+m.getFromC());
             movesTaken++;
         }
     }

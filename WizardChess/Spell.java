@@ -6,10 +6,10 @@ public class Spell extends SuperSmoothMover{
     public Spell(int type){
         this.type=type;
         switch(type){
-            case 0:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{0,0}},200,100);break;
-            case 1:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-1,-1},{-1,0},{-1,1},{0,-1},{0,0},{0,1},{1,-1},{1,0},{1,1}},200,100);break;
-            case 2:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-1,0},{-2,0},{0,-2},{0,-1}, {0,0}, {0,1},{0,2},{1,0},{2,0}},200,100);break;
-            case 3:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-2,-2},{-1,-1},{-1,1},{-2,2},{0,0},{2,-2},{1,-1},{1,1},{2,2}},200,100);break;
+            case 0:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{0,0}},150,1);break;
+            case 1:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-1,-1},{-1,0},{-1,1},{0,-1},{0,0},{0,1},{1,-1},{1,0},{1,1}},150,1);break;
+            case 2:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-1,0},{-2,0},{0,-2},{0,-1}, {0,0}, {0,1},{0,2},{1,0},{2,0}},150,1);break;
+            case 3:setup(6,"MagicFire",-6,-56,70,145,new int[][]{{-2,-2},{-1,-1},{-1,1},{-2,2},{0,0},{2,-2},{1,-1},{1,1},{2,2}},150,1);break;
         }
     }
     public void act(){
