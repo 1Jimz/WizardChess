@@ -20,7 +20,7 @@ public class EndScreen extends World
 {
     // Make greenfoot images for all possible endings
     private GreenfootImage bg;
-    // Sound for both endings
+    // Sound for the possible endings
     private GreenfootSound music;
     // Play again button
     private TextButton restartButton;
@@ -41,7 +41,7 @@ public class EndScreen extends World
         addObject(restartButton, 1200/2, 740/4*3);
         // Add music
         music = new GreenfootSound("nemusplace.mp3");
-        music.setVolume(40);
+        music.setVolume(Settings.getMusicVolume());
         music.playLoop();
         
         // set background image

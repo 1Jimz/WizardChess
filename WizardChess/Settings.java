@@ -85,6 +85,9 @@ public class Settings extends World {
         addObject(texts[5], 893, 591);
         addObject(texts[6], 893, 637);
         
+        addObject(new Text(30, 8, "calibri", "MUSIC VOLUME"), 400, 275);
+        addObject(new Text(30, "calibri", "SFX VOLUME"), 400, 325);
+        
         // Initialize act count
         actCount = 0;
     }
@@ -112,6 +115,7 @@ public class Settings extends World {
      */
     public void act(){
         if(Greenfoot.mouseClicked(backButton)){
+            SoundManager.playSound("Clock Ticking");
             Greenfoot.setWorld(ts);
         }
         

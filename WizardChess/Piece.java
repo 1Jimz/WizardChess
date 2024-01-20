@@ -76,6 +76,9 @@ public class Piece extends SuperSmoothMover
     public int getHP(){
         return HP;
     }
+    public void setHP(int health){
+        HP = health;
+    }
     public void addMove(BoardManager.Move m){
         q.add(m);
     }

@@ -128,6 +128,31 @@ public class BoardManager
         sb.append(" b - - 0 1");
         return sb.toString();
     }
+    public static String getPiecesHP() {
+        String piecesHP = "";
+        for(Tile[] row : getBoard()) {
+            for(Tile tile : row) {
+                if(tile.getOccupyingPiece() != null) {
+                    piecesHP += tile.getOccupyingPiece().getHP();
+                    piecesHP += ",";
+                }
+            }
+        }
+        
+        return piecesHP;
+    }
+    public static void setPiecesHP(String pieceHP) {
+        String[] piecesHPArray = pieceHP.split(",");
+        int i = 0;
+        for(Tile[] row : getBoard()) {
+            for(Tile tile : row) {
+                if(tile.getOccupyingPiece() != null) {
+                    tile.getOccupyingPiece().setHP(Integer.parseInt(piecesHPArray[i]));
+                    i++;
+                }
+            }
+        }
+    }
     public static void spawnPieces(){
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].placePiece(incoming[i][j]);
     }
@@ -150,6 +175,13 @@ public class BoardManager
     }
     public static void resetTiles() {
         for(int i = 0; i < 8; i++)for(int j = 0; j < 8; j++)if(board[i][j] != null)board[i][j].turnNormal();
+    }
+    public static void wipe() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null){board[i][j].empty();}
+            }
+        }
     }
     public static void warn(){
         for(int i = 0; i<8; i++){
@@ -177,9 +209,6 @@ public class BoardManager
     }
     public static boolean isWarned() {
         return warned;
-    }
-    public static void wipe(){
-        for(Tile[] ts : board)for(Tile t : ts)t.empty();
     }
     public static int getCountdown(){
         return countdown;
