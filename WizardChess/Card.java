@@ -64,6 +64,7 @@ public class Card extends SuperSmoothMover{
         whirl++;
     }
     public void dispose(){
+        SoundManager.playSound("High Whoosh");
         active=1000;
         mx=Greenfoot.getRandomNumber(201)+200;
         my=Greenfoot.getRandomNumber(201)+1100;

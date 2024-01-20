@@ -25,25 +25,25 @@ public class TextSizeFinder
         g = temp.getAwtImage().createGraphics();
     }
     /**
-     * Returns the width of a String in calibri with a custom font size
+     * Returns the width of a String in cousine with a custom font size
      * @param text              The text you want to find the width of
      * @param fontSize          The font size
      * @return int              The width of the String
      */
     public int getTextWidth(String text, int fontSize){
-        TextFont = new Font ("calibri", Font.PLAIN, fontSize);
+        TextFont = new Font ("cousine", Font.PLAIN, fontSize);
         fm = g.getFontMetrics(TextFont);
         int width = fm.charsWidth(text.toCharArray(), 0, text.length()); // small error fixed
         return width; 
     }
     /**
-     * Returns the standard height of the String in calibri with a custom font size
+     * Returns the standard height of the String in cousine with a custom font size
      * @param text              The text you want to find the width of
      * @param fontSize          The font size
      * @return int              The standard height of the String
      */
     public int getTextHeight(String text, int fontSize){
-        TextFont = new Font ("calibri", Font.PLAIN, fontSize);
+        TextFont = new Font ("cousine", Font.PLAIN, fontSize);
         fm = g.getFontMetrics(TextFont);
         int height = fm.getHeight();
         return height; 
@@ -62,7 +62,7 @@ public class TextSizeFinder
         return width; 
     }
     /**
-     * Returns the standard height of the String in calibri with a custom font size
+     * Returns the standard height of the String in cousine with a custom font size
      * @param text              The text you want to find the width of
      * @param fontName          The name of the custom font. Must be a valid font in greenfoot and java
      * @param fontSize          The font size

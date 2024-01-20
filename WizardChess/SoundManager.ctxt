@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=SoundManager
+comment0.text=\r\n\ <html>\r\n\ <body>\r\n\ <p><strong>SoundManager</strong>\ is\ a\ utility\ class\ for\ managing\ sound\ effects\ in\ Greenfoot\ applications.</p>\r\n\ <p>It\ allows\ for\ playing,\ looping,\ and\ stopping\ sound\ effects.\ The\ class\ handles\ multiple\ instances\ of\ the\ same\ sound\ effect\ and\ controls\ their\ concurrent\ execution.</p>\r\n\ \r\n\ <h3>Usage\:</h3>\r\n\ <p>SoundManager\ should\ be\ used\ to\ manage\ all\ sound\ effects\ within\ the\ application.\ Sounds\ should\ be\ added\ during\ the\ world's\ construction\ phase\ for\ optimal\ performance.</p>\r\n\ \r\n\ <h3>Class\ Fields\:</h3>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>sounds</strong>\ -\ A\ map\ that\ stores\ queues\ of\ <code>GreenfootSound</code>\ objects\ for\ different\ sound\ names.</li>\r\n\ \ \ \ \ <li><strong>currentlyLooping</strong>\ -\ A\ map\ that\ tracks\ currently\ looping\ sounds.</li>\r\n\ </ul>\r\n\ @author\ Jimmy\ Zhu,\ David\ Guo\r\n\ @version\ 11/11\r\n
+comment1.params=name
+comment1.target=void\ playSound(java.lang.String)
+comment1.text=\r\n\ <p><strong>static\ void\ playSound(String\ name)</strong>\ -\ Plays\ a\ sound\ effect\ once.\ If\ the\ sound\ is\ looping,\ it\ stops\ the\ loop.\ <br>\r\n\ <strong>@param\ name</strong>\ -\ The\ name\ of\ the\ sound\ to\ play.</p>\r\n
+comment2.params=name
+comment2.target=void\ playLooped(java.lang.String)
+comment2.text=\r\n\ <html>\r\n\ <body>\r\n\ <p><strong>playLooped</strong>\ -\ Plays\ a\ specified\ sound\ in\ a\ continuous\ loop.</p>\r\n\ <p>This\ method\ retrieves\ the\ sound\ associated\ with\ the\ given\ name\ from\ the\ <code>sounds</code>\ map\ and\ starts\ playing\ it\ in\ a\ loop.\ If\ the\ sound\ is\ already\ playing,\ it\ will\ continue\ to\ loop.\ This\ method\ is\ particularly\ useful\ for\ background\ music\ or\ continuous\ sound\ effects\ in\ a\ Greenfoot\ application.</p>\r\n
+comment3.params=name
+comment3.target=void\ stopLooped(java.lang.String)
+comment3.text=\r\n\ <p><strong>static\ void\ stopLooped(String\ name)</strong>\ -\ Stops\ a\ currently\ looping\ sound.\ <br>\r\n\ <strong>@param\ name</strong>\ -\ The\ name\ of\ the\ looping\ sound\ to\ stop.</p>\r\n
+comment4.params=maxSimultaneousActive\ name\ type
+comment4.target=void\ addSound(int,\ java.lang.String,\ java.lang.String)
+comment4.text=\r\n\ <p><strong>static\ void\ addSound(int\ maxSimultaneousActive,\ String\ name,\ String\ type)</strong>\ -\ Adds\ a\ sound\ effect\ to\ the\ sound\ manager.\ <br>\r\n\ <strong>@param\ maxSimultaneousActive</strong>\ -\ The\ maximum\ number\ of\ simultaneous\ active\ instances\ of\ the\ sound.<br>\r\n\ <strong>@param\ name</strong>\ -\ The\ name\ of\ the\ sound.<br>\r\n\ <strong>@param\ type</strong>\ -\ The\ file\ type\ of\ the\ sound\ (e.g.,\ "wav",\ "mp3").</p>\r\n
+comment5.params=maxSimultaneousActive\ name\ type\ vol
+comment5.target=void\ addSound(int,\ java.lang.String,\ java.lang.String,\ int)
+comment5.text=\r\n\ <p><strong>static\ void\ addSound(int\ maxSimultaneousActive,\ String\ name,\ String\ type)</strong>\ -\ Adds\ a\ sound\ effect\ to\ the\ sound\ manager.\ <br>\r\n\ <strong>@param\ maxSimultaneousActive</strong>\ -\ The\ maximum\ number\ of\ simultaneous\ active\ instances\ of\ the\ sound.<br>\r\n\ <strong>@param\ name</strong>\ -\ The\ name\ of\ the\ sound.<br>\r\n\ <strong>@param\ type</strong>\ -\ The\ file\ type\ of\ the\ sound\ (e.g.,\ "wav",\ "mp3").<br>\r\n\ <strong>@param\ type</strong>\ -\ The\ sound\ volume\ percentage\ (e.g.,\ "wav",\ "mp3").</p>\r\n
+comment6.params=n\ name
+comment6.target=java.util.Queue\ createFilledQueue(int,\ java.lang.String)
+comment7.params=n\ name\ vol
+comment7.target=java.util.Queue\ createFilledQueue(int,\ java.lang.String,\ int)
+numComments=8

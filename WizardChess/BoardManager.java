@@ -177,6 +177,13 @@ public class BoardManager
             }
         }
     }
+    public static void wipe() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null){board[i][j].empty();}
+            }
+        }
+    }
     public static void warn(){
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].turnRed();
@@ -191,6 +198,9 @@ public class BoardManager
     }
     public static Tile[][] getBoard(){
         return board;
+    }
+    public static int getCountdown() {
+        return countdown;
     }
     public static boolean timeToMove(int i){
         System.out.println(i+" "+countdown);
