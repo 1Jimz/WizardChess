@@ -103,9 +103,10 @@ public class Piece extends SuperSmoothMover
     }
     public void promote(){//only to queen because for this game best value(probably)
         System.out.println(tV+" "+tH+"promote");
+        HP=MaxHP;
         if(type!='p')return;
         type='q';
-        setImage(new GreenfootImage("Piece_q.png"));
+        setImage(new GreenfootImage("Piece_q_3.png"));
         HP=(int)(1.5*Game.getWave())+2;
     }
 }
