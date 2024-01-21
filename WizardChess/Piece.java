@@ -64,7 +64,7 @@ public class Piece extends SuperSmoothMover
         }
         else if((tV-Game.vPush)/80==Wizard.getR()&&(tH-Game.hPush)/80==Wizard.getC()){
             dying=17;
-            Wizard.takeDmg(96);
+            Wizard.takeDmg(50); // 50 is temp
         }
     }
     public char getType(){

@@ -54,9 +54,9 @@ public class Spell extends SuperSmoothMover{
                                 getWorld().addObject(new Effects(type),t.getOccupyingPiece().getX(),t.getOccupyingPiece().getY());
                             }
                             if(type==4&&t.getR()==Wizard.getR()&&t.getC()==Wizard.getC()){
-                                Wizard.heal(10);
+                                //Wizard.heal(10);
+                                Wizard.setHeal(true);
                                 playDmgEffect(10);
-                                //System.out.println("test");
                             }
                         }
                     }catch (IndexOutOfBoundsException e) {}
