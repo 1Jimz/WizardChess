@@ -1,5 +1,5 @@
 #Greenfoot project file
-class.Game.image=TestBg6.png
+class.Game.image=TestBg7.png
 class.Spell.image=Blank.png
 class.Wand.image=Wand.png
 class.Wizard.image=Wizard-0-0.png
@@ -205,7 +205,7 @@ editor.fx.0.height=0
 editor.fx.0.width=0
 editor.fx.0.x=0
 editor.fx.0.y=0
-height=838
+height=400
 package.numDependencies=66
 package.numTargets=30
 project.charset=windows-1252
@@ -433,7 +433,7 @@ target9.width=120
 target9.x=0
 target9.y=0
 version=3.0.0
-width=1550
+width=700
 world.lastInstantiated=TitleScreen
 xPosition=0
 yPosition=0
