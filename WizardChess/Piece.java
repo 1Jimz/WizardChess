@@ -90,7 +90,7 @@ public class Piece extends SuperSmoothMover
     }
     public void takeDmg(int dmg){
         //System.out.println(type+" "+dying+" "+HP);
-        setImage(new GreenfootImage("Piece_"+type+"_"+(int)(Math.round((HP/(double)MaxHP)*3))+".png"));
+        setImage(new GreenfootImage("Piece_"+type+"_"+Math.max((int)Math.ceil((HP/(double)MaxHP)*3),0)+".png"));
         playDmgEffect(-dmg);
         HP-=dmg;
         if(HP<=0)dying=17;
