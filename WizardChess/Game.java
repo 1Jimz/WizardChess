@@ -23,6 +23,7 @@ public class Game extends World
     private EnergyBar energyBar;
     private static int level;
     private static Text waveNumber;
+    private static String[] levelFens;
     private static boolean canNewWave;
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
@@ -32,7 +33,7 @@ public class Game extends World
         spellActivated=false;
         canNewWave=false;
         moveNumber = 0;//
-        level = 1;
+        level = 0;
         EnemyTargetting.setup();
         //each time size 80
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
@@ -44,6 +45,17 @@ public class Game extends World
         addObject(new HPBar(100), 279, 210); // assuming 100 health?
         waveNumber = new Text(30,"Arial",Integer.toString(level));
         addObject(waveNumber,952,731);
+        //addObject(new Overlay(), 600,370);
+        //setPaintOrder(CardHitbox.class,Overlay.class);
+        levelFens = new String[8];
+        levelFens[0] = "2bk1b2/4pppp/8/6K1/8/8/8/8 b - - 0 1";
+        levelFens[1] = "rnbkq3/ppppp3/8/8/8/8/7K/8 b - - 0 1";
+        levelFens[2] = "r7/3n1k2/4b1q1/2p5/1p6/8/3K4/8 b - - 0 1";
+        levelFens[3] = "2rq1rk1/5ppp/8/8/8/8/1K2p3/8 b - - 0 1";
+        levelFens[4] = "6k1/1bp5/p1n4q/8/6p1/7p/4K3/r7 b - - 0 1";
+        levelFens[5] = "q4r2/1p4kp/1p3bp1/5p2/6b1/3K4/8/8 b - - 0 1";
+        levelFens[6] = "2b5/1p6/k1p5/1pbp4/r7/3K4/8/8 b - - 0 1";
+        levelFens[7] = "q3k3/ppp1nppp/2n1p3/2bp4/6b1/3K4/8/8 b - - 0 1";
     }
     private static int moveNumber;
     public static void nextMove() {
@@ -122,7 +134,7 @@ public class Game extends World
                 keyPressChecked = false;
             }
         } 
-        else keyPressChecked = true;
+        else{ keyPressChecked = true;}
         if(canNewWave&&BoardManager.enemiesDefeated()) {
             BoardManager.resetTiles();
             BoardManager.wipe();
@@ -131,6 +143,10 @@ public class Game extends World
             nextMove();
             canNewWave=false;
         } 
+        if(level == 8){
+            //addObject(new Fader(false, 3, Color.BLACK, true), getWidth()/2, getHeight()/2);
+            Greenfoot.setWorld(new EndScreen(false));
+        }
     }
     public static void grabCardAnimation(){
         pickCard=true;
@@ -148,17 +164,8 @@ public class Game extends World
     }
     private static Scanner readFile;
     public static void nextLevel() {
-        String fen = "";
-        try {
-            level++;
-            readFile = new Scanner(new File("levels/"+level+".txt"));
-            fen = readFile.nextLine();
-            System.out.println(fen);
-            readFile.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("filenotfound");
-        }
-        BoardManager.createIncoming(fen);
+        level++;
+        BoardManager.createIncoming(levelFens[level-1]);
         BoardManager.warn();
         nextMove();
         waveNumber.changeText(Integer.toString(level));

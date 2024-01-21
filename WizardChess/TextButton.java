@@ -26,7 +26,7 @@ public class TextButton extends Widget
     //Information about the mouse
     private MouseInfo mouse;
     /**
-     * Constructs a Button with a given String and a specified font size. It will have a default text colour of light gray and a default font of calibri 
+     * Constructs a Button with a given String and a specified font size. It will have a default text colour of light gray and a default font of cousine 
      * @param text              String value to display
      * @param fontSize          The font size, as an integer
      */
@@ -49,7 +49,7 @@ public class TextButton extends Widget
         setImage(img);
     }
     /**
-     * Constructs a Button with a given String, a specified font size, and custom text colour and highlight colour. It will use the default font, calibri
+     * Constructs a Button with a given String, a specified font size, and custom text colour and highlight colour. It will use the default font, cousine
      * @param text              String value to display
      * @param fontSize          The font size, as an integer
      * @param txtR              The intensity of red in the text's colour. The R value in RGB
@@ -64,7 +64,7 @@ public class TextButton extends Widget
         textColour = new Color(txtR,txtG,txtB);
         highlightColour = new Color(highlightR,highlightG,highlightB);
         //sets the font
-        TextFont = new Font ("calibri",fontSize);
+        TextFont = new Font ("cousine",fontSize);
         this.text = text;
         this.fontSize = fontSize;
         //creates a greenfoot image with the correct width and height to store the text

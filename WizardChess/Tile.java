@@ -74,5 +74,6 @@ public class Tile extends Actor
     public void empty(){
         System.out.println(r+" "+c);
         occupyingPiece=null;
+        occupied = false;
     }
 }

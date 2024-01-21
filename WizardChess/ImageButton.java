@@ -1,8 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * A button which can be pressed. The image may highlight itself and/or make a sound when
- * hovered over.
+ * A modular button which can be pressed. 
+ * The image may highlight itself and/or make a sound when hovered over.
  * 
  * @author David Guo
  * @version 1.0 01/18/2024
