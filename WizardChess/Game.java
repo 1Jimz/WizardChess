@@ -12,8 +12,10 @@ import java.io.PrintWriter;
  Click on card to use(cannot cancel when clicked)
  Enter to end turn
  
+ Not bug list:
  when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
  when it is not wizard's turn and spell can continue to be active.//maybe make it so have to use spell before next round
+ 
  */
 public class Game extends World
 {
@@ -26,7 +28,7 @@ public class Game extends World
     private static int level;
     private static Text waveNumber;
     private static String[] levelFens;
-    private static boolean canNewWave;
+    private static boolean canNewWave,kingDied;
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
@@ -36,6 +38,7 @@ public class Game extends World
         canNewWave=false;
         enemyMoving = false;
         keyPressChecked = true;
+        kingDied=false;
         moveNumber = 0;//
         level = 0;
         EnemyTargetting.setup();
@@ -108,18 +111,18 @@ public class Game extends World
             addObject(new Card(throwX,throwY,throwActive,leftBorder),startX,startY);
             throwingCard=false;
         }
-        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
+        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
             if(keyPressChecked) {
                 nextMove();
                 enemyMoving = false;
                 if(!wizardTurn()) {
-                    System.out.println("SNAO");
+                    System.out.println("SNAO"+" "+BoardManager.isWarned());
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
                         BoardManager.unwarn();
-                        canNewWave=true;
-                        System.out.println("E");
+                        //System.out.println("E");
                         nextMove();
+                        canNewWave=true;
                     }
                     else {
                         if(!canNewWave) {
@@ -143,14 +146,16 @@ public class Game extends World
                 }
                 keyPressChecked = false;
             }
-        } else{ keyPressChecked = true;}
-        if(canNewWave&&BoardManager.enemiesDefeated()) {
+        } 
+        else keyPressChecked = true;
+        if(canNewWave&&kingDied) {
             BoardManager.resetTiles();
             BoardManager.wipe();
-            for(Piece p: getObjects(Piece.class))removeObject(p);
+            for(Piece p: getObjects(Piece.class))p.kill();
             nextLevel();
             nextMove();
             canNewWave=false;
+            kingDied=false;
         } 
         if(level == 8){
             //addObject(new Fader(false, 3, Color.BLACK, true), getWidth()/2, getHeight()/2);
@@ -199,7 +204,9 @@ public class Game extends World
             output.close();
         }
     }
-    
+    public static void kingDying(){
+        kingDied=true;
+    }
     private static Scanner scanFile;
     public static boolean loadProgress() {
         try{

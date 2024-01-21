@@ -66,13 +66,13 @@ public class Tile extends Actor
         return c;
     }
     public void placePiece(Piece p){
-        System.out.println( "p"+r+" "+c);
+        //System.out.println( "p"+r+" "+c);
         getWorld().addObject(p,p.getTargetH(),p.getTargetV()-30);//-30 for now
         occupyingPiece=p;
         occupied = true;
     }
     public void empty(){
-        System.out.println(r+" "+c);
+        //System.out.println(r+" "+c);
         occupyingPiece=null;
         occupied = false;
     }

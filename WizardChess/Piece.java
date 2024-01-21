@@ -3,7 +3,7 @@ import java.util.*;
 public class Piece extends SuperSmoothMover
 {
     private char type;//p,n,b,r,q,k
-    private int MaxHP, HP, tH,tV,movePhase=0,sH,sV,saveR, saveC;
+    private int MaxHP, HP, tH,tV,movePhase=0,sH,sV;
     private Queue<BoardManager.Move> q;
     private int dying=-1;
     private boolean fix=false, awaitingDeath=false;
@@ -32,6 +32,7 @@ public class Piece extends SuperSmoothMover
         }
         else if(dying==0) {
             BoardManager.getBoard()[(tV-Game.vPush)/80][(tH-Game.hPush)/80].empty();
+            if(type=='k')Game.kingDying();
             getWorld().removeObject(this);
         }
         else if(movePhase<8){
@@ -49,7 +50,7 @@ public class Piece extends SuperSmoothMover
             setLocation(tH,tV-32);
         }
         else if(movePhase<16){
-            if(movePhase==14&&saveR==7&&type=='p')promote();
+            if(movePhase==14&&(tV-Game.vPush)/80==7&&type=='p')promote();
             setLocation(getX(),getY()+4);
             movePhase++;
         }
@@ -57,8 +58,6 @@ public class Piece extends SuperSmoothMover
             sV=tV;
             sH=tH;
             tV=Game.vPush+q.peek().getToR()*80;
-            saveR=q.peek().getToR();
-            saveC=q.peek().getToC();
             tH=Game.hPush+q.poll().getToC()*80;
             movePhase=0;
         }
@@ -89,11 +88,11 @@ public class Piece extends SuperSmoothMover
         return tV;
     }
     public void takeDmg(int dmg){
-        System.out.println(type+" "+dying+" "+HP);
+        //System.out.println(type+" "+dying+" "+HP);
         setImage(new GreenfootImage("Piece_"+type+"_"+(int)(Math.round((HP/(double)MaxHP)*3))+".png"));
         playDmgEffect(-dmg);
         HP-=dmg;
-        if(HP<=0){System.out.println(type+" "+dying+" "+HP);dying=17;}
+        if(HP<=0)dying=17;
     }
     public void playDmgEffect(int dmg) {
         getWorld().addObject(new Message((Integer.signum(dmg)==-1?"-":"+")+Math.abs(dmg),(Integer.signum(dmg)==-1?Color.RED:Color.GREEN)), getX(),getY()-30);

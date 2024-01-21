@@ -36,6 +36,7 @@ public class EnemyTargetting
        bw.write("go depth "+depth+" movetime "+processTime+"\n");
        bw.flush();
        BoardManager.Move m = new BoardManager.Move(-1,-1,-1,-1,-99);
+       try{
        Thread t = new Thread(new Runnable() {
            public void run() {
                BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -45,9 +46,13 @@ public class EnemyTargetting
                        latest=br.readLine();
                    }catch (IOException e){}
                    //System.out.println(s+" "+"looped");
+                   try{
                    if(latest.contains("bestmove")){
                        //System.out.println(latest+" "+"ended");
                        m.change(8-latest.charAt(10)+'0',latest.charAt(9)-'a',8-latest.charAt(12)+'0',latest.charAt(11)-'a');
+                       return;
+                   }
+                   }catch(NullPointerException e){
                        return;
                    }
                }
@@ -55,6 +60,7 @@ public class EnemyTargetting
        });
        t.start();
        t.join();
+    }catch(Exception e){System.out.println(e);}
        //System.out.println(m);
        return m;
     }
