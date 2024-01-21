@@ -37,12 +37,19 @@ public class Game extends World
         EnemyTargetting.setup();
         //each time size 80
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
+        
         energyBar = new EnergyBar(100);
         addObject(energyBar, 279, 270);
+        hpBar=new HPBar(100);
+        addObject(hpBar, 279, 210); // assuming 100 health?
+        
         wizard = new Wizard();
         wizard.setEnergyBar(energyBar);
+    
+        wizard.setHPBar(hpBar);
+        
         addObject(wizard,hPush+4*80,vPush+7*80-25);
-        addObject(new HPBar(100), 279, 210); // assuming 100 health?
+        
         waveNumber = new Text(30,"Arial",Integer.toString(level));
         addObject(waveNumber,952,731);
         //addObject(new Overlay(), 600,370);
@@ -168,7 +175,7 @@ public class Game extends World
         BoardManager.createIncoming(levelFens[level-1]);
         BoardManager.warn();
         nextMove();
-        waveNumber.changeText(Integer.toString(level));
+        waveNumber.changeText(Integer.toString(level), Color.WHITE);
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){

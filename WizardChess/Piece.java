@@ -3,9 +3,10 @@ import java.util.*;
 public class Piece extends SuperSmoothMover
 {
     private char type;//p,n,b,r,q,k
-    private int MaxHP, HP, tH,tV,movePhase=0,sH,sV,saveR, saveC;
+    private int MaxHP, tH,tV,movePhase=0,sH,sV,saveR, saveC;
     private Queue<BoardManager.Move> q;
     private int dying=-1;
+    private static int HP;
     private boolean fix=false, awaitingDeath=false;
     public Piece(char type, int tH, int tV){
         this.type=type;
@@ -64,7 +65,7 @@ public class Piece extends SuperSmoothMover
         }
         else if((tV-Game.vPush)/80==Wizard.getR()&&(tH-Game.hPush)/80==Wizard.getC()){
             dying=17;
-            Wizard.takeDmg(HP);
+            Wizard.takeDmg(96);
         }
     }
     public char getType(){
@@ -73,7 +74,7 @@ public class Piece extends SuperSmoothMover
     public boolean isKing(){
         return type == 'k';
     }
-    public int getHP(){
+    public static int getHP(){
         return HP;
     }
     public void addMove(BoardManager.Move m){
