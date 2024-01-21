@@ -17,7 +17,7 @@ public class Card extends SuperSmoothMover{
             case 0:setImage(new GreenfootImage("portalCard.png"));break;
             case 1:setImage(new GreenfootImage("explosionCard.png"));break;
             case 2:setImage(new GreenfootImage("bubbleCard.png"));break;
-            case 3:setImage(new GreenfootImage("TestCard2.png"));break;
+            case 3:setImage(new GreenfootImage("slashCard.png"));break;
             case 4:setImage(new GreenfootImage("healCard.png"));break;
         }
         //setImage(new GreenfootImage("Testcardfront2.png"));

@@ -58,7 +58,7 @@ public class Game extends World
         addObject(wizard,hPush+4*80,vPush+7*80-25);
         
         waveNumber = new Text(30,"Arial",Integer.toString(level));
-        addObject(waveNumber,952,731);
+        addObject(waveNumber,980,731);
         //addObject(new Overlay(), 600,370);
         //setPaintOrder(CardHitbox.class,Overlay.class);
         levelFens = new String[8];

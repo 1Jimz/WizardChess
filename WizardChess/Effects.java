@@ -21,9 +21,9 @@ public class Effects extends Actor
         this.type = type;
         switch(type){
             case 0: imageName = "portal"; maxImageNumber = 9;break;
-            case 1: imageName = "slash"; maxImageNumber = 4;break;
+            case 1: imageName = "explosion"; maxImageNumber = 4;break;
             case 2: imageName = "bubble"; maxImageNumber = 12;break;
-            case 3: imageName = "explosion"; maxImageNumber = 12;break;
+            case 3: imageName = "slash"; maxImageNumber = 12;break;
         }
         timeLeft = maxImageNumber * 10;
         imageNumber = maxImageNumber - 1;
