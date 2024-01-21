@@ -1,7 +1,7 @@
 import greenfoot.*;
 public class Wizard extends SuperSmoothMover{
     private static int r,c,HP,walkDirection=0,direction=0,phase=0,frame=0,rate=0,h=Game.hPush+4*80,v=Game.vPush+7*80-25, range;//,w=80,h=120;
-    private static boolean walking=false, damaged=false;
+    private static boolean walking=false, damaged=false,heal=false;
     private static double degrees=0;
     private EnergyBar energyBar;
     private HPBar hpBar;
@@ -53,7 +53,7 @@ public class Wizard extends SuperSmoothMover{
                     setImage(new GreenfootImage("Wizard-0-1.png"));
                     direction=0;
                 }
-                decreaseE();
+                updateEnBar(-20);
             }
             else if(Game.wizardTurn()&&c!=0&&currentBoard[r][c-1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("A")){
                 walking=true;
@@ -63,7 +63,7 @@ public class Wizard extends SuperSmoothMover{
                     setImage(new GreenfootImage("Wizard-6-1.png"));
                     direction=6;
                 }
-                decreaseE();
+                updateEnBar(-20);
             }
             else if(Game.wizardTurn()&&r!=7&&currentBoard[r+1][c].getOccupyingPiece()==null&&Greenfoot.isKeyDown("S")){
                 walking=true;
@@ -73,7 +73,7 @@ public class Wizard extends SuperSmoothMover{
                     setImage(new GreenfootImage("Wizard-4-1.png"));
                     direction=4;
                 }
-                decreaseE();
+                updateEnBar(-20);
             }
             else if(Game.wizardTurn()&&c!=7&&currentBoard[r][c+1].getOccupyingPiece()==null&&Greenfoot.isKeyDown("D")){
                 walking=true;
@@ -83,13 +83,16 @@ public class Wizard extends SuperSmoothMover{
                     setImage(new GreenfootImage("Wizard-2-1.png"));
                     direction=2;
                 }
-                decreaseE();
+                updateEnBar(-20);
             }
         }
         if(damaged){ // move this if not best place to put
-            decreaseHP();
+            updateHP(-50);// 50 is temp
             damaged=false;
             if(HPBar.getHP()<=0)Greenfoot.setWorld(new DeathScreen(true)); // wizard died rip
+        } if(heal){
+            updateHP(10);
+            heal=false;
         }
     }
     public static int getR(){
@@ -100,14 +103,14 @@ public class Wizard extends SuperSmoothMover{
     }
     public static void takeDmg(int dmg){
         SoundManager.playSound("Crunch");
-        HP-=dmg;//need to check for death
+        //HP-=dmg;//need to check for death
         damaged=true;
     }
     public static int getHP(){
         return HP;
     }
-    public static void heal(int h){
-        HP+=h;
+    public static void setHeal(boolean h){
+        heal = h;
     }
     public static int getH(){
         return h;
@@ -124,11 +127,12 @@ public class Wizard extends SuperSmoothMover{
     public void setHPBar(HPBar hpBar) {
         this.hpBar = hpBar;
     }
-    private void decreaseE() {
-        if(energyBar!=null)energyBar.setE(energyBar.getE()-1);
+    private void updateEnBar(int e) {
+        if(energyBar!=null)energyBar.setE(energyBar.getE()+e);
     }
-    private void decreaseHP() {
-        if(hpBar!=null)hpBar.setHP(hpBar.getHP()-50);// 50 is temp
+    public void updateHP(int h) {
+        HP=hpBar.getHP()+h;
+        if(hpBar!=null)hpBar.setHP(HP);
     }
     public static void highlightRange(int range) {
         BoardManager.resetTiles();
