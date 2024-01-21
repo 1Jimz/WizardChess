@@ -288,4 +288,31 @@ public class Game extends World
             return this.getY() - a.getY();
         }
     }
+    
+    /**
+     * <p><strong>void started()</strong> - Plays the background music in a loop when the game starts.</p>
+     */
+    // Play song when the game starts
+    public void started() {
+        //music.playLoop();
+    }
+    
+    /**
+     * <p><strong>void stopped()</strong> - Pauses the background music when the game is stopped.</p>
+     */
+    // Pause song if they stop the program
+    public void stopped() {
+        //music.pause();
+    }
+    
+    /**
+     * <p><strong>static GreenfootSound getMusic()</strong> - Provides access to the background music.</p>
+     * <ul>
+     *     <li><strong>Return:</strong> GreenfootSound - The background music for the title screen.</li>
+     * </ul>
+     */
+    // Getter method for the music
+    //public static GreenfootSound getMusic(){
+        //return music;
+    //}
 }
