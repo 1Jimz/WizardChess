@@ -45,9 +45,13 @@ public class EnemyTargetting
                        latest=br.readLine();
                    }catch (IOException e){}
                    //System.out.println(s+" "+"looped");
+                   try{
                    if(latest.contains("bestmove")){
                        //System.out.println(latest+" "+"ended");
                        m.change(8-latest.charAt(10)+'0',latest.charAt(9)-'a',8-latest.charAt(12)+'0',latest.charAt(11)-'a');
+                       return;
+                   }
+                   }catch(NullPointerException e){
                        return;
                    }
                }

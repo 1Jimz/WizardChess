@@ -3,6 +3,8 @@ import java.io.*;
 import java.util.*;
 import java.lang.*;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 /*
  Controls:
  WASD wizard movement(costs EP)
@@ -10,8 +12,10 @@ import java.util.Scanner;
  Click on card to use(cannot cancel when clicked)
  Enter to end turn
  
+ Not bug list:
  when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
  when it is not wizard's turn and spell can continue to be active.//maybe make it so have to use spell before next round
+ 
  */
 public class Game extends World
 {
@@ -24,7 +28,7 @@ public class Game extends World
     private static int level;
     private static Text waveNumber;
     private static String[] levelFens;
-    private static boolean canNewWave;
+    private static boolean canNewWave,kingDied;
     public Game() throws IOException,InterruptedException{    
         super(1200, 740, 1, false);
         System.out.println("_____________________________________________________________");
@@ -32,6 +36,9 @@ public class Game extends World
         pickCard=false;
         spellActivated=false;
         canNewWave=false;
+        enemyMoving = false;
+        keyPressChecked = true;
+        kingDied=false;
         moveNumber = 0;//
         level = 0;
         EnemyTargetting.setup();
@@ -93,6 +100,7 @@ public class Game extends World
         return wizard;
     }
     private boolean keyPressChecked = true;
+    private static boolean enemyMoving = false;
     public void act(){
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);//if takes too much resources then comment out
         if(pickCard){
@@ -103,16 +111,18 @@ public class Game extends World
             addObject(new Card(throwX,throwY,throwActive,leftBorder),startX,startY);
             throwingCard=false;
         }
-        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()==0)) {
+        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
             if(keyPressChecked) {
                 nextMove();
+                enemyMoving = false;
                 if(!wizardTurn()) {
-                    System.out.println("SNAO");
+                    System.out.println("SNAO"+" "+BoardManager.isWarned());
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
                         BoardManager.unwarn();
+                        //System.out.println("E");
+                        nextMove();
                         canNewWave=true;
-                        System.out.println("E");
                     }
                     else {
                         if(!canNewWave) {
@@ -125,7 +135,11 @@ public class Game extends World
                         else{
                             try{
                                 try{
-                                    BoardManager.enemyTurn(6,1,200);
+                                    if(!enemyMoving) {
+                                        enemyMoving = true;
+                                        //BoardManager.enemyTurn(6,1,200);
+                                        BoardManager.enemyTurn(6,1000,1);
+                                    }
                                 }catch(IOException e1){}
                             }catch(InterruptedException e2){}
                         }
@@ -134,14 +148,15 @@ public class Game extends World
                 keyPressChecked = false;
             }
         } 
-        else{ keyPressChecked = true;}
-        if(canNewWave&&BoardManager.enemiesDefeated()) {
+        else keyPressChecked = true;
+        if(canNewWave&&kingDied) {
             BoardManager.resetTiles();
             BoardManager.wipe();
-            for(Piece p: getObjects(Piece.class))removeObject(p);
+            for(Piece p: getObjects(Piece.class))p.kill();
             nextLevel();
             nextMove();
             canNewWave=false;
+            kingDied=false;
         } 
         if(level == 8){
             //addObject(new Fader(false, 3, Color.BLACK, true), getWidth()/2, getHeight()/2);
@@ -150,6 +165,9 @@ public class Game extends World
     }
     public static void grabCardAnimation(){
         pickCard=true;
+    }
+    public void enemyFinishedMoving() {
+        enemyMoving = false;
     }
     public static void activateSpell(){
         //Wizard.highlightRange(200);//200 is temp val
@@ -169,6 +187,39 @@ public class Game extends World
         BoardManager.warn();
         nextMove();
         waveNumber.changeText(Integer.toString(level));
+    }
+    
+    private static FileWriter out;
+    private static PrintWriter output;
+    
+    public static void saveProgress() throws IOException {
+        try{
+            out = new FileWriter("saveFile.txt",false);
+            output = new PrintWriter(out);
+            output.println(Integer.toString(level));
+            output.println(BoardManager.currentFEN());
+            output.println(BoardManager.getPiecesHP());
+        } catch(IOException e) {}
+        finally {
+            out.close();
+            output.close();
+        }
+    }
+    public static void kingDying(){
+        kingDied=true;
+    }
+    private static Scanner scanFile;
+    public static boolean loadProgress() {
+        try{
+            scanFile = new Scanner(new File("saveFile.txt"));
+            level = Integer.parseInt(scanFile.nextLine());
+            BoardManager.createIncoming(scanFile.nextLine());
+            return false;
+        } catch(IOException e) {
+            return true;
+        } finally {
+            scanFile.close();
+        }
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
