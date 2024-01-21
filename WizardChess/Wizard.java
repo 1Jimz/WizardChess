@@ -1,9 +1,10 @@
 import greenfoot.*;
 public class Wizard extends SuperSmoothMover{
     private static int r,c,HP,walkDirection=0,direction=0,phase=0,frame=0,rate=0,h=Game.hPush+4*80,v=Game.vPush+7*80-25, range;//,w=80,h=120;
-    private static boolean walking=false;
+    private static boolean walking=false, damaged=false;
     private static double degrees=0;
     private EnergyBar energyBar;
+    private HPBar hpBar;
     public Wizard(){
         h=Game.hPush+4*80;
         v=Game.vPush+7*80-25;
@@ -85,6 +86,11 @@ public class Wizard extends SuperSmoothMover{
                 decreaseE();
             }
         }
+        if(damaged){ // move this if not best place to put
+            decreaseHP();
+            damaged=false;
+            if(HPBar.getHP()<=0)Greenfoot.setWorld(new DeathScreen(true)); // wizard died rip
+        }
     }
     public static int getR(){
         return r;
@@ -95,6 +101,7 @@ public class Wizard extends SuperSmoothMover{
     public static void takeDmg(int dmg){
         SoundManager.playSound("Crunch");
         HP-=dmg;//need to check for death
+        damaged=true;
     }
     public static int getHP(){
         return HP;
@@ -114,8 +121,14 @@ public class Wizard extends SuperSmoothMover{
     public void setEnergyBar(EnergyBar energyBar) {
         this.energyBar = energyBar;
     }
+    public void setHPBar(HPBar hpBar) {
+        this.hpBar = hpBar;
+    }
     private void decreaseE() {
         if(energyBar!=null)energyBar.setE(energyBar.getE()-1);
+    }
+    private void decreaseHP() {
+        if(hpBar!=null)hpBar.setHP(hpBar.getHP()-50);// 50 is temp
     }
     public static void highlightRange(int range) {
         BoardManager.resetTiles();

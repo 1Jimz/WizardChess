@@ -53,7 +53,7 @@ public class Spell extends SuperSmoothMover{
                                 t.getOccupyingPiece().takeDmg(dmg);
                                 getWorld().addObject(new Effects(type),t.getOccupyingPiece().getX(),t.getOccupyingPiece().getY());
                             }
-                            if(type==4){
+                            if(type==4&&t.getR()==Wizard.getR()&&t.getC()==Wizard.getC()){
                                 Wizard.heal(10);
                                 playDmgEffect(10);
                                 //System.out.println("test");
@@ -68,9 +68,9 @@ public class Spell extends SuperSmoothMover{
         if(rate==5){
             rate=0;
             if(++frame==frameCount)frame=0;
-            if(placed&&fadeTime++>=30)setImage(Utility.customize(w,h,new GreenfootImage(picName+"_"+frame+".png"),(int)8.5*(60-fadeTime)));
+            if(placed&&fadeTime++>=15)setImage(Utility.customize(w,h,new GreenfootImage(picName+"_"+frame+".png"),(int)8.5*(30-fadeTime)));
             else setImage(Utility.customize(w,h,new GreenfootImage(picName+"_"+frame+".png")));
-            if(fadeTime==60)getWorld().removeObject(this);
+            if(fadeTime==30)getWorld().removeObject(this);
         }
         else rate++;
     }

@@ -1,7 +1,8 @@
 import greenfoot.*; 
 
 public class HPBar extends Actor {
-    private int hp, maxHp, barWidth, barHeight; 
+    private int maxHp, barWidth, barHeight; 
+    private static int hp;
     private Color good, warning, danger;  // color when hp is low (red)
 
     public HPBar(int maxHp) {
@@ -18,6 +19,9 @@ public class HPBar extends Actor {
     public void setHP(int hp) {
         this.hp = hp;
         update();
+    }
+    public static int getHP(){
+        return hp;
     }
 
     private void update() {
