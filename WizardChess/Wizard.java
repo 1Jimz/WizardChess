@@ -86,9 +86,10 @@ public class Wizard extends SuperSmoothMover{
                 decreaseE();
             }
         }
-        if(damaged){
+        if(damaged){ // move this if not best place to put
             decreaseHP();
             damaged=false;
+            if(HPBar.getHP()<=0)Greenfoot.setWorld(new DeathScreen(true)); // wizard died rip
         }
     }
     public static int getR(){
@@ -127,7 +128,7 @@ public class Wizard extends SuperSmoothMover{
         if(energyBar!=null)energyBar.setE(energyBar.getE()-1);
     }
     private void decreaseHP() {
-        if(hpBar!=null)hpBar.setHP(hpBar.getHP()-5);
+        if(hpBar!=null)hpBar.setHP(hpBar.getHP()-50);// 50 is temp
     }
     public static void highlightRange(int range) {
         BoardManager.resetTiles();
