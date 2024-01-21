@@ -36,7 +36,6 @@ public class EnemyTargetting
        bw.write("go depth "+depth+" movetime "+processTime+"\n");
        bw.flush();
        BoardManager.Move m = new BoardManager.Move(-1,-1,-1,-1,-99);
-       try{
        Thread t = new Thread(new Runnable() {
            public void run() {
                BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -60,7 +59,6 @@ public class EnemyTargetting
        });
        t.start();
        t.join();
-    }catch(Exception e){System.out.println(e);}
        //System.out.println(m);
        return m;
     }
