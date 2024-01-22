@@ -3,7 +3,7 @@ import java.io.*;
 import greenfoot.*;
 public class BoardManager  
 {
-    private static int countdown=-1;
+    private static int countdown=-1,abnormalEnd=-1;
     private static boolean warned = false;
     public static class Position{
         private int r,c;
@@ -54,6 +54,9 @@ public class BoardManager
         public String toString(){
             return "["+fromR+"]["+fromC+"]-->["+toR+"]["+toC+"]"+i;
         }
+        public boolean reversedMove(Move m){
+            return fromR==m.getToR()&&fromC==m.getToC()&&toR==m.getFromR()&&toC==m.getFromC();
+        }
     }
     private static Tile[][] board = new Tile[8][8];
     private static Piece[][] incoming = new Piece[8][8];
@@ -78,9 +81,10 @@ public class BoardManager
     //createIncoming("b2qk1rb/1npppp2/8/8/8/8/8/4K3 b - - 0 1");
     //createIncoming("2bk1b2/4pppp/8/6K1/8/8/8/8 b - - 0 1");
     public static void enemyTurn(int cap, int depth, int processTime) throws InterruptedException, IOException {
-        System.out.println("Running "+cap);
+        //System.out.println("Running "+cap);
         countdown=cap;
         int movesTaken=0,increment=0;
+        Move pre=new Move(-2,-2,-2,-2,-2);
         while(movesTaken!=cap){
             Deque<Move> dq = EnemyTargetting.ram();
             while(dq.size()>cap-movesTaken)dq.removeLast();
@@ -90,14 +94,27 @@ public class BoardManager
                 m=dq.poll();
                 m.setI(countdown-increment++);
                 board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
-                board[m.getFromR()][m.getFromC()].empty();System.out.println("M"+m.getFromR()+" "+m.getFromC());
+                board[m.getFromR()][m.getFromC()].empty();//System.out.println("M"+m.getFromR()+" "+m.getFromC());
             }
             if(movesTaken==cap)break;
             m=EnemyTargetting.bestMove(currentFEN(), depth, processTime);
+            if(m.reversedMove(pre)){
+                abnormalEnd=countdown-increment;
+                incoming=new Piece[8][8];
+                incoming[Wizard.getR()][Wizard.getC()]=new Piece('p',Game.hPush+Wizard.getC()*80,Game.vPush+Wizard.getR()*80);
+                warn();
+                break;
+            }
             m.setI(countdown-increment++);
-            board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
+            pre=m;
+            try{
+                board[m.getFromR()][m.getFromC()].getOccupyingPiece().addMove(m);
+            }catch(ArrayIndexOutOfBoundsException e){
+                abnormalEnd=countdown-increment+1;
+                return;
+            }
             board[m.getToR()][m.getToC()].placePiece(board[m.getFromR()][m.getFromC()].getOccupyingPiece());
-            board[m.getFromR()][m.getFromC()].empty();System.out.println("M"+m.getFromR()+" "+m.getFromC());
+            board[m.getFromR()][m.getFromC()].empty();//System.out.println("M"+m.getFromR()+" "+m.getFromC());
             movesTaken++;
         }
     }
@@ -128,6 +145,31 @@ public class BoardManager
         sb.append(" b - - 0 1");
         return sb.toString();
     }
+    public static String getPiecesHP() {
+        String piecesHP = "";
+        for(Tile[] row : getBoard()) {
+            for(Tile tile : row) {
+                if(tile.getOccupyingPiece() != null) {
+                    piecesHP += tile.getOccupyingPiece().getHP();
+                    piecesHP += ",";
+                }
+            }
+        }
+        
+        return piecesHP;
+    }
+    public static void setPiecesHP(String pieceHP) {
+        String[] piecesHPArray = pieceHP.split(",");
+        int i = 0;
+        for(Tile[] row : getBoard()) {
+            for(Tile tile : row) {
+                if(tile.getOccupyingPiece() != null) {
+                    tile.getOccupyingPiece().setHP(Integer.parseInt(piecesHPArray[i]));
+                    i++;
+                }
+            }
+        }
+    }
     public static void spawnPieces(){
         for(int i = 0; i<8; i++)for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].placePiece(incoming[i][j]);
     }
@@ -151,6 +193,13 @@ public class BoardManager
     public static void resetTiles() {
         for(int i = 0; i < 8; i++)for(int j = 0; j < 8; j++)if(board[i][j] != null)board[i][j].turnNormal();
     }
+    public static void wipe() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null){board[i][j].empty();}
+            }
+        }
+    }
     public static void warn(){
         for(int i = 0; i<8; i++){
             for(int j = 0; j<8; j++)if(incoming[i][j]!=null)board[i][j].turnRed();
@@ -168,7 +217,13 @@ public class BoardManager
         return countdown==i;
     }
     public static void allowNextMove(){
-        countdown--;
+        //System.out.println("BVBBfwafwawffawfBBB");
+        if(--countdown==abnormalEnd){
+            //System.out.println("BVBBBBB");
+            countdown=-1;
+            abnormalEnd=-1;
+        }
+        //System.out.println("fwaafwwffa"+countdown+" "+abnormalEnd);
     }
     public static boolean enemiesDefeated() {
         if(warned) return false;
@@ -177,9 +232,6 @@ public class BoardManager
     }
     public static boolean isWarned() {
         return warned;
-    }
-    public static void wipe(){
-        for(Tile[] ts : board)for(Tile t : ts)t.empty();
     }
     public static int getCountdown(){
         return countdown;
