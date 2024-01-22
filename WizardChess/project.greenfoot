@@ -1,6 +1,7 @@
 #Greenfoot project file
+class.Card.image=tornadoCard.png
 class.Game.image=TestBg7.png
-class.Spell.image=lightning.png
+class.Spell.image=tornado.png
 class.Wand.image=Wand.png
 class.Wizard.image=Wizard-0-0.png
 dependency1.from=TitleScreen
@@ -456,6 +457,6 @@ target9.x=0
 target9.y=0
 version=3.0.0
 width=1454
-world.lastInstantiated=TitleScreen
+world.lastInstantiated=Game
 xPosition=0
 yPosition=0

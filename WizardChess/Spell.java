@@ -39,8 +39,10 @@ public class Spell extends SuperSmoothMover {
             case 5:
                 setup(0, "lightning", -6, -56, 100, 100, new int[][]{{-1, -1},{-1, 1},{1, -1},{1, 1}}, 200, 100);
                 break;
+            case 6:
+                setup(0, "tornado", -6, -56, 100, 100, new int[][]{{-1, -1},{-1, 1},{0, 1},{0, -1},{-1, 0},{1, 0},{1, -1},{1, 1}}, 200, 100);
+                break;
         }
-        // 5: lightning
         
     }
 
