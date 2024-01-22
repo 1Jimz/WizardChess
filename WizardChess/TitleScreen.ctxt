@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=TitleScreen
-comment0.text=\r\n\ <html>\r\n\ <body>\r\n\ <p><strong>TitleScreen</strong>\ class\ extends\ <em>World</em>\ and\ represents\ the\ title\ screen\ of\ a\ game\ in\ Greenfoot.</p>\r\n\ <p>This\ class\ manages\ the\ display\ of\ the\ title\ screen,\ including\ background\ images\ and\ buttons,\ and\ handles\ user\ interactions\ to\ start\ the\ game.</p>\r\n\r\n\ <h3>Class\ Fields\:</h3>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>bg</strong>\ -\ The\ background\ image\ for\ the\ title\ screen.</li>\r\n\ \ \ \ \ <li><strong>continueButton</strong>\ -\ A\ button\ that\ starts\ the\ game\ when\ clicked.</li>\r\n\ \ \ \ \ <li><strong>music</strong>\ -\ The\ background\ music\ for\ the\ title\ screen.</li>\r\n\ \ \ \ \ <li><strong>title</strong>\ -\ The\ title\ display\ button.</li>\r\n\ </ul>\r\n\r\n\ @author\ David\ Guo,\ Dorsa\ Rohani\r\n\ @version\ 1.1\ 01/13/2024\r\n
+comment0.text=\r\n\ <html>\r\n\ <body>\r\n\ <p><strong>TitleScreen</strong>\ class\ extends\ <em>World</em>\ and\ represents\ the\ title\ screen\ of\ a\ game\ in\ Greenfoot.</p>\r\n\ <p>This\ class\ manages\ the\ display\ of\ the\ title\ screen,\ including\ background\ images\ and\ buttons,\ and\ handles\ user\ interactions\ to\ start\ the\ game.</p>\r\n\r\n\ <h3>Class\ Fields\:</h3>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>bg</strong>\ -\ The\ background\ image\ for\ the\ title\ screen.</li>\r\n\ \ \ \ \ <li><strong>continueButton</strong>\ -\ A\ button\ that\ starts\ the\ game\ when\ clicked.</li>\r\n\ \ \ \ \ <li><strong>music</strong>\ -\ The\ background\ music\ for\ the\ title\ screen.</li>\r\n\ \ \ \ \ <li><strong>title</strong>\ -\ The\ title\ display\ button.</li>\r\n\ </ul>\r\n\r\n\ @author\ David\ Guo\r\n\ @version\ 1.1\ 01/13/2024\r\n
 comment1.params=
 comment1.target=TitleScreen()
-comment1.text=\r\n\ <h3>Constructor\:</h3>\r\n\ <p>Initializes\ the\ title\ screen\ with\ a\ specific\ background,\ sets\ up\ buttons,\ and\ configures\ background\ music.</p>\r\n
+comment1.text=\r\n\ Initializes\ the\ title\ screen\ with\ a\ specific\ background,\ sets\ up\ buttons,\ and\ configures\ background\ music.</p>\r\n
 comment2.params=
 comment2.target=void\ act()
 comment2.text=\r\n\ <p><strong>void\ act()</strong>\ -\ Checks\ for\ user\ interactions,\ particularly\ if\ the\ start\ button\ is\ clicked\ to\ begin\ the\ game.</p>\r\n

@@ -14,7 +14,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     <li><strong>title</strong> - The title display button.</li>
  * </ul>
  *
- * @author David Guo, Dorsa Rohani
+ * @author David Guo
  * @version 1.1 01/13/2024
  */
 public class TitleScreen extends World
@@ -38,8 +38,7 @@ public class TitleScreen extends World
     //private int actCount;
     private TextButton title;
     /**
-     * <h3>Constructor:</h3>
-     * <p>Initializes the title screen with a specific background, sets up buttons, and configures background music.</p>
+     * Initializes the title screen with a specific background, sets up buttons, and configures background music.</p>
      */
     public TitleScreen()
     {
