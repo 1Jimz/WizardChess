@@ -30,7 +30,7 @@ public class Card extends SuperSmoothMover {
         this.my = my; // Initial y-coordinate
         this.active = active; // Active state
         this.leftBorder = leftBorder; // Indicates if the card is on the left border
-        type = Greenfoot.getRandomNumber(5); // Randomly determine the type of card
+        type = Greenfoot.getRandomNumber(6); // Randomly determine the type of card
 
         // Compute initial distances between connected points in the card
         for (int f = 0; f < 6; f++)
@@ -52,6 +52,9 @@ public class Card extends SuperSmoothMover {
                 break;
             case 4:
                 setImage(new GreenfootImage("healCard.png"));
+                break;
+            case 5:
+                setImage(new GreenfootImage("lightningCard.png"));
                 break;
         }
         // Alternative image assignment: setImage(new GreenfootImage("Testcardfront2.png"));

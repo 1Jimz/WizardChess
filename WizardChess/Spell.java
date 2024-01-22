@@ -36,7 +36,12 @@ public class Spell extends SuperSmoothMover {
             case 4:
                 setup(8, "Heal", -2, -2, 100, 100, new int[][]{{0, 0}}, 50, 100);
                 break;
+            case 5:
+                setup(0, "lightning", -6, -56, 100, 100, new int[][]{{-1, -1},{-1, 1},{1, -1},{1, 1}}, 200, 100);
+                break;
         }
+        // 5: lightning
+        
     }
 
     /**
@@ -160,7 +165,8 @@ public class Spell extends SuperSmoothMover {
     private void setup(int frameCount, String picName, int adjustH, int adjustV, int w, int h, int[][] aoe, int range, int dmg) {
         this.frameCount = frameCount;
         if(frameCount == 0) {
-            setImage(picName+".png");
+            setImage(Utility.customizeAndCreate(w,h,picName+".png"));
+            
         }
         this.picName = picName;
         this.adjustH = adjustH;
