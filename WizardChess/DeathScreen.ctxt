@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=DeathScreen
-comment0.text=\r\n\ \r\n
+comment0.text=\r\n\ Death\ screen\ for\ when\ the\ player\ dies\ before\ they\ can\ succesfully\ complete\ the\ game\r\n\ \r\n\ @author\ David\ Guo\r\n\ @version\ January\ 21st,\ 2023\r\n
 comment1.params=gameOver
 comment1.target=DeathScreen(boolean)
 comment1.text=\r\n\ <h3>Constructor\:</h3>\r\n\ <p>Initializes\ the\ end\ screen\ with\ different\ backgrounds\ and\ music\ based\ on\ the\ game\ outcome,\ and\ sets\ up\ a\ restart\ button.</p>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>@param\ gameOver\ true\ if\ the\ player\ lost.\ false\ if\ they\ won\r\n\ <ul>\r\n
