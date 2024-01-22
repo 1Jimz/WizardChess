@@ -4,7 +4,7 @@ import greenfoot.*;
  * Main class representing the player's wizard character.
  * Handles movement, actions, and attributes of the wizard.
  *
- * @author Jimmy Zhu, Mekaeel Malik
+ * @author Jimmy Zhu, Mekaeel Malik, Dorsa Rohani
  * @version January 21st, 2023
  */
 public class Wizard extends SuperSmoothMover {
