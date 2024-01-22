@@ -2,7 +2,9 @@ import greenfoot.*;
 
 /**
  * This class represents a spell in the game. It extends SuperSmoothMover for smooth movements.
- */
+ * @author Jimmy Zhu, Mekaeel Malik, Dorsa Roha
+ * @version January 21st, 2023
+*/
 public class Spell extends SuperSmoothMover {
     private int type = 0, frame = 0, rate = 0, frameCount, adjustH, adjustV, w, h, fadeTime = 0;
     private int[][] aoe; // Area of effect positions relative to the center

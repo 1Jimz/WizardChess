@@ -3,6 +3,9 @@ import greenfoot.*;
 /**
  * This class represents a hand in the game. It extends SuperSmoothMover,
  * allowing smooth movements.
+ * 
+ * @author Jimmy Zhu
+ * @version January 21st, 2023
  */
 public class Hand extends SuperSmoothMover {
     private int phase = -1;

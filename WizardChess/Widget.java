@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Write a description of class Widget here.
  * 
  * @author David Guo
- * @version 1.0 01/14/2024
+ * @version January 22nd, 2023
  */
 public abstract class Widget extends Actor
 {

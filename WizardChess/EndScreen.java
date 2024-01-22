@@ -14,7 +14,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * </ul>
  *
  * @author David Guo
- * @version 1.1 01/13/2024
+ * @version January 22nd, 2023
  */
 public class EndScreen extends World
 {

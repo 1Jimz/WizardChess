@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Piece
-comment0.text=\r\n\ This\ class\ represents\ a\ chess\ piece\ in\ the\ game.\ It\ extends\ SuperSmoothMover\r\n\ for\ smooth\ movements.\r\n\ \r\n\ @author\ [your\ name]\r\n\ @version\ January\ 21st,\ 2023\r\n
+comment0.text=\r\n\ This\ class\ represents\ a\ chess\ piece\ in\ the\ game.\ It\ extends\ SuperSmoothMover\r\n\ for\ smooth\ movements.\r\n\ \r\n\ @author\ Jimmy\ Zhu,\ Mekaeel\r\n\ @version\ January\ 21st,\ 2023\r\n
 comment1.params=type\ tH\ tV
 comment1.target=Piece(char,\ int,\ int)
 comment1.text=\r\n\ Constructor\ to\ initialize\ a\ chess\ piece.\r\n\r\n\ @param\ type\ Type\ of\ the\ chess\ piece.\r\n\ @param\ tH\ \ \ Target\ horizontal\ position.\r\n\ @param\ tV\ \ \ Target\ vertical\ position.\r\n

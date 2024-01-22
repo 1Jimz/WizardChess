@@ -11,8 +11,10 @@ import greenfoot.*;
  *     <li><strong>leviatingSpeed (int):</strong> The speed at which the message levitates.</li>
  *     <li><strong>isNew (boolean):</strong> A boolean indicating if the message is new (not yet added to the world).</li>
  *     <li><strong>value (String):</strong> The text content of the message.</li>
+ *     
  * </ul>
-
+ * @author Jimmy Zhu, Dorsa Rohani
+ * @version January 22nd, 2023
  */
 
 public class Message extends Actor {

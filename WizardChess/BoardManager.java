@@ -6,6 +6,9 @@ import greenfoot.*;
  * The `BoardManager` class manages the game board, pieces, and turn progression.
  * It includes methods for handling piece movements, creating and updating the game board,
  * and managing the countdown for enemy turns.
+ * 
+ * @author Jimmy Zhu, Mekaeel Malik
+ * @version January 21st, 2023
  */
 public class BoardManager  
 {

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Tile
-comment0.text=\r\n\ Class\ representing\ a\ tile\ on\ the\ game\ board.\r\n\ Each\ tile\ can\ be\ empty\ or\ occupied\ by\ a\ piece.\r\n\ Tiles\ may\ have\ different\ statuses\ (e.g.,\ normal,\ burning).\r\n\ Handles\ events\ related\ to\ tiles.\r\n\ \r\n\ @author\ [your\ name]\r\n\ @version\ January\ 21st,\ 2023\r\n
+comment0.text=\r\n\ Class\ representing\ a\ tile\ on\ the\ game\ board.\r\n\ Each\ tile\ can\ be\ empty\ or\ occupied\ by\ a\ piece.\r\n\ Tiles\ may\ have\ different\ statuses\ (e.g.,\ normal,\ burning).\r\n\ Handles\ events\ related\ to\ tiles.\r\n\ \r\n\ @author\ Jimmy\ Zhu,\ Mekaeel\ Malik\r\n\ @version\ January\ 21st,\ 2023\r\n
 comment1.params=w
 comment1.target=void\ addedToWorld(greenfoot.World)
 comment1.text=\r\n\ Method\ called\ when\ the\ object\ is\ added\ to\ the\ world.\r\n\ It\ prevents\ z-sorting\ problems\ by\ placing\ the\ tile\ only\ once.\r\n\ \r\n\ @param\ w\ The\ world\ to\ which\ the\ tile\ is\ added.\r\n

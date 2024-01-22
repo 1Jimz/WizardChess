@@ -6,7 +6,7 @@ import java.util.*;
  * It interacts with the Stockfish chess engine to determine the best move for the enemy.
  * 
  * @author Jimmy Zhu, David Guo
- * @version 1.0 01/11/2024
+ * @version January 22nd, 2023
  */
 public class EnemyTargetting {
     
