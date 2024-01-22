@@ -1,9 +1,23 @@
-import greenfoot.*; 
+import greenfoot.*;
 
+/**
+ * The HPBar class represents the health bar for the Wizard in the game.
+ * It displays the current health level, and its color changes based on the health level.
+ * 
+ * @author [Your Name]
+ * @version [Date]
+ */
 public class HPBar extends Actor {
-    private int hp, maxHp, barWidth, barHeight; 
-    private Color good, warning, danger;  // color when hp is low (red)
+    private int maxHp, barWidth, barHeight; 
+    private static int hp;
+    private Color good, warning, danger;  // Color when HP is low (red)
 
+    /**
+     * Constructor for HPBar objects.
+     * Initializes the health bar with the specified maximum health and updates the display.
+     * 
+     * @param maxHp The maximum health for the Wizard.
+     */
     public HPBar(int maxHp) {
         this.maxHp = maxHp;
         this.hp = maxHp;
@@ -15,17 +29,32 @@ public class HPBar extends Actor {
         update();
     }
 
+    /**
+     * Sets the health level to the specified value and updates the display.
+     * 
+     * @param hp The new health level.
+     */
     public void setHP(int hp) {
         this.hp = hp;
         update();
     }
 
+    /**
+     * Retrieves the current health level.
+     * 
+     * @return int The current health level.
+     */
+    public static int getHP(){
+        return hp;
+    }
+
+    /**
+     * Updates the health bar's display based on the current health level.
+     */
     private void update() {
         GreenfootImage image = new GreenfootImage(barWidth + 2, barHeight + 2);
-        // draw a border around it
-        //image.setColor(Color.WHITE);
-        //image.drawRect(0, 0, barWidth, barHeight);
-        // choose color based on hp
+        
+        // Choose color based on health level
         Color barColor;
         if (hp > maxHp / 2) {
             barColor = good;
@@ -34,44 +63,27 @@ public class HPBar extends Actor {
         } else {
             barColor = danger;
         }
-        // fill in the hp bar with gradient
+        
+        // Fill in the health bar with a gradient
         for (int i = 0; i < barWidth; i++) {
-            float ratio = (float) i / barWidth;
-            Color startColor;
-            if (barColor.equals(good)) {
-                startColor = new Color(180, 255, 180); // light green for good health
-            } else if (barColor.equals(warning)) {
-                startColor = new Color(255, 255, 180); // light yellow for warning
-            } else {
-                startColor = new Color(255, 180, 180); // light red for danger
-            }
-            // calculates gradient color
-            // credit: https://www.greenfoot.org/scenarios/4862
-            // will do proper credit in api
-            /*
-            int red = (int) (barColor.getRed() * ratio + startColor.getRed() * (1 - ratio));
-            int green = (int) (barColor.getGreen() * ratio + startColor.getGreen() * (1 - ratio));
-            int blue = (int) (barColor.getBlue() * ratio + startColor.getBlue() * (1 - ratio));
-            */
-            image.setColor(new Color(112, 219, 166));
-            //image.setColor(new Color(red, green, blue));
+            image.setColor(new Color(112, 219, 166)); // Set color for health bar
             image.drawLine(i, 1, i, barHeight);
         }
 
-        // calculate fill width based on current HP
+        // Calculate fill width based on current health
         int fillWidth = (int) Math.round(((double) hp / maxHp) * barWidth);
-        image.setColor(new Color(255, 255, 255, 100)); // semitransparent white overlay
+        image.setColor(new Color(255, 255, 255, 100)); // Set color for semitransparent white overlay
         image.fillRect(fillWidth, 1, barWidth - fillWidth, barHeight);
 
-        // put text on the bar
-        Font font = new Font("Verdana", true, false, 12); //bold
+        // Put text on the bar
+        Font font = new Font("Verdana", true, false, 12); // Bold
         image.setFont(font);
         image.setColor(Color.BLACK);
         String hpText = hp + "/" + maxHp;
         int textWidth = new GreenfootImage(hpText, 12, Color.BLACK, new Color(0, 0, 0, 0)).getWidth();
         image.drawString(hpText, (barWidth - textWidth) / 2, barHeight - 5);
 
-        // show the picture
+        // Show the picture
         setImage(image);
     }
 }

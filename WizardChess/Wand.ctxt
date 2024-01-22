@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=Wand
+comment0.text=\r\n\ This\ class\ represents\ the\ wand\ used\ by\ the\ player\ in\ the\ game.\ It\ extends\ SuperSmoothMover\ for\ smooth\ movements.\r\n
 comment1.params=
 comment1.target=void\ act()
+comment1.text=\r\n\ The\ main\ act\ method\ is\ called\ by\ the\ Greenfoot\ framework\ to\ perform\ actions.\r\n
 numComments=2
