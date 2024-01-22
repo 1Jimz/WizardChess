@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=CardManager
+comment0.text=\r\n\ The\ `CardManager`\ class\ manages\ the\ throwing\ of\ cards\ in\ the\ game.\r\n\ It\ includes\ predefined\ card\ throwing\ configurations\ and\ a\ method\ to\ initiate\ the\ card\ throw.\r\n
 comment1.params=
 comment1.target=void\ readyThrowCard()
+comment1.text=\r\n\ Initiate\ a\ card\ throw\ with\ a\ randomly\ selected\ configuration.\r\n\ The\ method\ chooses\ a\ random\ card\ throw\ configuration\ and\ invokes\ the\ throwCard\ method\ in\ the\ Game\ class.\r\n
 numComments=2

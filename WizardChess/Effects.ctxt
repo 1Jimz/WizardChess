@@ -1,9 +1,10 @@
 #BlueJ class context
 comment0.target=Effects
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Effects\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ The\ Effects\ class\ represents\ various\ visual\ effects\ in\ the\ game.\r\n\ It\ includes\ different\ types\ of\ effects,\ such\ as\ portal,\ explosion,\ bubble,\ and\ slash.\r\n\ \r\n\ @author\ Mekaeel\ Malik\ \r\n\ @version\ January\ 21st,\ 2023\r\n
 comment1.params=type
 comment1.target=Effects(int)
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Effects\r\n
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Effects.\r\n\ Initializes\ the\ effect\ based\ on\ the\ specified\ type.\r\n\ \r\n\ @param\ type\ Type\ of\ the\ effect\ (0\:\ portal,\ 1\:\ explosion,\ 2\:\ bubble,\ 3\:\ slash)\r\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=\r\n\ Performs\ actions\ during\ each\ act\ cycle.\r\n\ Updates\ the\ image\ for\ the\ effect\ based\ on\ the\ remaining\ time\ and\ removes\ the\ effect\ if\ time\ is\ up.\r\n
 numComments=3

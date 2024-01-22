@@ -1,15 +1,22 @@
 #BlueJ class context
 comment0.target=Card
+comment0.text=\r\n\ This\ class\ represents\ a\ card\ in\ the\ game.\ It\ extends\ SuperSmoothMover,\r\n\ allowing\ smooth\ movements.\ The\ original\ code\ is\ from\r\n\ https\://www.greenfoot.org/scenarios/925,\ and\ it\ has\ been\ substantially\r\n\ modified\ by\ Jimmy\ Zhu\ on\ 12/19/23.\ The\ modifications\ are\ significant\ enough\r\n\ that\ credit\ might\ not\ be\ necessary;\ it's\ more\ of\ an\ inspired\ transformation.\r\n
 comment1.params=mx\ my\ active\ leftBorder
 comment1.target=Card(int,\ int,\ int,\ boolean)
+comment1.text=\r\n\ Constructor\ for\ the\ Card\ class.\r\n\r\n\ @param\ mx\ \ \ \ \ \ \ \ \ \ Initial\ x-coordinate\ of\ the\ card.\r\n\ @param\ my\ \ \ \ \ \ \ \ \ \ Initial\ y-coordinate\ of\ the\ card.\r\n\ @param\ active\ \ \ \ \ \ Initial\ active\ state\ of\ the\ card.\r\n\ @param\ leftBorder\ \ Indicates\ if\ the\ card\ is\ on\ the\ left\ border.\r\n
 comment2.params=w
 comment2.target=void\ addedToWorld(greenfoot.World)
+comment2.text=\r\n\ Method\ called\ when\ the\ Card\ object\ is\ added\ to\ the\ world.\r\n\r\n\ @param\ w\ The\ world\ to\ which\ the\ Card\ object\ is\ added.\r\n
 comment3.params=
 comment3.target=void\ act()
+comment3.text=\r\n\ The\ main\ act\ method\ is\ called\ by\ the\ Greenfoot\ framework\ to\ perform\r\n\ actions.\r\n
 comment4.params=
 comment4.target=void\ whirlUp()
+comment4.text=\r\n\ Increment\ the\ whirl\ variable.\r\n
 comment5.params=
 comment5.target=void\ dispose()
+comment5.text=\r\n\ Dispose\ of\ the\ card.\ Play\ a\ sound\ effect,\ set\ card\ state\ to\ inactive,\ and\r\n\ reposition.\r\n
 comment6.params=k
 comment6.target=void\ simulate(int)
+comment6.text=\r\n\ Simulate\ physics-based\ movements\ of\ the\ card.\r\n\r\n\ @param\ k\ Number\ of\ simulation\ steps.\r\n
 numComments=7

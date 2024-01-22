@@ -1,7 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * Death screen for when the player dies before they can succesfully complete the game
  * 
+ * @author David Guo
+ * @version January 21st, 2023
  */
 public class DeathScreen extends World
 {
