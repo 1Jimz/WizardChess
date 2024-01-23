@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.*;
 /**
  * <html>
  * <body>
@@ -26,11 +26,13 @@ public class EndScreen extends World
     private Text title;
     // Play again button
     private TextButton restartButton;
-    // Act count
+    // Act count and game over storage
+    private boolean gameOver;
     private int actCount;
     // For stats
-    private Text[] statNames;
-    private Text[] stats;
+    private ArrayList<Text> statNames;
+    private ArrayList<Text> stats;
+    private int statIndex;
     /**
      * <h3>Constructor:</h3>
      * <p>Initializes the end screen with different backgrounds and music based on the game outcome, and sets up a restart button.</p>
@@ -43,14 +45,15 @@ public class EndScreen extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1200, 740, 1); 
         // Fader transition
-        setPaintOrder(Fader.class);
-        addObject(new Fader(false, 1, Color.BLACK), getWidth()/2, getHeight()/2);
+        setPaintOrder(Fader.class, Text.class);
+        addObject(new Fader(false, 2, Color.BLACK), getWidth()/2, getHeight()/2);
         // Create new buttons for the variables
         restartButton = new TextButton("MAIN MENU", 60, 255, 255, 255, 234, 122, 67);
         // Add buttons to the world
         addObject(restartButton, 1200/2, 740/16*15);
         
-        // Act count
+        // Act count & game over
+        this.gameOver = gameOver;
         actCount = 0;
         
         // set background image and music
@@ -60,29 +63,31 @@ public class EndScreen extends World
             Text title = new Text(140, 6, "impact", "", 5); // 3rd param does not matter
             title.changeText("GAME OVER", Color.RED);
             addObject(title, getWidth()/2, getHeight()/4);
-            showStats(false);
         } else {
             bg = new GreenfootImage ("endwizardblur.png");
-            music = new GreenfootSound("greatfairyfountain.mp3");
+            music = new GreenfootSound("uncharted.mp3");
             Text title = new Text(140, 5, "impact", ""); // 3rd param does not matter
             title.changeText("YOU WIN!", Color.GREEN);
             addObject(title, getWidth()/2, getHeight()/4);
-            showStats(true);
         }
         setBackground(bg);
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
         
         // Stats
-        statNames = new Text[]{
-            //new Text(12, "Arial", String.valueOf(musicVolume)),
-            //new Text(12, "Arial", String.valueOf(sfxVolume))
-        };
+        statNames = new ArrayList<Text>();
+        statNames.add(new Text(52, "Arial", "HP Remaining:"));
+        statNames.add(new Text(52, "Arial", "Energy Remaining:"));
+        statNames.add(new Text(52, "Arial", "Moves Made:"));
+        statNames.add(new Text(52, "Arial", "Cards Used:"));
         
-        stats = new Text[]{
-            //new Text(12, "Arial", String.valueOf(musicVolume)),
-            //new Text(12, "Arial", String.valueOf(sfxVolume))
-        };
+        stats = new ArrayList<Text>();
+        stats.add(new Text(52, "Arial", String.valueOf(HPBar.getHP())));
+        stats.add(new Text(52, "Arial", String.valueOf(EnergyBar.getE())));
+        stats.add(new Text(52, "Arial", String.valueOf(HPBar.getHP()))); // temp
+        stats.add(new Text(52, "Arial", String.valueOf(EnergyBar.getE()))); //temp
+        
+        statIndex = 0;
     }
     
     /**
@@ -97,11 +102,20 @@ public class EndScreen extends World
             ts.started(); // start the title screen music
             Greenfoot.setWorld(ts); // set world to title screen
         }
+        showStats();
         actCount++;
     }
     
-    private void showStats(boolean win){
-        
+    private void showStats(){
+        int iStatDelay = 300;
+        int statDelay = 150;
+        if(actCount > iStatDelay && actCount % statDelay == 0){
+            if(statIndex < stats.size()-1){
+                //Text temp = statNames.get(statIndex).changeText();
+                addObject(statNames.get(statIndex), 400, statIndex*60);
+                statIndex++;
+            }
+        }
     }
     
     /**
