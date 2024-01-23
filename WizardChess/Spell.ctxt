@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Spell
-comment0.text=\r\n\ This\ class\ represents\ a\ spell\ in\ the\ game.\ It\ extends\ SuperSmoothMover\ for\ smooth\ movements.\r\n\ @author\ Jimmy\ Zhu,\ Mekaeel\ Malik,\ Dorsa\ Roha\r\n\ @version\ January\ 21st,\ 2023\r\n
+comment0.text=\r\n\ This\ class\ represents\ a\ spell\ in\ the\ game.\ It\ extends\ SuperSmoothMover\ for\ smooth\ movements.\r\n\ @author\ Jimmy\ Zhu,\ Mekaeel\ Malik,\ Dorsa\ Rohani\r\n\ @version\ January\ 21st,\ 2023\r\n
 comment1.params=type
 comment1.target=Spell(int)
 comment1.text=\r\n\ Constructor\ to\ initialize\ a\ spell.\r\n\r\n\ @param\ type\ Type\ of\ the\ spell.\r\n
@@ -10,7 +10,10 @@ comment2.text=\r\n\ The\ main\ act\ method\ is\ called\ by\ the\ Greenfoot\ fram
 comment3.params=dmg
 comment3.target=void\ playDmgEffect(int)
 comment3.text=\r\n\ Display\ a\ damage\ effect.\r\n\r\n\ @param\ dmg\ Amount\ of\ damage.\r\n
-comment4.params=frameCount\ picName\ adjustH\ adjustV\ w\ h\ aoe\ range\ dmg
-comment4.target=void\ setup(int,\ java.lang.String,\ int,\ int,\ int,\ int,\ int[][],\ int,\ int)
-comment4.text=\r\n\ Set\ up\ the\ spell\ with\ the\ given\ parameters.\r\n\r\n\ @param\ frameCount\ Number\ of\ frames\ in\ the\ animation.\r\n\ @param\ picName\ \ \ \ Base\ name\ of\ the\ image.\r\n\ @param\ adjustH\ \ \ \ Horizontal\ adjustment.\r\n\ @param\ adjustV\ \ \ \ Vertical\ adjustment.\r\n\ @param\ w\ \ \ \ \ \ \ \ \ \ Width\ of\ the\ spell.\r\n\ @param\ h\ \ \ \ \ \ \ \ \ \ Height\ of\ the\ spell.\r\n\ @param\ aoe\ \ \ \ \ \ \ \ Area\ of\ effect\ positions\ relative\ to\ the\ center.\r\n\ @param\ range\ \ \ \ \ \ Range\ of\ the\ spell.\r\n\ @param\ dmg\ \ \ \ \ \ \ \ Damage\ caused\ by\ the\ spell.\r\n
-numComments=5
+comment4.params=
+comment4.target=int\ getSpellEP()
+comment4.text=\r\n\ Returns\ spell\ ep.\r\n
+comment5.params=frameCount\ picName\ adjustH\ adjustV\ w\ h\ aoe\ range\ dmg
+comment5.target=void\ setup(int,\ java.lang.String,\ int,\ int,\ int,\ int,\ int[][],\ int,\ int)
+comment5.text=\r\n\ Set\ up\ the\ spell\ with\ the\ given\ parameters.\r\n\r\n\ @param\ frameCount\ Number\ of\ frames\ in\ the\ animation.\r\n\ @param\ picName\ \ \ \ Base\ name\ of\ the\ image.\r\n\ @param\ adjustH\ \ \ \ Horizontal\ adjustment.\r\n\ @param\ adjustV\ \ \ \ Vertical\ adjustment.\r\n\ @param\ w\ \ \ \ \ \ \ \ \ \ Width\ of\ the\ spell.\r\n\ @param\ h\ \ \ \ \ \ \ \ \ \ Height\ of\ the\ spell.\r\n\ @param\ aoe\ \ \ \ \ \ \ \ Area\ of\ effect\ positions\ relative\ to\ the\ center.\r\n\ @param\ range\ \ \ \ \ \ Range\ of\ the\ spell.\r\n\ @param\ dmg\ \ \ \ \ \ \ \ Damage\ caused\ by\ the\ spell.\r\n
+numComments=6

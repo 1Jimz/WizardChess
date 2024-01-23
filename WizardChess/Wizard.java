@@ -117,7 +117,7 @@ public class Wizard extends SuperSmoothMover {
                     direction = 0;
                 }
                 // reduce the energy of the wizard
-                updateEnBar(-20);
+                updateEnBar(-4);
             } else if (Game.wizardTurn() && c != 0 && currentBoard[r][c - 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("A")) {
                 walking = true;
                 c--;
@@ -127,7 +127,7 @@ public class Wizard extends SuperSmoothMover {
                     direction = 6;
                 }
                 // reduce the energy of the wizard
-                updateEnBar(-20);
+                updateEnBar(-4);
             } else if (Game.wizardTurn() && r != 7 && currentBoard[r + 1][c].getOccupyingPiece() == null && Greenfoot.isKeyDown("S")) {
                 walking = true;
                 r++;
@@ -137,7 +137,7 @@ public class Wizard extends SuperSmoothMover {
                     direction = 4;
                 }
                 // reduce the energy of the wizard
-                updateEnBar(-20);
+                updateEnBar(-4);
             } else if (Game.wizardTurn() && c != 7 && currentBoard[r][c + 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("D")) {
                 walking = true;
                 c++;
@@ -147,7 +147,7 @@ public class Wizard extends SuperSmoothMover {
                     direction = 2;
                 }
                 // reduce the energy of the wizard
-                updateEnBar(-20);
+                updateEnBar(-4);
             }
         }
     }

@@ -2,11 +2,11 @@ import greenfoot.*;
 
 /**
  * This class represents a spell in the game. It extends SuperSmoothMover for smooth movements.
- * @author Jimmy Zhu, Mekaeel Malik, Dorsa Roha
+ * @author Jimmy Zhu, Mekaeel Malik, Dorsa Rohani
  * @version January 21st, 2023
 */
 public class Spell extends SuperSmoothMover {
-    private int type = 0, frame = 0, rate = 0, frameCount, adjustH, adjustV, w, h, fadeTime = 0;
+    private int type = 0, frame = 0, rate = 0, frameCount, adjustH, adjustV, w, h, ep, fadeTime = 0;
     private int[][] aoe; // Area of effect positions relative to the center
     private String picName;
     private boolean placed = false, fading = false;
@@ -102,9 +102,10 @@ public class Spell extends SuperSmoothMover {
                                 getWorld().addObject(new Effects(type), t.getOccupyingPiece().getX(),
                                         t.getOccupyingPiece().getY());
                             }
-                            if (type == 4 && t.getR() == Wizard.getR() && t.getC() == Wizard.getC()) {
+                            if (type == 4 && Wizard.getHP() <= 90 && t.getR() == Wizard.getR() && t.getC() == Wizard.getC()) {
                                 Wizard.setHeal(true);
                                 playDmgEffect(10);
+                                Wizard.takeDmg(-10);
                             }
                         }
                     } catch (IndexOutOfBoundsException e) {
@@ -154,6 +155,13 @@ public class Spell extends SuperSmoothMover {
     }
 
     /**
+     * Returns spell ep.
+     */
+    public int getSpellEP(){
+        return ep;
+    }
+
+    /**
      * Set up the spell with the given parameters.
      *
      * @param frameCount Number of frames in the animation.
@@ -180,5 +188,6 @@ public class Spell extends SuperSmoothMover {
         this.aoe = aoe;
         this.range = range;
         this.dmg = dmg;
+
     }
 }
