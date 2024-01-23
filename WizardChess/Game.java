@@ -28,13 +28,18 @@ public class Game extends World
     private static int wave=1,throwX, throwY, throwActive, startX, startY;  // Variables related to card throwing and waves
     private static Wizard wizard;  // Reference to the Wizard object
     private HPBar hpBar;  // Health bar for the Wizard
+    private static int hpBarValue;
     private EnergyBar energyBar;  // Energy bar for the Wizard
+    private static int energyBarValue;
     private static int level;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
     private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
     private static ImageButton settingsButton; // Settings button
     private static GreenfootSound music; // Game Music
+    
+    private static int spawnRow; // spawn location for the wizard
+    private static int spawnColumn;
     
     public Game(boolean loadSaveFile) throws IOException, InterruptedException {    
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
@@ -55,19 +60,6 @@ public class Game extends World
             for(int j = 0; j<8; j++)
                 addObject(new Tile(i,j),hPush+j*80,vPush+i*80);
         
-        energyBar = new EnergyBar(100);
-        addObject(energyBar, 279, 270);
-        hpBar=new HPBar(100);
-        addObject(hpBar, 279, 210);  // Adding health and energy bars to the game world
-        
-        wizard = new Wizard();  // Initializing the Wizard object
-        wizard.setEnergyBar(energyBar);
-        wizard.setHPBar(hpBar);
-        addObject(wizard,hPush+4*80,vPush+7*80-25);  // Adding the Wizard to the game world
-        
-        waveNumber = new Text(30,"Arial",Integer.toString(level));
-        addObject(waveNumber,980,731);  // Displaying the current wave number
-        
         levelFens = new String[8];  // Initializing an array to store FEN strings for each level
         // Assigning FEN strings for each level
         levelFens[0] = "2bk1b2/4pppp/8/6K1/8/8/8/8 b - - 0 1";
@@ -87,9 +79,37 @@ public class Game extends World
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
         
+        
         if(loadSaveFile){
             Game.loadProgress();
+        } else {
+            energyBarValue = 100;
+            
+            hpBarValue = 100;
+            
+            spawnRow = 7;
+            spawnColumn = 4;
         }
+        
+        wizard = new Wizard(spawnRow,spawnColumn);  // Initializing the Wizard object
+        
+        energyBar = new EnergyBar(energyBarValue);
+            
+        hpBar=new HPBar(hpBarValue);
+        
+        addObject(energyBar, 279, 270);
+        addObject(hpBar, 279, 210);  
+        // Adding health and energy bars to the game world
+            
+        wizard.setEnergyBar(energyBar);
+            
+        wizard.setHPBar(hpBar);
+        
+        addObject(wizard,hPush+spawnColumn*80,vPush+spawnRow*80-25);
+        // Adding the Wizard to the game world
+        
+        waveNumber = new Text(30,"Arial",Integer.toString(level),greenfoot.Color.WHITE);
+        addObject(waveNumber,980,731);  // Displaying the current wave number
     }
     private static int moveNumber;
 
@@ -320,9 +340,20 @@ public class Game extends World
         try {
             out = new FileWriter("saveFile.txt", false);
             output = new PrintWriter(out);
+            
             output.println(Integer.toString(level));
+            
             output.println(BoardManager.currentFEN());
+            
             output.println(BoardManager.getPiecesHP());
+            
+            output.println(Wizard.getR());
+            
+            output.println(Wizard.getC());
+            
+            output.println(EnergyBar.getE());
+            
+            output.println(HPBar.getHP());
         } catch (IOException e) {
         } finally {
             out.close();
@@ -346,11 +377,28 @@ public class Game extends World
     public static void loadProgress() {
         try {
             scanFile = new Scanner(new File("saveFile.txt"));
+            
             level = Integer.parseInt(scanFile.nextLine());
+            
             BoardManager.createIncoming(scanFile.nextLine());
+            
             BoardManager.spawnPieces();
+            
             BoardManager.setPiecesHP(scanFile.nextLine());
+            
+            spawnRow = Integer.parseInt(scanFile.nextLine());
+            
+            spawnColumn = Integer.parseInt(scanFile.nextLine());
+            
+            energyBarValue = Integer.parseInt(scanFile.nextLine());
+            
+            hpBarValue = Integer.parseInt(scanFile.nextLine());
+        
+            // Adding health and energy bars to the game world
+            
             scanFile.close();
+            
+            canNewWave = true;
         } catch (IOException e) {}
     }
     //mr cohen's Zsort. Credit if needed
