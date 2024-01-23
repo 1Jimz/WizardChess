@@ -22,8 +22,15 @@ public class EndScreen extends World
     private GreenfootImage bg;
     // Sound for the possible endings
     private GreenfootSound music;
+    // Text for endings
+    private Text title;
     // Play again button
     private TextButton restartButton;
+    // Act count
+    private int actCount;
+    // For stats
+    private Text[] statNames;
+    private Text[] stats;
     /**
      * <h3>Constructor:</h3>
      * <p>Initializes the end screen with different backgrounds and music based on the game outcome, and sets up a restart button.</p>
@@ -38,21 +45,41 @@ public class EndScreen extends World
         // Create new buttons for the variables
         restartButton = new TextButton("MAIN MENU", 60, 255, 255, 255, 234, 122, 67);
         // Add buttons to the world
-        addObject(restartButton, 1200/2, 740/4*3);
+        addObject(restartButton, 1200/2, 740/16*15);
+        
+        // Act count
+        actCount = 0;
         
         // set background image and music
         if(gameOver){
             bg = new GreenfootImage ("gameoverimg.png");
             music = new GreenfootSound("greatfairyfountain.mp3");
+            Text title = new Text(140, 6, "impact", "", 5); // 3rd param does not matter
+            title.changeText("GAME OVER", Color.RED);
+            addObject(title, getWidth()/2, getHeight()/4);
             showStats(false);
         } else {
             bg = new GreenfootImage ("endwizardblur.png");
             music = new GreenfootSound("greatfairyfountain.mp3");
+            Text title = new Text(140, 5, "impact", ""); // 3rd param does not matter
+            title.changeText("YOU WIN!", Color.GREEN);
+            addObject(title, getWidth()/2, getHeight()/4);
             showStats(true);
         }
         setBackground(bg);
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
+        
+        // Stats
+        statNames = new Text[]{
+            //new Text(12, "Arial", String.valueOf(musicVolume)),
+            //new Text(12, "Arial", String.valueOf(sfxVolume))
+        };
+        
+        stats = new Text[]{
+            //new Text(12, "Arial", String.valueOf(musicVolume)),
+            //new Text(12, "Arial", String.valueOf(sfxVolume))
+        };
     }
     
     /**
@@ -67,6 +94,7 @@ public class EndScreen extends World
             ts.started(); // start the title screen music
             Greenfoot.setWorld(ts); // set world to title screen
         }
+        actCount++;
     }
     
     private void showStats(boolean win){
