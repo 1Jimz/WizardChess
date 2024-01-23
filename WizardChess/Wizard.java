@@ -9,13 +9,13 @@ import greenfoot.*;
  */
 public class Wizard extends SuperSmoothMover {
     // Attributes to store wizard's position, health, direction, and animation state
-    private static int r, c, HP, walkDirection = 0, direction = 0, phase = 0, frame = 0, rate = 0,
+    private static int r, c, HP, EP, walkDirection = 0, direction = 0, phase = 0, frame = 0, rate = 0,
             h = Game.hPush + 4 * 80, v = Game.vPush + 7 * 80 - 25, range;//,w=80,h=120;
     private static boolean walking = false, damaged = false, heal = false;
     private static double degrees = 0;
 
     // Energy and health bars for the wizard
-    private EnergyBar energyBar;
+    private static EnergyBar energyBar;
     private static HPBar hpBar;
 
     /**
@@ -38,6 +38,7 @@ public class Wizard extends SuperSmoothMover {
         
         // sets HP to 100
         HP = 100;
+        EP=100;
         
         // calls a function to grab a card
         Game.grabCardAnimation();
@@ -117,7 +118,7 @@ public class Wizard extends SuperSmoothMover {
                     direction = 0;
                 }
                 // reduce the energy of the wizard
-                updateEnBar(-4);
+                decreaseE(2);
             } else if (Game.wizardTurn() && c != 0 && currentBoard[r][c - 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("A")) {
                 walking = true;
                 c--;
@@ -127,7 +128,7 @@ public class Wizard extends SuperSmoothMover {
                     direction = 6;
                 }
                 // reduce the energy of the wizard
-                updateEnBar(-4);
+                decreaseE(2);
             } else if (Game.wizardTurn() && r != 7 && currentBoard[r + 1][c].getOccupyingPiece() == null && Greenfoot.isKeyDown("S")) {
                 walking = true;
                 r++;
@@ -137,7 +138,7 @@ public class Wizard extends SuperSmoothMover {
                     direction = 4;
                 }
                 // reduce the energy of the wizard
-                updateEnBar(-4);
+                decreaseE(2);
             } else if (Game.wizardTurn() && c != 7 && currentBoard[r][c + 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("D")) {
                 walking = true;
                 c++;
@@ -147,7 +148,7 @@ public class Wizard extends SuperSmoothMover {
                     direction = 2;
                 }
                 // reduce the energy of the wizard
-                updateEnBar(-4);
+                decreaseE(2);
             }
         }
     }
@@ -180,7 +181,17 @@ public class Wizard extends SuperSmoothMover {
         HP-=dmg;
         hpBar.setHP(HP);
     }
-
+    /**
+     * Method to handle taking enegy by the wizard.
+     *
+     * @param e Amount of energy to be taken.
+     */
+    public static void decreaseE(int e) {
+        //SoundManager.playSound("Crunch");
+        EP-=e;
+        energyBar.setE(EP);
+    }
+    
     /**
      * Get the current health points of the wizard.
      *
@@ -235,6 +246,7 @@ public class Wizard extends SuperSmoothMover {
         this.energyBar = energyBar;
     }
 
+    
     /**
      * Set the health bar for the wizard.
      *
@@ -243,15 +255,19 @@ public class Wizard extends SuperSmoothMover {
     public void setHPBar(HPBar hpBar) {
         this.hpBar = hpBar;
     }
+    
+    public static EnergyBar getEnergyBar() {
+        return energyBar;
+    }
 
     /**
      * Update the energy bar of the wizard.
      *
      * @param e Amount of energy to be added.
      */
-    private void updateEnBar(int e) {
-        if (energyBar != null) energyBar.setE(energyBar.getE() + e);
-    }
+    //public static void updateEnBar(int e) {
+    //    if (energyBar != null) energyBar.setE(energyBar.getE() + e);
+    //}
     /**
      * Highlight the range of the wizard on the game board.
      *

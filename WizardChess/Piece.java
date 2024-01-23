@@ -109,7 +109,7 @@ public class Piece extends SuperSmoothMover {
         } else if ((tV - Game.vPush) / 80 == Wizard.getR() && (tH - Game.hPush) / 80 == Wizard.getC()) {
             // The piece reaches the Wizard's position, causing damage
             dying = 17;
-            Wizard.takeDmg(90);
+            Wizard.takeDmg(HP);
         }
     }
 

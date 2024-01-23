@@ -6,7 +6,7 @@ import greenfoot.*;
  * @version January 21st, 2023
 */
 public class Spell extends SuperSmoothMover {
-    private int type = 0, frame = 0, rate = 0, frameCount, adjustH, adjustV, w, h, ep, fadeTime = 0;
+    private int type = 0, frame = 0, rate = 0, frameCount, adjustH, adjustV, w, h, fadeTime = 0;
     private int[][] aoe; // Area of effect positions relative to the center
     private String picName;
     private boolean placed = false, fading = false;
@@ -90,7 +90,7 @@ public class Spell extends SuperSmoothMover {
             if (!placed && Greenfoot.mouseClicked(null) && Utility.distance(mouse.getX(), mouse.getY(), Wizard.getH(), Wizard.getV()) <= range) {
                 placed = true;
                 setLocation(Game.hPush + bC * 80 - 10, Game.vPush + bR * 80 - 40);
-
+                Wizard.decreaseE(Card.getSpellEP());
                 // Apply the spell's effect to the targeted area
                 for (int[] p : aoe) {
                     try {
@@ -152,13 +152,6 @@ public class Spell extends SuperSmoothMover {
     public void playDmgEffect(int dmg) {
         getWorld().addObject(new Message((Integer.signum(dmg) == -1 ? "-" : "+") + Math.abs(dmg),
                 (Integer.signum(dmg) == -1 ? Color.RED : Color.GREEN)), getX(), getY() - 30);
-    }
-
-    /**
-     * Returns spell ep.
-     */
-    public int getSpellEP(){
-        return ep;
     }
 
     /**

@@ -18,8 +18,9 @@ public class Card extends SuperSmoothMover {
     private double dl[] = new double[6], x[] = {-100, 100, 100, -100}, y[] = {-160, -160, 160, 160};
     private double xprev[] = new double[4], yprev[] = new double[4], xv[] = {0, 0, 0, 0}, yv[] = {0, 0, 0, 0};
     private boolean drag = false, stick = false, leftBorder, disposing = false;
-    private int point1, point2, mx, my, pointer = 0, p = 0, points[] = new int[4], ep;
+    private int point1, point2, mx, my, pointer = 0, p = 0, points[] = new int[4];
     private int conect1[] = {0, 1, 2, 3, 0, 1}, conect2[] = {1, 2, 3, 0, 2, 3}, active, type, whirl = 0;
+    private static int ep;
 
     /**
      * Constructor for the Card class.
@@ -44,31 +45,31 @@ public class Card extends SuperSmoothMover {
         switch (type) {
             case 0:
                 setImage(new GreenfootImage("portalCard.png"));
-                ep = 30;
+                ep = 15;
                 break;
             case 1:
                 setImage(new GreenfootImage("explosionCard.png"));
-                ep=30;
+                ep=15;
                 break;
             case 2:
                 setImage(new GreenfootImage("bubbleCard.png"));
-                ep=30;
+                ep=15;
                 break;
             case 3:
                 setImage(new GreenfootImage("slashCard.png"));
-                ep=20;
+                ep=15;
                 break;
             case 4:
                 setImage(new GreenfootImage("healCard.png"));
-                ep=30;
+                ep=15;
                 break;
             case 5:
                 setImage(new GreenfootImage("lightningCard.png"));
-                ep=30;
+                ep=15;
                 break;
             case 6:
                 setImage(new GreenfootImage("tornadoCard.png"));
-                ep=30;
+                ep=2;
                 break;
         }
         // Alternative image assignment: setImage(new GreenfootImage("Testcardfront2.png"));
@@ -152,7 +153,12 @@ public class Card extends SuperSmoothMover {
     public void whirlUp() {
         whirl++;
     }
-
+    /**
+     * Returns spell ep consumption.
+     */
+    public static int getSpellEP(){
+        return ep;
+    }
     /**
      * Dispose of the card. Play a sound effect, set card state to inactive, and
      * reposition.
