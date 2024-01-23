@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Spell
-comment0.text=\r\n\ This\ class\ represents\ a\ spell\ in\ the\ game.\ It\ extends\ SuperSmoothMover\ for\ smooth\ movements.\r\n
+comment0.text=\r\n\ This\ class\ represents\ a\ spell\ in\ the\ game.\ It\ extends\ SuperSmoothMover\ for\ smooth\ movements.\r\n\ @author\ Jimmy\ Zhu,\ Mekaeel\ Malik,\ Dorsa\ Roha\r\n\ @version\ January\ 21st,\ 2023\r\n
 comment1.params=type
 comment1.target=Spell(int)
 comment1.text=\r\n\ Constructor\ to\ initialize\ a\ spell.\r\n\r\n\ @param\ type\ Type\ of\ the\ spell.\r\n

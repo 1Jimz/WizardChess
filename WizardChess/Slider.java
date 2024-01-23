@@ -21,7 +21,7 @@ import java.util.*;
  * </ul>
  * 
  * @author Dorsa Rohani, David Guo
- * @version 1.3 01/13/2024
+ * @version January 22nd, 2023
  */
 public class Slider extends Widget {
     private int sliderID;

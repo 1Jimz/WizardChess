@@ -4,7 +4,7 @@ import greenfoot.*;
  * The EnergyBar class represents the energy bar for the Wizard in the game.
  * It displays the current energy level, and its color changes based on the energy level.
  * 
- * @author Jimmy Zhu
+ * @author Dorsa Rohani
  * @version January 21st, 2023
  */
 public class EnergyBar extends Actor {

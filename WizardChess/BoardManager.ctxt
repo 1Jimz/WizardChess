@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=BoardManager
-comment0.text=\r\n\ The\ `BoardManager`\ class\ manages\ the\ game\ board,\ pieces,\ and\ turn\ progression.\r\n\ It\ includes\ methods\ for\ handling\ piece\ movements,\ creating\ and\ updating\ the\ game\ board,\r\n\ and\ managing\ the\ countdown\ for\ enemy\ turns.\r\n
+comment0.text=\r\n\ The\ `BoardManager`\ class\ manages\ the\ game\ board,\ pieces,\ and\ turn\ progression.\r\n\ It\ includes\ methods\ for\ handling\ piece\ movements,\ creating\ and\ updating\ the\ game\ board,\r\n\ and\ managing\ the\ countdown\ for\ enemy\ turns.\r\n\ \r\n\ @author\ Jimmy\ Zhu,\ Mekaeel\ Malik\r\n\ @version\ January\ 21st,\ 2023\r\n
 comment1.params=
 comment1.target=void\ printBoard()
 comment1.text=\r\n\ Print\ the\ current\ state\ of\ the\ game\ board\ to\ the\ console.\r\n

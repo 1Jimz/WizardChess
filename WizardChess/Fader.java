@@ -5,7 +5,7 @@ import greenfoot.*;
  * via a click
  * 
  * @author David Guo (Thanks to @Jordan Cohen for the demonstration)
- * @version 1.1 01/14/2024
+ * @version January 22nd, 2023
  */
 public class Fader extends Widget {
     private GreenfootImage image;

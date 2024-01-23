@@ -4,8 +4,8 @@ import greenfoot.*;
  * The HPBar class represents the health bar for the Wizard in the game.
  * It displays the current health level, and its color changes based on the health level.
  * 
- * @author [Your Name]
- * @version [Date]
+ * @author Dorsa Rohani
+ * @version January 22nd, 2023
  */
 public class HPBar extends Actor {
     private int maxHp, barWidth, barHeight; 

@@ -7,6 +7,10 @@ import java.util.List;
  * https://www.greenfoot.org/scenarios/925, and it has been substantially
  * modified by Jimmy Zhu on 12/19/23. The modifications are significant enough
  * that credit might not be necessary; it's more of an inspired transformation.
+ * 
+ * @author Jimmy Zhu
+ * @version January 21st, 2023
+ * 
  */
 public class Card extends SuperSmoothMover {
     private List springs;

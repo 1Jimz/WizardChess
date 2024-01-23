@@ -11,7 +11,7 @@ import greenfoot.*;
  * </ul>
  * 
  * @author David Guo, Jimmy Zhu
- * @version 1.1 01/19/2024
+ * @version January 22nd, 2023
  */
 public class Text extends Widget
 {

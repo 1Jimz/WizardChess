@@ -1,8 +1,10 @@
 import greenfoot.*;
-/*
-This class is made by Jimmy Zhu
-Useful toolkit
-*/
+/**
+ * Useful toolkit
+ * 
+ * @author Jimmy Zhu
+ * @version January 22nd, 2023
+**/
 public class Utility
 {
     //creates an image that is customized based on various values
