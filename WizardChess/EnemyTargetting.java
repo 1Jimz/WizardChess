@@ -42,8 +42,9 @@ public class EnemyTargetting {
         BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);//m initialized with (-1,-1,-1,-1,-99). These values useful debugging.
         Thread t = new Thread(new Runnable() {
             public void run() {
-                BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));//Intialize BufferedReader
                 String latest = "";
+                //keep going through the lines until line containing "bestmove" is reached. When reached m gets changed to that move.
                 while (true) {
                     try {
                         latest = br.readLine();
@@ -55,14 +56,14 @@ public class EnemyTargetting {
                                     latest.charAt(11) - 'a');
                             return;
                         }
-                    } catch (NullPointerException e) {
+                    } catch (NullPointerException e) {//if no more line and still not found then end.
                         return;
                     }
                 }
             }
         });
-        t.start();
-        t.join();
+        t.start();//starts thread
+        t.join();//joins thread with main thread(main thread will wait for this thread to end before continuing)
         return m;
     }
 
@@ -72,20 +73,22 @@ public class EnemyTargetting {
      * @return a deque of potential moves for the enemy
      */
     public static Deque<BoardManager.Move> ram() {
-        Deque<BoardManager.Move> dq = new LinkedList<BoardManager.Move>();
+        Deque<BoardManager.Move> dq = new LinkedList<BoardManager.Move>();//intialize move deque
         Tile[][] currentBoard = BoardManager.getBoard();
+        //iterates through every tile
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (currentBoard[i][j].getOccupyingPiece() == null
                         || (currentBoard[i][j].getOccupyingPiece() != null
                                 && currentBoard[i][j].getOccupyingPiece().isDying()))
-                    continue;
+                    continue;//skip when tile has no piece or a dying piece
+                //if piece is able to reach Wizard then it will move on to the same tile as wizard
                 switch (currentBoard[i][j].getOccupyingPiece().getType()) {
-                    case 'p':
+                    case 'p'://pawn
                         if (Wizard.getR() == i + 1 && (Wizard.getC() == j + 1 || Wizard.getC() == j - 1))
                             dq.add(new BoardManager.Move(i, j, Wizard.getR(), Wizard.getC(), -99));
                         break;
-                    case 'n':
+                    case 'n'://knight
                         // Check all possible knight moves
                         if (Wizard.getR() == i + 2 && Wizard.getC() == j + 1)
                             dq.add(new BoardManager.Move(i, j, Wizard.getR(), Wizard.getC(), -99));
@@ -104,7 +107,7 @@ public class EnemyTargetting {
                         else if (Wizard.getR() == i - 2 && Wizard.getC() == j - 1)
                             dq.add(new BoardManager.Move(i, j, Wizard.getR(), Wizard.getC(), -99));
                         break;
-                    case 'b':
+                    case 'b'://bishop
                         // Check diagonals
                         try {
                             for (int k = 1; k < 8; k++) {
@@ -143,7 +146,7 @@ public class EnemyTargetting {
                         } catch (IndexOutOfBoundsException e) {
                         }
                         break;
-                    case 'r':
+                    case 'r'://rook
                         // Check straights
                         try {
                             for (int k = 1; k < 8; k++) {
@@ -182,7 +185,7 @@ public class EnemyTargetting {
                         } catch (IndexOutOfBoundsException e) {
                         }
                         break;
-                    case 'q':
+                    case 'q'://queen
                         // Check diagonals
                         try {
                             for (int k = 1; k < 8; k++) {
@@ -258,7 +261,7 @@ public class EnemyTargetting {
                         } catch (IndexOutOfBoundsException e) {
                         }
                         break;
-                    case 'k':
+                    case 'k'://king
                         if(Wizard.getR()==i-1 &&Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
                         else if(Wizard.getR()==i-1 &&Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
                         else if(Wizard.getR()==i-1 &&Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
@@ -271,7 +274,6 @@ public class EnemyTargetting {
                 }
             }
         }
-        //while(dq.size()>cap)dq.removeLast();
         return dq;
     }
 }

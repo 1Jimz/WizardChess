@@ -206,13 +206,7 @@ public class BoardManager
     public static void placeTile(Tile t, int r, int c) {
         board[r][c] = t;
     }
-
-    // Examples of FEN strings for initializing the game state
-    // createIncoming("2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1");
-    // createIncoming("2brkn2/2pppp2/8/8/8/8/8/4K3 b - - 0 1");
-    // createIncoming("b2qk1rb/1npppp2/8/8/8/8/8/4K3 b - - 0 1");
-    // createIncoming("2bk1b2/4pppp/8/6K1/8/8/8/8 b - - 0 1");
-
+    
     /**
      * Perform the enemy's turn with a given move limit, search depth, and time limit for processing.
      * @param cap Maximum number of moves to take
@@ -324,7 +318,6 @@ public class BoardManager
             if (i != 7)
                 sb.append("/");
         }
-
         sb.append(" b - - 0 1");
         return sb.toString();
     }
@@ -484,17 +477,11 @@ public class BoardManager
      * The method is responsible for managing the countdown and abnormal end scenarios.
      */
     public static void allowNextMove() {
-        // Uncomment the line below for debugging purposes
-        // System.out.println("BVBBfwafwawffawfBBB");
-
+        //when countdown reaches abnormalEnd the countdown will immediately jump to -1 which ends the current enemy turn
         if (--countdown == abnormalEnd) {
-            // Uncomment the line below for debugging purposes
-            // System.out.println("BVBBBBB");
             countdown = -1;
             abnormalEnd = -1;
         }
-        // Uncomment the line below for debugging purposes
-        // System.out.println("fwaafwwffa" + countdown + " " + abnormalEnd);
     }
 
     /**

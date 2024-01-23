@@ -210,7 +210,7 @@ public class Game extends World
                                 try{
                                     if(!enemyMoving) {
                                         enemyMoving = true;
-                                        BoardManager.enemyTurn(6,1000,1);
+                                        BoardManager.enemyTurn(6,10,20);
                                     }
                                 }catch(IOException e1){}
                             }catch(InterruptedException e2){}
