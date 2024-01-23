@@ -107,12 +107,12 @@ public class TitleScreen extends World
         // checks if the player has clicked play and puts them into the game if they did
         if(Greenfoot.mouseClicked(continueButton)){
             SoundManager.playSound("Clock Ticking");
-            // if player has a saved game:
-            //music.stop();
+            // if player has a saved game
+            if(Game.loadProgress()){
+                addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
+                return;
+            }
             
-            
-            // else:
-            addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
         } else if(Greenfoot.mouseClicked(playButton)){
             SoundManager.playSound("Clock Ticking");
             addObject(new Tutorial(), WIDTH/2, HEIGHT/2);

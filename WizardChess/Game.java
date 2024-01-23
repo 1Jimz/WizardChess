@@ -75,6 +75,7 @@ public class Game extends World
         levelFens[5] = "q4r2/1p4kp/1p3bp1/5p2/6b1/3K4/8/8 b - - 0 1";
         levelFens[6] = "2b5/1p6/k1p5/1pbp4/r7/3K4/8/8 b - - 0 1";
         levelFens[7] = "q3k3/ppp1nppp/2n1p3/2bp4/6b1/3K4/8/8 b - - 0 1";
+        
     }
     
     private static int moveNumber;
@@ -332,11 +333,12 @@ public class Game extends World
             scanFile = new Scanner(new File("saveFile.txt"));
             level = Integer.parseInt(scanFile.nextLine());
             BoardManager.createIncoming(scanFile.nextLine());
+            BoardManager.spawnPieces();
+            BoardManager.setPiecesHP(scanFile.nextLine());
+            scanFile.close();
             return false;
         } catch (IOException e) {
             return true;
-        } finally {
-            scanFile.close();
         }
     }
     //mr cohen's Zsort. Credit if needed
