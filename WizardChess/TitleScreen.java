@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.*;
 /**
  * <html>
  * <body>
@@ -14,8 +14,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     <li><strong>title</strong> - The title display button.</li>
  * </ul>
  *
- * @author David Guo, Dorsa Rohani
- * @version January 22nd, 2023
+ * @author David Guo
+ * @version 1.1 01/13/2024
  */
 public class TitleScreen extends World
 {
@@ -38,8 +38,7 @@ public class TitleScreen extends World
     //private int actCount;
     private TextButton title;
     /**
-     * <h3>Constructor:</h3>
-     * <p>Initializes the title screen with a specific background, sets up buttons, and configures background music.</p>
+     * Initializes the title screen with a specific background, sets up buttons, and configures background music.</p>
      */
     public TitleScreen()
     {
@@ -80,16 +79,17 @@ public class TitleScreen extends World
         music.setVolume(Settings.getMusicVolume());
         
         // Add sound effects to SoundManager
-        SoundManager.addSound(1, "Clock Ticking", "wav");
+        SoundManager.addSound(1, "Click", "wav");
         SoundManager.addSound(6, "Crunch", "wav");
-        SoundManager.addSound(1, "High Whoosh", "wav");
+        SoundManager.addSound(1, "High Whoosh", "wav", 80);
+        SoundManager.addSound(1, "NoSpellEP", "wav");
         
         // Add the title of the game
         Text title = new Text(140, "impact", "aswvsdafgsfsdcscs"); // 3rd param does not matter
         title.changeText("WIZARDCHESS", Color.WHITE);
         addObject(title, getWidth()/2, getHeight()/4);
-        Text version = new Text(70, "french script mt", "aswvsdafgsfsdcscs"); // 3rd param does not matter
-        version.changeText("beta edition", Color.RED);
+        Text version = new Text(70, "french script mt", ""); // 3rd param does not matter
+        version.changeText("version 1.0", Color.RED);
         addObject(version, getWidth()/2+380, getHeight()/4+50);
     }
 
@@ -107,21 +107,17 @@ public class TitleScreen extends World
     private void checkClick() throws InterruptedException, java.io.IOException {
         // checks if the player has clicked play and puts them into the game if they did
         if(Greenfoot.mouseClicked(continueButton)){
-            SoundManager.playSound("Clock Ticking");
-            // if player has a saved game:
-            //music.stop();
+            SoundManager.playSound("Click");
+            // if player has a saved game
+            //if(saveFilePresent()) {
+              //  startSavedGame();
+            //}
             
-            
-            // else:
-            addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
         } else if(Greenfoot.mouseClicked(playButton)){
-            SoundManager.playSound("Clock Ticking");
+            SoundManager.playSound("Click");
             addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
-        } //else if(Greenfoot.mouseClicked(tutorialButton)){
-            //addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
-        //} 
-        else if(Greenfoot.mouseClicked(settingsButton)){
-            SoundManager.playSound("Clock Ticking");
+        } else if(Greenfoot.mouseClicked(settingsButton)){
+            SoundManager.playSound("Click");
             Greenfoot.setWorld(new Settings(this));
         }
     }
@@ -130,6 +126,26 @@ public class TitleScreen extends World
         music.stop();
         Greenfoot.setWorld(new Game());
     }
+    
+    public void startSavedGame() throws InterruptedException, java.io.IOException{
+        music.stop();
+        
+        Greenfoot.setWorld(new Game(true));
+    }
+    /*
+    private static boolean saveFilePresent() {
+        try {
+            Scanner scanFile = new Scanner(new File("saveFile.txt"));
+            scanFile.nextLine();
+            scanFile.nextLine();
+            scanFile.close();
+            return true;
+        } catch(FileNotFoundException e) {
+            return false;
+        }
+        return true;
+    }
+    */
     
     /**
      * <p><strong>void started()</strong> - Plays the background music in a loop when the game starts.</p>

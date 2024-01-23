@@ -155,7 +155,7 @@ public class Wizard extends SuperSmoothMover {
         if (damaged) {
             updateHP(-50); // 50 is temp
             damaged = false;
-            if (HPBar.getHP() <= 0) Greenfoot.setWorld(new DeathScreen(true)); // wizard died rip
+            if (HPBar.getHP() <= 0) Greenfoot.setWorld(new EndScreen(true)); // wizard died rip
         }
         if (heal) {
             updateHP(10);

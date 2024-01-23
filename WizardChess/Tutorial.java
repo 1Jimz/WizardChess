@@ -48,11 +48,11 @@ public class Tutorial extends Widget
     public void act(){
         // changes page numner depending on which button is clicked
         if(Greenfoot.mouseClicked(back)){
-            SoundManager.playSound("Clock Ticking");
+            SoundManager.playSound("Click");
             pageNum--;
             updateCount();
         } else if (Greenfoot.mouseClicked(next)){
-            SoundManager.playSound("Clock Ticking");
+            SoundManager.playSound("Click");
             pageNum++;
             updateCount();
         }
