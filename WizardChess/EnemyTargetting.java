@@ -9,34 +9,20 @@ import java.util.*;
  * @version January 22nd, 2023
  */
 public class EnemyTargetting {
-    
     private static String testFen = "2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1";
     private static Process p;
     private static BufferedReader br;
     private static BufferedWriter bw;
-
     /**
      * Sets up the communication with the Stockfish chess engine.
      * 
      * @throws IOException if an I/O error occurs
      */
     public static void setup() throws IOException {
-        p = Runtime.getRuntime().exec("stockfish/stockfish-windows-x86-64-avx2");
-        br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        bw = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
-        // test();
+        p = Runtime.getRuntime().exec("stockfish/stockfish-windows-x86-64-avx2");//get stockfish via pathing
+        br = new BufferedReader(new InputStreamReader(p.getInputStream()));//intialize bufferedReader
+        bw = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));//intialize BufferedWriter
     }
-
-    /**
-     * Initiates a test with the Stockfish engine (commented out in the provided code).
-     * 
-     * @throws IOException if an I/O error occurs
-     * @throws InterruptedException if the thread is interrupted
-     */
-    public static void test() throws IOException, InterruptedException {
-        // System.out.println(bestMove(testFen, 5, 20));
-    }
-
     /**
      * Retrieves the best move for the enemy using the Stockfish engine.
      * 
@@ -48,11 +34,12 @@ public class EnemyTargetting {
      * @throws InterruptedException if the thread is interrupted
      */
     public static BoardManager.Move bestMove(String fen, int depth, int processTime) throws IOException, InterruptedException {
+        //writing into the stockfish exe
         bw.write("ucinewgame\n");
         bw.write("position fen " + fen + "\n");
         bw.write("go depth " + depth + " movetime " + processTime + "\n");
-        bw.flush();
-        BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);
+        bw.flush();//flushing
+        BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);//m initialized with (-1,-1,-1,-1,-99). These values useful debugging.
         Thread t = new Thread(new Runnable() {
             public void run() {
                 BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));

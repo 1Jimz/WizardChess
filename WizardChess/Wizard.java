@@ -16,20 +16,30 @@ public class Wizard extends SuperSmoothMover {
 
     // Energy and health bars for the wizard
     private EnergyBar energyBar;
-    private HPBar hpBar;
+    private static HPBar hpBar;
 
     /**
      * Constructor for the Wizard class.
      * Initializes the wizard's initial position, health, and triggers the card animation.
      */
     public Wizard() {
+        // factoring in the offset of the game board from the rest of the screen
         h = Game.hPush + 4 * 80;
         v = Game.vPush + 7 * 80 - 25;
+        
+        // values for where the wizard should be facing
         degrees = 0;
         direction = 0;
+        
+
+        // starting values for what column and row the wizard is in 
         r = 7;
         c = 4;
+        
+        // sets HP to 100
         HP = 100;
+        
+        // calls a function to grab a card
         Game.grabCardAnimation();
     }
 
@@ -38,8 +48,11 @@ public class Wizard extends SuperSmoothMover {
      * Handles wizard movement, spell activation, and updates attributes.
      */
     public void act() {
+        // updates the h and v values with the x and y values of the wizard
         h = getX();
         v = getY();
+        
+        // stores the mouse info within the temporary variable mouse
         MouseInfo mouse = Greenfoot.getMouseInfo();
 
         // Update the wizard's facing direction based on the mouse position
@@ -47,7 +60,9 @@ public class Wizard extends SuperSmoothMover {
 
         // Handle walking animation and movement
         if (walking) {
+            // if the move phase is starting, lift the wizard up to simulate hopping
             if (++phase <= 3) setLocation(getX(), getY() - 10);
+            // if not start moving the wizard in the direction indicated by the walkDirection
             else if (phase <= 11) {
                 switch (walkDirection) {
                     case 0:
@@ -63,7 +78,9 @@ public class Wizard extends SuperSmoothMover {
                         setLocation(getX() + 10, getY());
                         break;
                 }
+            // at the end of the movement, set the wizard back down to end the hopping
             } else if (phase <= 14) setLocation(getX(), getY() + 10);
+            // once finished end the walking phase and reset the phase variable
             else {
                 walking = false;
                 phase = 0;
@@ -73,6 +90,8 @@ public class Wizard extends SuperSmoothMover {
             if (mouse != null && Game.isSpellActivated())
                 direction = Utility.direction(Utility.bearingDegreesAToB(getX(), getY(), mouse.getX(), mouse.getY()));
 
+            // set the image of the wizard to the direction it should be in plus
+            // change the image to the corresponding idle image based on the frame variable
             setImage(new GreenfootImage("Wizard-" + direction + "-" + frame + ".png"));
 
             if (rate == 50) rate = 0;
@@ -85,6 +104,10 @@ public class Wizard extends SuperSmoothMover {
             Tile[][] currentBoard = BoardManager.getBoard();
 
             // Handle player movement based on key inputs
+            
+            // checks if it is the wizards turn and if the square the player wants
+            // to move to is empty, if so start walking and change the image of the
+            // wizard based on the direction is a spell was not activated
             if (Game.wizardTurn() && r != 0 && currentBoard[r - 1][c].getOccupyingPiece() == null && Greenfoot.isKeyDown("W")) {
                 walking = true;
                 r--;
@@ -93,6 +116,7 @@ public class Wizard extends SuperSmoothMover {
                     setImage(new GreenfootImage("Wizard-0-1.png"));
                     direction = 0;
                 }
+                // reduce the energy of the wizard
                 updateEnBar(-20);
             } else if (Game.wizardTurn() && c != 0 && currentBoard[r][c - 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("A")) {
                 walking = true;
@@ -102,6 +126,7 @@ public class Wizard extends SuperSmoothMover {
                     setImage(new GreenfootImage("Wizard-6-1.png"));
                     direction = 6;
                 }
+                // reduce the energy of the wizard
                 updateEnBar(-20);
             } else if (Game.wizardTurn() && r != 7 && currentBoard[r + 1][c].getOccupyingPiece() == null && Greenfoot.isKeyDown("S")) {
                 walking = true;
@@ -111,6 +136,7 @@ public class Wizard extends SuperSmoothMover {
                     setImage(new GreenfootImage("Wizard-4-1.png"));
                     direction = 4;
                 }
+                // reduce the energy of the wizard
                 updateEnBar(-20);
             } else if (Game.wizardTurn() && c != 7 && currentBoard[r][c + 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("D")) {
                 walking = true;
@@ -120,19 +146,9 @@ public class Wizard extends SuperSmoothMover {
                     setImage(new GreenfootImage("Wizard-2-1.png"));
                     direction = 2;
                 }
+                // reduce the energy of the wizard
                 updateEnBar(-20);
             }
-        }
-
-        // Handle wizard taking damage and healing
-        if (damaged) {
-            updateHP(-50); // 50 is temp
-            damaged = false;
-            if (HPBar.getHP() <= 0) Greenfoot.setWorld(new DeathScreen(true)); // wizard died rip
-        }
-        if (heal) {
-            updateHP(10);
-            heal = false;
         }
     }
 
@@ -161,8 +177,8 @@ public class Wizard extends SuperSmoothMover {
      */
     public static void takeDmg(int dmg) {
         SoundManager.playSound("Crunch");
-        //HP-=dmg;//need to check for death
-        damaged = true;
+        HP-=dmg;
+        hpBar.setHP(HP);
     }
 
     /**
@@ -236,26 +252,18 @@ public class Wizard extends SuperSmoothMover {
     private void updateEnBar(int e) {
         if (energyBar != null) energyBar.setE(energyBar.getE() + e);
     }
-
-    /**
-     * Update the health points of the wizard.
-     *
-     * @param h Amount of health points to be added.
-     */
-    public void updateHP(int h) {
-        HP = hpBar.getHP() + h;
-        if (hpBar != null) hpBar.setHP(HP);
-    }
-
     /**
      * Highlight the range of the wizard on the game board.
      *
      * @param range The range to be highlighted.
      */
     public static void highlightRange(int range) {
+        // sets all of the tiles back to their default state
         BoardManager.resetTiles();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                // checks each tile and if it is within the range of the wizard
+                // highlighting it blue if so
                 Tile t = BoardManager.getTile(i, j);
                 if (Utility.distance(Game.hPush + c * 80, Game.vPush + r * 80, t.getX(), t.getY()) < range) t.turnBlue();
             }

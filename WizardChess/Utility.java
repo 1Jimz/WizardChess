@@ -5,6 +5,7 @@ import greenfoot.*;
  * @author Jimmy Zhu
  * @version January 22nd, 2023
 **/
+//add api for the rest of them pls
 public class Utility
 {
     //creates an image that is customized based on various values
