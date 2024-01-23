@@ -63,17 +63,17 @@ public class Card extends SuperSmoothMover {
                 setImage(new GreenfootImage("slashCard.png"));
                 ep=15;
                 break;
-            case 6:
-                setImage(new GreenfootImage("healCard.png"));
-                ep=15;
+            case 4:
+                setImage(new GreenfootImage("tornadoCard.png"));
+                ep=2;
                 break;
             case 5:
                 setImage(new GreenfootImage("lightningCard.png"));
                 ep=15;
                 break;
-            case 4:
-                setImage(new GreenfootImage("tornadoCard.png"));
-                ep=2;
+            case 6:
+                setImage(new GreenfootImage("healCard.png"));
+                ep=15;
                 break;
         }
         // Alternative image assignment: setImage(new GreenfootImage("Testcardfront2.png"));
