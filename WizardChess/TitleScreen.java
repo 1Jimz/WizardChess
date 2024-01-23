@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
+import java.io.*;
 /**
  * <html>
  * <body>
@@ -99,7 +100,7 @@ public class TitleScreen extends World
     public void act(){
         try{
             checkClick();
-        } catch(InterruptedException e){} catch(java.io.IOException e){};
+        } catch(InterruptedException e){} catch(IOException e){};
         // this try catch statement is a result of using stockfish
     }
     
@@ -109,10 +110,11 @@ public class TitleScreen extends World
         if(Greenfoot.mouseClicked(continueButton)){
             SoundManager.playSound("Click");
             // if player has a saved game
-            //if(saveFilePresent()) {
-              //  startSavedGame();
-            //}
-            
+            if(saveFilePresent()) {
+                startSavedGame();
+            } else {
+                System.out.println("Save file could not be located");
+            }
         } else if(Greenfoot.mouseClicked(playButton)){
             SoundManager.playSound("Click");
             addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
@@ -124,7 +126,7 @@ public class TitleScreen extends World
     
     public void startGame() throws InterruptedException, java.io.IOException{
         music.stop();
-        Greenfoot.setWorld(new Game());
+        Greenfoot.setWorld(new Game(false));
     }
     
     public void startSavedGame() throws InterruptedException, java.io.IOException{
@@ -132,7 +134,7 @@ public class TitleScreen extends World
         
         Greenfoot.setWorld(new Game(true));
     }
-    /*
+    
     private static boolean saveFilePresent() {
         try {
             Scanner scanFile = new Scanner(new File("saveFile.txt"));
@@ -143,9 +145,8 @@ public class TitleScreen extends World
         } catch(FileNotFoundException e) {
             return false;
         }
-        return true;
     }
-    */
+    
     
     /**
      * <p><strong>void started()</strong> - Plays the background music in a loop when the game starts.</p>

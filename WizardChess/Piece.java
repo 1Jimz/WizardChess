@@ -13,7 +13,7 @@ public class Piece extends SuperSmoothMover {
     private int maxHP, tH, tV, movePhase = 0, sH, sV, saveR, saveC;
     private Queue<BoardManager.Move> q;
     private int dying = -1;
-    private static int HP;
+    private int HP;
     private boolean fix = false, awaitingDeath = false;
 
     /**
@@ -136,7 +136,7 @@ public class Piece extends SuperSmoothMover {
      *
      * @return int Current HP of the piece.
      */
-    public static int getHP() {
+    public int getHP() {
         return HP;
     }
 
