@@ -18,34 +18,34 @@ public class Spell extends SuperSmoothMover {
      * @param type Type of the spell.
      */
     public Spell(int type) {
-        this.type = type;
         switch (type) {
-            case 0:
-                setup(0, "portalPreview", -6, -56, 70, 145, new int[][]{{0, 0}}, 200, 8);
+            case 0: // Portal Spell (Utility spell, low damage)
+                setup(0, "portalPreview", -6, -56, 70, 145, new int[][]{{0, 0}}, 200, 2);  // Low damage
                 break;
-            case 1:
-                setup(0, "explosionPreview", -6, -56, 70, 145,
-                        new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}}, 200, 25);
+            case 1: // Explosion Spell (High area, high damage)
+                setup(0, "explosionPreview", -6, -56, 70, 145, 
+                      new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}}, 200, 24);  // High damage
                 break;
-            case 2:
-                setup(0, "bubblePreview", -6, -56, 70, 145,
-                        new int[][]{{-1, 0}, {-2, 0}, {0, -2}, {0, -1}, {0, 0}, {0, 1}, {0, 2}, {1, 0}, {2, 0}}, 200, 18);
+            case 2: // Bubble Spell (Medium area, medium damage)
+                setup(0, "bubblePreview", -6, -56, 70, 145, 
+                      new int[][]{{-1, 0}, {-2, 0}, {0, -2}, {0, -1}, {0, 0}, {0, 1}, {0, 2}, {1, 0}, {2, 0}}, 200, 12);  // Medium damage
                 break;
-            case 3:
-                setup(0, "slashPreview", -6, -56, 70, 145,
-                        new int[][]{{-2, -2}, {-1, -1}, {-1, 1}, {-2, 2}, {0, 0}, {2, -2}, {1, -1}, {1, 1}, {2, 2}}, 200, 22);
+            case 3: // Slash Spell (Medium area, high damage)
+                setup(0, "slashPreview", -6, -56, 70, 145, 
+                      new int[][]{{-2, -2}, {-1, -1}, {-1, 1}, {-2, 2}, {0, 0}, {2, -2}, {1, -1}, {1, 1}, {2, 2}}, 200, 18);  // High damage
                 break;
-            case 4:
-                setup(0, "tornado", -6, -56, 100, 100, new int[][]{{-1, -1},{-1, 1},{0, 1},{0, -1},{-1, 0},{1, 0},{1, -1},{1, 1}}, 200, 12);
+            case 4: // Tornado Spell (Wide area, low damage)
+                setup(0, "tornado", -6, -56, 100, 100, 
+                      new int[][]{{-1, -1},{-1, 1},{0, 1},{0, -1},{-1, 0},{1, 0},{1, -1},{1, 1}}, 200, 4);  // Low damage
                 break;
-            case 5:
-                setup(0, "lightning", -6, -56, 100, 100, new int[][]{{-1, -1},{-1, 1},{1, -1},{1, 1}}, 200, 20);
+            case 5: // Lightning Spell (Specific targets, very high damage)
+                setup(0, "lightning", -6, -56, 100, 100, 
+                      new int[][]{{-1, -1},{-1, 1},{1, -1},{1, 1}}, 200, 30);  // Very high damage
                 break;
-            case 6:
-                setup(8, "Heal", -2, -2, 100, 100, new int[][]{{0, 0}}, 50, 100);
+            case 6: // Heal Spell (Self-heal)
+                setup(8, "Heal", -2, -2, 100, 100, new int[][]{{0, 0}}, 50, 0);  // No damage, healing spell
                 break;
         }
-        
     }
 
     /**

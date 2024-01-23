@@ -30,32 +30,30 @@ public class Piece extends SuperSmoothMover {
         this.sH = tH;
         this.sV = tV - 30;
         q = new LinkedList<BoardManager.Move>();
-
-        // Set the initial image and maximum HP based on the piece type
         switch (type) {
-            case 'p':
+            case 'p': // Pawn
                 setImage(new GreenfootImage("Piece_p_3.png"));
-                MaxHP = (int) (1 * Game.getWave()) + 40;  // Slightly increased base health
+                MaxHP = (int) (1 * Game.getWave()) + 44;  // Modest health, easier enemy
                 break;
-            case 'n':
+            case 'n': // Knight
                 setImage(new GreenfootImage("Piece_n_3.png"));
-                MaxHP = 2 * Game.getWave() + 100;  // Increased base health
+                MaxHP = (int)1.25 * Game.getWave() + 48;  // Medium health
                 break;
-            case 'b':
+            case 'b': // Bishop
                 setImage(new GreenfootImage("Piece_b_3.png"));
-                MaxHP = 3 * Game.getWave() + 200;  // Increased base health
+                MaxHP = (int)1.5 * Game.getWave() + 50;  // Medium health
                 break;
-            case 'r':
+            case 'r': // Rook
                 setImage(new GreenfootImage("Piece_r_3.png"));
-                MaxHP = (int) (4 * Game.getWave()) + 300;  // Slightly more health per wave
+                MaxHP = (int) (1.75 * Game.getWave()) + 52;  // Higher health
                 break;
-            case 'q':
+            case 'q': // Queen
                 setImage(new GreenfootImage("Piece_q_3.png"));
-                MaxHP = (int) (5 * Game.getWave()) + 400;  // More health per wave, stronger enemy
+                MaxHP = (int) (2 * Game.getWave()) + 56;  // High health
                 break;
-            case 'k':
+            case 'k': // King
                 setImage(new GreenfootImage("Piece_k_3.png"));
-                MaxHP = 6 * Game.getWave() + 500;  // Highest base health, strongest enemy
+                MaxHP = (int)2.25 * Game.getWave() + 60;  // Highest health, toughest enemy
                 break;
         }
         HP = MaxHP;
@@ -109,7 +107,7 @@ public class Piece extends SuperSmoothMover {
         } else if ((tV - Game.vPush) / 80 == Wizard.getR() && (tH - Game.hPush) / 80 == Wizard.getC()) {
             // The piece reaches the Wizard's position, causing damage
             dying = 17;
-            Wizard.takeDmg(HP);
+            Wizard.takeDmg(-HP);
         }
     }
 
