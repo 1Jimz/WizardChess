@@ -236,6 +236,7 @@ public class BoardManager
             Move m;
 
             // this loop processes the moves obtained from the dq deque
+            System.out.println("=-=awf-awf");
             while (!dq.isEmpty()) {
                 m = dq.poll();
                 m.setI(countdown - increment++);
@@ -250,15 +251,15 @@ public class BoardManager
             // if the amount of moves taken is the max, the function stops here to save time
             if (movesTaken == cap)
                 break;
-
+            System.out.println("ASCAFIGUBUIWFUIBUBIGWUBIAGW "+currentFEN());
             // uses the enemy targetting class to get the current best move from stockfish
             m = EnemyTargetting.bestMove(currentFEN(), depth, processTime);
-
+            System.out.println("ASCAFIGUBUI---------------WUBIAGW");
             // checks the moves given to the function by stockfish to avoid repeated moves
             if (m.reversedMove(pre)) {
                 abnormalEnd = countdown - increment;
                 incoming = new Piece[8][8];
-                incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.hPush + Wizard.getC() * 80, Game.vPush + Wizard.getR() * 80);
+                incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.hPush + Wizard.getC() * 80, Game.vPush + Wizard.getR() * 80);//pawn is now incoming. Here to encourage player to move.
                 warn();
                 break;
             }
@@ -273,7 +274,6 @@ public class BoardManager
             } catch (ArrayIndexOutOfBoundsException e) {
                 // catches any ArrayIndexOutOfBoundsException that might occur during the attempt to retrieve the piece from the game board
                 abnormalEnd = countdown - increment + 1;
-                
                 // ends the function immediately
                 return;
             }

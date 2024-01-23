@@ -1,4 +1,5 @@
 #Greenfoot project file
+class.Effects.image=Blank.png
 class.Game.image=TestBg7.png
 class.Spell.image=Blank.png
 class.Wand.image=Wand.png

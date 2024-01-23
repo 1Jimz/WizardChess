@@ -9,7 +9,6 @@ import java.util.*;
  * @version January 22nd, 2023
  */
 public class EnemyTargetting {
-    private static String testFen = "2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1";
     private static Process p;
     private static BufferedReader br;
     private static BufferedWriter bw;
@@ -33,12 +32,14 @@ public class EnemyTargetting {
      * @throws IOException if an I/O error occurs
      * @throws InterruptedException if the thread is interrupted
      */
-    public static BoardManager.Move bestMove(String fen, int depth, int processTime) throws IOException, InterruptedException {
+    public static BoardManager.Move bestMove(String fen, int depth, int processTime)throws InterruptedException {
         //writing into the stockfish exe
-        bw.write("ucinewgame\n");
-        bw.write("position fen " + fen + "\n");
-        bw.write("go depth " + depth + " movetime " + processTime + "\n");
-        bw.flush();//flushing
+        try{
+            bw.write("ucinewgame\n");
+            bw.write("position fen " + fen + "\n");
+            bw.write("go depth " + depth + " movetime " + processTime + "\n");
+            bw.flush();//flushing
+        }catch(IOException e){System.out.println("Afwfaafwawffgg73747337733");}
         BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);//m initialized with (-1,-1,-1,-1,-99). These values useful debugging.
         Thread t = new Thread(new Runnable() {
             public void run() {
