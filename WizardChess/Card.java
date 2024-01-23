@@ -35,7 +35,11 @@ public class Card extends SuperSmoothMover {
         this.my = my; // Initial y-coordinate
         this.active = active; // Active state
         this.leftBorder = leftBorder; // Indicates if the card is on the left border
-        type = Greenfoot.getRandomNumber(7); // Randomly determine the type of card
+        if(Wizard.getHP()<=90){ // to prevent heal card to spawn if player has more health than it can offer!
+            type = Greenfoot.getRandomNumber(7); // Randomly determine the type of card
+        } else{
+            type = Greenfoot.getRandomNumber(6); // Randomly determine the type of card
+        }
 
         // Compute initial distances between connected points in the card
         for (int f = 0; f < 6; f++)
@@ -59,7 +63,7 @@ public class Card extends SuperSmoothMover {
                 setImage(new GreenfootImage("slashCard.png"));
                 ep=15;
                 break;
-            case 4:
+            case 6:
                 setImage(new GreenfootImage("healCard.png"));
                 ep=15;
                 break;
@@ -67,7 +71,7 @@ public class Card extends SuperSmoothMover {
                 setImage(new GreenfootImage("lightningCard.png"));
                 ep=15;
                 break;
-            case 6:
+            case 4:
                 setImage(new GreenfootImage("tornadoCard.png"));
                 ep=2;
                 break;

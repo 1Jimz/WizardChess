@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * 
  * Main world for the game that is started after the user finishes the title screen
  * 
- * @author Jimmy Zhu, Mekaeel Malik, David Guo, Dorsa Roha
+ * @author Jimmy Zhu, Mekaeel Malik, David Guo, Dorsa Rohani
  * @version January 21st, 2023
  */
 public class Game extends World
@@ -29,7 +29,7 @@ public class Game extends World
     private static Wizard wizard;  // Reference to the Wizard object
     private HPBar hpBar;  // Health bar for the Wizard
     private EnergyBar energyBar;  // Energy bar for the Wizard
-    private static int level;  // Current level of the game
+    private static int level,mana;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
     private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
@@ -46,6 +46,7 @@ public class Game extends World
         kingDied=false;
         moveNumber = 0;//
         level = 0;
+        mana=10;
         EnemyTargetting.setup();
         // Creating the game grid with Tile objects
         for(int i = 0; i<8; i++)
@@ -216,10 +217,13 @@ public class Game extends World
                             }catch(InterruptedException e2){}
                         }
                     }
+                } else{
+                    if(Wizard.getE() < 100-mana) Wizard.decreaseE(-mana);
+                    else Wizard.setE(100);
                 }
                 keyPressChecked = false;
             }
-        } 
+        }
         else keyPressChecked = true;
         
         // Handling the end of a wave and progression to the next level

@@ -191,7 +191,22 @@ public class Wizard extends SuperSmoothMover {
         EP-=e;
         energyBar.setE(EP);
     }
-    
+    /**
+     * Method to set enegy by the wizard.
+     *
+     * @param e Amount of energy to be set.
+     */
+    public static void setE(int e) {
+        energyBar.setE(e);
+    }
+    /**
+     * Method to set health by the wizard.
+     *
+     * @param e Amount of health to be set.
+     */
+    public static void setHP(int h) {
+        hpBar.setHP(h);
+    }
     /**
      * Get the current health points of the wizard.
      *
@@ -200,7 +215,14 @@ public class Wizard extends SuperSmoothMover {
     public static int getHP() {
         return HP;
     }
-
+    /**
+     * Get the current energy points of the wizard.
+     *
+     * @return The current energy points.
+     */
+    public static int getE() {
+        return EP;
+    }
     /**
      * Set the healing status of the wizard.
      *
