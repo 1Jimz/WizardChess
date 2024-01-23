@@ -17,8 +17,12 @@ import java.util.*;
  *  @version January 22nd, 2023
  */
 public class Settings extends World {
-    // store title screen
+    // store title screen / game screen
     private TitleScreen ts;
+    private Game gm;
+    
+    // boolean to determine previous screne
+    private boolean prevGame;
     
     // settings variables
     private static int casinoTarget; // casino Target
@@ -40,37 +44,72 @@ public class Settings extends World {
         
         //setBackground("GameBg.png");
         this.ts = ts;
+        prevGame = false;
         
         // back button
         backButton = new TextButton("BACK", 60, 55, 255, 255, 255, 20, 147);
-        saveButton = new TextButton("SAVE", 60, 55, 255, 255, 255, 20, 147);
+        saveButton = new TextButton("SAVE", 20, 55, 255, 255, 255, 20, 147);
         addObject(backButton, 600, 700);
         
         // initialize the sliders
         Slider sliders[] = {
-            new Slider(1, 698, 831, 10000, 1000000, casinoTarget),
-            new Slider(2, 698, 831, 0, 100, musicVolume),
-            new Slider(3, 698, 831, 0, 100, sfxVolume)
+            new Slider(1, 698, 831, 0, 100, musicVolume),
+            //new Slider(2, 698, 831, 0, 100, sfxVolume)
         };
         // add the sliders / buttons to world
-        addObject(sliders[0], calculateSliderXPosition(sliders[0], casinoTarget), 219);
-        addObject(sliders[1], calculateSliderXPosition(sliders[1], musicVolume), 269);
-        addObject(sliders[2], calculateSliderXPosition(sliders[2], sfxVolume), 312);
+        addObject(sliders[0], calculateSliderXPosition(sliders[0], musicVolume), 269);
+        //addObject(sliders[1], calculateSliderXPosition(sliders[1], sfxVolume), 312);
         addObject(saveButton, 900, 362);
         
         //initialize text
         texts = new Text[]{
-            new Text(12, "Arial", String.valueOf(casinoTarget)),
+            new Text(12, "Arial", String.valueOf(musicVolume)),
+            //new Text(12, "Arial", String.valueOf(sfxVolume))
+        };
+        //add Text
+        addObject(texts[0], 893, 269);
+        //addObject(texts[1], 893, 312);
+        
+        addObject(new Text(30, 8, "calibri", "MUSIC VOLUME"), 400, 275);
+        //addObject(new Text(30, "calibri", "SFX VOLUME"), 400, 325);
+        
+        // Initialize act count
+        actCount = 0;
+    }
+    
+    public Settings(Game gm) {    
+        super(1200, 740, 1);
+        
+        //setBackground("GameBg.png");
+        this.gm = gm;
+        prevGame = true;
+        
+        // back button
+        backButton = new TextButton("BACK", 60, 55, 255, 255, 255, 20, 147);
+        saveButton = new TextButton("SAVE", 20, 55, 255, 255, 255, 20, 147);
+        addObject(backButton, 600, 700);
+        
+        // initialize the sliders
+        Slider sliders[] = {
+            new Slider(1, 698, 831, 0, 100, musicVolume),
+            //new Slider(2, 698, 831, 0, 100, sfxVolume)
+        };
+        // add the sliders / buttons to world
+        addObject(sliders[0], calculateSliderXPosition(sliders[0], musicVolume), 269);
+        //addObject(sliders[1], calculateSliderXPosition(sliders[1], sfxVolume), 312);
+        addObject(saveButton, 900, 362);
+        
+        //initialize text
+        texts = new Text[]{
             new Text(12, "Arial", String.valueOf(musicVolume)),
             new Text(12, "Arial", String.valueOf(sfxVolume))
         };
         //add Text
-        addObject(texts[0], 877, 223);
-        addObject(texts[1], 893, 269);
-        addObject(texts[2], 893, 312);
+        addObject(texts[0], 893, 269);
+        //addObject(texts[1], 893, 312);
         
         addObject(new Text(30, 8, "calibri", "MUSIC VOLUME"), 400, 275);
-        addObject(new Text(30, "calibri", "SFX VOLUME"), 400, 325);
+        //addObject(new Text(30, "calibri", "SFX VOLUME"), 400, 325);
         
         // Initialize act count
         actCount = 0;
@@ -94,22 +133,40 @@ public class Settings extends World {
      * <p><strong>void act()</strong> - Handles interactions with the start TextButton and roulette style TextButtons. It transitions to the main game world and adjusts roulette styles based on player input.</p>
      */
     public void act(){
-        if(Greenfoot.mouseClicked(backButton)){
-            SoundManager.playSound("Clock Ticking");
-            Greenfoot.setWorld(ts);
-        } else if(Greenfoot.mouseClicked(saveButton)){
-            SoundManager.playSound("Clock Ticking");
-            try{
-                    Game.saveProgress();
+        // if settings from title screen
+        if(!prevGame){
+            if(Greenfoot.mouseClicked(backButton)){
+                SoundManager.playSound("Click");
+                Greenfoot.setWorld(ts);
+            } else if(Greenfoot.mouseClicked(saveButton)){
+                SoundManager.playSound("Click");
+                addObject(new Message("Can't save from title screen", Color.RED), saveButton.getX(), saveButton.getY());
             }
-            catch (java.io.IOException ioe){}
+            
+            // To update settings
+            if(actCount % 5 == 0){
+                ts.getMusic().setVolume(Settings.getMusicVolume());
+            }
+            actCount++;
+        } else { // else settings from game
+            if(Greenfoot.mouseClicked(backButton)){
+                SoundManager.playSound("Click");
+                Greenfoot.setWorld(gm);
+            } else if(Greenfoot.mouseClicked(saveButton)){
+                SoundManager.playSound("Click");
+                try{
+                    Game.saveProgress();
+                }
+                catch (java.io.IOException ioe){}
+            }
+            
+            // To update settings
+            if(actCount % 5 == 0){
+                gm.getMusic().setVolume(Settings.getMusicVolume());
+            }
+            actCount++;
         }
         
-        // To update settings
-        if(actCount % 5 == 0){
-            ts.getMusic().setVolume(Settings.getMusicVolume());
-        }
-        actCount++;
     }
 
     /**
@@ -117,20 +174,9 @@ public class Settings extends World {
     */
     public void updateVar(int sliderID, int value) {
         switch (sliderID) {
-            case 1:texts[0].changeText(String.valueOf(casinoTarget=value));break;
-            case 2:texts[1].changeText(String.valueOf(musicVolume = value));break;
-            case 3:texts[2].changeText(String.valueOf(sfxVolume=value));break;
+            case 1:texts[0].changeText(String.valueOf(musicVolume = value));break;
+            case 2:texts[1].changeText(String.valueOf(sfxVolume=value));break;
         }
-    }
-    
-    /**
-    **
-     * <p><strong>public static int getCasinoTarget()</strong> - Retrieves the current casino target setting.</p>
-     * <p>Returns the value of the static field <em>casinoTarget</em>.</p>
-     * <p><strong>Return:</strong> int - The current casino target value.</p>
-     */
-    public static int getCasinoTarget(){
-        return casinoTarget;
     }
     
     /**
@@ -156,7 +202,8 @@ public class Settings extends World {
      */
     // play song when the game starts
     public void started() {
-        ts.getMusic().playLoop();
+        if(prevGame) gm.getMusic().playLoop();
+        else ts.getMusic().playLoop();
     }
     
     /**
@@ -164,6 +211,7 @@ public class Settings extends World {
      */
     // pause song if they stop the program
     public void stopped() {
-        ts.getMusic().pause();
+        if(prevGame) gm.getMusic().pause();
+        else ts.getMusic().pause();
     } 
 }

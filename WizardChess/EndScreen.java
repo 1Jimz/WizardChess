@@ -39,15 +39,20 @@ public class EndScreen extends World
         restartButton = new TextButton("MAIN MENU", 60, 255, 255, 255, 234, 122, 67);
         // Add buttons to the world
         addObject(restartButton, 1200/2, 740/4*3);
-        // Add music
-        music = new GreenfootSound("nemusplace.mp3");
+        
+        // set background image and music
+        if(gameOver){
+            bg = new GreenfootImage ("gameoverimg.png");
+            music = new GreenfootSound("greatfairyfountain.mp3");
+            showStats(false);
+        } else {
+            bg = new GreenfootImage ("endwizardblur.png");
+            music = new GreenfootSound("greatfairyfountain.mp3");
+            showStats(true);
+        }
+        setBackground(bg);
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
-        
-        // set background image
-        if(gameOver)bg = new GreenfootImage ("endwizardblur.png");
-        else bg = new GreenfootImage ("endwizardblur.png");
-        setBackground(bg);
     }
     
     /**
@@ -64,7 +69,7 @@ public class EndScreen extends World
         }
     }
     
-    private void showStats(){
+    private void showStats(boolean win){
         
     }
     
