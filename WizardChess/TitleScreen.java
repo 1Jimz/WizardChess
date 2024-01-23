@@ -88,7 +88,7 @@ public class TitleScreen extends World
         title.changeText("WIZARDCHESS", Color.WHITE);
         addObject(title, getWidth()/2, getHeight()/4);
         Text version = new Text(70, "french script mt", "aswvsdafgsfsdcscs"); // 3rd param does not matter
-        version.changeText("beta edition", Color.RED);
+        version.changeText("version 1.0", Color.RED);
         addObject(version, getWidth()/2+380, getHeight()/4+50);
     }
 
@@ -116,10 +116,7 @@ public class TitleScreen extends World
         } else if(Greenfoot.mouseClicked(playButton)){
             SoundManager.playSound("Clock Ticking");
             addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
-        } //else if(Greenfoot.mouseClicked(tutorialButton)){
-            //addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
-        //} 
-        else if(Greenfoot.mouseClicked(settingsButton)){
+        } else if(Greenfoot.mouseClicked(settingsButton)){
             SoundManager.playSound("Clock Ticking");
             Greenfoot.setWorld(new Settings(this));
         }

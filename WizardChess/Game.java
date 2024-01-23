@@ -33,6 +33,7 @@ public class Game extends World
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
     private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
+    private static ImageButton settingsButton;
     public Game() throws IOException, InterruptedException {    
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
         System.out.println("_____________________________________________________________");  // Displaying a separator line
@@ -75,6 +76,8 @@ public class Game extends World
         levelFens[5] = "q4r2/1p4kp/1p3bp1/5p2/6b1/3K4/8/8 b - - 0 1";
         levelFens[6] = "2b5/1p6/k1p5/1pbp4/r7/3K4/8/8 b - - 0 1";
         levelFens[7] = "q3k3/ppp1nppp/2n1p3/2bp4/6b1/3K4/8/8 b - - 0 1";
+        
+        // Add settings button
         
     }
     

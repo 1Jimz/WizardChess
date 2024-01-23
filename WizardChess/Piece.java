@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Piece extends SuperSmoothMover {
     private char type; // Type of chess piece: 'p', 'n', 'b', 'r', 'q', 'k'
-    private int MaxHP, tH, tV, movePhase = 0, sH, sV, saveR, saveC;
+    private int maxHP, tH, tV, movePhase = 0, sH, sV, saveR, saveC;
     private Queue<BoardManager.Move> q;
     private int dying = -1;
     private static int HP;
@@ -35,30 +35,30 @@ public class Piece extends SuperSmoothMover {
         switch (type) {
             case 'p':
                 setImage(new GreenfootImage("Piece_p_3.png"));
-                MaxHP = (int) (0.5 * Game.getWave()) + 1;
+                maxHP = (int) (0.5 * Game.getWave()) + 1;
                 break;
             case 'n':
                 setImage(new GreenfootImage("Piece_n_3.png"));
-                MaxHP = 1 * Game.getWave() + 1;
+                maxHP = 1 * Game.getWave() + 1;
                 break;
             case 'b':
                 setImage(new GreenfootImage("Piece_b_3.png"));
-                MaxHP = 1 * Game.getWave() + 1;
+                maxHP = 1 * Game.getWave() + 1;
                 break;
             case 'r':
                 setImage(new GreenfootImage("Piece_r_3.png"));
-                MaxHP = (int) (1.25 * Game.getWave()) + 2;
+                maxHP = (int) (1.25 * Game.getWave()) + 2;
                 break;
             case 'q':
                 setImage(new GreenfootImage("Piece_q_3.png"));
-                MaxHP = (int) (1.5 * Game.getWave()) + 2;
+                maxHP = (int) (1.5 * Game.getWave()) + 2;
                 break;
             case 'k':
                 setImage(new GreenfootImage("Piece_k_3.png"));
-                MaxHP = 2 * Game.getWave() + 1;
+                maxHP = 2 * Game.getWave() + 1;
                 break;
         }
-        HP = MaxHP;
+        HP = maxHP;
     }
 
     /**
@@ -182,7 +182,7 @@ public class Piece extends SuperSmoothMover {
      * @param dmg Amount of damage to take.
      */
     public void takeDmg(int dmg) {
-        setImage(new GreenfootImage("Piece_" + type + "_" + Math.max((int) Math.ceil((HP / (double) MaxHP) * 3), 0) + ".png"));
+        setImage(new GreenfootImage("Piece_" + type + "_" + Math.max((int) Math.ceil((HP / (double) maxHP) * 3), 0) + ".png"));
         playDmgEffect(-dmg); // Negative damage for red color in the effect
         HP -= dmg;
         if (HP <= 0)
@@ -223,8 +223,8 @@ public class Piece extends SuperSmoothMover {
         if (type != 'p')
             return;
         type = 'q';
-        MaxHP = (int) (1.5 * Game.getWave()) + 2;
-        HP = MaxHP;
+        maxHP = (int) (1.5 * Game.getWave()) + 2;
+        HP = maxHP;
         setImage(new GreenfootImage("Piece_q_3.png"));
     }
 }

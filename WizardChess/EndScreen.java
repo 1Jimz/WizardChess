@@ -63,7 +63,11 @@ public class EndScreen extends World
             Greenfoot.setWorld(ts); // set world to title screen
         }
     }
-
+    
+    private void showStats(){
+        
+    }
+    
     /**
      * <h3>void started()</h3>
      * <p>Plays background music in a loop when the end screen starts.</p>
