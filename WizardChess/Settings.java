@@ -32,6 +32,7 @@ public class Settings extends World {
     // the settings buttons
     private TextButton backButton;
     private TextButton saveButton;
+    private TextButton restartButton;
     
     // text value
     private Text[] texts;
@@ -59,7 +60,7 @@ public class Settings extends World {
         // add the sliders / buttons to world
         addObject(sliders[0], calculateSliderXPosition(sliders[0], musicVolume), 269);
         //addObject(sliders[1], calculateSliderXPosition(sliders[1], sfxVolume), 312);
-        addObject(saveButton, 900, 362);
+        addObject(saveButton, 850, 362);
         
         //initialize text
         texts = new Text[]{
@@ -87,6 +88,7 @@ public class Settings extends World {
         // back button
         backButton = new TextButton("BACK", 60, 55, 255, 255, 255, 20, 147);
         saveButton = new TextButton("SAVE", 20, 55, 255, 255, 255, 20, 147);
+        restartButton = new TextButton("RESTART", 20, 55, 255, 255, 255, 20, 147);
         addObject(backButton, 600, 700);
         
         // initialize the sliders
@@ -98,6 +100,7 @@ public class Settings extends World {
         addObject(sliders[0], calculateSliderXPosition(sliders[0], musicVolume), 269);
         //addObject(sliders[1], calculateSliderXPosition(sliders[1], sfxVolume), 312);
         addObject(saveButton, 900, 362);
+        addObject(restartButton, 850, 412);
         
         //initialize text
         texts = new Text[]{
@@ -158,6 +161,12 @@ public class Settings extends World {
                     Game.saveProgress();
                 }
                 catch (java.io.IOException ioe){}
+            } else if(Greenfoot.mouseClicked(restartButton)){
+                SoundManager.playSound("Click");
+                gm.getMusic().stop();
+                TitleScreen ts = new TitleScreen();
+                ts.started();
+                Greenfoot.setWorld(ts);
             }
             
             // To update settings

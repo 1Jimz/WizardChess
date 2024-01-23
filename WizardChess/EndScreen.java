@@ -42,6 +42,9 @@ public class EndScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1200, 740, 1); 
+        // Fader transition
+        setPaintOrder(Fader.class);
+        addObject(new Fader(false, 1, Color.BLACK), getWidth()/2, getHeight()/2);
         // Create new buttons for the variables
         restartButton = new TextButton("MAIN MENU", 60, 255, 255, 255, 234, 122, 67);
         // Add buttons to the world

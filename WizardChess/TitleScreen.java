@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
+import java.io.*;
 /**
  * <html>
  * <body>
@@ -53,7 +54,7 @@ public class TitleScreen extends World
         //actCount = 0;
         
         // Add the fade effect
-        addObject(new Fader(false, 10), WIDTH/2, HEIGHT/2);
+        addObject(new Fader(false, 5), WIDTH/2, HEIGHT/2);
         
         // Set bg to background image
         bg = new GreenfootImage ("titlescreengods.png");
@@ -109,9 +110,9 @@ public class TitleScreen extends World
         if(Greenfoot.mouseClicked(continueButton)){
             SoundManager.playSound("Click");
             // if player has a saved game
-            //if(saveFilePresent()) {
-              //  startSavedGame();
-            //}
+            if(saveFilePresent()) {
+                startSavedGame();
+            }
             
         } else if(Greenfoot.mouseClicked(playButton)){
             SoundManager.playSound("Click");
@@ -132,7 +133,7 @@ public class TitleScreen extends World
         
         Greenfoot.setWorld(new Game(true));
     }
-    /*
+    
     private static boolean saveFilePresent() {
         try {
             Scanner scanFile = new Scanner(new File("saveFile.txt"));
@@ -143,9 +144,7 @@ public class TitleScreen extends World
         } catch(FileNotFoundException e) {
             return false;
         }
-        return true;
     }
-    */
     
     /**
      * <p><strong>void started()</strong> - Plays the background music in a loop when the game starts.</p>

@@ -304,6 +304,7 @@ public class Game extends World
         
         // Handling the end of the game
         if(level == 8){
+            getMusic().stop();
             Greenfoot.setWorld(new EndScreen(false));  // Transitioning to the end screen
         }
     }
