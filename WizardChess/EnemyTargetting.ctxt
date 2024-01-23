@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=EnemyTargetting
-comment0.text=\r\n\ The\ `EnemyTargetting`\ class\ is\ responsible\ for\ handling\ enemy\ pieces'\ targeting\ of\ the\ king.\r\n\ It\ interacts\ with\ the\ Stockfish\ chess\ engine\ to\ determine\ the\ best\ move\ for\ the\ enemy.\r\n\ \r\n\ @author\ Jimmy\ Zhu,\ David\ Guo\r\n\ @version\ 1.0\ 01/11/2024\r\n
+comment0.text=\r\n\ The\ `EnemyTargetting`\ class\ is\ responsible\ for\ handling\ enemy\ pieces'\ targeting\ of\ the\ king.\r\n\ It\ interacts\ with\ the\ Stockfish\ chess\ engine\ to\ determine\ the\ best\ move\ for\ the\ enemy.\r\n\ \r\n\ @author\ Jimmy\ Zhu,\ David\ Guo\r\n\ @version\ January\ 22nd,\ 2023\r\n
 comment1.params=
 comment1.target=void\ setup()
 comment1.text=\r\n\ Sets\ up\ the\ communication\ with\ the\ Stockfish\ chess\ engine.\r\n\ \r\n\ @throws\ IOException\ if\ an\ I/O\ error\ occurs\r\n

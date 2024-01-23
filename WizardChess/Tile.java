@@ -6,7 +6,7 @@ import greenfoot.*;
  * Tiles may have different statuses (e.g., normal, burning).
  * Handles events related to tiles.
  * 
- * @author [your name]
+ * @author Jimmy Zhu, Mekaeel Malik
  * @version January 21st, 2023
  */
 public class Tile extends Actor {

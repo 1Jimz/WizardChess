@@ -15,7 +15,7 @@ import java.util.*;
  *     <li><strong>currentlyLooping</strong> - A map that tracks currently looping sounds.</li>
  * </ul>
  * @author Jimmy Zhu, David Guo
- * @version 1.1 01/19/2024
+ * @version January 22nd, 2023
  */
 public class SoundManager  
 {

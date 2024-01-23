@@ -3,7 +3,9 @@ import greenfoot.*;
 /**
  * The `CardManager` class manages the throwing of cards in the game.
  * It includes predefined card throwing configurations and a method to initiate the card throw.
- */
+ * @author Jimmy Zhu
+ * @version January 21st, 2023
+*/
 public class CardManager {
     
     // Card throw configurations: {drag point x, drag point y, drag active, left border, spawn x, spawn y}

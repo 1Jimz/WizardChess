@@ -2,7 +2,9 @@ import greenfoot.*;
 
 /**
  * This class represents a spell in the game. It extends SuperSmoothMover for smooth movements.
- */
+ * @author Jimmy Zhu, Mekaeel Malik, Dorsa Roha
+ * @version January 21st, 2023
+*/
 public class Spell extends SuperSmoothMover {
     private int type = 0, frame = 0, rate = 0, frameCount, adjustH, adjustV, w, h, fadeTime = 0;
     private int[][] aoe; // Area of effect positions relative to the center
@@ -19,18 +21,18 @@ public class Spell extends SuperSmoothMover {
         this.type = type;
         switch (type) {
             case 0:
-                setup(6, "MagicFire", -6, -56, 70, 145, new int[][]{{0, 0}}, 200, 100);
+                setup(0, "portalPreview", -6, -56, 70, 145, new int[][]{{0, 0}}, 200, 100);
                 break;
             case 1:
-                setup(6, "MagicFire", -6, -56, 70, 145,
+                setup(0, "explosionPreview", -6, -56, 70, 145,
                         new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}}, 200, 100);
                 break;
             case 2:
-                setup(6, "MagicFire", -6, -56, 70, 145,
+                setup(0, "bubblePreview", -6, -56, 70, 145,
                         new int[][]{{-1, 0}, {-2, 0}, {0, -2}, {0, -1}, {0, 0}, {0, 1}, {0, 2}, {1, 0}, {2, 0}}, 200, 100);
                 break;
             case 3:
-                setup(6, "MagicFire", -6, -56, 70, 145,
+                setup(0, "slashPreview", -6, -56, 70, 145,
                         new int[][]{{-2, -2}, {-1, -1}, {-1, 1}, {-2, 2}, {0, 0}, {2, -2}, {1, -1}, {1, 1}, {2, 2}}, 200, 100);
                 break;
             case 4:
@@ -105,6 +107,9 @@ public class Spell extends SuperSmoothMover {
                 // Deactivate the spell and perform animations
                 Game.deactivateSpell();
                 Game.grabCardAnimation();
+                if(frameCount == 0) {
+                    getWorld().removeObject(this);
+                }
             }
         }
 
@@ -115,12 +120,15 @@ public class Spell extends SuperSmoothMover {
                 frame = 0;
 
             // Apply fading effect
-            if (placed && fadeTime++ >= 15)
-                setImage(Utility.customize(w, h, new GreenfootImage(picName + "_" + frame + ".png"),
-                        (int) 8.5 * (30 - fadeTime)));
-            else
-                setImage(Utility.customize(w, h, new GreenfootImage(picName + "_" + frame + ".png")));
-
+            if(frameCount == 0) {
+                
+            } else {
+                if (placed && fadeTime++ >= 15)
+                    setImage(Utility.customize(w, h, new GreenfootImage(picName + "_" + frame + ".png"),
+                            (int) 8.5 * (30 - fadeTime)));
+                else
+                    setImage(Utility.customize(w, h, new GreenfootImage(picName + "_" + frame + ".png")));
+            }
             // Remove the spell after fading
             if (fadeTime == 30)
                 getWorld().removeObject(this);
@@ -153,6 +161,9 @@ public class Spell extends SuperSmoothMover {
      */
     private void setup(int frameCount, String picName, int adjustH, int adjustV, int w, int h, int[][] aoe, int range, int dmg) {
         this.frameCount = frameCount;
+        if(frameCount == 0) {
+            setImage(picName+".png");
+        }
         this.picName = picName;
         this.adjustH = adjustH;
         this.adjustV = adjustV;

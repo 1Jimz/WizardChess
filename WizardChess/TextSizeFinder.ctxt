@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=TextSizeFinder
-comment0.text=\r\n\ TextSizeFinder\ is\ a\ helper\ class\ that\ can\ return\ the\ width\ standard\ height\ of\ a\ String\ with\ a\ given\ font\ and\ font\ size.\ It\ uses\r\n\ Java's\ Font,\ not\ Greenfoot's.\ It\ is\ not\ meant\ to\ be\ added\ to\ the\ world\r\n\ \r\n\ @author\ Alex\ Li\r\n\ @version\ 0.2\ -\ Modified\ by\ David\ Guo\r\n
+comment0.text=\r\n\ TextSizeFinder\ is\ a\ helper\ class\ that\ can\ return\ the\ width\ standard\ height\ of\ a\ String\ with\ a\ given\ font\ and\ font\ size.\ It\ uses\r\n\ Java's\ Font,\ not\ Greenfoot's.\ It\ is\ not\ meant\ to\ be\ added\ to\ the\ world\r\n\ \r\n\ @author\ Alex\ Li\r\n\ @version\ January\ 22nd,\ 2023\ -\ Modified\ by\ David\ Guo\r\n
 comment1.params=
 comment1.target=TextSizeFinder()
 comment1.text=\r\n\ Creates\ an\ instance\ of\ TextSizeFinder\r\n

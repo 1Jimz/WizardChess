@@ -2,7 +2,9 @@ import greenfoot.*;
 
 /**
  * This class represents the wand used by the player in the game. It extends SuperSmoothMover for smooth movements.
- */
+ * @author Jimmy Zhu
+ * @version January 21st, 2023
+*/
 public class Wand extends SuperSmoothMover {
     private int xRadius = 58, yRadius = 38;
 

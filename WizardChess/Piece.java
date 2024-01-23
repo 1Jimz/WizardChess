@@ -5,7 +5,7 @@ import java.util.*;
  * This class represents a chess piece in the game. It extends SuperSmoothMover
  * for smooth movements.
  * 
- * @author [your name]
+ * @author Jimmy Zhu, Mekaeel
  * @version January 21st, 2023
  */
 public class Piece extends SuperSmoothMover {

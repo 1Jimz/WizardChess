@@ -7,7 +7,7 @@ import java.awt.Font;
  * Java's Font, not Greenfoot's. It is not meant to be added to the world
  * 
  * @author Alex Li
- * @version 0.2 - Modified by David Guo
+ * @version January 22nd, 2023 - Modified by David Guo
  */
 public class TextSizeFinder
 {

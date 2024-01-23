@@ -5,7 +5,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * The image may highlight itself and/or make a sound when hovered over.
  * 
  * @author David Guo
- * @version 1.0 01/18/2024
+ * @version January 22nd, 2023
  */
 public class ImageButton extends Widget
 {
