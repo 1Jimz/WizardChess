@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * A popup which spawns after starting a new game.
  * 
  * @author David Guo
- * @version 1.1 01/14/2024
+ * @version January 22nd, 2023
  */
 public class Tutorial extends Widget
 {

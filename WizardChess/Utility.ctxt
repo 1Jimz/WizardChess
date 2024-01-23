@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Utility
-comment0.text=\r\nThis\ class\ is\ made\ by\ Jimmy\ Zhu\r\nUseful\ toolkit\r\n
+comment0.text=\r\n\ Useful\ toolkit\r\n\ \r\n\ @author\ Jimmy\ Zhu\r\n\ @version\ January\ 22nd,\ 2023\r\n
 comment1.params=w\ h\ s
 comment1.target=greenfoot.GreenfootImage\ customizeAndCreate(int,\ int,\ java.lang.String)
 comment10.params=w\ h\ s\ font\ text

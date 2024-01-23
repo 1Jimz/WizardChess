@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=ImageButton
-comment0.text=\r\n\ A\ modular\ button\ which\ can\ be\ pressed.\ \r\n\ The\ image\ may\ highlight\ itself\ and/or\ make\ a\ sound\ when\ hovered\ over.\r\n\ \r\n\ @author\ David\ Guo\r\n\ @version\ 1.0\ 01/18/2024\r\n
+comment0.text=\r\n\ A\ modular\ button\ which\ can\ be\ pressed.\ \r\n\ The\ image\ may\ highlight\ itself\ and/or\ make\ a\ sound\ when\ hovered\ over.\r\n\ \r\n\ @author\ David\ Guo\r\n\ @version\ January\ 22nd,\ 2023\r\n
 comment1.params=image
 comment1.target=ImageButton(java.lang.String)
 comment1.text=\r\n\ Constructs\ a\ Button\ which\ can\ be\ set\ using\ an\ image\ from\ the\ game\ files\r\n\ @param\ image\ \ \ \ \ \ \ \ \ \ \ \ \ \ String\ value\ of\ the\ image\ name\ without\ the\ file\ type\r\n

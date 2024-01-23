@@ -11,7 +11,7 @@ import greenfoot.*;
  * </ul>
  * 
  * @author David Guo, Jimmy Zhu
- * @version 1.1 01/19/2024
+ * @version January 22nd, 2023
  */
 public class Text extends Widget
 {
@@ -72,6 +72,26 @@ public class Text extends Widget
     public Text(int size, String font, String text){
         this.size=size;
         this.font=font;
+        changeText(text);
+        this.type=type;
+        len = 7;
+    }
+    /**
+     * <h3>Text(int size, String font, String text)</h3>
+     * <p>Creates a text with the specified size, font, and text content.</p>
+     * <p><strong>Parameters:</strong></p>
+     * <ul>
+     *     <li><strong>size (int):</strong> The size of the text.</li>
+     *     <li><strong>font (String):</strong> The font style of the text.</li>
+     *     <li><strong>text (String):</strong> The text content of the text object.</li>
+     *     @param len             Length as an int that changes based on how long the text is
+     * </ul>
+     */
+    public Text(int size, String font, String text, Color c){
+        this.size=size;
+        this.font=font;
+        GreenfootImage gfi = new GreenfootImage(size*8,size*2);
+        gfi.setColor(c);
         changeText(text);
         this.type=type;
         len = 7;

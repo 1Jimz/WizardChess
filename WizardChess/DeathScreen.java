@@ -1,22 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * <html>
- * <body>
- * <p><strong>EndScreen</strong> class extends <em>World</em> and represents the ending screen of a game in Greenfoot.</p>
- * <p>This class manages the display of the end screen, which varies based on the game's outcome (casino getting wealthy or bankrupt), and handles user interactions to restart the game.</p>
- *
- * <h3>Class Fields:</h3>
- * <ul>
- *     <li><strong>bg</strong> - The background image for the end screen, varying based on game outcome.</li>
- *     <li><strong>music</strong> - The background music for the end screen, different for each outcome.</li>
- *     <li><strong>restartButton</strong> - A button that restarts the game when clicked.</li>
- * </ul>
- *
+ * Death screen for when the player dies before they can succesfully complete the game
+ * 
  * @author David Guo
- * @version January 22nd, 2023
+ * @version January 21st, 2023
  */
-public class EndScreen extends World
+public class DeathScreen extends World
 {
     // Make greenfoot images for all possible endings
     private GreenfootImage bg;
@@ -31,7 +21,7 @@ public class EndScreen extends World
      *     <li><strong>@param gameOver true if the player lost. false if they won
      * <ul>
      */
-    public EndScreen(boolean gameOver)
+    public DeathScreen(boolean gameOver)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1200, 740, 1); 

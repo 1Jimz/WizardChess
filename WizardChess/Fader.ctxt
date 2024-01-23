@@ -1,17 +1,22 @@
 #BlueJ class context
 comment0.target=Fader
-comment0.text=\r\n\ A\ fading\ square\ which\ can\ be\ customized\ in\ colour\ and\ speed,\ along\ with\ being\ skippable\r\n\ via\ a\ click\r\n\ \r\n\ @author\ David\ Guo\ (Thanks\ to\ @Jordan\ Cohen\ for\ the\ demonstration)\r\n\ @version\ 1.1\ 01/14/2024\r\n
+comment0.text=\r\n\ A\ fading\ square\ which\ can\ be\ customized\ in\ colour\ and\ speed,\ along\ with\ being\ skippable\r\n\ via\ a\ click\r\n\ \r\n\ @author\ David\ Guo\ (Thanks\ to\ @Jordan\ Cohen\ for\ the\ demonstration)\r\n\ @version\ January\ 22nd,\ 2023\r\n
 comment1.params=skip\ rateOfFading
 comment1.target=Fader(boolean,\ double)
+comment1.text=\r\n\ Constructor\ for\ Fader\ without\ specifying\ color\ and\ screen\ fade\ direction.\r\n\ \r\n\ @param\ skip\ \ \ \ \ \ \ \ \ \ \ True\ if\ the\ fader\ is\ skippable\ via\ a\ click,\ false\ otherwise.\r\n\ @param\ rateOfFading\ \ \ The\ rate\ at\ which\ the\ fader\ fades\ in\ or\ out.\r\n
 comment2.params=skip\ rateOfFading\ colour
 comment2.target=Fader(boolean,\ double,\ greenfoot.Color)
+comment2.text=\r\n\ Constructor\ for\ Fader\ specifying\ color.\r\n\ \r\n\ @param\ skip\ \ \ \ \ \ \ \ \ \ \ True\ if\ the\ fader\ is\ skippable\ via\ a\ click,\ false\ otherwise.\r\n\ @param\ rateOfFading\ \ \ The\ rate\ at\ which\ the\ fader\ fades\ in\ or\ out.\r\n\ @param\ colour\ \ \ \ \ \ \ \ \ The\ color\ of\ the\ fader.\r\n
 comment3.params=skip\ rateOfFading\ screenFadeOut
 comment3.target=Fader(boolean,\ double,\ boolean)
+comment3.text=\r\n\ Constructor\ for\ Fader\ specifying\ screen\ fade\ direction.\r\n\ \r\n\ @param\ skip\ \ \ \ \ \ \ \ \ \ \ True\ if\ the\ fader\ is\ skippable\ via\ a\ click,\ false\ otherwise.\r\n\ @param\ rateOfFading\ \ \ The\ rate\ at\ which\ the\ fader\ fades\ in\ or\ out.\r\n\ @param\ screenFadeOut\ \ True\ if\ the\ fader\ fades\ out,\ false\ if\ it\ fades\ in.\r\n
 comment4.params=skip\ rateOfFading\ colour\ screenFadeOut
 comment4.target=Fader(boolean,\ double,\ greenfoot.Color,\ boolean)
+comment4.text=\r\n\ Constructor\ for\ Fader\ specifying\ color\ and\ screen\ fade\ direction.\r\n\ \r\n\ @param\ skip\ \ \ \ \ \ \ \ \ \ \ True\ if\ the\ fader\ is\ skippable\ via\ a\ click,\ false\ otherwise.\r\n\ @param\ rateOfFading\ \ \ The\ rate\ at\ which\ the\ fader\ fades\ in\ or\ out.\r\n\ @param\ colour\ \ \ \ \ \ \ \ \ The\ color\ of\ the\ fader.\r\n\ @param\ screenFadeOut\ \ True\ if\ the\ fader\ fades\ out,\ false\ if\ it\ fades\ in.\r\n
 comment5.params=w
 comment5.target=void\ addedToWorld(greenfoot.World)
+comment5.text=\r\n\ Method\ called\ when\ the\ object\ is\ added\ to\ the\ world.\r\n\ Initializes\ the\ image\ and\ transparency\ based\ on\ fade\ direction.\r\n\ \r\n\ @param\ w\ The\ world\ to\ which\ the\ fader\ is\ added.\r\n
 comment6.params=
 comment6.target=void\ act()
-comment6.text=\r\n\ Act\ -\ do\ whatever\ the\ Fader\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment6.text=\r\n\ Act\ method\ called\ on\ every\ game\ cycle.\r\n\ Handles\ the\ fading\ in\ or\ out\ of\ the\ fader\ based\ on\ its\ settings.\r\n
 numComments=7

@@ -1,14 +1,18 @@
 #BlueJ class context
 comment0.target=EnemyTargetting
-comment0.text=\r\n\ This\ class\ pertains\ to\ the\ enemy\ pieces\ and\ how\ they\ target\ the\ king.\r\n\ \r\n\ @author\ Jimmy\ Zhu,\ David\ Guo\r\n\ @version\ 1.0\ 01/11/2024\r\n
+comment0.text=\r\n\ The\ `EnemyTargetting`\ class\ is\ responsible\ for\ handling\ enemy\ pieces'\ targeting\ of\ the\ king.\r\n\ It\ interacts\ with\ the\ Stockfish\ chess\ engine\ to\ determine\ the\ best\ move\ for\ the\ enemy.\r\n\ \r\n\ @author\ Jimmy\ Zhu,\ David\ Guo\r\n\ @version\ January\ 22nd,\ 2023\r\n
 comment1.params=
 comment1.target=void\ setup()
+comment1.text=\r\n\ Sets\ up\ the\ communication\ with\ the\ Stockfish\ chess\ engine.\r\n\ \r\n\ @throws\ IOException\ if\ an\ I/O\ error\ occurs\r\n
 comment2.params=
 comment2.target=void\ test()
+comment2.text=\r\n\ Initiates\ a\ test\ with\ the\ Stockfish\ engine\ (commented\ out\ in\ the\ provided\ code).\r\n\ \r\n\ @throws\ IOException\ if\ an\ I/O\ error\ occurs\r\n\ @throws\ InterruptedException\ if\ the\ thread\ is\ interrupted\r\n
 comment3.params=fen\ depth\ processTime
 comment3.target=BoardManager.Move\ bestMove(java.lang.String,\ int,\ int)
+comment3.text=\r\n\ Retrieves\ the\ best\ move\ for\ the\ enemy\ using\ the\ Stockfish\ engine.\r\n\ \r\n\ @param\ fen\ the\ current\ FEN\ (Forsyth-Edwards\ Notation)\ of\ the\ chess\ position\r\n\ @param\ depth\ the\ depth\ of\ the\ search\ in\ the\ game\ tree\r\n\ @param\ processTime\ the\ maximum\ time\ allowed\ for\ the\ engine\ to\ calculate\ the\ move\r\n\ @return\ the\ best\ move\ determined\ by\ Stockfish\r\n\ @throws\ IOException\ if\ an\ I/O\ error\ occurs\r\n\ @throws\ InterruptedException\ if\ the\ thread\ is\ interrupted\r\n
 comment4.params=
 comment4.target=void\ run()
 comment5.params=
 comment5.target=java.util.Deque\ ram()
+comment5.text=\r\n\ Generates\ a\ deque\ of\ potential\ moves\ for\ the\ enemy\ based\ on\ the\ current\ board\ position.\r\n\ \r\n\ @return\ a\ deque\ of\ potential\ moves\ for\ the\ enemy\r\n
 numComments=6

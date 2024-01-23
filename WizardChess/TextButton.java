@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
  * over the button, this colour can be customized too. Multiple buttons can be added to the world. 
  * 
  * @author Alex Li
- * @version V1.3 - Modified by David Guo
+ * @version January 22nd, 2023 - Modified by David Guo
  */
 public class TextButton extends Widget
 {
