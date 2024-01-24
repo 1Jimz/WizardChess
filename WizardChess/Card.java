@@ -114,7 +114,7 @@ public class Card extends SuperSmoothMover {
         if (whirl == 0 && mouse != null && Greenfoot.mouseClicked(this))
             if(EnergyBar.getE() >= this.ep){
                 //plays the sound
-                // deduct ep
+                Wizard.decreaseE(getSpellEP());
                 whirl++;
             } else{
                 // play error sound
