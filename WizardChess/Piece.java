@@ -79,8 +79,10 @@ public class Piece extends SuperSmoothMover {
             // Move up during the initial phase
             setLocation(getX(), getY() - 4);
             movePhase++;
-            if (movePhase == 8)
+            if(movePhase == 8){
+                Game.setDelay(60);
                 BoardManager.allowNextMove();
+            }
         } else if (movePhase == 8 && (!Utility.inRangeInclusive(getX(), tH - (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1), tH + (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1))
                 || !Utility.inRangeInclusive(getY(), tV - 32 - (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1), tV - 32 + (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1)))) {
             // Adjust the position if not in the target range
