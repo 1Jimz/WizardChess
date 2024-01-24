@@ -112,6 +112,8 @@ public class TitleScreen extends World
             // if player has a saved game
             if(saveFilePresent()) {
                 startSavedGame();
+            } else { // if no save file, new game
+                addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
             }
             
         } else if(Greenfoot.mouseClicked(playButton)){

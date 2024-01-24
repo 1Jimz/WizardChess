@@ -77,7 +77,7 @@ public class EndScreen extends World
         // Stats
         statNames = new ArrayList<Text>();
         statNames.add(new Text(52, "Arial", "HP Remaining:"));
-        statNames.add(new Text(52, "Arial", "Energy Remaining:"));
+        statNames.add(new Text(52, "Arial", "EP Remaining:"));
         statNames.add(new Text(52, "Arial", "Moves Made:"));
         statNames.add(new Text(52, "Arial", "Cards Used:"));
         
@@ -107,12 +107,20 @@ public class EndScreen extends World
     }
     
     private void showStats(){
-        int iStatDelay = 300;
-        int statDelay = 150;
+        int iStatDelay = 80;
+        int statDelay = 60;
+        int xPos = 0;
+        if(gameOver)xPos = 300;
+        else xPos = 750;
         if(actCount > iStatDelay && actCount % statDelay == 0){
-            if(statIndex < stats.size()-1){
+            GreenfootImage img = new GreenfootImage(600, 400);
+            img.setColor(Color.WHITE);
+            img.fill();
+            addObject(new ImageButton(img), xPos+100, 400);
+            if(statIndex < stats.size()){
                 //Text temp = statNames.get(statIndex).changeText();
-                addObject(statNames.get(statIndex), 400, statIndex*60);
+                addObject(statNames.get(statIndex), xPos, statIndex*80+300);
+                addObject(stats.get(statIndex), xPos+400, statIndex*80+300);
                 statIndex++;
             }
         }
