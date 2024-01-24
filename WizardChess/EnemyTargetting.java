@@ -35,9 +35,11 @@ public class EnemyTargetting {
     public static BoardManager.Move bestMove(String fen, int depth, int processTime)throws InterruptedException {
         //writing into the stockfish exe
         try{
+            bw.write("uci\n");
             bw.write("ucinewgame\n");
             bw.write("position fen " + fen + "\n");
             bw.write("go depth " + depth + " movetime " + processTime + "\n");
+            System.out.println(fen);
             bw.flush();//flushing
         }catch(IOException e){}
         BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);//m initialized with (-1,-1,-1,-1,-99). These values useful debugging.
@@ -53,11 +55,11 @@ public class EnemyTargetting {
                     }
                     try {
                         if (latest.contains("bestmove")) {
-                            m.change(8 - latest.charAt(10) + '0', latest.charAt(9) - 'a', 8 - latest.charAt(12) + '0',
-                                    latest.charAt(11) - 'a');
+                            m.change(8 - latest.charAt(10) + '0', latest.charAt(9) - 'a', 8 - latest.charAt(12) + '0',latest.charAt(11) - 'a');
                             return;
                         }
                     } catch (NullPointerException e) {//if no more line and still not found then end.
+                        m.change(-5,-5,-5,-5);
                         return;
                     }
                 }
@@ -65,6 +67,7 @@ public class EnemyTargetting {
         });
         t.start();//starts thread
         t.join();//joins thread with main thread(main thread will wait for this thread to end before continuing)
+        try{bw.flush();}catch(IOException e){}
         return m;
     }
 
@@ -263,14 +266,38 @@ public class EnemyTargetting {
                         }
                         break;
                     case 'k'://king
-                        if(Wizard.getR()==i-1 &&Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
-                        else if(Wizard.getR()==i-1 &&Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
-                        else if(Wizard.getR()==i-1 &&Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
-                        else if(Wizard.getR()==i && Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
-                        else if(Wizard.getR()==i && Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
-                        else if(Wizard.getR()==i+1 && Wizard.getC()==j+1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
-                        else if(Wizard.getR()==i+1 && Wizard.getC()==j)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
-                        else if(Wizard.getR()==i+1 && Wizard.getC()==j-1)dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                        if(Wizard.getR()==i-1 &&Wizard.getC()==j-1){
+                            dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                            Game.kingCourtingDeath();
+                        }
+                        else if(Wizard.getR()==i-1 &&Wizard.getC()==j){
+                            dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                            Game.kingCourtingDeath();
+                        }
+                        else if(Wizard.getR()==i-1 &&Wizard.getC()==j+1){
+                            dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                            Game.kingCourtingDeath();
+                        }
+                        else if(Wizard.getR()==i && Wizard.getC()==j-1){
+                            dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                            Game.kingCourtingDeath();
+                        }
+                        else if(Wizard.getR()==i && Wizard.getC()==j+1){
+                            dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                            Game.kingCourtingDeath();
+                        }
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j+1){
+                            dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                            Game.kingCourtingDeath();
+                        }
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j){
+                            dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                            Game.kingCourtingDeath();
+                        }
+                        else if(Wizard.getR()==i+1 && Wizard.getC()==j-1){
+                            dq.add(new BoardManager.Move(i,j,Wizard.getR(),Wizard.getC(),-99));
+                            Game.kingCourtingDeath();
+                        }
                         break;
                 }
             }

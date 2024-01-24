@@ -250,11 +250,18 @@ public class BoardManager
             // if the amount of moves taken is the max, the function stops here to save time
             if (movesTaken == cap)
                 break;
+                
+            //if king is dying then end here and make sure the enemy turn also ends
+            if(Game.isKingGoingToDie()){
+                abnormalEnd = countdown - increment;
+                break;
+            }
             // uses the enemy targetting class to get the current best move from stockfish
             m = EnemyTargetting.bestMove(currentFEN(), depth, processTime);
             // checks the moves given to the function by stockfish to avoid repeated moves
-            if (m.reversedMove(pre)) {
+            if (m.getFromR()==-5||m.reversedMove(pre)) {
                 abnormalEnd = countdown - increment;
+                System.out.println("ASDAFA"+abnormalEnd);
                 incoming = new Piece[8][8];
                 incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.hPush + Wizard.getC() * 80, Game.vPush + Wizard.getR() * 80);//pawn is now incoming. Here to encourage player to move.
                 warn();
@@ -282,6 +289,10 @@ public class BoardManager
             movesTaken++;
             // increments the moves taken counter
         }
+        countdown++;
+        allowNextMove();
+        System.out.println(abnormalEnd+" "+countdown);
+        //if no move this allows abnormalEnd to take effect
     }
 
     /**

@@ -32,7 +32,7 @@ public class Game extends World
     private static int level;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
-    private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
+    private static boolean canNewWave,kingDied,kingGoingToDie;  // Flags for controlling wave progression and king status
     public Game() throws IOException, InterruptedException {    
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
         System.out.println("_____________________________________________________________");  // Displaying a separator line
@@ -44,6 +44,7 @@ public class Game extends World
         enemyMoving = false;
         keyPressChecked = true;
         kingDied=false;
+        kingGoingToDie=false;
         moveNumber = 0;//
         level = 0;
         EnemyTargetting.setup();
@@ -188,7 +189,7 @@ public class Game extends World
         
         // Checking for player input or enemy turn trigger
         if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
-            if(keyPressChecked) {
+            if(keyPressChecked||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
                 nextMove();
                 enemyMoving = false;
                 
@@ -206,9 +207,9 @@ public class Game extends World
                         else{
                             try{
                                 try{
-                                    if(!enemyMoving) {
+                                    if(!enemyMoving&&!kingGoingToDie) {
                                         enemyMoving = true;
-                                        BoardManager.enemyTurn(6,10,20);
+                                        BoardManager.enemyTurn(6,2,50);
                                     }
                                 }catch(IOException e1){}
                             }catch(InterruptedException e2){}
@@ -229,6 +230,7 @@ public class Game extends World
             nextMove();
             canNewWave=false;
             kingDied=false;
+            kingGoingToDie=false;
         } 
         
         // Handling the end of the game
@@ -289,27 +291,27 @@ public class Game extends World
         waveNumber.changeText(Integer.toString(level), Color.WHITE);
     }
     
-    private static FileWriter out;
-    private static PrintWriter output;
+    //private static FileWriter out;
+    //private static PrintWriter output;
     
     /**
      * Saves the current game progress, including the level, current FEN string, and pieces' HP.
      *
      * @throws IOException
      */
-    public static void saveProgress() throws IOException {
-        try {
-            out = new FileWriter("saveFile.txt", false);
-            output = new PrintWriter(out);
-            output.println(Integer.toString(level));
-            output.println(BoardManager.currentFEN());
-            output.println(BoardManager.getPiecesHP());
-        } catch (IOException e) {
-        } finally {
-            out.close();
-            output.close();
-        }
-    }
+    // public static void saveProgress() throws IOException {
+        // try {
+            // out = new FileWriter("saveFile.txt", false);
+            // output = new PrintWriter(out);
+            // output.println(Integer.toString(level));
+            // output.println(BoardManager.currentFEN());
+            // output.println(BoardManager.getPiecesHP());
+        // } catch (IOException e) {
+        // } finally {
+            // out.close();
+            // output.close();
+        // }
+    // }
     
     /**
      * Signals that the king is dying, triggering the end-of-wave sequence.
@@ -318,25 +320,31 @@ public class Game extends World
         kingDied = true;
     }
     
-    private static Scanner scanFile;
-    
-    /**
-     * Loads the saved game progress, retrieving the level and FEN string to recreate the game state.
-     *
-     * @return boolean True if loading is successful, otherwise false
-     */
-    public static boolean loadProgress() {
-        try {
-            scanFile = new Scanner(new File("saveFile.txt"));
-            level = Integer.parseInt(scanFile.nextLine());
-            BoardManager.createIncoming(scanFile.nextLine());
-            return false;
-        } catch (IOException e) {
-            return true;
-        } finally {
-            scanFile.close();
-        }
+    public static void kingCourtingDeath(){
+        kingGoingToDie=true;
     }
+    public static boolean isKingGoingToDie(){
+        return kingGoingToDie;
+    }
+    // private static Scanner scanFile;
+    
+    // /**
+     // * Loads the saved game progress, retrieving the level and FEN string to recreate the game state.
+     // *
+     // * @return boolean True if loading is successful, otherwise false
+     // */
+    // public static boolean loadProgress() {
+        // try {
+            // scanFile = new Scanner(new File("saveFile.txt"));
+            // level = Integer.parseInt(scanFile.nextLine());
+            // BoardManager.createIncoming(scanFile.nextLine());
+            // return false;
+        // } catch (IOException e) {
+            // return true;
+        // } finally {
+            // scanFile.close();
+        // }
+    // }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
         ArrayList<ActorContent> acList = new ArrayList<ActorContent>();
