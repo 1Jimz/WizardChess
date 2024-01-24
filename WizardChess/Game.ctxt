@@ -32,6 +32,7 @@ comment18.target=void\ kingDying()
 comment18.text=\r\n\ Signals\ that\ the\ king\ is\ dying,\ triggering\ the\ end-of-wave\ sequence.\r\n
 comment19.params=
 <<<<<<< HEAD
+<<<<<<< HEAD
 comment19.target=void\ kingCourtingDeath()
 comment2.params=
 comment2.target=void\ nextMove()
@@ -50,6 +51,21 @@ comment23.text=\r\n\ <p><strong>void\ stopped()</strong>\ -\ Pauses\ the\ backgr
 comment24.params=
 comment24.target=greenfoot.GreenfootSound\ getMusic()
 comment24.text=\r\n\ <p><strong>static\ GreenfootSound\ getMusic()</strong>\ -\ Provides\ access\ to\ the\ background\ music.</p>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>Return\:</strong>\ GreenfootSound\ -\ The\ background\ music\ for\ the\ title\ screen.</li>\r\n\ </ul>\r\n
+=======
+comment19.target=boolean\ loadProgress()
+comment19.text=\r\n\ Loads\ the\ saved\ game\ progress,\ retrieving\ the\ level\ and\ FEN\ string\ to\ recreate\ the\ game\ state.\r\n\r\n\ @return\ boolean\ True\ if\ loading\ is\ successful,\ otherwise\ false\r\n
+comment2.params=
+comment2.target=void\ nextMove()
+comment2.text=\r\n\ Increments\ the\ move\ number.\r\n
+comment20.params=actorsToSort\ world
+comment20.target=void\ zSort(java.util.ArrayList,\ greenfoot.World)
+comment21.params=
+comment21.target=void\ started()
+comment21.text=\r\n\ <p><strong>void\ started()</strong>\ -\ Plays\ the\ background\ music\ in\ a\ loop\ when\ the\ game\ starts.</p>\r\n
+comment22.params=
+comment22.target=void\ stopped()
+comment22.text=\r\n\ <p><strong>void\ stopped()</strong>\ -\ Pauses\ the\ background\ music\ when\ the\ game\ is\ stopped.</p>\r\n
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 =======
 comment19.target=boolean\ loadProgress()
 comment19.text=\r\n\ Loads\ the\ saved\ game\ progress,\ retrieving\ the\ level\ and\ FEN\ string\ to\ recreate\ the\ game\ state.\r\n\r\n\ @return\ boolean\ True\ if\ loading\ is\ successful,\ otherwise\ false\r\n
@@ -87,7 +103,11 @@ comment9.params=
 comment9.target=Wizard\ getWizard()
 comment9.text=\r\n\ Returns\ a\ reference\ to\ the\ Wizard\ object.\r\n\r\n\ @return\ Wizard\ Reference\ to\ the\ Wizard\ object\r\n
 <<<<<<< HEAD
+<<<<<<< HEAD
 numComments=25
+=======
+numComments=23
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 =======
 numComments=23
 >>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)

@@ -31,6 +31,7 @@ public class Game extends World
     private static int hpBarValue;
     private EnergyBar energyBar;  // Energy bar for the Wizard
 <<<<<<< HEAD
+<<<<<<< HEAD
     private static int energyBarValue;
     private static int level;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
@@ -49,6 +50,12 @@ public class Game extends World
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
     private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
+=======
+    private static int level,mana;  // Current level of the game
+    private static Text waveNumber;  // Text displaying the current wave number
+    private static String[] levelFens;  // Array storing FEN strings for each level
+    private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
     public Game() throws IOException, InterruptedException {    
 >>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
@@ -362,6 +369,7 @@ public class Game extends World
             out = new FileWriter("saveFile.txt", false);
             output = new PrintWriter(out);
 <<<<<<< HEAD
+<<<<<<< HEAD
             
             output.println(Integer.toString(level));
             
@@ -381,6 +389,11 @@ public class Game extends World
             output.println(BoardManager.currentFEN());
             output.println(BoardManager.getPiecesHP());
 >>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
+=======
+            output.println(Integer.toString(level));
+            output.println(BoardManager.currentFEN());
+            output.println(BoardManager.getPiecesHP());
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
         } catch (IOException e) {
         } finally {
             out.close();
@@ -395,6 +408,7 @@ public class Game extends World
         kingDied = true;
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     
     
@@ -437,6 +451,11 @@ public class Game extends World
     private static Scanner scanFile;
     
     /**
+=======
+    private static Scanner scanFile;
+    
+    /**
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
      * Loads the saved game progress, retrieving the level and FEN string to recreate the game state.
      *
      * @return boolean True if loading is successful, otherwise false
@@ -452,6 +471,9 @@ public class Game extends World
         } finally {
             scanFile.close();
         }
+<<<<<<< HEAD
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
+=======
 >>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
     }
     //mr cohen's Zsort. Credit if needed

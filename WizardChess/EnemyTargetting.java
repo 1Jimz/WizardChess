@@ -10,7 +10,10 @@ import java.util.*;
  */
 public class EnemyTargetting {
 <<<<<<< HEAD
+<<<<<<< HEAD
     
+=======
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 =======
 >>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
     private static String testFen = "2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1";
@@ -52,12 +55,15 @@ public class EnemyTargetting {
      */
     public static BoardManager.Move bestMove(String fen, int depth, int processTime) throws IOException, InterruptedException {
 <<<<<<< HEAD
+<<<<<<< HEAD
         bw.write("ucinewgame\n");
         bw.write("position fen " + fen + "\n");
         bw.write("go depth " + depth + " movetime " + processTime + "\n");
         bw.flush();
         BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);
 =======
+=======
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
         //writing into the stockfish exe
         bw.write("ucinewgame\n");
         bw.write("position fen " + fen + "\n");
