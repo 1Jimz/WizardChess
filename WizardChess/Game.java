@@ -193,7 +193,6 @@ public class Game extends World
             if(keyPressChecked||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
                 nextMove();
                 enemyMoving = false;
-                
                 if(!wizardTurn()) {
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
@@ -211,6 +210,7 @@ public class Game extends World
                                     if(!enemyMoving&&!kingGoingToDie) {
                                         enemyMoving = true;
                                         BoardManager.enemyTurn(6,2,50);
+                                        if(Wizard.getE()<=85) Wizard.decreaseE(-15);
                                     }
                                 }catch(IOException e1){}
                             }catch(InterruptedException e2){}
