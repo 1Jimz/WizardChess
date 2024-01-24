@@ -151,6 +151,8 @@ public class Wizard extends SuperSmoothMover {
                 decreaseE(2);
             }
         }
+        //CHANGE TO DEATH SCREEN
+        if(Wizard.getHP()<=0) Greenfoot.setWorld(new EndScreen(false));
     }
 
     /**
