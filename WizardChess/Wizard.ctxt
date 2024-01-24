@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Wizard
 comment0.text=\r\n\ Main\ class\ representing\ the\ player's\ wizard\ character.\r\n\ Handles\ movement,\ actions,\ and\ attributes\ of\ the\ wizard.\r\n\r\n\ @author\ Jimmy\ Zhu,\ Mekaeel\ Malik,\ Dorsa\ Rohani\r\n\ @version\ January\ 21st,\ 2023\r\n
-comment1.params=
-comment1.target=Wizard()
+comment1.params=r\ c
+comment1.target=Wizard(int,\ int)
 comment1.text=\r\n\ Constructor\ for\ the\ Wizard\ class.\r\n\ Initializes\ the\ wizard's\ initial\ position,\ health,\ and\ triggers\ the\ card\ animation.\r\n
 comment10.params=
 comment10.target=int\ getE()
