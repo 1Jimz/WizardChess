@@ -92,7 +92,7 @@ public class Text extends Widget
         this.font=font;
         GreenfootImage gfi = new GreenfootImage(size*8,size*2);
         gfi.setColor(c);
-        changeText(text);
+        changeText(text,c);
         this.type=type;
         len = 7;
     }
@@ -121,7 +121,7 @@ public class Text extends Widget
      * </ul>
      */
     public void changeText(String text, Color c){
-        GreenfootImage gfi = new GreenfootImage(size*len,size*2);
+        GreenfootImage gfi = new GreenfootImage(size*8,size*2);
         gfi.setColor(c);
         gfi.setFont(new Font(font, true, false, size)); 
         gfi.drawString(text, size/2, size);

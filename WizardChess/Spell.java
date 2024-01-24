@@ -21,18 +21,18 @@ public class Spell extends SuperSmoothMover {
         this.type = type;
         switch (type) {
             case 0:
-                setup(0, "portalPreview", -6, -56, 70, 145, new int[][]{{0, 0}}, 200, 100);
+                setup(0, "portalPreview", 0,0,0,0, new int[][]{{0, 0}}, 200, 100);
                 break;
             case 1:
-                setup(0, "explosionPreview", -6, -56, 70, 145,
+                setup(0, "explosionPreview", 0,0,0,0,
                         new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}}, 200, 100);
                 break;
             case 2:
-                setup(0, "bubblePreview", -6, -56, 70, 145,
+                setup(0, "bubblePreview", 0,0,0,0,
                         new int[][]{{-1, 0}, {-2, 0}, {0, -2}, {0, -1}, {0, 0}, {0, 1}, {0, 2}, {1, 0}, {2, 0}}, 200, 100);
                 break;
             case 3:
-                setup(0, "slashPreview", -6, -56, 70, 145,
+                setup(0, "slashPreview", 0,0,0,0,
                         new int[][]{{-2, -2}, {-1, -1}, {-1, 1}, {-2, 2}, {0, 0}, {2, -2}, {1, -1}, {1, 1}, {2, 2}}, 200, 100);
                 break;
             case 4:
