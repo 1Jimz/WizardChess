@@ -117,9 +117,9 @@ public class TitleScreen extends World
         }
     }
     
-    public void startGame() throws InterruptedException, java.io.IOException{
+    public void startGame(boolean savedGame) throws InterruptedException, java.io.IOException{
         music.stop();
-        Greenfoot.setWorld(new Game());
+        Greenfoot.setWorld(new Game(savedGame));
     }
     
     public void startSavedGame() throws InterruptedException, java.io.IOException{

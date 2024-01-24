@@ -67,7 +67,7 @@ public class Tutorial extends Widget
             getWorld().removeObject(next);
             getWorld().removeObject(count);
             try{
-                ((TitleScreen)getWorld()).startGame();
+                ((TitleScreen)getWorld()).startGame(false);
             } catch(InterruptedException e){} catch(java.io.IOException e){};
             getWorld().removeObject(this);
         } else {

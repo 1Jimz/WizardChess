@@ -59,16 +59,14 @@ public class EndScreen extends World
         // set background image and music
         if(gameOver){
             bg = new GreenfootImage ("losescreen.png");
+            bg.scale(1200, 740);
             music = new GreenfootSound("greatfairyfountain.mp3");
             Text title = new Text(140, 6, "impact", "", 5); // 3rd param does not matter
-            title.changeText("GAME OVER", Color.RED);
-            addObject(title, getWidth()/2, getHeight()/4);
         } else {
             bg = new GreenfootImage ("winscreen.png");
+            bg.scale(1200, 740);
             music = new GreenfootSound("uncharted.mp3");
             Text title = new Text(140, 5, "impact", ""); // 3rd param does not matter
-            title.changeText("YOU WIN!", Color.GREEN);
-            addObject(title, getWidth()/2, getHeight()/4);
         }
         setBackground(bg);
         music.setVolume(Settings.getMusicVolume());
@@ -78,12 +76,12 @@ public class EndScreen extends World
         statNames = new ArrayList<Text>();
         statNames.add(new Text(52, "Arial", "HP Remaining:", Color.WHITE));
         statNames.add(new Text(52, "Arial", "EP Remaining:", Color.WHITE));
-        statNames.add(new Text(52, "Arial", "Moves Made:", Color.WHITE));
-        statNames.add(new Text(52, "Arial", "Cards Used:", Color.WHITE));
+        statNames.add(new Text(52, "Arial", "# Moves Made:", Color.WHITE));
+        statNames.add(new Text(52, "Arial", "# Cards Used:", Color.WHITE));
         
         stats = new ArrayList<Text>();
-        stats.add(new Text(52, "Arial", String.valueOf(HPBar.getHP()), Color.WHITE));
-        stats.add(new Text(52, "Arial", String.valueOf(EnergyBar.getE()), Color.WHITE));
+        stats.add(new Text(52, "Arial", String.valueOf(Math.max(0, HPBar.getHP())), Color.WHITE));
+        stats.add(new Text(52, "Arial", String.valueOf(Math.max(0, EnergyBar.getE())), Color.WHITE));
         stats.add(new Text(52, "Arial", String.valueOf(HPBar.getHP()), Color.WHITE)); // temp
         stats.add(new Text(52, "Arial", String.valueOf(EnergyBar.getE()), Color.WHITE)); //temp
         
@@ -120,7 +118,7 @@ public class EndScreen extends World
             if(statIndex < stats.size()){
                 //Text temp = statNames.get(statIndex).changeText();
                 addObject(statNames.get(statIndex), xPos, statIndex*80+300);
-                addObject(stats.get(statIndex), xPos+400, statIndex*80+300);
+                addObject(stats.get(statIndex), xPos+420, statIndex*80+300);
                 statIndex++;
             }
         }
