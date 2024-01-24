@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Card
-comment0.text=\r\n\ This\ class\ represents\ a\ card\ in\ the\ game.\ It\ extends\ SuperSmoothMover,\r\n\ allowing\ smooth\ movements.\ The\ original\ code\ is\ from\r\n\ https\://www.greenfoot.org/scenarios/925,\ and\ it\ has\ been\ substantially\r\n\ modified\ by\ Jimmy\ Zhu\ on\ 12/19/23.\ The\ modifications\ are\ significant\ enough\r\n\ that\ credit\ might\ not\ be\ necessary;\ it's\ more\ of\ an\ inspired\ transformation.\r\n\ \r\n\ @author\ Jimmy\ Zhu\r\n\ @version\ January\ 21st,\ 2023\r\n\ \r\n
+comment0.text=\r\n\ This\ class\ represents\ a\ card\ in\ the\ game.\ It\ extends\ SuperSmoothMover,\r\n\ allowing\ smooth\ movements.\ The\ original\ code\ is\ from\r\n\ https\://www.greenfoot.org/scenarios/925,\ and\ it\ has\ been\ substantially\r\n\ modified\ by\ Jimmy\ Zhu\ on\ 12/19/23.\ The\ modifications\ are\ significant\ enough\r\n\ that\ credit\ might\ not\ be\ necessary;\ it's\ more\ of\ an\ inspired\ transformation.\r\n\ \r\n\ @author\ Jimmy\ Zhu\r\n\ @version\ January\ 21st\ 2023\r\n\ \r\n
 comment1.params=mx\ my\ active\ leftBorder
 comment1.target=Card(int,\ int,\ int,\ boolean)
 comment1.text=\r\n\ Constructor\ for\ the\ Card\ class.\r\n\r\n\ @param\ mx\ \ \ \ \ \ \ \ \ \ Initial\ x-coordinate\ of\ the\ card.\r\n\ @param\ my\ \ \ \ \ \ \ \ \ \ Initial\ y-coordinate\ of\ the\ card.\r\n\ @param\ active\ \ \ \ \ \ Initial\ active\ state\ of\ the\ card.\r\n\ @param\ leftBorder\ \ Indicates\ if\ the\ card\ is\ on\ the\ left\ border.\r\n

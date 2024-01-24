@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * 
  * Main world for the game that is started after the user finishes the title screen
  * 
- * @author Jimmy Zhu, Mekaeel Malik, David Guo, Dorsa Rohani
+ * @author Jimmy Zhu, Mekaeel Malik, David Guo, Dorsa Roha
  * @version January 21st, 2023
  */
 public class Game extends World
@@ -29,10 +29,10 @@ public class Game extends World
     private static Wizard wizard;  // Reference to the Wizard object
     private HPBar hpBar;  // Health bar for the Wizard
     private EnergyBar energyBar;  // Energy bar for the Wizard
-    private static int level,mana;  // Current level of the game
+    private static int level, delay;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
-    private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
+    private static boolean canNewWave,kingDied,kingGoingToDie;  // Flags for controlling wave progression and king status
     public Game() throws IOException, InterruptedException {    
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
         System.out.println("_____________________________________________________________");  // Displaying a separator line
@@ -44,9 +44,9 @@ public class Game extends World
         enemyMoving = false;
         keyPressChecked = true;
         kingDied=false;
+        kingGoingToDie=false;
         moveNumber = 0;//
         level = 0;
-        mana=10;
         EnemyTargetting.setup();
         // Creating the game grid with Tile objects
         for(int i = 0; i<8; i++)
@@ -188,14 +188,13 @@ public class Game extends World
         }
         
         // Checking for player input or enemy turn trigger
-        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
-            if(keyPressChecked) {
+        if(delay>0)delay--;
+        if(delay==0&&(wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
+            if(keyPressChecked||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
                 nextMove();
                 enemyMoving = false;
                 
                 if(!wizardTurn()) {
-                    System.out.println("SNAO"+" "+BoardManager.isWarned());
-                    
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
                         BoardManager.unwarn();
@@ -209,23 +208,18 @@ public class Game extends World
                         else{
                             try{
                                 try{
-                                    if(!enemyMoving) {
+                                    if(!enemyMoving&&!kingGoingToDie) {
                                         enemyMoving = true;
-                                        BoardManager.enemyTurn(6,1000,1);
+                                        BoardManager.enemyTurn(6,2,50);
                                     }
                                 }catch(IOException e1){}
                             }catch(InterruptedException e2){}
                         }
                     }
-                } else{
-                    if(Wizard.getE() < 100-mana) Wizard.decreaseE(-mana);
-                    else Wizard.setE(100);
                 }
                 keyPressChecked = false;
-            } else{
-                if(Wizard.getE()<=95) Wizard.decreaseE(-15);
             }
-        }
+        } 
         else keyPressChecked = true;
         
         // Handling the end of a wave and progression to the next level
@@ -237,6 +231,7 @@ public class Game extends World
             nextMove();
             canNewWave=false;
             kingDied=false;
+            kingGoingToDie=false;
         } 
         
         // Handling the end of the game
@@ -297,27 +292,27 @@ public class Game extends World
         waveNumber.changeText(Integer.toString(level), Color.WHITE);
     }
     
-    private static FileWriter out;
-    private static PrintWriter output;
+    //private static FileWriter out;
+    //private static PrintWriter output;
     
     /**
      * Saves the current game progress, including the level, current FEN string, and pieces' HP.
      *
      * @throws IOException
      */
-    public static void saveProgress() throws IOException {
-        try {
-            out = new FileWriter("saveFile.txt", false);
-            output = new PrintWriter(out);
-            output.println(Integer.toString(level));
-            output.println(BoardManager.currentFEN());
-            output.println(BoardManager.getPiecesHP());
-        } catch (IOException e) {
-        } finally {
-            out.close();
-            output.close();
-        }
-    }
+    // public static void saveProgress() throws IOException {
+        // try {
+            // out = new FileWriter("saveFile.txt", false);
+            // output = new PrintWriter(out);
+            // output.println(Integer.toString(level));
+            // output.println(BoardManager.currentFEN());
+            // output.println(BoardManager.getPiecesHP());
+        // } catch (IOException e) {
+        // } finally {
+            // out.close();
+            // output.close();
+        // }
+    // }
     
     /**
      * Signals that the king is dying, triggering the end-of-wave sequence.
@@ -326,25 +321,34 @@ public class Game extends World
         kingDied = true;
     }
     
-    private static Scanner scanFile;
-    
-    /**
-     * Loads the saved game progress, retrieving the level and FEN string to recreate the game state.
-     *
-     * @return boolean True if loading is successful, otherwise false
-     */
-    public static boolean loadProgress() {
-        try {
-            scanFile = new Scanner(new File("saveFile.txt"));
-            level = Integer.parseInt(scanFile.nextLine());
-            BoardManager.createIncoming(scanFile.nextLine());
-            return false;
-        } catch (IOException e) {
-            return true;
-        } finally {
-            scanFile.close();
-        }
+    public static void kingCourtingDeath(){
+        kingGoingToDie=true;
     }
+    public static boolean isKingGoingToDie(){
+        return kingGoingToDie;
+    }
+    public static void setDelay(int d){
+        delay=d;
+    }
+    // private static Scanner scanFile;
+    
+    // /**
+     // * Loads the saved game progress, retrieving the level and FEN string to recreate the game state.
+     // *
+     // * @return boolean True if loading is successful, otherwise false
+     // */
+    // public static boolean loadProgress() {
+        // try {
+            // scanFile = new Scanner(new File("saveFile.txt"));
+            // level = Integer.parseInt(scanFile.nextLine());
+            // BoardManager.createIncoming(scanFile.nextLine());
+            // return false;
+        // } catch (IOException e) {
+            // return true;
+        // } finally {
+            // scanFile.close();
+        // }
+    // }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
         ArrayList<ActorContent> acList = new ArrayList<ActorContent>();
