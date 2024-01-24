@@ -11,7 +11,7 @@ import greenfoot.*;
  */
 public class Tile extends Actor {
     private Piece occupyingPiece;
-    private int r, c, status; // 0: normal, 1: burning, 2: idk make something up
+    private int r, c;
     private boolean isNew = false, isBlue = false, isGreen = false;
     private boolean occupied;
 
@@ -46,13 +46,7 @@ public class Tile extends Actor {
      * Handles actions related to the tile.
      */
     public void act() {
-        // You can uncomment and modify this section for tile-related actions
-        // if(occupyingPiece!=null&&occupyingPiece.isDying())empty();
-        // if(Greenfoot.mouseClicked(this)){
-        //    if(Game.isSpellActivated()){
-        //      // Spell activation logic goes here
-        //    }
-        // }
+        //nothing here
     }
 
     /**
