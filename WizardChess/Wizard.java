@@ -16,16 +16,16 @@ public class Wizard extends SuperSmoothMover {
 
     // Energy and health bars for the wizard
     private EnergyBar energyBar;
-    private HPBar hpBar;
+    private static HPBar hpBar;
 
     /**
      * Constructor for the Wizard class.
      * Initializes the wizard's initial position, health, and triggers the card animation.
      */
-    public Wizard(int r, int c) {
+    public Wizard() {
         // factoring in the offset of the game board from the rest of the screen
-        h = Game.hPush + c * 80;
-        v = Game.vPush + r * 80 - 25;
+        h = Game.hPush + 4 * 80;
+        v = Game.vPush + 7 * 80 - 25;
         
         // values for where the wizard should be facing
         degrees = 0;
@@ -33,8 +33,8 @@ public class Wizard extends SuperSmoothMover {
         
 
         // starting values for what column and row the wizard is in 
-        this.r = r;
-        this.c = c;
+        r = 7;
+        c = 4;
         
         // sets HP to 100
         HP = 100;
@@ -150,17 +150,6 @@ public class Wizard extends SuperSmoothMover {
                 updateEnBar(-20);
             }
         }
-
-        // Handle wizard taking damage and healing
-        if (damaged) {
-            updateHP(-50); // 50 is temp
-            damaged = false;
-            if (HPBar.getHP() <= 0) Greenfoot.setWorld(new EndScreen(true)); // wizard died rip
-        }
-        if (heal) {
-            updateHP(10);
-            heal = false;
-        }
     }
 
     /**
@@ -188,8 +177,8 @@ public class Wizard extends SuperSmoothMover {
      */
     public static void takeDmg(int dmg) {
         SoundManager.playSound("Crunch");
-        //HP-=dmg;//need to check for death
-        damaged = true;
+        HP-=dmg;
+        hpBar.setHP(HP);
     }
 
     /**
@@ -263,17 +252,6 @@ public class Wizard extends SuperSmoothMover {
     private void updateEnBar(int e) {
         if (energyBar != null) energyBar.setE(energyBar.getE() + e);
     }
-
-    /**
-     * Update the health points of the wizard.
-     *
-     * @param h Amount of health points to be added.
-     */
-    public void updateHP(int h) {
-        HP = hpBar.getHP() + h;
-        if (hpBar != null) hpBar.setHP(HP);
-    }
-
     /**
      * Highlight the range of the wizard on the game board.
      *
