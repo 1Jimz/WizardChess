@@ -23,7 +23,7 @@ public class Tutorial extends Widget
         // Width, height, maxPageNum in order to make it modular
         width = 1200*5/6;
         height = 740*5/6;
-        maxPageNum = 5;
+        maxPageNum = 7;
         // Initialize variables to change button location
         xDist = 80; // from the edges left/right
         yDist = 20; // from the bottom
