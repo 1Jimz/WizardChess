@@ -76,16 +76,16 @@ public class EndScreen extends World
         
         // Stats
         statNames = new ArrayList<Text>();
-        statNames.add(new Text(52, "Arial", "HP Remaining:"));
-        statNames.add(new Text(52, "Arial", "EP Remaining:"));
-        statNames.add(new Text(52, "Arial", "Moves Made:"));
-        statNames.add(new Text(52, "Arial", "Cards Used:"));
+        statNames.add(new Text(52, "Arial", "HP Remaining:", Color.WHITE));
+        statNames.add(new Text(52, "Arial", "EP Remaining:", Color.WHITE));
+        statNames.add(new Text(52, "Arial", "Moves Made:", Color.WHITE));
+        statNames.add(new Text(52, "Arial", "Cards Used:", Color.WHITE));
         
         stats = new ArrayList<Text>();
-        stats.add(new Text(52, "Arial", String.valueOf(HPBar.getHP())));
-        stats.add(new Text(52, "Arial", String.valueOf(EnergyBar.getE())));
-        stats.add(new Text(52, "Arial", String.valueOf(HPBar.getHP()))); // temp
-        stats.add(new Text(52, "Arial", String.valueOf(EnergyBar.getE()))); //temp
+        stats.add(new Text(52, "Arial", String.valueOf(HPBar.getHP()), Color.WHITE));
+        stats.add(new Text(52, "Arial", String.valueOf(EnergyBar.getE()), Color.WHITE));
+        stats.add(new Text(52, "Arial", String.valueOf(HPBar.getHP()), Color.WHITE)); // temp
+        stats.add(new Text(52, "Arial", String.valueOf(EnergyBar.getE()), Color.WHITE)); //temp
         
         statIndex = 0;
     }
@@ -116,7 +116,7 @@ public class EndScreen extends World
             GreenfootImage img = new GreenfootImage(600, 400);
             img.setColor(Color.WHITE);
             img.fill();
-            addObject(new ImageButton(img), xPos+100, 400);
+            //addObject(new ImageButton(img), xPos+100, 400);
             if(statIndex < stats.size()){
                 //Text temp = statNames.get(statIndex).changeText();
                 addObject(statNames.get(statIndex), xPos, statIndex*80+300);

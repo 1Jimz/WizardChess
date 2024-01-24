@@ -57,7 +57,7 @@ public class TitleScreen extends World
         addObject(new Fader(false, 5), WIDTH/2, HEIGHT/2);
         
         // Set bg to background image
-        bg = new GreenfootImage ("titlescreengods.png");
+        bg = new GreenfootImage ("finaltitlescreen.png");
         bg.scale(WIDTH, HEIGHT);
         setBackground(bg);
         
@@ -84,14 +84,6 @@ public class TitleScreen extends World
         SoundManager.addSound(6, "Crunch", "wav");
         SoundManager.addSound(1, "High Whoosh", "wav", 80);
         SoundManager.addSound(1, "NoSpellEP", "wav");
-        
-        // Add the title of the game
-        Text title = new Text(140, "impact", "aswvsdafgsfsdcscs"); // 3rd param does not matter
-        title.changeText("WIZARDCHESS", Color.WHITE);
-        addObject(title, getWidth()/2, getHeight()/4);
-        Text version = new Text(70, "french script mt", ""); // 3rd param does not matter
-        version.changeText("version 1.0", Color.RED);
-        addObject(version, getWidth()/2+380, getHeight()/4+50);
     }
 
     /**
