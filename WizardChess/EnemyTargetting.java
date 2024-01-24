@@ -39,7 +39,7 @@ public class EnemyTargetting {
             bw.write("position fen " + fen + "\n");
             bw.write("go depth " + depth + " movetime " + processTime + "\n");
             bw.flush();//flushing
-        }catch(IOException e){System.out.println("Afwfaafwawffgg73747337733");}
+        }catch(IOException e){}
         BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);//m initialized with (-1,-1,-1,-1,-99). These values useful debugging.
         Thread t = new Thread(new Runnable() {
             public void run() {

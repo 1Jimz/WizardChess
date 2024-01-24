@@ -193,8 +193,6 @@ public class Game extends World
                 enemyMoving = false;
                 
                 if(!wizardTurn()) {
-                    System.out.println("SNAO"+" "+BoardManager.isWarned());
-                    
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
                         BoardManager.unwarn();
@@ -209,7 +207,6 @@ public class Game extends World
                             try{
                                 try{
                                     if(!enemyMoving) {
-                                        System.out.println("ASDAFAF");
                                         enemyMoving = true;
                                         BoardManager.enemyTurn(6,10,20);
                                     }
