@@ -151,10 +151,6 @@ public class Wizard extends SuperSmoothMover {
                 decreaseE(2);
             }
         }
-        if(hpBar.getHP() <= 0){
-            //dead
-            Greenfoot.setWorld(new EndScreen(false));
-        }
     }
 
     /**
