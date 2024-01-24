@@ -15,6 +15,18 @@ public class ImageButton extends Widget
     
     /**
      * Constructs a Button which can be set using an image from the game files
+     * @param img                GreenfootImage value of the image
+     */
+    public ImageButton(GreenfootImage img){
+        this.img = img;
+        this.imgHover = img;
+        width = img.getWidth();
+        height = img.getHeight();
+        setImage(img);
+    }
+    
+    /**
+     * Constructs a Button which can be set using an image from the game files
      * @param image              String value of the image name without the file type
      */
     public ImageButton(String image){
