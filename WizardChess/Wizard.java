@@ -151,6 +151,7 @@ public class Wizard extends SuperSmoothMover {
                 decreaseE(2);
             }
         }
+
         // Handle wizard taking damage and healing
         if (damaged) {
             updateHP(-50); // 50 is temp
@@ -160,7 +161,7 @@ public class Wizard extends SuperSmoothMover {
                 Greenfoot.setWorld(new EndScreen(true)); // wizard died rip
             }
         }
-        if(heal) {
+        if (heal) {
             updateHP(10);
             heal = false;
         }
