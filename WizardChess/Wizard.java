@@ -151,7 +151,7 @@ public class Wizard extends SuperSmoothMover {
                 decreaseE(2);
             }
         }
-        //CHANGE TO DEATH SCREEN
+        // set to end screen
         if(Wizard.getHP()<=0) Greenfoot.setWorld(new EndScreen(false));
     }
 
@@ -180,8 +180,8 @@ public class Wizard extends SuperSmoothMover {
      */
     public static void takeDmg(int dmg) {
         SoundManager.playSound("Crunch");
-        //HP-=dmg;//need to check for death
-        damaged = true;
+        HP-= (int) dmg * 0.1;
+        hpBar.setHP(HP);
     }
     /**
      * Method to handle taking enegy by the wizard.
@@ -280,6 +280,10 @@ public class Wizard extends SuperSmoothMover {
         this.hpBar = hpBar;
     }
     
+    /**
+     * Get energy bar
+     *
+     */
     public static EnergyBar getEnergyBar() {
         return energyBar;
     }

@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Piece extends SuperSmoothMover {
     private char type; // Type of chess piece: 'p', 'n', 'b', 'r', 'q', 'k'
-    private int maxHP, tH, tV, movePhase = 0, sH, sV, saveR, saveC;
+    private int MaxHP, tH, tV, movePhase = 0, sH, sV, saveR, saveC;
     private Queue<BoardManager.Move> q;
     private int dying = -1;
     private int HP;
@@ -58,7 +58,7 @@ public class Piece extends SuperSmoothMover {
                 MaxHP = 6 * Game.getWave() + 250;  // Highest base health, strongest enemy
                 break;
         }
-        HP = maxHP;
+        HP = MaxHP;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Piece extends SuperSmoothMover {
         } else if ((tV - Game.vPush) / 80 == Wizard.getR() && (tH - Game.hPush) / 80 == Wizard.getC()) {
             // The piece reaches the Wizard's position, causing damage
             dying = 17;
-            Wizard.takeDmg(50); // 50 is temporary, adjust as needed
+            Wizard.takeDmg(HP);
         }
     }
 
@@ -182,7 +182,7 @@ public class Piece extends SuperSmoothMover {
      * @param dmg Amount of damage to take.
      */
     public void takeDmg(int dmg) {
-        setImage(new GreenfootImage("Piece_" + type + "_" + Math.max((int) Math.ceil((HP / (double) maxHP) * 3), 0) + ".png"));
+        setImage(new GreenfootImage("Piece_" + type + "_" + Math.max((int) Math.ceil((HP / (double) MaxHP) * 3), 0) + ".png"));
         playDmgEffect(-dmg); // Negative damage for red color in the effect
         HP -= dmg;
         if (HP <= 0)
@@ -223,8 +223,8 @@ public class Piece extends SuperSmoothMover {
         if (type != 'p')
             return;
         type = 'q';
-        maxHP = (int) (1.5 * Game.getWave()) + 2;
-        HP = maxHP;
+        MaxHP = (int) (1.5 * Game.getWave()) + 2;
+        HP = MaxHP;
         setImage(new GreenfootImage("Piece_q_3.png"));
     }
 }

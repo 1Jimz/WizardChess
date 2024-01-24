@@ -29,6 +29,7 @@ public class Game extends World
     private static Wizard wizard;  // Reference to the Wizard object
     private HPBar hpBar;  // Health bar for the Wizard
     private static int hpBarValue;
+    private static int energyBarValue;
     private EnergyBar energyBar;  // Energy bar for the Wizard
     private static int level, delay;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
@@ -36,7 +37,9 @@ public class Game extends World
     private static boolean canNewWave,kingDied,kingGoingToDie;  // Flags for controlling wave progression and king status   
     private static ImageButton settingsButton; // Settings button
     private static GreenfootSound music; // Game Music
-    
+    private static Scanner scanFile;
+    private static FileWriter out;
+    private static PrintWriter output;
     private static int spawnRow; // spawn location for the wizard
     private static int spawnColumn;
     
@@ -370,7 +373,7 @@ public class Game extends World
     
     public static void kingCourtingDeath(){
         kingGoingToDie=true;
-    private static Scanner scanFile;
+    }
     
     /**
      * Loads the saved game progress, retrieving the level, FEN string, and piece hp to recreate the game state.
