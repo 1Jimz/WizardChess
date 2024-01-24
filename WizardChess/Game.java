@@ -37,6 +37,7 @@ public class Game extends World
     private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
     private static ImageButton settingsButton; // Settings button
     private static GreenfootSound music; // Game Music
+    private static boolean kingGoingToDie;
     
     private static int spawnRow; // spawn location for the wizard
     private static int spawnColumn;
@@ -79,6 +80,10 @@ public class Game extends World
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
         
+        energyBar = new EnergyBar(100);
+            
+        hpBar=new HPBar(100);
+        
         
         if(loadSaveFile){
             Game.loadProgress();
@@ -93,9 +98,9 @@ public class Game extends World
         
         wizard = new Wizard(spawnRow,spawnColumn);  // Initializing the Wizard object
         
-        energyBar = new EnergyBar(energyBarValue);
-            
-        hpBar=new HPBar(hpBarValue);
+        energyBar.setE(energyBarValue);
+
+        hpBar.setHP(hpBarValue);
         
         addObject(energyBar, 279, 270);
         addObject(hpBar, 279, 210);  
@@ -209,6 +214,11 @@ public class Game extends World
      */
     public void act() {
         zSort((ArrayList<Actor>)(getObjects(Actor.class)),this);  // Sorting actors for proper rendering
+        
+        if(Greenfoot.mouseClicked(settingsButton)){
+            SoundManager.playSound("Click");
+            Greenfoot.setWorld(new Settings(this));
+        }
         
         if(pickCard){
             addObject(new Hand(),-120,510);  // Adding the Hand object to the game world
@@ -364,6 +374,8 @@ public class Game extends World
     public static void kingDying() {
         kingDied = true;
     }
+    
+    
     
     public static void kingCourtingDeath(){
         kingGoingToDie=true;
