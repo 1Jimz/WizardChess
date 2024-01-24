@@ -13,7 +13,7 @@ public class Piece extends SuperSmoothMover {
     private int MaxHP, tH, tV, movePhase = 0, sH, sV, saveR, saveC;
     private Queue<BoardManager.Move> q;
     private int dying = -1;
-    private static int HP;
+    private int HP;
     private boolean fix = false, awaitingDeath = false;
 
     /**
@@ -79,10 +79,8 @@ public class Piece extends SuperSmoothMover {
             // Move up during the initial phase
             setLocation(getX(), getY() - 4);
             movePhase++;
-            if(movePhase == 8){
-                Game.setDelay(60);
+            if (movePhase == 8)
                 BoardManager.allowNextMove();
-            }
         } else if (movePhase == 8 && (!Utility.inRangeInclusive(getX(), tH - (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1), tH + (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1))
                 || !Utility.inRangeInclusive(getY(), tV - 32 - (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1), tV - 32 + (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1)))) {
             // Adjust the position if not in the target range
@@ -111,7 +109,7 @@ public class Piece extends SuperSmoothMover {
         } else if ((tV - Game.vPush) / 80 == Wizard.getR() && (tH - Game.hPush) / 80 == Wizard.getC()) {
             // The piece reaches the Wizard's position, causing damage
             dying = 17;
-            Wizard.takeDmg(HP);
+            Wizard.takeDmg(50); // 50 is temporary, adjust as needed
         }
     }
 
@@ -138,7 +136,7 @@ public class Piece extends SuperSmoothMover {
      *
      * @return int Current HP of the piece.
      */
-    public static int getHP() {
+    public int getHP() {
         return HP;
     }
 

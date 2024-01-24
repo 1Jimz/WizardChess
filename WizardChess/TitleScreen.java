@@ -92,7 +92,7 @@ public class TitleScreen extends World
     public void act(){
         try{
             checkClick();
-        } catch(InterruptedException e){} catch(java.io.IOException e){};
+        } catch(InterruptedException e){} catch(IOException e){};
         // this try catch statement is a result of using stockfish
     }
     
@@ -104,10 +104,9 @@ public class TitleScreen extends World
             // if player has a saved game
             if(saveFilePresent()) {
                 startSavedGame();
-            } else { // if no save file, new game
-                addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
+            } else {
+                System.out.println("Save file could not be located");
             }
-            
         } else if(Greenfoot.mouseClicked(playButton)){
             SoundManager.playSound("Click");
             addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
@@ -119,7 +118,7 @@ public class TitleScreen extends World
     
     public void startGame() throws InterruptedException, java.io.IOException{
         music.stop();
-        Greenfoot.setWorld(new Game());
+        Greenfoot.setWorld(new Game(false));
     }
     
     public void startSavedGame() throws InterruptedException, java.io.IOException{
@@ -139,6 +138,7 @@ public class TitleScreen extends World
             return false;
         }
     }
+    
     
     /**
      * <p><strong>void started()</strong> - Plays the background music in a loop when the game starts.</p>
