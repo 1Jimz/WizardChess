@@ -206,7 +206,13 @@ public class BoardManager
     public static void placeTile(Tile t, int r, int c) {
         board[r][c] = t;
     }
-    
+
+    // Examples of FEN strings for initializing the game state
+    // createIncoming("2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1");
+    // createIncoming("2brkn2/2pppp2/8/8/8/8/8/4K3 b - - 0 1");
+    // createIncoming("b2qk1rb/1npppp2/8/8/8/8/8/4K3 b - - 0 1");
+    // createIncoming("2bk1b2/4pppp/8/6K1/8/8/8/8 b - - 0 1");
+
     /**
      * Perform the enemy's turn with a given move limit, search depth, and time limit for processing.
      * @param cap Maximum number of moves to take
@@ -250,20 +256,15 @@ public class BoardManager
             // if the amount of moves taken is the max, the function stops here to save time
             if (movesTaken == cap)
                 break;
-                
-            //if king is dying then end here and make sure the enemy turn also ends
-            if(Game.isKingGoingToDie()){
-                abnormalEnd = countdown - increment;
-                break;
-            }
+
             // uses the enemy targetting class to get the current best move from stockfish
             m = EnemyTargetting.bestMove(currentFEN(), depth, processTime);
+
             // checks the moves given to the function by stockfish to avoid repeated moves
-            if (m.getFromR()==-5||m.reversedMove(pre)) {
+            if (m.reversedMove(pre)) {
                 abnormalEnd = countdown - increment;
-                System.out.println("ASDAFA"+abnormalEnd);
                 incoming = new Piece[8][8];
-                incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.hPush + Wizard.getC() * 80, Game.vPush + Wizard.getR() * 80);//pawn is now incoming. Here to encourage player to move.
+                incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.hPush + Wizard.getC() * 80, Game.vPush + Wizard.getR() * 80);
                 warn();
                 break;
             }
@@ -278,6 +279,7 @@ public class BoardManager
             } catch (ArrayIndexOutOfBoundsException e) {
                 // catches any ArrayIndexOutOfBoundsException that might occur during the attempt to retrieve the piece from the game board
                 abnormalEnd = countdown - increment + 1;
+                
                 // ends the function immediately
                 return;
             }
@@ -289,10 +291,6 @@ public class BoardManager
             movesTaken++;
             // increments the moves taken counter
         }
-        countdown++;
-        allowNextMove();
-        System.out.println(abnormalEnd+" "+countdown);
-        //if no move this allows abnormalEnd to take effect
     }
 
     /**
@@ -326,6 +324,7 @@ public class BoardManager
             if (i != 7)
                 sb.append("/");
         }
+
         sb.append(" b - - 0 1");
         return sb.toString();
     }
@@ -485,11 +484,17 @@ public class BoardManager
      * The method is responsible for managing the countdown and abnormal end scenarios.
      */
     public static void allowNextMove() {
-        //when countdown reaches abnormalEnd the countdown will immediately jump to -1 which ends the current enemy turn
+        // Uncomment the line below for debugging purposes
+        // System.out.println("BVBBfwafwawffawfBBB");
+
         if (--countdown == abnormalEnd) {
+            // Uncomment the line below for debugging purposes
+            // System.out.println("BVBBBBB");
             countdown = -1;
             abnormalEnd = -1;
         }
+        // Uncomment the line below for debugging purposes
+        // System.out.println("fwaafwwffa" + countdown + " " + abnormalEnd);
     }
 
     /**
