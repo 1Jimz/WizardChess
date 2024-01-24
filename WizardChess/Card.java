@@ -9,7 +9,7 @@ import java.util.List;
  * that credit might not be necessary; it's more of an inspired transformation.
  * 
  * @author Jimmy Zhu
- * @version January 21st, 2023
+ * @version January 21st 2023
  * 
  */
 public class Card extends SuperSmoothMover {
