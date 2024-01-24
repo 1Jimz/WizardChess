@@ -29,7 +29,7 @@ public class Game extends World
     private static Wizard wizard;  // Reference to the Wizard object
     private HPBar hpBar;  // Health bar for the Wizard
     private EnergyBar energyBar;  // Energy bar for the Wizard
-    private static int level;  // Current level of the game
+    private static int level, delay;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
     private static boolean canNewWave,kingDied,kingGoingToDie;  // Flags for controlling wave progression and king status
@@ -188,7 +188,8 @@ public class Game extends World
         }
         
         // Checking for player input or enemy turn trigger
-        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
+        if(delay>0)delay--;
+        if(delay==0&&(wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
             if(keyPressChecked||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
                 nextMove();
                 enemyMoving = false;
@@ -325,6 +326,9 @@ public class Game extends World
     }
     public static boolean isKingGoingToDie(){
         return kingGoingToDie;
+    }
+    public static void setDelay(int d){
+        delay=d;
     }
     // private static Scanner scanFile;
     

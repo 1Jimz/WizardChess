@@ -67,7 +67,6 @@ public class EnemyTargetting {
         });
         t.start();//starts thread
         t.join();//joins thread with main thread(main thread will wait for this thread to end before continuing)
-        try{bw.flush();}catch(IOException e){}
         return m;
     }
 
