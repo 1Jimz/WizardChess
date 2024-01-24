@@ -58,13 +58,13 @@ public class EndScreen extends World
         
         // set background image and music
         if(gameOver){
-            bg = new GreenfootImage ("gameoverimg.png");
+            bg = new GreenfootImage ("losescreen.png");
             music = new GreenfootSound("greatfairyfountain.mp3");
             Text title = new Text(140, 6, "impact", "", 5); // 3rd param does not matter
             title.changeText("GAME OVER", Color.RED);
             addObject(title, getWidth()/2, getHeight()/4);
         } else {
-            bg = new GreenfootImage ("endwizardblur.png");
+            bg = new GreenfootImage ("winscreen.png");
             music = new GreenfootSound("uncharted.mp3");
             Text title = new Text(140, 5, "impact", ""); // 3rd param does not matter
             title.changeText("YOU WIN!", Color.GREEN);
