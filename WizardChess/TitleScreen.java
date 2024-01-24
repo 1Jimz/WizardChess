@@ -28,7 +28,7 @@ import java.io.*;
  *   -> Animations [The wizard and pieces jump swiftly and elegantly across the board]
  *   -> Stockfish [By using Stockfish, the enemy plays... like stockfish]
  *   -> Music [With music playing in every world, go to the settings in the top left of Game in order to change the volume]
- *    -> Card Throw [The card has some entertaining physics once discard with G]
+ *   -> Card Throw [The card has some entertaining physics once discard with G]
  * 
  * => Misc.
  *   -> TextButtons and ImageButtons [Equipped with a click sound effect and a highlight once hovered over]
@@ -41,6 +41,8 @@ import java.io.*;
  * Credit:
  * => Code
  *   -> Button and TextSizeFinder classes [Alex Li]
+ * => AI
+ *   -> Stockfish [https://stockfishchess.org/]
  *   
  * => Visuals
  *   -> Title Screen BG from Reddit u/gazozkapagii: [https://www.reddit.com/r/midjourney/comments/10n3tn9/two_gods_are_playing_chess/]
@@ -48,6 +50,10 @@ import java.io.*;
  *   -> End Screen Loss BG
  *   -> Card Font [OmegaPC777, https://www.dafont.com/pixeled.fond]
  *   -> Slider [David Guo]
+ *   -> Hand [https://www.pinterest.ca/pin/tofu-on-twitter--131237776633102727/]
+ *   -> Magic Fire Spell [https://craftpix.net/product/fire-pixel-art-animation-sprites/]
+ *   -> Lightning Spell [https://www.freepik.com/premium-vector/vector-illustration-cute-pixel-art-icon-geek-lightning-element-style-90s-game_29366701.htm]
+ *   -> Tornado Spell [https://stock.adobe.com/br/images/tornado-storm-pixel-art-icon-windstorm-symbol-typhoon-cyclone-and-hurricane-isolated-vector-illustration-on-white-background/445382833]
  *   -> Explosion GIF from GIPHY: [https://giphy.com/gifs/26BRx71hqRexBe7Wo]
  *   -> Portal GIF from Tenor: [https://tenor.com/view/wave-hello-hi-greeting-princess-gif-16926051]
  *   -> Sword Slashing GIF from RealtimeVFX: [https://realtimevfx.com/uploads/default/original/2X/b/b8543008db2b22c1cedee82ed0bcfc37993a23bf.gif]
