@@ -222,6 +222,8 @@ public class Game extends World
                     else Wizard.setE(100);
                 }
                 keyPressChecked = false;
+            } else{
+                if(Wizard.getE()<=95) Wizard.decreaseE(-15);
             }
         }
         else keyPressChecked = true;

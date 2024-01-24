@@ -112,14 +112,11 @@ public class Card extends SuperSmoothMover {
 
         // Card whirl animation
         if (whirl == 0 && mouse != null && Greenfoot.mouseClicked(this))
-            if(EnergyBar.getE() >= this.ep){
+            if(Wizard.getE() >= this.ep){
                 //plays the sound
                 Wizard.decreaseE(getSpellEP());
                 whirl++;
-            } else{
-                // play error sound
-                
-            }
+            } else Greenfoot.playSound("NoSpellEP.wav");
         if (whirl > 0 && whirl < 35 && mouse != null) {
             whirl++;
             // Scale down, rotate, and change transparency during whirl

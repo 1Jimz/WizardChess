@@ -60,7 +60,7 @@ public class Wizard extends SuperSmoothMover {
         if (mouse != null) degrees = Utility.bearingDegreesAToB(h, v, mouse.getX(), mouse.getY());
 
         // Handle walking animation and movement
-        if (walking) {
+        if (walking && EP > 0) {
             // if the move phase is starting, lift the wizard up to simulate hopping
             if (++phase <= 3) setLocation(getX(), getY() - 10);
             // if not start moving the wizard in the direction indicated by the walkDirection
