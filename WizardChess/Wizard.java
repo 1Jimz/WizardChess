@@ -152,7 +152,7 @@ public class Wizard extends SuperSmoothMover {
             }
         }
         if(hpBar.getHP() <= 0){
-            // DEATH SCREEN called here(change line below)
+            //dead
             Greenfoot.setWorld(new EndScreen(false));
         }
     }
