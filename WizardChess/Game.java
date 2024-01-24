@@ -75,7 +75,7 @@ public class Game extends World
         settingsButton = new ImageButton("settingsimg_2", "settingsimg_3");
         addObject(settingsButton, 40, 40);
         
-        music = new GreenfootSound("greatfairyfountain.mp3");
+        music = new GreenfootSound("Overgrown_Forest.mp3");
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
         
