@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * 
  * Main world for the game that is started after the user finishes the title screen
  * 
- * @author Jimmy Zhu, Mekaeel Malik, David Guo, Dorsa Roha
+ * @author Jimmy Zhu, Mekaeel Malik, David Guo, Dorsa Rohani
  * @version January 21st, 2023
  */
 public class Game extends World
@@ -30,6 +30,7 @@ public class Game extends World
     private HPBar hpBar;  // Health bar for the Wizard
     private static int hpBarValue;
     private EnergyBar energyBar;  // Energy bar for the Wizard
+<<<<<<< HEAD
     private static int energyBarValue;
     private static int level;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
@@ -43,6 +44,13 @@ public class Game extends World
     private static int spawnColumn;
     
     public Game(boolean loadSaveFile) throws IOException, InterruptedException {    
+=======
+    private static int level,mana;  // Current level of the game
+    private static Text waveNumber;  // Text displaying the current wave number
+    private static String[] levelFens;  // Array storing FEN strings for each level
+    private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
+    public Game() throws IOException, InterruptedException {    
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
         System.out.println("_____________________________________________________________");  // Displaying a separator line
         // Initializing various flags and variables
@@ -55,6 +63,7 @@ public class Game extends World
         kingDied=false;
         moveNumber = 0;//
         level = 0;
+        mana=10;
         EnemyTargetting.setup();
         // Creating the game grid with Tile objects
         for(int i = 0; i<8; i++)
@@ -260,10 +269,15 @@ public class Game extends World
                             }catch(InterruptedException e2){}
                         }
                     }
+                } else{
+                    if(Wizard.getE() < 100-mana) Wizard.decreaseE(-mana);
+                    else Wizard.setE(100);
                 }
                 keyPressChecked = false;
+            } else{
+                if(Wizard.getE()<=95) Wizard.decreaseE(-15);
             }
-        } 
+        }
         else keyPressChecked = true;
         
         // Handling the end of a wave and progression to the next level
@@ -347,6 +361,7 @@ public class Game extends World
         try {
             out = new FileWriter("saveFile.txt", false);
             output = new PrintWriter(out);
+<<<<<<< HEAD
             
             output.println(Integer.toString(level));
             
@@ -361,6 +376,11 @@ public class Game extends World
             output.println(EnergyBar.getE());
             
             output.println(HPBar.getHP());
+=======
+            output.println(Integer.toString(level));
+            output.println(BoardManager.currentFEN());
+            output.println(BoardManager.getPiecesHP());
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
         } catch (IOException e) {
         } finally {
             out.close();
@@ -375,6 +395,7 @@ public class Game extends World
         kingDied = true;
     }
     
+<<<<<<< HEAD
     
     
     public static void kingCourtingDeath(){
@@ -412,6 +433,26 @@ public class Game extends World
             
             canNewWave = true;
         } catch (IOException e) {}
+=======
+    private static Scanner scanFile;
+    
+    /**
+     * Loads the saved game progress, retrieving the level and FEN string to recreate the game state.
+     *
+     * @return boolean True if loading is successful, otherwise false
+     */
+    public static boolean loadProgress() {
+        try {
+            scanFile = new Scanner(new File("saveFile.txt"));
+            level = Integer.parseInt(scanFile.nextLine());
+            BoardManager.createIncoming(scanFile.nextLine());
+            return false;
+        } catch (IOException e) {
+            return true;
+        } finally {
+            scanFile.close();
+        }
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
     }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){

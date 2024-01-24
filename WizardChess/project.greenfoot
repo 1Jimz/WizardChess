@@ -1,5 +1,10 @@
 #Greenfoot project file
+<<<<<<< HEAD
 class.Game.image=TestBg6.png
+=======
+class.Game.image=TestBg7.png
+class.Spell.image=Blank.png
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 class.Wand.image=Wand.png
 dependency1.from=TitleScreen
 dependency1.to=TextButton
@@ -124,6 +129,7 @@ dependency45.type=UsesDependency
 dependency46.from=Piece
 dependency46.to=BoardManager
 dependency46.type=UsesDependency
+<<<<<<< HEAD
 dependency47.from=Piece
 dependency47.to=Wizard
 dependency47.type=UsesDependency
@@ -132,11 +138,22 @@ dependency48.to=CardManager
 dependency48.type=UsesDependency
 dependency49.from=Card
 dependency49.to=Spell
+=======
+dependency47.from=Card
+dependency47.to=Wizard
+dependency47.type=UsesDependency
+dependency48.from=Card
+dependency48.to=EnergyBar
+dependency48.type=UsesDependency
+dependency49.from=Card
+dependency49.to=SoundManager
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 dependency49.type=UsesDependency
 dependency5.from=TitleScreen
 dependency5.to=Game
 dependency5.type=UsesDependency
 dependency50.from=Card
+<<<<<<< HEAD
 dependency50.to=Wand
 dependency50.type=UsesDependency
 dependency51.from=Card
@@ -165,10 +182,41 @@ dependency58.to=Game
 dependency58.type=UsesDependency
 dependency59.from=Wizard
 dependency59.to=Utility
+=======
+dependency50.to=Game
+dependency50.type=UsesDependency
+dependency51.from=Wizard
+dependency51.to=EnergyBar
+dependency51.type=UsesDependency
+dependency52.from=Wizard
+dependency52.to=HPBar
+dependency52.type=UsesDependency
+dependency53.from=Wizard
+dependency53.to=EndScreen
+dependency53.type=UsesDependency
+dependency54.from=Wizard
+dependency54.to=Tile
+dependency54.type=UsesDependency
+dependency55.from=Wizard
+dependency55.to=Game
+dependency55.type=UsesDependency
+dependency56.from=Wizard
+dependency56.to=Utility
+dependency56.type=UsesDependency
+dependency57.from=Wizard
+dependency57.to=BoardManager
+dependency57.type=UsesDependency
+dependency58.from=Wizard
+dependency58.to=SoundManager
+dependency58.type=UsesDependency
+dependency59.from=Slider
+dependency59.to=Settings
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 dependency59.type=UsesDependency
 dependency6.from=TitleScreen
 dependency6.to=SoundManager
 dependency6.type=UsesDependency
+<<<<<<< HEAD
 dependency60.from=Wizard
 dependency60.to=BoardManager
 dependency60.type=UsesDependency
@@ -198,10 +246,42 @@ dependency68.to=BoardManager
 dependency68.type=UsesDependency
 dependency69.from=CardManager
 dependency69.to=Game
+=======
+dependency60.from=TextButton
+dependency60.to=TextSizeFinder
+dependency60.type=UsesDependency
+dependency61.from=Tutorial
+dependency61.to=TextButton
+dependency61.type=UsesDependency
+dependency62.from=Tutorial
+dependency62.to=TitleScreen
+dependency62.type=UsesDependency
+dependency63.from=Tutorial
+dependency63.to=SoundManager
+dependency63.type=UsesDependency
+dependency64.from=Tile
+dependency64.to=Piece
+dependency64.type=UsesDependency
+dependency65.from=Tile
+dependency65.to=BoardManager
+dependency65.type=UsesDependency
+dependency66.from=CardManager
+dependency66.to=Game
+dependency66.type=UsesDependency
+dependency67.from=EnemyTargetting
+dependency67.to=BoardManager
+dependency67.type=UsesDependency
+dependency68.from=EnemyTargetting
+dependency68.to=Wizard
+dependency68.type=UsesDependency
+dependency69.from=BoardManager
+dependency69.to=Tile
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 dependency69.type=UsesDependency
 dependency7.from=Settings
 dependency7.to=TitleScreen
 dependency7.type=UsesDependency
+<<<<<<< HEAD
 dependency70.from=EnemyTargetting
 dependency70.to=BoardManager
 dependency70.type=UsesDependency
@@ -226,6 +306,20 @@ dependency76.type=UsesDependency
 dependency77.from=BoardManager
 dependency77.to=Wizard
 dependency77.type=UsesDependency
+=======
+dependency70.from=BoardManager
+dependency70.to=Piece
+dependency70.type=UsesDependency
+dependency71.from=BoardManager
+dependency71.to=EnemyTargetting
+dependency71.type=UsesDependency
+dependency72.from=BoardManager
+dependency72.to=Wizard
+dependency72.type=UsesDependency
+dependency73.from=BoardManager
+dependency73.to=Game
+dependency73.type=UsesDependency
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 dependency8.from=Settings
 dependency8.to=Game
 dependency8.type=UsesDependency
@@ -236,9 +330,15 @@ editor.fx.0.height=737
 editor.fx.0.width=814
 editor.fx.0.x=312
 editor.fx.0.y=38
+<<<<<<< HEAD
 height=866
 package.numDependencies=77
 package.numTargets=29
+=======
+height=865
+package.numDependencies=73
+package.numTargets=30
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
 project.charset=windows-1252
 publish.hasSource=false
 publish.locked=true

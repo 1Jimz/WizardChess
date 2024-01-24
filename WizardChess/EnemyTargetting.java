@@ -9,7 +9,10 @@ import java.util.*;
  * @version January 22nd, 2023
  */
 public class EnemyTargetting {
+<<<<<<< HEAD
     
+=======
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
     private static String testFen = "2b1k3/2pp4/8/4pp2/7q/1K6/8/8 b - - 0 1";
     private static Process p;
     private static BufferedReader br;
@@ -48,11 +51,20 @@ public class EnemyTargetting {
      * @throws InterruptedException if the thread is interrupted
      */
     public static BoardManager.Move bestMove(String fen, int depth, int processTime) throws IOException, InterruptedException {
+<<<<<<< HEAD
         bw.write("ucinewgame\n");
         bw.write("position fen " + fen + "\n");
         bw.write("go depth " + depth + " movetime " + processTime + "\n");
         bw.flush();
         BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);
+=======
+        //writing into the stockfish exe
+        bw.write("ucinewgame\n");
+        bw.write("position fen " + fen + "\n");
+        bw.write("go depth " + depth + " movetime " + processTime + "\n");
+        bw.flush();//flushing
+        BoardManager.Move m = new BoardManager.Move(-1, -1, -1, -1, -99);//m initialized with (-1,-1,-1,-1,-99). These values useful debugging.
+>>>>>>> parent of 5cd7f40 (Merge branch 'Jimmy' into Dorsa)
         Thread t = new Thread(new Runnable() {
             public void run() {
                 BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
