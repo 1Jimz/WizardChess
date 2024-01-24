@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * 
  * Main world for the game that is started after the user finishes the title screen
  * 
- * @author Jimmy Zhu, Mekaeel Malik, David Guo, Dorsa Roha
+ * @author Jimmy Zhu, Mekaeel Malik, David Guo, Dorsa Rohani
  * @version January 21st, 2023
  */
 public class Game extends World
