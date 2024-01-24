@@ -22,10 +22,10 @@ public class Wizard extends SuperSmoothMover {
      * Constructor for the Wizard class.
      * Initializes the wizard's initial position, health, and triggers the card animation.
      */
-    public Wizard() {
+    public Wizard(int r, int c) {
         // factoring in the offset of the game board from the rest of the screen
-        h = Game.hPush + 4 * 80;
-        v = Game.vPush + 7 * 80 - 25;
+        h = Game.hPush + c * 80;
+        v = Game.vPush + r * 80 - 25;
         
         // values for where the wizard should be facing
         degrees = 0;
@@ -33,8 +33,8 @@ public class Wizard extends SuperSmoothMover {
         
 
         // starting values for what column and row the wizard is in 
-        r = 7;
-        c = 4;
+        this.r = r;
+        this.c = c;
         
         // sets HP to 100
         HP = 100;
@@ -180,8 +180,8 @@ public class Wizard extends SuperSmoothMover {
      */
     public static void takeDmg(int dmg) {
         SoundManager.playSound("Crunch");
-        HP-=dmg;
-        hpBar.setHP(HP);
+        //HP-=dmg;//need to check for death
+        damaged = true;
     }
     /**
      * Method to handle taking enegy by the wizard.
@@ -289,9 +289,20 @@ public class Wizard extends SuperSmoothMover {
      *
      * @param e Amount of energy to be added.
      */
-    //public static void updateEnBar(int e) {
-    //    if (energyBar != null) energyBar.setE(energyBar.getE() + e);
-    //}
+    private void updateEnBar(int e) {
+        if (energyBar != null) energyBar.setE(energyBar.getE() + e);
+    }
+
+    /**
+     * Update the health points of the wizard.
+     *
+     * @param h Amount of health points to be added.
+     */
+    public void updateHP(int h) {
+        HP = hpBar.getHP() + h;
+        if (hpBar != null) hpBar.setHP(HP);
+    }
+
     /**
      * Highlight the range of the wizard on the game board.
      *

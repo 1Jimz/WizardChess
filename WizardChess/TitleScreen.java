@@ -1,6 +1,79 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.*;
+import java.io.*;
 /**
+ * 
+ * Welcome to WizardChess!
+ * 
+ * We hope you enjoy our turn-based action strategy game inspired by Chess and Shotgun King.
+ * Here you play as a wizard fighting against an entire army with only a few spells in your
+ * arsenal. Will you survive their onslaught and attain victory? Or will you perish as you
+ * slowly get battered until you run out of HP?
+ * 
+ * Program features include:
+ * => Screens (Different Worlds)
+ *   -> Title Screen [Continue based on your last saved game, start a new game, or go to settings]
+ *   -> Settings [Refresh your memory on the controls, change music volume, save your game, or restart]
+ *   -> End Screen(Game Over) [If you perish, a quick summary of your last known statistics will show and you will have the option to return to the main menu]
+ *   -> End Sreeen(You win) [If you sucessfully fend off the wave of enemies, you will be shown your stats and an option to return to the main menu]
+ *   -> Game [Where the main game takes place]
+ *   
+ * => Features
+ *   -> Tutorial [When you start a new game, a quick tutorial will help the player familiarize themselves with their goal and controls]
+ *   -> Spells [Have a variety of different spells with different AOE effects]
+ *   -> Effects [Different spells cause your enemies to suffer in a variety of ways!]
+ *   -> Saving [Go to settings in the top right corner in order to save or restart your game]
+ *   -> Continuing [In the title screen, clicking continue will allow you to pick up where you left off]
+ *   -> Moving & Turns [WASD to move your wizard and ENTER to end your turn in order to recover EP]
+ *   -> Animations [The wizard and pieces jump swiftly and elegantly across the board]
+ *   -> Stockfish [By using Stockfish, the enemy plays... like stockfish]
+ *   -> Music [With music playing in every world, go to the settings in the top left of Game in order to change the volume]
+ *   -> Card Throw [The card has some entertaining physics once discard with G]
+ * 
+ * => Misc.
+ *   -> TextButtons and ImageButtons [Equipped with a click sound effect and a highlight once hovered over]
+ *   -> Faders [For dramatic effect]
+ *   -> Sliders [To change your music volume, go to settings and adjust the king slider]
+ *   
+ * Known Bugs:
+ * => N/A
+ * 
+ * Credit:
+ * => Code
+ *   -> Button and TextSizeFinder classes [Alex Li]
+ * => AI
+ *   -> Stockfish [https://stockfishchess.org/]
+ *   
+ * => Visuals
+ *   -> Title Screen BG from Reddit u/gazozkapagii: [https://www.reddit.com/r/midjourney/comments/10n3tn9/two_gods_are_playing_chess/]
+ *   -> End Screen Win BG
+ *   -> End Screen Loss BG
+ *   -> Card Font [OmegaPC777, https://www.dafont.com/pixeled.fond]
+ *   -> Slider [David Guo]
+ *   -> Hand [https://www.pinterest.ca/pin/tofu-on-twitter--131237776633102727/]
+ *   -> Magic Fire Spell [https://craftpix.net/product/fire-pixel-art-animation-sprites/]
+ *   -> Lightning Spell [https://www.freepik.com/premium-vector/vector-illustration-cute-pixel-art-icon-geek-lightning-element-style-90s-game_29366701.htm]
+ *   -> Tornado Spell [https://stock.adobe.com/br/images/tornado-storm-pixel-art-icon-windstorm-symbol-typhoon-cyclone-and-hurricane-isolated-vector-illustration-on-white-background/445382833]
+ *   -> Explosion GIF from GIPHY: [https://giphy.com/gifs/26BRx71hqRexBe7Wo]
+ *   -> Portal GIF from Tenor: [https://tenor.com/view/wave-hello-hi-greeting-princess-gif-16926051]
+ *   -> Sword Slashing GIF from RealtimeVFX: [https://realtimevfx.com/uploads/default/original/2X/b/b8543008db2b22c1cedee82ed0bcfc37993a23bf.gif]
+ *   -> Explosion Card from Pixel Art Maker: [http://pixelartmaker.com/art/695c3a296d3fc8c]
+ *   -> Water bubbles from Pixel Art Maker: [http://pixelartmaker.com/art/81e6a4cd95fa0fa]
+ *   -> Water bubbles Preview from Dreamstime: [https://thumbs.dreamstime.com/b/pixel-bubble-ball-vector-illustration-pixel-art-pixel-bubble-ball-vector-illustration-pixel-art-221785652.jpg]
+ *   -> Explosion Preview JPG from Vecteezy: [https://static.vecteezy.com/system/resources/previews/020/577/469/original/dynamite-bomb-in-pixel-art-style-vector.jpg]
+ *   
+ * => Music & SFX
+ *   -> Background Title Music: on Spotify: In Love With a Ghost [https://open.spotify.com/track/6Lr6YaV8KW41iD53PgjPr5?si=78b6368444664b33]
+ *   -> Background Game Music 
+ *   -> Win Screen Music [Uncharted - Drake's Fortune: https://open.spotify.com/track/53Lp7OESwvZmD9D4b4fMG6?si=edf971cb78834640] 
+ *   -> Loss Screen Music [The Great Fairy Fountain from The Legend of Zelda: https://open.spotify.com/track/0DrrH6VEMbyjccWKAJKjIP?si=a8659cabbc99435e]
+ *   -> All Sound Effects [Scratch Sound Library]
+ *
+ * 200+ combined hours of game development/design experience!
+ * Hope you enjoy our game.
+ */
+
+ /** 
  * <html>
  * <body>
  * <p><strong>TitleScreen</strong> class extends <em>World</em> and represents the title screen of a game in Greenfoot.</p>
@@ -14,8 +87,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     <li><strong>title</strong> - The title display button.</li>
  * </ul>
  *
- * @author David Guo, Dorsa Rohani
- * @version January 22nd, 2023
+ * @author David Guo
+ * @version 1.1 01/13/2024
  */
 public class TitleScreen extends World
 {
@@ -38,8 +111,7 @@ public class TitleScreen extends World
     //private int actCount;
     private TextButton title;
     /**
-     * <h3>Constructor:</h3>
-     * <p>Initializes the title screen with a specific background, sets up buttons, and configures background music.</p>
+     * Initializes the title screen with a specific background, sets up buttons, and configures background music.</p>
      */
     public TitleScreen()
     {
@@ -54,10 +126,10 @@ public class TitleScreen extends World
         //actCount = 0;
         
         // Add the fade effect
-        addObject(new Fader(false, 10), WIDTH/2, HEIGHT/2);
+        addObject(new Fader(false, 5), WIDTH/2, HEIGHT/2);
         
         // Set bg to background image
-        bg = new GreenfootImage ("titlescreengods.png");
+        bg = new GreenfootImage ("finaltitlescreen.png");
         bg.scale(WIDTH, HEIGHT);
         setBackground(bg);
         
@@ -80,17 +152,10 @@ public class TitleScreen extends World
         music.setVolume(Settings.getMusicVolume());
         
         // Add sound effects to SoundManager
-        SoundManager.addSound(1, "Clock Ticking", "wav");
+        SoundManager.addSound(1, "Click", "wav");
         SoundManager.addSound(6, "Crunch", "wav");
-        SoundManager.addSound(1, "High Whoosh", "wav");
-        
-        // Add the title of the game
-        Text title = new Text(140, "impact", "aswvsdafgsfsdcscs"); // 3rd param does not matter
-        title.changeText("WIZARDCHESS", Color.WHITE);
-        addObject(title, getWidth()/2, getHeight()/4);
-        Text version = new Text(70, "french script mt", "aswvsdafgsfsdcscs"); // 3rd param does not matter
-        version.changeText("beta edition", Color.RED);
-        addObject(version, getWidth()/2+380, getHeight()/4+50);
+        SoundManager.addSound(1, "High Whoosh", "wav", 80);
+        SoundManager.addSound(1, "NoSpellEP", "wav");
     }
 
     /**
@@ -107,28 +172,44 @@ public class TitleScreen extends World
     private void checkClick() throws InterruptedException, java.io.IOException {
         // checks if the player has clicked play and puts them into the game if they did
         if(Greenfoot.mouseClicked(continueButton)){
-            SoundManager.playSound("Clock Ticking");
-            // if player has a saved game:
-            //music.stop();
+            SoundManager.playSound("Click");
+            // if player has a saved game
+            if(saveFilePresent()) {
+                startSavedGame();
+            } else { // if no save file, new game
+                addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
+            }
             
-            
-            // else:
-            addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
         } else if(Greenfoot.mouseClicked(playButton)){
-            SoundManager.playSound("Clock Ticking");
+            SoundManager.playSound("Click");
             addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
-        } //else if(Greenfoot.mouseClicked(tutorialButton)){
-            //addObject(new Tutorial(), WIDTH/2, HEIGHT/2);
-        //} 
-        else if(Greenfoot.mouseClicked(settingsButton)){
-            SoundManager.playSound("Clock Ticking");
+        } else if(Greenfoot.mouseClicked(settingsButton)){
+            SoundManager.playSound("Click");
             Greenfoot.setWorld(new Settings(this));
         }
     }
     
-    public void startGame() throws InterruptedException, java.io.IOException{
+    public void startGame(boolean savedGame) throws InterruptedException, java.io.IOException{
         music.stop();
-        Greenfoot.setWorld(new Game());
+        Greenfoot.setWorld(new Game(savedGame));
+    }
+    
+    public void startSavedGame() throws InterruptedException, java.io.IOException{
+        music.stop();
+        
+        Greenfoot.setWorld(new Game(true));
+    }
+    
+    private static boolean saveFilePresent() {
+        try {
+            Scanner scanFile = new Scanner(new File("saveFile.txt"));
+            scanFile.nextLine();
+            scanFile.nextLine();
+            scanFile.close();
+            return true;
+        } catch(FileNotFoundException e) {
+            return false;
+        }
     }
     
     /**
