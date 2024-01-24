@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=EnergyBar
+comment0.text=\r\n\ The\ EnergyBar\ class\ represents\ the\ energy\ bar\ for\ the\ Wizard\ in\ the\ game.\r\n\ It\ displays\ the\ current\ energy\ level,\ and\ its\ color\ changes\ based\ on\ the\ energy\ level.\r\n\ \r\n\ @author\ Dorsa\ Rohani\r\n\ @version\ January\ 21st,\ 2023\r\n
+comment1.params=e
+comment1.target=EnergyBar(int)
+comment1.text=\r\n\ Constructor\ for\ EnergyBar\ objects.\r\n\ Initializes\ the\ energy\ bar\ with\ the\ specified\ maximum\ energy\ and\ updates\ the\ display.\r\n\ \r\n\ @param\ maxE\ The\ maximum\ energy\ level\ for\ the\ Wizard.\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Empty\ act\ method\ to\ comply\ with\ Greenfoot\ Actor\ requirements.\r\n
+comment3.params=
+comment3.target=int\ getE()
+comment3.text=\r\n\ Retrieves\ the\ current\ energy\ level.\r\n\ \r\n\ @return\ int\ The\ current\ energy\ level.\r\n
+comment4.params=e
+comment4.target=void\ setE(int)
+comment4.text=\r\n\ Sets\ the\ energy\ level\ to\ the\ specified\ value\ and\ updates\ the\ display.\r\n\ \r\n\ @param\ e\ The\ new\ energy\ level.\r\n
+comment5.params=
+comment5.target=void\ update()
+comment5.text=\r\n\ Updates\ the\ energy\ bar's\ display\ based\ on\ the\ current\ energy\ level.\r\n
+numComments=6
