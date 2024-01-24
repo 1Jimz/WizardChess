@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Text
+comment0.text=\r\n\ <h1>Text\ Class</h1>\r\n\ <p>The\ <em>Text</em>\ class\ represents\ text\ that\ can\ be\ displayed\ in\ the\ game.\ It\ allows\ customization\ of\ the\ text's\ size,\ font,\ color,\ and\ content.</p>\r\n\r\n\ <h2>Class\ Attributes\:</h2>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>type\ (int)\:</strong>\ An\ integer\ representing\ the\ type\ of\ text.</li>\r\n\ \ \ \ \ <li><strong>size\ (int)\:</strong>\ The\ size\ of\ the\ text.</li>\r\n\ \ \ \ \ <li><strong>font\ (String)\:</strong>\ The\ font\ style\ of\ the\ text.</li>\r\n\ </ul>\r\n\ \r\n\ @author\ David\ Guo,\ Jimmy\ Zhu\r\n\ @version\ January\ 22nd,\ 2023\r\n
+comment1.params=size\ len\ font\ text\ type
+comment1.target=Text(int,\ int,\ java.lang.String,\ java.lang.String,\ int)
+comment1.text=\r\n\ <h2>Constructors\:</h2>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>Text(int\ size,\ String\ font,\ String\ text,\ int\ type)\:</strong>\ Creates\ a\ text\ with\ the\ specified\ size,\ font,\ text\ content,\ and\ type.</li>\r\n\ \ \ \ \ <li><strong>Text(int\ size,\ String\ font,\ String\ text)\:</strong>\ Creates\ a\ text\ with\ the\ specified\ size,\ font,\ and\ text\ content.</li>\r\n\ \ \ \ \ @param\ len\ \ \ \ \ \ \ \ \ \ \ \ \ Length\ as\ an\ int\ that\ changes\ based\ on\ how\ long\ the\ text\ is\r\n\ </ul>\r\n\r\n
+comment2.params=size\ len\ font\ text
+comment2.target=Text(int,\ int,\ java.lang.String,\ java.lang.String)
+comment2.text=\r\n\ <h3>Text(int\ size,\ String\ font,\ String\ text)</h3>\r\n\ <p>Creates\ a\ text\ with\ the\ specified\ size,\ font,\ and\ text\ content.</p>\r\n\ <p><strong>Parameters\:</strong></p>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>size\ (int)\:</strong>\ The\ size\ of\ the\ text.</li>\r\n\ \ \ \ \ <li><strong>font\ (String)\:</strong>\ The\ font\ style\ of\ the\ text.</li>\r\n\ \ \ \ \ <li><strong>text\ (String)\:</strong>\ The\ text\ content\ of\ the\ text\ object.</li>\r\n\ \ \ \ \ @param\ len\ \ \ \ \ \ \ \ \ \ \ \ \ Length\ as\ an\ int\ that\ changes\ based\ on\ how\ long\ the\ text\ is\r\n\ </ul>\r\n
+comment3.params=size\ font\ text\ type
+comment3.target=Text(int,\ java.lang.String,\ java.lang.String,\ int)
+comment4.params=size\ font\ text
+comment4.target=Text(int,\ java.lang.String,\ java.lang.String)
+comment4.text=\r\n\ <h3>Text(int\ size,\ String\ font,\ String\ text)</h3>\r\n\ <p>Creates\ a\ text\ with\ the\ specified\ size,\ font,\ and\ text\ content.</p>\r\n\ <p><strong>Parameters\:</strong></p>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>size\ (int)\:</strong>\ The\ size\ of\ the\ text.</li>\r\n\ \ \ \ \ <li><strong>font\ (String)\:</strong>\ The\ font\ style\ of\ the\ text.</li>\r\n\ \ \ \ \ <li><strong>text\ (String)\:</strong>\ The\ text\ content\ of\ the\ text\ object.</li>\r\n\ \ \ \ \ @param\ len\ \ \ \ \ \ \ \ \ \ \ \ \ Length\ as\ an\ int\ that\ changes\ based\ on\ how\ long\ the\ text\ is\r\n\ </ul>\r\n
+comment5.params=size\ font\ text\ c
+comment5.target=Text(int,\ java.lang.String,\ java.lang.String,\ greenfoot.Color)
+comment5.text=\r\n\ <h3>Text(int\ size,\ String\ font,\ String\ text)</h3>\r\n\ <p>Creates\ a\ text\ with\ the\ specified\ size,\ font,\ and\ text\ content.</p>\r\n\ <p><strong>Parameters\:</strong></p>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>size\ (int)\:</strong>\ The\ size\ of\ the\ text.</li>\r\n\ \ \ \ \ <li><strong>font\ (String)\:</strong>\ The\ font\ style\ of\ the\ text.</li>\r\n\ \ \ \ \ <li><strong>text\ (String)\:</strong>\ The\ text\ content\ of\ the\ text\ object.</li>\r\n\ \ \ \ \ @param\ len\ \ \ \ \ \ \ \ \ \ \ \ \ Length\ as\ an\ int\ that\ changes\ based\ on\ how\ long\ the\ text\ is\r\n\ </ul>\r\n
+comment6.params=text
+comment6.target=void\ changeText(java.lang.String)
+comment6.text=\r\n\ <h3>changeText(String\ text)</h3>\r\n\ <p>Changes\ the\ text\ content\ of\ the\ text\ object.</p>\r\n\ <p><strong>Parameters\:</strong></p>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>text\ (String)\:</strong>\ The\ new\ text\ content.</li>\r\n\ </ul>\r\n
+comment7.params=text\ c
+comment7.target=void\ changeText(java.lang.String,\ greenfoot.Color)
+comment7.text=\r\n\ <h3>changeText(String\ text,\ Color\ c)</h3>\r\n\ <p>Changes\ the\ text\ content\ and\ color\ of\ the\ text\ object.</p>\r\n\ <p><strong>Parameters\:</strong></p>\r\n\ <ul>\r\n\ \ \ \ \ <li><strong>text\ (String)\:</strong>\ The\ new\ text\ content.</li>\r\n\ \ \ \ \ <li><strong>c\ (Color)\:</strong>\ The\ new\ color\ of\ the\ text.</li>\r\n\ </ul>\r\n
+numComments=8
