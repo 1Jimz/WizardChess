@@ -74,8 +74,8 @@ public class Game extends World
         levelFens[7] = "q3k3/ppp1nppp/2n1p3/2bp4/6b1/3K4/8/8 b - - 0 1";
         
         // Add settings button andd music
-        settingsButton = new ImageButton("settingsimg_2", "settingsimg_3");
-        addObject(settingsButton, 40, 40);
+        settingsButton = new ImageButton("settingbutton",90,90,"settingbutton");
+        addObject(settingsButton, 100, 100);
         
         music = new GreenfootSound("Overgrown_Forest.mp3");
         music.setVolume(Settings.getMusicVolume());
@@ -463,17 +463,21 @@ public class Game extends World
                         EnergyBar eBar=(EnergyBar)a;
                     }catch(ClassCastException e3){
                         try{
-                        Text t=(Text)a;
+                            Text t=(Text)a;
                             }catch(ClassCastException e4){
                                 try{
                                     HPBar hpBar=(HPBar)a;
                                 }catch(ClassCastException e5){ 
+                                    try{
+                                        ImageButton img=(ImageButton)a;
+                                    }catch(ClassCastException e6){
                                     acList.add (new ActorContent (a, a.getX(), a.getY()));
                                 }
                             }
                         }
-            }
-        }   
+                    }
+                }
+            }   
         }
         // Sort the Actor, using the ActorContent comparitor (compares by y coordinate)
         Collections.sort(acList);

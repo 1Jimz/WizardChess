@@ -29,6 +29,7 @@ import java.io.*;
  *   -> Stockfish [By using Stockfish, the enemy plays... like stockfish]
  *   -> Music [With music playing in every world, go to the settings in the top left of Game in order to change the volume]
  *   -> Card Throw [The card has some entertaining physics once discard with G]
+ *   -> Health [The health of the chess pieces is shown by their "U" face shape design! It will decrease as their health decreases to show their health
  * 
  * => Misc.
  *   -> TextButtons and ImageButtons [Equipped with a click sound effect and a highlight once hovered over]
@@ -61,6 +62,7 @@ import java.io.*;
  *   -> Water bubbles from Pixel Art Maker: [http://pixelartmaker.com/art/81e6a4cd95fa0fa]
  *   -> Water bubbles Preview from Dreamstime: [https://thumbs.dreamstime.com/b/pixel-bubble-ball-vector-illustration-pixel-art-pixel-bubble-ball-vector-illustration-pixel-art-221785652.jpg]
  *   -> Explosion Preview JPG from Vecteezy: [https://static.vecteezy.com/system/resources/previews/020/577/469/original/dynamite-bomb-in-pixel-art-style-vector.jpg]
+ *   -> Settings Button: [https://otherworld-legends.fandom.com/wiki/Settings?file=Setting_Main_Icon.png]
  *   
  * => Music & SFX
  *   -> Background Title Music: on Spotify: In Love With a Ghost [https://open.spotify.com/track/6Lr6YaV8KW41iD53PgjPr5?si=78b6368444664b33]
