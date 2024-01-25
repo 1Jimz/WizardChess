@@ -6,18 +6,88 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 /**
- Controls:
- WASD wizard movement(costs EP)
- G dispose card(costs EP)
- Click on card to use(cannot cancel when clicked)
- Enter to end turn
- 
- Not bug list:
- when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
- when it is not wizard's turn and spell can continue to be active.
- Wizard dodge piece
- 
- 
+ /**
+ * 
+ * Welcome to WizardChess!
+ * 
+ * We hope you enjoy our turn-based action strategy game inspired by Chess and Shotgun King.
+ * Here you play as a wizard fighting against an entire army with only a few spells in your
+ * arsenal. Will you survive their onslaught and attain victory? Or will you perish as you
+ * slowly get battered until you run out of HP?
+ * 
+ * Program features include:
+ * => Screens (Different Worlds)
+ *   -> Title Screen [Continue based on your last saved game, start a new game, or go to settings]
+ *   -> Settings [Refresh your memory on the controls, change music volume, save your game, or restart]
+ *   -> End Screen(Game Over) [If you perish, a quick summary of your last known statistics will show and you will have the option to return to the main menu]
+ *   -> End Sreeen(You win) [If you sucessfully fend off the wave of enemies, you will be shown your stats and an option to return to the main menu]
+ *   -> Game [Where the main game takes place]
+ *   
+ * => Features
+ *   -> Tutorial [When you start a new game, a quick tutorial will help the player familiarize themselves with their goal and controls]
+ *   -> Spells [Have a variety of different spells with different AOE effects]
+ *   -> Effects [Different spells cause your enemies to suffer in a variety of ways!]
+ *   -> Saving [Go to settings in the top right corner in order to save or restart your game]
+ *   -> Continuing [In the title screen, clicking continue will allow you to pick up where you left off]
+ *   -> Moving & Turns [WASD to move your wizard and ENTER to end your turn in order to recover EP]
+ *   -> Animations [The wizard and pieces jump swiftly and elegantly across the board]
+ *   -> Stockfish [By using Stockfish, the enemy plays... like stockfish]
+ *   -> Music [With music playing in every world, go to the settings in the top left of Game in order to change the volume]
+ *   -> Card Throw [The card has some entertaining physics once discard with G]
+ * 
+ * => Misc.
+ *   -> TextButtons and ImageButtons [Equipped with a click sound effect and a highlight once hovered over]
+ *   -> Faders [For dramatic effect]
+ *   -> Sliders [To change your music volume, go to settings and adjust the king slider]
+ *   
+ * Known Bugs:
+ * => N/A
+ * 
+ * Credit:
+ * => Code
+ *   -> Button and TextSizeFinder classes [Alex Li]
+ * => AI
+ *   -> Stockfish [https://stockfishchess.org/]
+ *   
+ * => Visuals
+ *   -> Title Screen BG from Reddit u/gazozkapagii: [https://www.reddit.com/r/midjourney/comments/10n3tn9/two_gods_are_playing_chess/]
+ *   -> End Screen Win BG
+ *   -> End Screen Loss BG
+ *   -> Card Font [OmegaPC777, https://www.dafont.com/pixeled.fond]
+ *   -> Slider [David Guo]
+ *   -> Hand [https://www.pinterest.ca/pin/tofu-on-twitter--131237776633102727/]
+ *   -> Magic Fire Spell [https://craftpix.net/product/fire-pixel-art-animation-sprites/]
+ *   -> Lightning Spell [https://www.freepik.com/premium-vector/vector-illustration-cute-pixel-art-icon-geek-lightning-element-style-90s-game_29366701.htm]
+ *   -> Tornado Spell [https://stock.adobe.com/br/images/tornado-storm-pixel-art-icon-windstorm-symbol-typhoon-cyclone-and-hurricane-isolated-vector-illustration-on-white-background/445382833]
+ *   -> Explosion GIF from GIPHY: [https://giphy.com/gifs/26BRx71hqRexBe7Wo]
+ *   -> Portal GIF from Tenor: [https://tenor.com/view/wave-hello-hi-greeting-princess-gif-16926051]
+ *   -> Sword Slashing GIF from RealtimeVFX: [https://realtimevfx.com/uploads/default/original/2X/b/b8543008db2b22c1cedee82ed0bcfc37993a23bf.gif]
+ *   -> Explosion Card from Pixel Art Maker: [http://pixelartmaker.com/art/695c3a296d3fc8c]
+ *   -> Water bubbles from Pixel Art Maker: [http://pixelartmaker.com/art/81e6a4cd95fa0fa]
+ *   -> Water bubbles Preview from Dreamstime: [https://thumbs.dreamstime.com/b/pixel-bubble-ball-vector-illustration-pixel-art-pixel-bubble-ball-vector-illustration-pixel-art-221785652.jpg]
+ *   -> Explosion Preview JPG from Vecteezy: [https://static.vecteezy.com/system/resources/previews/020/577/469/original/dynamite-bomb-in-pixel-art-style-vector.jpg]
+ *   
+ * => Music & SFX
+ *   -> Background Title Music: on Spotify: In Love With a Ghost [https://open.spotify.com/track/6Lr6YaV8KW41iD53PgjPr5?si=78b6368444664b33]
+ *   -> Background Game Music 
+ *   -> Win Screen Music [Uncharted - Drake's Fortune: https://open.spotify.com/track/53Lp7OESwvZmD9D4b4fMG6?si=edf971cb78834640] 
+ *   -> Loss Screen Music [The Great Fairy Fountain from The Legend of Zelda: https://open.spotify.com/track/0DrrH6VEMbyjccWKAJKjIP?si=a8659cabbc99435e]
+ *   -> All Sound Effects [Scratch Sound Library]
+ *
+ * 300+ combined hours of game development/design experience!
+ * Hope you enjoy our game.
+ *Controls:
+ *WASD wizard movement(costs EP)
+ *G dispose card
+ *Click on card to use(cannot cancel when clicked)
+ *Enter to end turn
+ *
+ *Not bug list:
+ *when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
+ *when it is not wizard's turn and spell can continue to be active.
+ *Wizard dodge piece
+ *
+ * 
  * 
  * Main world for the game that is started after the user finishes the title screen
  * 
