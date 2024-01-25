@@ -42,7 +42,7 @@ public class Spell extends SuperSmoothMover {
                 setup(0, "lightning", -6, -56, 100, 100, new int[][]{{-1, -1},{-1, 1},{1, -1},{1, 1}}, 200, 6);
                 break;
             case 6:
-                setup(8, "Heal", -2, -2, 100, 100, new int[][]{{0, 0}}, 50, 100);
+                setup(8, "Heal", -2, -2, 100, 100, new int[][]{{0, 0}}, 50, 1);
                 break;
         }
         
@@ -105,7 +105,8 @@ public class Spell extends SuperSmoothMover {
                             if (type == 6 && Wizard.getHP() <= 90 && t.getR() == Wizard.getR() && t.getC() == Wizard.getC()) {
                                 Wizard.setHeal(true);
                                 playDmgEffect(20);
-                                Wizard.takeDmg(-100);
+                                if(Wizard.getHP()<75) Wizard.setHP(Wizard.getHP()+15);
+                                else Wizard.setHP(100);
                             } else if(Wizard.getHP()>90){
                                 Wizard.setHP(100);
                             }

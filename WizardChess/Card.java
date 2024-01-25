@@ -73,7 +73,7 @@ public class Card extends SuperSmoothMover {
                 break;
             case 6:
                 setImage(new GreenfootImage("healCard.png"));
-                ep=15;
+                ep=10;
                 break;
         }
         // Alternative image assignment: setImage(new GreenfootImage("Testcardfront2.png"));

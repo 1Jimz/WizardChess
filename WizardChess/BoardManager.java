@@ -375,7 +375,7 @@ public class BoardManager
             }
         }
     }
-
+    
     /**
      * Spawn pieces on the board based on the `incoming` array.
      */
