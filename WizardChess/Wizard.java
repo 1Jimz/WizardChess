@@ -60,7 +60,7 @@ public class Wizard extends SuperSmoothMover {
         if (mouse != null) degrees = Utility.bearingDegreesAToB(h, v, mouse.getX(), mouse.getY());
 
         // Handle walking animation and movement
-        if (walking && EP > 0) {
+        if (walking) {
             // if the move phase is starting, lift the wizard up to simulate hopping
             if (++phase <= 3) setLocation(getX(), getY() - 10);
             // if not start moving the wizard in the direction indicated by the walkDirection
@@ -109,7 +109,7 @@ public class Wizard extends SuperSmoothMover {
             // checks if it is the wizards turn and if the square the player wants
             // to move to is empty, if so start walking and change the image of the
             // wizard based on the direction is a spell was not activated
-            if (Game.wizardTurn() && r != 0 && currentBoard[r - 1][c].getOccupyingPiece() == null && Greenfoot.isKeyDown("W")) {
+            if (EP>0&&Game.wizardTurn() && r != 0 && currentBoard[r - 1][c].getOccupyingPiece() == null && Greenfoot.isKeyDown("W")) {
                 walking = true;
                 r--;
                 walkDirection = 0;
@@ -120,7 +120,7 @@ public class Wizard extends SuperSmoothMover {
                 // reduce the energy of the wizard
                 decreaseE(2);
                 movesMade++;
-            } else if (Game.wizardTurn() && c != 0 && currentBoard[r][c - 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("A")) {
+            } else if (EP>0&&Game.wizardTurn() && c != 0 && currentBoard[r][c - 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("A")) {
                 walking = true;
                 c--;
                 walkDirection = 6;
@@ -131,7 +131,7 @@ public class Wizard extends SuperSmoothMover {
                 // reduce the energy of the wizard
                 decreaseE(2);
                 movesMade++;
-            } else if (Game.wizardTurn() && r != 7 && currentBoard[r + 1][c].getOccupyingPiece() == null && Greenfoot.isKeyDown("S")) {
+            } else if (EP>0&&Game.wizardTurn() && r != 7 && currentBoard[r + 1][c].getOccupyingPiece() == null && Greenfoot.isKeyDown("S")) {
                 walking = true;
                 r++;
                 walkDirection = 4;
@@ -142,7 +142,7 @@ public class Wizard extends SuperSmoothMover {
                 // reduce the energy of the wizard
                 decreaseE(2);
                 movesMade++;
-            } else if (Game.wizardTurn() && c != 7 && currentBoard[r][c + 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("D")) {
+            } else if (EP>0&&Game.wizardTurn() && c != 7 && currentBoard[r][c + 1].getOccupyingPiece() == null && Greenfoot.isKeyDown("D")) {
                 walking = true;
                 c++;
                 walkDirection = 2;

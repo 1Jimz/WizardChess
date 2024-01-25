@@ -39,23 +39,23 @@ public class Piece extends SuperSmoothMover {
                 break;
             case 'n':
                 setImage(new GreenfootImage("Piece_n_3.png"));
-                MaxHP = 2 * Game.getWave() + 25;  // Increased base health
+                MaxHP = 1 * Game.getWave() + 25;  // Increased base health
                 break;
             case 'b':
                 setImage(new GreenfootImage("Piece_b_3.png"));
-                MaxHP = 3 * Game.getWave() + 50;  // Increased base health
+                MaxHP = 2 * Game.getWave() + 50;  // Increased base health
                 break;
             case 'r':
                 setImage(new GreenfootImage("Piece_r_3.png"));
-                MaxHP = (int) (4 * Game.getWave()) + 75;  // Slightly more health per wave
+                MaxHP = (int) (2 * Game.getWave()) + 75;  // Slightly more health per wave
                 break;
             case 'q':
                 setImage(new GreenfootImage("Piece_q_3.png"));
-                MaxHP = (int) (5 * Game.getWave()) + 100;  // More health per wave, stronger enemy
+                MaxHP = (int) (3 * Game.getWave()) + 100;  // More health per wave, stronger enemy
                 break;
             case 'k':
                 setImage(new GreenfootImage("Piece_k_3.png"));
-                MaxHP = 6 * Game.getWave() + 125;  // Highest base health, strongest enemy
+                MaxHP = 3 * Game.getWave() + 125;  // Highest base health, strongest enemy
                 break;
         }
         HP = MaxHP;
@@ -80,7 +80,7 @@ public class Piece extends SuperSmoothMover {
             setLocation(getX(), getY() - 4);
             movePhase++;
             if (movePhase == 8){
-            Game.setDelay(60);
+            Game.setDelay(70);
                 BoardManager.allowNextMove();
             }
         } else if (movePhase == 8 && (!Utility.inRangeInclusive(getX(), tH - (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1), tH + (int) Math.ceil(Utility.distance(sH, sV, tH, tV) / 25 + 1))
