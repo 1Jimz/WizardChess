@@ -14,7 +14,10 @@ import java.io.PrintWriter;
  
  Not bug list:
  when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
- when it is not wizard's turn and spell can continue to be active.//maybe make it so have to use spell before next round
+ when it is not wizard's turn and spell can continue to be active.
+ Wizard dodge piece
+ 
+ 
  * 
  * Main world for the game that is started after the user finishes the title screen
  * 
@@ -112,6 +115,7 @@ public class Game extends World
         
         waveNumber = new Text(30,"Arial",Integer.toString(level),greenfoot.Color.WHITE);
         addObject(waveNumber,415,126);  // Displaying the current wave number
+        setPaintOrder(Message.class);
     }
     private static int moveNumber;
 
@@ -292,6 +296,7 @@ public class Game extends World
         
         // Handling the end of the game
         if(level == 8){
+            music.stop();
             Greenfoot.setWorld(new EndScreen(false));  // Transitioning to the end screen
         }
     }

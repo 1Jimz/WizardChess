@@ -49,7 +49,7 @@ public class Card extends SuperSmoothMover {
         switch (type) {
             case 0:
                 setImage(new GreenfootImage("portalCard.png"));
-                ep = 20;
+                ep = 30;
                 break;
             case 1:
                 setImage(new GreenfootImage("explosionCard.png"));
@@ -64,12 +64,12 @@ public class Card extends SuperSmoothMover {
                 ep=15;
                 break;
             case 4:
-                setImage(new GreenfootImage("tornadoCard.png"));
+                setImage(new GreenfootImage("SlashingWindsCard.png"));
                 ep=2;
                 break;
             case 5:
-                setImage(new GreenfootImage("lightningCard.png"));
-                ep=15;
+                setImage(new GreenfootImage("InvisibleforceCard.png"));
+                ep=5;
                 break;
             case 6:
                 setImage(new GreenfootImage("healCard.png"));

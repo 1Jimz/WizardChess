@@ -28,6 +28,7 @@ public class Effects extends Actor
             case 1: imageName = "explosion"; maxImageNumber = 12; break;
             case 2: imageName = "bubble"; maxImageNumber = 12; break;
             case 3: imageName = "slash"; maxImageNumber = 4; break;
+            case 4: imageName = "slash"; maxImageNumber = 4; break;
         }
         timeLeft = maxImageNumber * 10;
         imageNumber = maxImageNumber - 1;

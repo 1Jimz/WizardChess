@@ -156,7 +156,10 @@ public class Wizard extends SuperSmoothMover {
             }
         }
         // set to end screen
-        if(Wizard.getHP()<=0) Greenfoot.setWorld(new EndScreen(true));
+        if(Wizard.getHP()<=0){
+            ((Game)getWorld()).getMusic().stop();
+            Greenfoot.setWorld(new EndScreen(true));
+        }
     }
 
     /**
