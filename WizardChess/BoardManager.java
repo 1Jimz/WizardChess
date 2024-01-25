@@ -174,14 +174,14 @@ public class BoardManager
     /**
      * Print the current state of the game board to the console.
      */
-    public static void printBoard() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++)
+    //public static void printBoard() {
+        //for (int i = 0; i < 8; i++) {
+            //for (int j = 0; j < 8; j++)
                 //prints out the type of the piece if the corresponding location has a piece on it
-                System.out.print(board[i][j].getOccupyingPiece() == null ? "." : board[i][j].getOccupyingPiece().getType());
-            System.out.println();
-        }
-    }
+                //System.out.print(board[i][j].getOccupyingPiece() == null ? "." : board[i][j].getOccupyingPiece().getType());
+            //System.out.println();
+        //}
+    //}
 
     /**
      * Get the tile at the specified row and column indices.
@@ -206,13 +206,7 @@ public class BoardManager
     public static void placeTile(Tile t, int r, int c) {
         board[r][c] = t;
     }
-
-    // Examples of FEN strings for initializing the game state
-    // createIncoming("2b1kq2/2pppp2/8/8/8/4K3/8/8 b - - 0 1");
-    // createIncoming("2brkn2/2pppp2/8/8/8/8/8/4K3 b - - 0 1");
-    // createIncoming("b2qk1rb/1npppp2/8/8/8/8/8/4K3 b - - 0 1");
-    // createIncoming("2bk1b2/4pppp/8/6K1/8/8/8/8 b - - 0 1");
-
+    
     /**
      * Perform the enemy's turn with a given move limit, search depth, and time limit for processing.
      * @param cap Maximum number of moves to take
@@ -256,15 +250,20 @@ public class BoardManager
             // if the amount of moves taken is the max, the function stops here to save time
             if (movesTaken == cap)
                 break;
-
+                
+            //if king is dying then end here and make sure the enemy turn also ends
+            if(Game.isKingGoingToDie()){
+                abnormalEnd = countdown - increment;
+                break;
+            }
             // uses the enemy targetting class to get the current best move from stockfish
             m = EnemyTargetting.bestMove(currentFEN(), depth, processTime);
-
             // checks the moves given to the function by stockfish to avoid repeated moves
-            if (m.reversedMove(pre)) {
+            if (m.getFromR()==-5||m.reversedMove(pre)) {
                 abnormalEnd = countdown - increment;
+                //System.out.println("ASDAFA"+abnormalEnd);
                 incoming = new Piece[8][8];
-                incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.hPush + Wizard.getC() * 80, Game.vPush + Wizard.getR() * 80);
+                incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.getHPush() + Wizard.getC() * 80, Game.getVPush() + Wizard.getR() * 80);//pawn is now incoming. Here to encourage player to move.
                 warn();
                 break;
             }
@@ -279,7 +278,6 @@ public class BoardManager
             } catch (ArrayIndexOutOfBoundsException e) {
                 // catches any ArrayIndexOutOfBoundsException that might occur during the attempt to retrieve the piece from the game board
                 abnormalEnd = countdown - increment + 1;
-                
                 // ends the function immediately
                 return;
             }
@@ -291,6 +289,10 @@ public class BoardManager
             movesTaken++;
             // increments the moves taken counter
         }
+        countdown++;
+        allowNextMove();
+        //System.out.println(abnormalEnd+" "+countdown);
+        //if no move this allows abnormalEnd to take effect
     }
 
     /**
@@ -324,7 +326,6 @@ public class BoardManager
             if (i != 7)
                 sb.append("/");
         }
-
         sb.append(" b - - 0 1");
         return sb.toString();
     }
@@ -412,7 +413,7 @@ public class BoardManager
             for (int k = 0, len = line.length(); k < len; k++) {
                 if (Character.isDigit(line.charAt(k)))j += (line.charAt(k) - '0');
                 else if (line.charAt(k) != 'K') {
-                    incoming[i][j] = new Piece(line.charAt(k), Game.hPush + j++ * 80, Game.vPush + i * 80);
+                    incoming[i][j] = new Piece(line.charAt(k), Game.getHPush() + j++ * 80, Game.getVPush() + i * 80);
                     countdown++;
                 }
             }
@@ -484,17 +485,11 @@ public class BoardManager
      * The method is responsible for managing the countdown and abnormal end scenarios.
      */
     public static void allowNextMove() {
-        // Uncomment the line below for debugging purposes
-        // System.out.println("BVBBfwafwawffawfBBB");
-
+        //when countdown reaches abnormalEnd the countdown will immediately jump to -1 which ends the current enemy turn
         if (--countdown == abnormalEnd) {
-            // Uncomment the line below for debugging purposes
-            // System.out.println("BVBBBBB");
             countdown = -1;
             abnormalEnd = -1;
         }
-        // Uncomment the line below for debugging purposes
-        // System.out.println("fwaafwwffa" + countdown + " " + abnormalEnd);
     }
 
     /**

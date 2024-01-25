@@ -29,21 +29,22 @@ public class Game extends World
     private static Wizard wizard;  // Reference to the Wizard object
     private HPBar hpBar;  // Health bar for the Wizard
     private static int hpBarValue;
-    private EnergyBar energyBar;  // Energy bar for the Wizard
     private static int energyBarValue;
-    private static int level;  // Current level of the game
+    private EnergyBar energyBar;  // Energy bar for the Wizard
+    private static int level, delay;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
-    private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
+    private static boolean canNewWave,kingDied,kingGoingToDie;  // Flags for controlling wave progression and king status   
     private static ImageButton settingsButton; // Settings button
     private static GreenfootSound music; // Game Music
-    
+    private static Scanner scanFile;
+    private static FileWriter out;
+    private static PrintWriter output;
     private static int spawnRow; // spawn location for the wizard
     private static int spawnColumn;
     
     public Game(boolean loadSaveFile) throws IOException, InterruptedException {    
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
-        System.out.println("_____________________________________________________________");  // Displaying a separator line
         // Initializing various flags and variables
         throwingCard=false;
         pickCard=false;
@@ -52,6 +53,7 @@ public class Game extends World
         enemyMoving = false;
         keyPressChecked = true;
         kingDied=false;
+        kingGoingToDie=false;
         moveNumber = 0;//
         level = 0;
         EnemyTargetting.setup();
@@ -75,7 +77,7 @@ public class Game extends World
         settingsButton = new ImageButton("settingsimg_2", "settingsimg_3");
         addObject(settingsButton, 40, 40);
         
-        music = new GreenfootSound("greatfairyfountain.mp3");
+        music = new GreenfootSound("Overgrown_Forest.mp3");
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
         
@@ -127,6 +129,24 @@ public class Game extends World
      */
     public static int moveCount() {
         return moveNumber;
+    }
+    
+    /**
+     * Returns the hPush.
+     *
+     * @return int hPush
+     */
+    public static int getHPush() {
+        return hPush;
+    }
+    
+    /**
+     * Returns the vPush.
+     *
+     * @return int vPush
+     */
+    public static int getVPush() {
+        return vPush;
     }
     
     /**
@@ -224,14 +244,12 @@ public class Game extends World
         }
         
         // Checking for player input or enemy turn trigger
-        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
-            if(keyPressChecked) {
+        if(delay>0)delay--;
+        if(delay==0&&(wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
+            if(keyPressChecked||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
                 nextMove();
                 enemyMoving = false;
-                
                 if(!wizardTurn()) {
-                    System.out.println("SNAO"+" "+BoardManager.isWarned());
-                    
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
                         BoardManager.unwarn();
@@ -245,9 +263,10 @@ public class Game extends World
                         else{
                             try{
                                 try{
-                                    if(!enemyMoving) {
+                                    if(!enemyMoving&&!kingGoingToDie) {
                                         enemyMoving = true;
-                                        BoardManager.enemyTurn(6,1000,1);
+                                        BoardManager.enemyTurn(6,2,50);
+                                        if(Wizard.getE()<=85) Wizard.decreaseE(-15);
                                     }
                                 }catch(IOException e1){}
                             }catch(InterruptedException e2){}
@@ -268,6 +287,7 @@ public class Game extends World
             nextMove();
             canNewWave=false;
             kingDied=false;
+            kingGoingToDie=false;
         } 
         
         // Handling the end of the game
@@ -328,8 +348,8 @@ public class Game extends World
         waveNumber.changeText(Integer.toString(level), Color.WHITE);
     }
     
-    private static FileWriter out;
-    private static PrintWriter output;
+    //private static FileWriter out;
+    //private static PrintWriter output;
     
     /**
      * Saves the current game progress, including the level, current FEN string, and pieces' HP.
@@ -368,7 +388,9 @@ public class Game extends World
         kingDied = true;
     }
     
-    private static Scanner scanFile;
+    public static void kingCourtingDeath(){
+        kingGoingToDie=true;
+    }
     
     /**
      * Loads the saved game progress, retrieving the level, FEN string, and piece hp to recreate the game state.
@@ -401,6 +423,31 @@ public class Game extends World
             canNewWave = true;
         } catch (IOException e) {}
     }
+    public static boolean isKingGoingToDie(){
+        return kingGoingToDie;
+    }
+    public static void setDelay(int d){
+        delay=d;
+    }
+    // private static Scanner scanFile;
+    
+    // /**
+     // * Loads the saved game progress, retrieving the level and FEN string to recreate the game state.
+     // *
+     // * @return boolean True if loading is successful, otherwise false
+     // */
+    // public static boolean loadProgress() {
+        // try {
+            // scanFile = new Scanner(new File("saveFile.txt"));
+            // level = Integer.parseInt(scanFile.nextLine());
+            // BoardManager.createIncoming(scanFile.nextLine());
+            // return false;
+        // } catch (IOException e) {
+            // return true;
+        // } finally {
+            // scanFile.close();
+        // }
+    // }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
         ArrayList<ActorContent> acList = new ArrayList<ActorContent>();

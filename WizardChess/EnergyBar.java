@@ -8,7 +8,7 @@ import greenfoot.*;
  * @version January 21st, 2023
  */
 public class EnergyBar extends Actor {
-    private static int e, maxE, barWidth, barHeight; 
+    private static int e, maxE=100, barWidth, barHeight; 
     private Color fullEnergy, mediumEnergy, lowEnergy;
 
     /**
@@ -17,9 +17,9 @@ public class EnergyBar extends Actor {
      * 
      * @param maxE The maximum energy level for the Wizard.
      */
-    public EnergyBar(int maxE) {
-        this.maxE = maxE;
-        this.e = maxE;
+    public EnergyBar(int e) {
+        //this.maxE = maxE;
+        this.e = e;
         barWidth = 250;
         barHeight = 20; 
         fullEnergy = new Color(0, 0, 255, 255);

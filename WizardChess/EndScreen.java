@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.*;
 /**
  * <html>
  * <body>
@@ -13,7 +13,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *     <li><strong>restartButton</strong> - A button that restarts the game when clicked.</li>
  * </ul>
  *
- * @author David Guo
+ * @author David Guo, Dorsa Rohani
  * @version January 22nd, 2023
  */
 public class EndScreen extends World
@@ -22,8 +22,17 @@ public class EndScreen extends World
     private GreenfootImage bg;
     // Sound for the possible endings
     private GreenfootSound music;
+    // Text for endings
+    private Text title;
     // Play again button
     private TextButton restartButton;
+    // Act count and game over storage
+    private boolean gameOver;
+    private int actCount;
+    // For stats
+    private ArrayList<Text> statNames;
+    private ArrayList<Text> stats;
+    private int statIndex;
     /**
      * <h3>Constructor:</h3>
      * <p>Initializes the end screen with different backgrounds and music based on the game outcome, and sets up a restart button.</p>
@@ -35,24 +44,48 @@ public class EndScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1200, 740, 1); 
+        // Fader transition
+        setPaintOrder(Fader.class, Text.class);
+        addObject(new Fader(false, 2, Color.BLACK), getWidth()/2, getHeight()/2);
         // Create new buttons for the variables
         restartButton = new TextButton("MAIN MENU", 60, 255, 255, 255, 234, 122, 67);
         // Add buttons to the world
-        addObject(restartButton, 1200/2, 740/4*3);
+        addObject(restartButton, 1200/2, 740/16*15);
+        
+        // Act count & game over
+        this.gameOver = gameOver;
+        actCount = 0;
         
         // set background image and music
         if(gameOver){
-            bg = new GreenfootImage ("gameoverimg.png");
+            bg = new GreenfootImage ("losescreen.png");
+            bg.scale(1200, 740);
             music = new GreenfootSound("greatfairyfountain.mp3");
-            showStats(false);
+            Text title = new Text(140, 6, "impact", "", 5); // 3rd param does not matter
         } else {
-            bg = new GreenfootImage ("endwizardblur.png");
-            music = new GreenfootSound("greatfairyfountain.mp3");
-            showStats(true);
+            bg = new GreenfootImage ("winscreen.png");
+            bg.scale(1200, 740);
+            music = new GreenfootSound("uncharted.mp3");
+            Text title = new Text(140, 5, "impact", ""); // 3rd param does not matter
         }
         setBackground(bg);
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
+        
+        // Stats
+        statNames = new ArrayList<Text>();
+        statNames.add(new Text(52, "Arial", "HP Remaining:", Color.WHITE));
+        statNames.add(new Text(52, "Arial", "EP Remaining:", Color.WHITE));
+        statNames.add(new Text(52, "Arial", "# Moves Made:", Color.WHITE));
+        statNames.add(new Text(52, "Arial", "# Cards Used:", Color.WHITE));
+        
+        stats = new ArrayList<Text>();
+        stats.add(new Text(52, "Arial", String.valueOf(Math.max(0, HPBar.getHP())), Color.WHITE));
+        stats.add(new Text(52, "Arial", String.valueOf(Math.max(0, EnergyBar.getE())), Color.WHITE));
+        stats.add(new Text(52, "Arial", String.valueOf(Wizard.getMovesMade()), Color.WHITE));
+        stats.add(new Text(52, "Arial", String.valueOf(Card.getNumCardsUsed()), Color.WHITE));
+
+        statIndex = 0;
     }
     
     /**
@@ -67,10 +100,28 @@ public class EndScreen extends World
             ts.started(); // start the title screen music
             Greenfoot.setWorld(ts); // set world to title screen
         }
+        showStats();
+        actCount++;
     }
     
-    private void showStats(boolean win){
-        
+    private void showStats(){
+        int iStatDelay = 80;
+        int statDelay = 60;
+        int xPos = 0;
+        if(gameOver)xPos = 300;
+        else xPos = 750;
+        if(actCount > iStatDelay && actCount % statDelay == 0){
+            GreenfootImage img = new GreenfootImage(600, 400);
+            img.setColor(Color.WHITE);
+            img.fill();
+            //addObject(new ImageButton(img), xPos+100, 400);
+            if(statIndex < stats.size()){
+                //Text temp = statNames.get(statIndex).changeText();
+                addObject(statNames.get(statIndex), xPos, statIndex*80+300);
+                addObject(stats.get(statIndex), xPos+420, statIndex*80+300);
+                statIndex++;
+            }
+        }
     }
     
     /**
