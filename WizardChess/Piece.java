@@ -39,23 +39,23 @@ public class Piece extends SuperSmoothMover {
                 break;
             case 'n':
                 setImage(new GreenfootImage("Piece_n_3.png"));
-                MaxHP = 1 * Game.getWave() + 25;  // Increased base health
+                MaxHP = 1 * Game.getWave() + 15;  // Increased base health
                 break;
             case 'b':
                 setImage(new GreenfootImage("Piece_b_3.png"));
-                MaxHP = 2 * Game.getWave() + 50;  // Increased base health
+                MaxHP = 2 * Game.getWave() + 20;  // Increased base health
                 break;
             case 'r':
                 setImage(new GreenfootImage("Piece_r_3.png"));
-                MaxHP = (int) (2 * Game.getWave()) + 75;  // Slightly more health per wave
+                MaxHP = (int) (2 * Game.getWave()) + 25;  // Slightly more health per wave
                 break;
             case 'q':
                 setImage(new GreenfootImage("Piece_q_3.png"));
-                MaxHP = (int) (3 * Game.getWave()) + 100;  // More health per wave, stronger enemy
+                MaxHP = (int) (3 * Game.getWave()) + 30;  // More health per wave, stronger enemy
                 break;
             case 'k':
                 setImage(new GreenfootImage("Piece_k_3.png"));
-                MaxHP = 3 * Game.getWave() + 125;  // Highest base health, strongest enemy
+                MaxHP = 3 * Game.getWave() + 40;  // Highest base health, strongest enemy
                 break;
         }
         HP = MaxHP;
