@@ -368,7 +368,8 @@ public class BoardManager
                 if (tile.getOccupyingPiece() != null) {
                     // sets the hp of the piece to the string value converted into an int
                     tile.getOccupyingPiece().setHP(Integer.parseInt(piecesHPArray[i]));
-                    
+                    tile.getOccupyingPiece().setImage(new GreenfootImage("Piece_" + tile.getOccupyingPiece().getType() + "_" + Math.max((int) Math.ceil((tile.getOccupyingPiece().getHP() / (double) tile.getOccupyingPiece().getMaxHP()) * 3), 0) + ".png"));
+        
                     // moves onto the next piece hp stored within the array
                     i++;
                 }

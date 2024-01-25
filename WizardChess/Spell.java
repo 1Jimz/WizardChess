@@ -21,7 +21,7 @@ public class Spell extends SuperSmoothMover {
         this.type = type;
         switch (type) {
             case 0:
-                setup(0, "portalPreview", -6, -56, 70, 145, new int[][]{{0, 0}}, 200, 2);
+                setup(0, "portalPreview", -6, -56, 70, 145, new int[][]{{0, 0}}, 200, 30);
                 break;
             case 1:
                 setup(0, "explosionPreview", -6, -56, 70, 145,
@@ -102,12 +102,11 @@ public class Spell extends SuperSmoothMover {
                                 getWorld().addObject(new Effects(type), t.getOccupyingPiece().getX(),
                                         t.getOccupyingPiece().getY());
                             }
-                            if (type == 6 && Wizard.getHP() <= 90 && t.getR() == Wizard.getR() && t.getC() == Wizard.getC()) {
+                            if (type == 6 && Wizard.getHP() < 75 && t.getR() == Wizard.getR() && t.getC() == Wizard.getC()) {
                                 Wizard.setHeal(true);
                                 playDmgEffect(20);
-                                if(Wizard.getHP()<75) Wizard.setHP(Wizard.getHP()+15);
-                                else Wizard.setHP(100);
-                            } else if(Wizard.getHP()>90){
+                                Wizard.setHP(Wizard.getHP()+15);
+                            } else if(Wizard.getHP()>=75){
                                 Wizard.setHP(100);
                             }
                         }
