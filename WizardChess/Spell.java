@@ -104,8 +104,8 @@ public class Spell extends SuperSmoothMover {
                             }
                             if (type == 6 && Wizard.getHP() <= 90 && t.getR() == Wizard.getR() && t.getC() == Wizard.getC()) {
                                 Wizard.setHeal(true);
-                                playDmgEffect(10);
-                                Wizard.takeDmg(-200);
+                                playDmgEffect(20);
+                                Wizard.takeDmg(-100);
                             } else if(Wizard.getHP()>90){
                                 Wizard.setHP(100);
                             }

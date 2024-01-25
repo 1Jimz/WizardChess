@@ -143,9 +143,12 @@ public class TitleScreen extends World
         
         // Add buttons to the world
         int xOffset = 0;
-        addObject(continueButton, WIDTH/2+xOffset, 625);
-        addObject(playButton, WIDTH/2+xOffset, 665);
-        addObject(settingsButton, WIDTH/2+xOffset, 705);
+        //addObject(continueButton, WIDTH/2+xOffset, 625);
+        //addObject(playButton, WIDTH/2+xOffset, 665);
+        //addObject(settingsButton, WIDTH/2+xOffset, 705);
+        addObject(continueButton, 330, 704);
+        addObject(playButton, 630, 704);
+        addObject(settingsButton, 930, 704);
         
         // Assign the variable to the sound file name in folder & adjust volume
         music = new GreenfootSound("nemusplace.mp3");
