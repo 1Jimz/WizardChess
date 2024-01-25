@@ -239,15 +239,6 @@ public class Wizard extends SuperSmoothMover {
         return EP;
     }
     /**
-     * Set the healing status of the wizard.
-     *
-     * @param h Boolean indicating whether the wizard is healing.
-     */
-    public static void setHeal(boolean h) {
-        heal = h;
-    }
-
-    /**
      * Get the current horizontal position of the wizard.
      *
      * @return The horizontal position.
