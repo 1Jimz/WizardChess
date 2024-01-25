@@ -45,7 +45,6 @@ public class Game extends World
     
     public Game(boolean loadSaveFile) throws IOException, InterruptedException {    
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
-        System.out.println("_____________________________________________________________");  // Displaying a separator line
         // Initializing various flags and variables
         throwingCard=false;
         pickCard=false;
@@ -130,6 +129,24 @@ public class Game extends World
      */
     public static int moveCount() {
         return moveNumber;
+    }
+    
+    /**
+     * Returns the hPush.
+     *
+     * @return int hPush
+     */
+    public static int getHPush() {
+        return hPush;
+    }
+    
+    /**
+     * Returns the vPush.
+     *
+     * @return int vPush
+     */
+    public static int getVPush() {
+        return vPush;
     }
     
     /**

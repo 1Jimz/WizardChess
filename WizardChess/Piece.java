@@ -219,7 +219,7 @@ public class Piece extends SuperSmoothMover {
      * Promote a pawn to a queen.
      */
     public void promote() {
-        System.out.println(tV + " " + tH + " promote");
+        //System.out.println(tV + " " + tH + " promote");
         if (type != 'p')
             return;
         type = 'q';

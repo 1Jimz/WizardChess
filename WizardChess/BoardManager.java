@@ -174,14 +174,14 @@ public class BoardManager
     /**
      * Print the current state of the game board to the console.
      */
-    public static void printBoard() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++)
+    //public static void printBoard() {
+        //for (int i = 0; i < 8; i++) {
+            //for (int j = 0; j < 8; j++)
                 //prints out the type of the piece if the corresponding location has a piece on it
-                System.out.print(board[i][j].getOccupyingPiece() == null ? "." : board[i][j].getOccupyingPiece().getType());
-            System.out.println();
-        }
-    }
+                //System.out.print(board[i][j].getOccupyingPiece() == null ? "." : board[i][j].getOccupyingPiece().getType());
+            //System.out.println();
+        //}
+    //}
 
     /**
      * Get the tile at the specified row and column indices.
@@ -261,9 +261,9 @@ public class BoardManager
             // checks the moves given to the function by stockfish to avoid repeated moves
             if (m.getFromR()==-5||m.reversedMove(pre)) {
                 abnormalEnd = countdown - increment;
-                System.out.println("ASDAFA"+abnormalEnd);
+                //System.out.println("ASDAFA"+abnormalEnd);
                 incoming = new Piece[8][8];
-                incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.hPush + Wizard.getC() * 80, Game.vPush + Wizard.getR() * 80);//pawn is now incoming. Here to encourage player to move.
+                incoming[Wizard.getR()][Wizard.getC()] = new Piece('p', Game.getHPush() + Wizard.getC() * 80, Game.getVPush() + Wizard.getR() * 80);//pawn is now incoming. Here to encourage player to move.
                 warn();
                 break;
             }
@@ -291,7 +291,7 @@ public class BoardManager
         }
         countdown++;
         allowNextMove();
-        System.out.println(abnormalEnd+" "+countdown);
+        //System.out.println(abnormalEnd+" "+countdown);
         //if no move this allows abnormalEnd to take effect
     }
 
@@ -413,7 +413,7 @@ public class BoardManager
             for (int k = 0, len = line.length(); k < len; k++) {
                 if (Character.isDigit(line.charAt(k)))j += (line.charAt(k) - '0');
                 else if (line.charAt(k) != 'K') {
-                    incoming[i][j] = new Piece(line.charAt(k), Game.hPush + j++ * 80, Game.vPush + i * 80);
+                    incoming[i][j] = new Piece(line.charAt(k), Game.getHPush() + j++ * 80, Game.getVPush() + i * 80);
                     countdown++;
                 }
             }
