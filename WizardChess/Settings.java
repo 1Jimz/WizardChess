@@ -162,11 +162,28 @@ public class Settings extends World {
                 SoundManager.playSound("Click");
                 Greenfoot.setWorld(gm);
             } else if(Greenfoot.mouseClicked(saveButton)){
-                SoundManager.playSound("Click");
-                try{
-                    Game.saveProgress();
+                boolean piecesOnBoard=false;
+                Tile[][] board = BoardManager.getBoard();
+                out:{
+                    for(Tile[] t : board){
+                        for(Tile ti : t)
+                            if(ti.getOccupyingPiece()!=null){
+                                piecesOnBoard=true;
+                                break out;
+                            }
+                    }
                 }
-                catch (java.io.IOException ioe){}
+                if(piecesOnBoard){
+                    SoundManager.playSound("Click");
+                    try{
+                        Game.saveProgress();
+                    }
+                    catch (java.io.IOException ioe){}
+                }
+                else{
+                    SoundManager.playSound("Click");
+                    addObject(new Message("Can't save because no pieces on board", Color.RED), saveButton.getX(), saveButton.getY());
+                }
             } else if(Greenfoot.mouseClicked(restartButton)){
                 SoundManager.playSound("Click");
                 gm.getMusic().stop();
