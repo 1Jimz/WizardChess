@@ -32,6 +32,7 @@ public class Settings extends World {
     // the settings buttons
     private TextButton backButton;
     private TextButton saveButton;
+    private TextButton restartButton;
     
     // text value
     private Text[] texts;
@@ -42,7 +43,10 @@ public class Settings extends World {
     public Settings(TitleScreen ts) {    
         super(1200, 740, 1);
         
-        //setBackground("GameBg.png");
+        GreenfootImage bg = new GreenfootImage("settingsbg.png");
+        bg.scale(1200, 740);
+        setBackground(bg);
+        
         this.ts = ts;
         prevGame = false;
         
@@ -53,13 +57,13 @@ public class Settings extends World {
         
         // initialize the sliders
         Slider sliders[] = {
-            new Slider(1, 698, 831, 0, 100, musicVolume),
+            new Slider(1, 970, 1050, 0, 100, musicVolume),
             //new Slider(2, 698, 831, 0, 100, sfxVolume)
         };
         // add the sliders / buttons to world
         addObject(sliders[0], calculateSliderXPosition(sliders[0], musicVolume), 269);
         //addObject(sliders[1], calculateSliderXPosition(sliders[1], sfxVolume), 312);
-        addObject(saveButton, 900, 362);
+        addObject(saveButton, 850, 362);
         
         //initialize text
         texts = new Text[]{
@@ -67,10 +71,10 @@ public class Settings extends World {
             //new Text(12, "Arial", String.valueOf(sfxVolume))
         };
         //add Text
-        addObject(texts[0], 893, 269);
+        addObject(texts[0], 1150, 269);
         //addObject(texts[1], 893, 312);
         
-        addObject(new Text(30, 8, "calibri", "MUSIC VOLUME"), 400, 275);
+        addObject(new Text(25, 8, "calibri", "MUSIC VOLUME"), 830, 275);
         //addObject(new Text(30, "calibri", "SFX VOLUME"), 400, 325);
         
         // Initialize act count
@@ -80,24 +84,29 @@ public class Settings extends World {
     public Settings(Game gm) {    
         super(1200, 740, 1);
         
-        //setBackground("GameBg.png");
+        GreenfootImage bg = new GreenfootImage("settingsbg.png");
+        bg.scale(1200, 740);
+        setBackground(bg);
+        
         this.gm = gm;
         prevGame = true;
         
         // back button
         backButton = new TextButton("BACK", 60, 55, 255, 255, 255, 20, 147);
         saveButton = new TextButton("SAVE", 20, 55, 255, 255, 255, 20, 147);
+        restartButton = new TextButton("RESTART", 20, 55, 255, 255, 255, 20, 147);
         addObject(backButton, 600, 700);
         
         // initialize the sliders
         Slider sliders[] = {
-            new Slider(1, 698, 831, 0, 100, musicVolume),
+            new Slider(1, 970, 1050, 0, 100, musicVolume),
             //new Slider(2, 698, 831, 0, 100, sfxVolume)
         };
         // add the sliders / buttons to world
         addObject(sliders[0], calculateSliderXPosition(sliders[0], musicVolume), 269);
         //addObject(sliders[1], calculateSliderXPosition(sliders[1], sfxVolume), 312);
-        addObject(saveButton, 900, 362);
+        addObject(saveButton, 850, 360);
+        addObject(restartButton, 970, 360);
         
         //initialize text
         texts = new Text[]{
@@ -105,10 +114,10 @@ public class Settings extends World {
             new Text(12, "Arial", String.valueOf(sfxVolume))
         };
         //add Text
-        addObject(texts[0], 893, 269);
+        addObject(texts[0], 1150, 269);
         //addObject(texts[1], 893, 312);
         
-        addObject(new Text(30, 8, "calibri", "MUSIC VOLUME"), 400, 275);
+        addObject(new Text(30, 8, "calibri", "MUSIC VOLUME"), 830, 275);
         //addObject(new Text(30, "calibri", "SFX VOLUME"), 400, 325);
         
         // Initialize act count
@@ -153,11 +162,34 @@ public class Settings extends World {
                 SoundManager.playSound("Click");
                 Greenfoot.setWorld(gm);
             } else if(Greenfoot.mouseClicked(saveButton)){
-                SoundManager.playSound("Click");
-                try{
-                    Game.saveProgress();
+                boolean piecesOnBoard=false;
+                Tile[][] board = BoardManager.getBoard();
+                out:{
+                    for(Tile[] t : board){
+                        for(Tile ti : t)
+                            if(ti.getOccupyingPiece()!=null){
+                                piecesOnBoard=true;
+                                break out;
+                            }
+                    }
                 }
-                catch (java.io.IOException ioe){}
+                if(piecesOnBoard){
+                    SoundManager.playSound("Click");
+                    try{
+                        Game.saveProgress();
+                    }
+                    catch (java.io.IOException ioe){}
+                }
+                else{
+                    SoundManager.playSound("Click");
+                    addObject(new Message("Can't save because no pieces on board", Color.RED), saveButton.getX(), saveButton.getY());
+                }
+            } else if(Greenfoot.mouseClicked(restartButton)){
+                SoundManager.playSound("Click");
+                gm.getMusic().stop();
+                TitleScreen ts = new TitleScreen();
+                ts.started();
+                Greenfoot.setWorld(ts);
             }
             
             // To update settings

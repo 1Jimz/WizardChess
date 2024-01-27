@@ -8,7 +8,7 @@ import greenfoot.*;
  * @version January 22nd, 2023
  */
 public class HPBar extends Actor {
-    private int maxHp, barWidth, barHeight; 
+    private int maxHp=100, barWidth, barHeight; 
     private static int hp;
     private Color good, warning, danger;  // Color when HP is low (red)
 
@@ -18,9 +18,9 @@ public class HPBar extends Actor {
      * 
      * @param maxHp The maximum health for the Wizard.
      */
-    public HPBar(int maxHp) {
-        this.maxHp = maxHp;
-        this.hp = maxHp;
+    public HPBar(int hp) {
+        //this.maxHp = n;
+        this.hp = hp;
         barWidth = 250;
         barHeight = 20; 
         good = new Color(0, 255, 0);

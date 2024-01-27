@@ -6,15 +6,88 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 /**
- Controls:
- WASD wizard movement(costs EP)
- G dispose card(costs EP)
- Click on card to use(cannot cancel when clicked)
- Enter to end turn
- 
- Not bug list:
- when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
- when it is not wizard's turn and spell can continue to be active.//maybe make it so have to use spell before next round
+ /**
+ * 
+ * Welcome to WizardChess!
+ * 
+ * We hope you enjoy our turn-based action strategy game inspired by Chess and Shotgun King.
+ * Here you play as a wizard fighting against an entire army with only a few spells in your
+ * arsenal. Will you survive their onslaught and attain victory? Or will you perish as you
+ * slowly get battered until you run out of HP?
+ * 
+ * Program features include:
+ * => Screens (Different Worlds)
+ *   -> Title Screen [Continue based on your last saved game, start a new game, or go to settings]
+ *   -> Settings [Refresh your memory on the controls, change music volume, save your game, or restart]
+ *   -> End Screen(Game Over) [If you perish, a quick summary of your last known statistics will show and you will have the option to return to the main menu]
+ *   -> End Sreeen(You win) [If you sucessfully fend off the wave of enemies, you will be shown your stats and an option to return to the main menu]
+ *   -> Game [Where the main game takes place]
+ *   
+ * => Features
+ *   -> Tutorial [When you start a new game, a quick tutorial will help the player familiarize themselves with their goal and controls]
+ *   -> Spells [Have a variety of different spells with different AOE effects]
+ *   -> Effects [Different spells cause your enemies to suffer in a variety of ways!]
+ *   -> Saving [Go to settings in the top right corner in order to save or restart your game]
+ *   -> Continuing [In the title screen, clicking continue will allow you to pick up where you left off]
+ *   -> Moving & Turns [WASD to move your wizard and ENTER to end your turn in order to recover EP]
+ *   -> Animations [The wizard and pieces jump swiftly and elegantly across the board]
+ *   -> Stockfish [By using Stockfish, the enemy plays... like stockfish]
+ *   -> Music [With music playing in every world, go to the settings in the top left of Game in order to change the volume]
+ *   -> Card Throw [The card has some entertaining physics once discard with G]
+ * 
+ * => Misc.
+ *   -> TextButtons and ImageButtons [Equipped with a click sound effect and a highlight once hovered over]
+ *   -> Faders [For dramatic effect]
+ *   -> Sliders [To change your music volume, go to settings and adjust the king slider]
+ *   
+ * Known Bugs:
+ * => N/A
+ * 
+ * Credit:
+ * => Code
+ *   -> Button and TextSizeFinder classes [Alex Li]
+ * => AI
+ *   -> Stockfish [https://stockfishchess.org/]
+ *   
+ * => Visuals
+ *   -> Title Screen BG from Reddit u/gazozkapagii: [https://www.reddit.com/r/midjourney/comments/10n3tn9/two_gods_are_playing_chess/]
+ *   -> End Screen Win BG
+ *   -> End Screen Loss BG
+ *   -> Card Font [OmegaPC777, https://www.dafont.com/pixeled.fond]
+ *   -> Slider [David Guo]
+ *   -> Hand [https://www.pinterest.ca/pin/tofu-on-twitter--131237776633102727/]
+ *   -> Magic Fire Spell [https://craftpix.net/product/fire-pixel-art-animation-sprites/]
+ *   -> Lightning Spell [https://www.freepik.com/premium-vector/vector-illustration-cute-pixel-art-icon-geek-lightning-element-style-90s-game_29366701.htm]
+ *   -> Tornado Spell [https://stock.adobe.com/br/images/tornado-storm-pixel-art-icon-windstorm-symbol-typhoon-cyclone-and-hurricane-isolated-vector-illustration-on-white-background/445382833]
+ *   -> Explosion GIF from GIPHY: [https://giphy.com/gifs/26BRx71hqRexBe7Wo]
+ *   -> Portal GIF from Tenor: [https://tenor.com/view/wave-hello-hi-greeting-princess-gif-16926051]
+ *   -> Sword Slashing GIF from RealtimeVFX: [https://realtimevfx.com/uploads/default/original/2X/b/b8543008db2b22c1cedee82ed0bcfc37993a23bf.gif]
+ *   -> Explosion Card from Pixel Art Maker: [http://pixelartmaker.com/art/695c3a296d3fc8c]
+ *   -> Water bubbles from Pixel Art Maker: [http://pixelartmaker.com/art/81e6a4cd95fa0fa]
+ *   -> Water bubbles Preview from Dreamstime: [https://thumbs.dreamstime.com/b/pixel-bubble-ball-vector-illustration-pixel-art-pixel-bubble-ball-vector-illustration-pixel-art-221785652.jpg]
+ *   -> Explosion Preview JPG from Vecteezy: [https://static.vecteezy.com/system/resources/previews/020/577/469/original/dynamite-bomb-in-pixel-art-style-vector.jpg]
+ *   
+ * => Music & SFX
+ *   -> Background Title Music: on Spotify: In Love With a Ghost [https://open.spotify.com/track/6Lr6YaV8KW41iD53PgjPr5?si=78b6368444664b33]
+ *   -> Background Game Music 
+ *   -> Win Screen Music [Uncharted - Drake's Fortune: https://open.spotify.com/track/53Lp7OESwvZmD9D4b4fMG6?si=edf971cb78834640] 
+ *   -> Loss Screen Music [The Great Fairy Fountain from The Legend of Zelda: https://open.spotify.com/track/0DrrH6VEMbyjccWKAJKjIP?si=a8659cabbc99435e]
+ *   -> All Sound Effects [Scratch Sound Library]
+ *
+ * 300+ combined hours of game development/design experience!
+ * Hope you enjoy our game.
+ *Controls:
+ *WASD wizard movement(costs EP)
+ *G dispose card
+ *Click on card to use(cannot cancel when clicked)
+ *Enter to end turn
+ *
+ *Not bug list:
+ *when card is in process of being turned into a spell and mouse is off screen the process freezes, this is intentional.
+ *when it is not wizard's turn and spell can continue to be active.
+ *Wizard dodge piece
+ *
+ * 
  * 
  * Main world for the game that is started after the user finishes the title screen
  * 
@@ -29,21 +102,22 @@ public class Game extends World
     private static Wizard wizard;  // Reference to the Wizard object
     private HPBar hpBar;  // Health bar for the Wizard
     private static int hpBarValue;
-    private EnergyBar energyBar;  // Energy bar for the Wizard
     private static int energyBarValue;
-    private static int level;  // Current level of the game
+    private EnergyBar energyBar;  // Energy bar for the Wizard
+    private static int level, delay;  // Current level of the game
     private static Text waveNumber;  // Text displaying the current wave number
     private static String[] levelFens;  // Array storing FEN strings for each level
-    private static boolean canNewWave,kingDied;  // Flags for controlling wave progression and king status
+    private static boolean canNewWave,kingDied,kingGoingToDie;  // Flags for controlling wave progression and king status   
     private static ImageButton settingsButton; // Settings button
     private static GreenfootSound music; // Game Music
-    
+    private static Scanner scanFile;
+    private static FileWriter out;
+    private static PrintWriter output;
     private static int spawnRow; // spawn location for the wizard
     private static int spawnColumn;
     
     public Game(boolean loadSaveFile) throws IOException, InterruptedException {    
         super(1200, 740, 1, false);  // Initializing the game world with specific dimensions
-        System.out.println("_____________________________________________________________");  // Displaying a separator line
         // Initializing various flags and variables
         throwingCard=false;
         pickCard=false;
@@ -52,6 +126,7 @@ public class Game extends World
         enemyMoving = false;
         keyPressChecked = true;
         kingDied=false;
+        kingGoingToDie=false;
         moveNumber = 0;//
         level = 0;
         EnemyTargetting.setup();
@@ -72,10 +147,10 @@ public class Game extends World
         levelFens[7] = "q3k3/ppp1nppp/2n1p3/2bp4/6b1/3K4/8/8 b - - 0 1";
         
         // Add settings button andd music
-        settingsButton = new ImageButton("settingsimg_2", "settingsimg_3");
-        addObject(settingsButton, 40, 40);
+        settingsButton = new ImageButton("settingbutton",90,90,"settingbutton");
+        addObject(settingsButton, 100, 100);
         
-        music = new GreenfootSound("greatfairyfountain.mp3");
+        music = new GreenfootSound("Overgrown_Forest.mp3");
         music.setVolume(Settings.getMusicVolume());
         music.playLoop();
         
@@ -109,7 +184,8 @@ public class Game extends World
         // Adding the Wizard to the game world
         
         waveNumber = new Text(30,"Arial",Integer.toString(level),greenfoot.Color.WHITE);
-        addObject(waveNumber,980,731);  // Displaying the current wave number
+        addObject(waveNumber,415,126);  // Displaying the current wave number
+        setPaintOrder(Message.class);
     }
     private static int moveNumber;
 
@@ -127,6 +203,24 @@ public class Game extends World
      */
     public static int moveCount() {
         return moveNumber;
+    }
+    
+    /**
+     * Returns the hPush.
+     *
+     * @return int hPush
+     */
+    public static int getHPush() {
+        return hPush;
+    }
+    
+    /**
+     * Returns the vPush.
+     *
+     * @return int vPush
+     */
+    public static int getVPush() {
+        return vPush;
     }
     
     /**
@@ -224,14 +318,12 @@ public class Game extends World
         }
         
         // Checking for player input or enemy turn trigger
-        if((wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
-            if(keyPressChecked) {
+        if(delay>0)delay--;
+        if(delay==0&&(wizardTurn()&&Greenfoot.isKeyDown("Enter"))||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
+            if(keyPressChecked||(!wizardTurn()&&BoardManager.getCountdown()<=0)) {
                 nextMove();
                 enemyMoving = false;
-                
                 if(!wizardTurn()) {
-                    System.out.println("SNAO"+" "+BoardManager.isWarned());
-                    
                     if(BoardManager.isWarned()) {
                         BoardManager.spawnPieces();
                         BoardManager.unwarn();
@@ -245,9 +337,10 @@ public class Game extends World
                         else{
                             try{
                                 try{
-                                    if(!enemyMoving) {
+                                    if(!enemyMoving&&!kingGoingToDie) {
                                         enemyMoving = true;
-                                        BoardManager.enemyTurn(6,1000,1);
+                                        BoardManager.enemyTurn(6,2,50);
+                                        if(Wizard.getE()<=85) Wizard.decreaseE(-15);
                                     }
                                 }catch(IOException e1){}
                             }catch(InterruptedException e2){}
@@ -268,10 +361,12 @@ public class Game extends World
             nextMove();
             canNewWave=false;
             kingDied=false;
+            kingGoingToDie=false;
         } 
         
         // Handling the end of the game
         if(level == 8){
+            music.stop();
             Greenfoot.setWorld(new EndScreen(false));  // Transitioning to the end screen
         }
     }
@@ -328,8 +423,8 @@ public class Game extends World
         waveNumber.changeText(Integer.toString(level), Color.WHITE);
     }
     
-    private static FileWriter out;
-    private static PrintWriter output;
+    //private static FileWriter out;
+    //private static PrintWriter output;
     
     /**
      * Saves the current game progress, including the level, current FEN string, and pieces' HP.
@@ -368,7 +463,9 @@ public class Game extends World
         kingDied = true;
     }
     
-    private static Scanner scanFile;
+    public static void kingCourtingDeath(){
+        kingGoingToDie=true;
+    }
     
     /**
      * Loads the saved game progress, retrieving the level, FEN string, and piece hp to recreate the game state.
@@ -401,6 +498,31 @@ public class Game extends World
             canNewWave = true;
         } catch (IOException e) {}
     }
+    public static boolean isKingGoingToDie(){
+        return kingGoingToDie;
+    }
+    public static void setDelay(int d){
+        delay=d;
+    }
+    // private static Scanner scanFile;
+    
+    // /**
+     // * Loads the saved game progress, retrieving the level and FEN string to recreate the game state.
+     // *
+     // * @return boolean True if loading is successful, otherwise false
+     // */
+    // public static boolean loadProgress() {
+        // try {
+            // scanFile = new Scanner(new File("saveFile.txt"));
+            // level = Integer.parseInt(scanFile.nextLine());
+            // BoardManager.createIncoming(scanFile.nextLine());
+            // return false;
+        // } catch (IOException e) {
+            // return true;
+        // } finally {
+            // scanFile.close();
+        // }
+    // }
     //mr cohen's Zsort. Credit if needed
     public static void zSort (ArrayList<Actor> actorsToSort, World world){
         ArrayList<ActorContent> acList = new ArrayList<ActorContent>();
@@ -416,13 +538,21 @@ public class Game extends World
                         EnergyBar eBar=(EnergyBar)a;
                     }catch(ClassCastException e3){
                         try{
-                            HPBar hpBar=(HPBar)a;
-                        }catch(ClassCastException e4){ 
-                            acList.add (new ActorContent (a, a.getX(), a.getY()));
+                            Text t=(Text)a;
+                            }catch(ClassCastException e4){
+                                try{
+                                    HPBar hpBar=(HPBar)a;
+                                }catch(ClassCastException e5){ 
+                                    try{
+                                        ImageButton img=(ImageButton)a;
+                                    }catch(ClassCastException e6){
+                                    acList.add (new ActorContent (a, a.getX(), a.getY()));
+                                }
+                            }
                         }
                     }
-            }
-        }   
+                }
+            }   
         }
         // Sort the Actor, using the ActorContent comparitor (compares by y coordinate)
         Collections.sort(acList);

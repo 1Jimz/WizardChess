@@ -9,7 +9,7 @@ import java.util.List;
  * that credit might not be necessary; it's more of an inspired transformation.
  * 
  * @author Jimmy Zhu
- * @version January 21st, 2023
+ * @version January 21st 2023
  * 
  */
 public class Card extends SuperSmoothMover {
@@ -20,6 +20,7 @@ public class Card extends SuperSmoothMover {
     private boolean drag = false, stick = false, leftBorder, disposing = false;
     private int point1, point2, mx, my, pointer = 0, p = 0, points[] = new int[4];
     private int conect1[] = {0, 1, 2, 3, 0, 1}, conect2[] = {1, 2, 3, 0, 2, 3}, active, type, whirl = 0;
+    private static int ep, numCardsUsed=0;
 
     /**
      * Constructor for the Card class.
@@ -34,7 +35,11 @@ public class Card extends SuperSmoothMover {
         this.my = my; // Initial y-coordinate
         this.active = active; // Active state
         this.leftBorder = leftBorder; // Indicates if the card is on the left border
-        type = Greenfoot.getRandomNumber(5); // Randomly determine the type of card
+        if(Wizard.getHP()<=90){ // to prevent heal card to spawn if player has more health than it can offer!
+            type = Greenfoot.getRandomNumber(7); // Randomly determine the type of card
+        } else{
+            type = Greenfoot.getRandomNumber(6); // Randomly determine the type of card
+        }
 
         // Compute initial distances between connected points in the card
         for (int f = 0; f < 6; f++)
@@ -44,18 +49,31 @@ public class Card extends SuperSmoothMover {
         switch (type) {
             case 0:
                 setImage(new GreenfootImage("portalCard.png"));
+                ep = 30;
                 break;
             case 1:
                 setImage(new GreenfootImage("explosionCard.png"));
+                ep=15;
                 break;
             case 2:
                 setImage(new GreenfootImage("bubbleCard.png"));
+                ep=15;
                 break;
             case 3:
                 setImage(new GreenfootImage("slashCard.png"));
+                ep=15;
                 break;
             case 4:
+                setImage(new GreenfootImage("SlashingWindsCard.png"));
+                ep=2;
+                break;
+            case 5:
+                setImage(new GreenfootImage("InvisibleforceCard.png"));
+                ep=5;
+                break;
+            case 6:
                 setImage(new GreenfootImage("healCard.png"));
+                ep=10;
                 break;
         }
         // Alternative image assignment: setImage(new GreenfootImage("Testcardfront2.png"));
@@ -94,7 +112,12 @@ public class Card extends SuperSmoothMover {
 
         // Card whirl animation
         if (whirl == 0 && mouse != null && Greenfoot.mouseClicked(this))
-            whirl++;
+            if(Wizard.getE() >= this.ep){
+                //plays the sound
+                Wizard.decreaseE(getSpellEP());
+                whirl++;
+                numCardsUsed++;
+            } else Greenfoot.playSound("NoSpellEP.wav");
         if (whirl > 0 && whirl < 35 && mouse != null) {
             whirl++;
             // Scale down, rotate, and change transparency during whirl
@@ -132,7 +155,18 @@ public class Card extends SuperSmoothMover {
     public void whirlUp() {
         whirl++;
     }
-
+    /**
+     * Returns spell ep consumption.
+     */
+    public static int getSpellEP(){
+        return ep;
+    }
+    /**
+     * Returns number of cards used.
+     */
+    public static int getNumCardsUsed(){
+        return numCardsUsed;
+    }
     /**
      * Dispose of the card. Play a sound effect, set card state to inactive, and
      * reposition.

@@ -2,7 +2,7 @@ import greenfoot.*;
 
 /**
  * This class represents a spell in the game. It extends SuperSmoothMover for smooth movements.
- * @author Jimmy Zhu, Mekaeel Malik, Dorsa Roha
+ * @author Jimmy Zhu, Mekaeel Malik, Dorsa Rohani
  * @version January 21st, 2023
 */
 public class Spell extends SuperSmoothMover {
@@ -21,24 +21,31 @@ public class Spell extends SuperSmoothMover {
         this.type = type;
         switch (type) {
             case 0:
-                setup(0, "portalPreview", 0,0,0,0, new int[][]{{0, 0}}, 200, 100);
+                setup(0, "portalPreview", -6, -56, 70, 145, new int[][]{{0, 0}}, 200, 30);
                 break;
             case 1:
-                setup(0, "explosionPreview", 0,0,0,0,
-                        new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}}, 200, 100);
+                setup(0, "explosionPreview", -6, -56, 70, 145,
+                        new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}}, 200, 8);
                 break;
             case 2:
-                setup(0, "bubblePreview", 0,0,0,0,
-                        new int[][]{{-1, 0}, {-2, 0}, {0, -2}, {0, -1}, {0, 0}, {0, 1}, {0, 2}, {1, 0}, {2, 0}}, 200, 100);
+                setup(0, "bubblePreview", -6, -56, 70, 145,
+                        new int[][]{{-1, 0}, {-2, 0}, {0, -2}, {0, -1}, {0, 0}, {0, 1}, {0, 2}, {1, 0}, {2, 0}}, 200, 4);
                 break;
             case 3:
-                setup(0, "slashPreview", 0,0,0,0,
-                        new int[][]{{-2, -2}, {-1, -1}, {-1, 1}, {-2, 2}, {0, 0}, {2, -2}, {1, -1}, {1, 1}, {2, 2}}, 200, 100);
+                setup(0, "slashPreview", -6, -56, 70, 145,
+                        new int[][]{{-2, -2}, {-1, -1}, {-1, 1}, {-2, 2}, {0, 0}, {2, -2}, {1, -1}, {1, 1}, {2, 2}}, 200, 5);
                 break;
             case 4:
-                setup(8, "Heal", -2, -2, 100, 100, new int[][]{{0, 0}}, 50, 100);
+                setup(0, "tornado", -6, -56, 100, 100, new int[][]{{-1, -1},{-1, 1},{0, 1},{0, -1},{-1, 0},{1, 0},{1, -1},{1, 1}}, 200, 3);
+                break;
+            case 5:
+                setup(0, "BlackBall", -6, -40, 100, 100, new int[][]{{-1, -1},{-1, 1},{1, -1},{1, 1}}, 200, 6);
+                break;
+            case 6:
+                setup(8, "Heal", -2, -2, 100, 100, new int[][]{{0, 0}}, 50, 1);
                 break;
         }
+        
     }
 
     /**
@@ -83,7 +90,7 @@ public class Spell extends SuperSmoothMover {
             if (!placed && Greenfoot.mouseClicked(null) && Utility.distance(mouse.getX(), mouse.getY(), Wizard.getH(), Wizard.getV()) <= range) {
                 placed = true;
                 setLocation(Game.hPush + bC * 80 - 10, Game.vPush + bR * 80 - 40);
-
+                //Wizard.decreaseE(Card.getSpellEP());
                 // Apply the spell's effect to the targeted area
                 for (int[] p : aoe) {
                     try {
@@ -95,9 +102,9 @@ public class Spell extends SuperSmoothMover {
                                 getWorld().addObject(new Effects(type), t.getOccupyingPiece().getX(),
                                         t.getOccupyingPiece().getY());
                             }
-                            if (type == 4 && t.getR() == Wizard.getR() && t.getC() == Wizard.getC()) {
-                                Wizard.setHeal(true);
-                                playDmgEffect(10);
+                            if (type == 6 && t.getR() == Wizard.getR() && t.getC() == Wizard.getC()) {
+                                playDmgEffect(20);
+                                Wizard.setHP(Math.min(100,Wizard.getHP()+15));
                             }
                         }
                     } catch (IndexOutOfBoundsException e) {
@@ -162,7 +169,8 @@ public class Spell extends SuperSmoothMover {
     private void setup(int frameCount, String picName, int adjustH, int adjustV, int w, int h, int[][] aoe, int range, int dmg) {
         this.frameCount = frameCount;
         if(frameCount == 0) {
-            setImage(picName+".png");
+            setImage(Utility.customizeAndCreate(w,h,picName+".png"));
+            
         }
         this.picName = picName;
         this.adjustH = adjustH;
@@ -172,5 +180,6 @@ public class Spell extends SuperSmoothMover {
         this.aoe = aoe;
         this.range = range;
         this.dmg = dmg;
+
     }
 }
