@@ -66,7 +66,7 @@ import java.io.*;
  *   
  * => Music & SFX
  *   -> Background Title Music: on Spotify: In Love With a Ghost [https://open.spotify.com/track/6Lr6YaV8KW41iD53PgjPr5?si=78b6368444664b33]
- *   -> Background Game Music 
+ *   -> Background Game Music [https://soundcloud.com/mineysauce/overgrown-forest]
  *   -> Win Screen Music [Uncharted - Drake's Fortune: https://open.spotify.com/track/53Lp7OESwvZmD9D4b4fMG6?si=edf971cb78834640] 
  *   -> Loss Screen Music [The Great Fairy Fountain from The Legend of Zelda: https://open.spotify.com/track/0DrrH6VEMbyjccWKAJKjIP?si=a8659cabbc99435e]
  *   -> All Sound Effects [Scratch Sound Library]
@@ -145,12 +145,12 @@ public class TitleScreen extends World
         
         // Add buttons to the world
         int xOffset = 0;
-        //addObject(continueButton, WIDTH/2+xOffset, 625);
-        //addObject(playButton, WIDTH/2+xOffset, 665);
-        //addObject(settingsButton, WIDTH/2+xOffset, 705);
-        addObject(continueButton, 330, 704);
-        addObject(playButton, 630, 704);
-        addObject(settingsButton, 930, 704);
+        addObject(continueButton, WIDTH/2+xOffset, 625);
+        addObject(playButton, WIDTH/2+xOffset, 665);
+        addObject(settingsButton, WIDTH/2+xOffset, 705);
+        //addObject(continueButton, 625, 660);
+        //addObject(playButton, 625, 704);
+        //addObject(settingsButton, 625, 740);
         
         // Assign the variable to the sound file name in folder & adjust volume
         music = new GreenfootSound("nemusplace.mp3");
